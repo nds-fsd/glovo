@@ -20,7 +20,7 @@ input {
 }
 
 a {
-  color: rgb(42, 173, 42);
+  color: #00846b;
   flex-grow: 0.6;
   text-decoration: none;
   font-size: 1.6rem;
