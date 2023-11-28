@@ -1,12 +1,13 @@
+import React from "react";
+import HomePage from "./components/HomePage";
 
 function App() {
-    return (
+  return (
     <div>
-        Your App here
+      <HomePage />
+      {/* Your App here */}
     </div>
-
-
-  )
+  );
 }
 
-export default App
+export default App;
