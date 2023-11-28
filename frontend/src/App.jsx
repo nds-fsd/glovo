@@ -1,7 +1,12 @@
-import "../src/index.css";
 
 function App() {
-  return <div></div>;
+    return (
+    <div>
+        Your App here
+    </div>
+
+
+  )
 }
 
-export default App;
+export default App
