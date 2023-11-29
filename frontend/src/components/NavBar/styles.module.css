@@ -1,7 +1,7 @@
 .navBar {
   height: 100px;
   width: 100%;
-  background-color: #ffc244;
+  background-color: var(--primary-color);
   margin: 0;
 
   position: fixed;
@@ -13,4 +13,66 @@
   justify-content: space-around;
 
   padding: 0 20px;
+}
+
+a {
+  flex-grow: 0.35;
+}
+
+.logo {
+  height: 40px;
+  filter: contrast(0.1) sepia(1) saturate(99) hue-rotate(173deg) brightness(1.4);
+  flex-grow: 0.6;
+}
+
+p {
+  font-size: 0.83rem;
+  font-weight: 700;
+}
+
+div.navBarButtons {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  justify-content: center;
+}
+
+button {
+  background-color: rgba(240, 248, 255, 0.425);
+  border: none;
+  border-radius: 50%;
+  height: 40px;
+  width: 35px;
+  box-shadow: 0 4px 1px 0px rgba(0, 0, 0, 0.167);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.userIcon {
+  height: 20px;
+}
+
+.listIcon {
+  height: 20px;
+}
+
+.locationContainer {
+  display: flex;
+  width: fit-conten;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+}
+
+.locationIcon {
+  height: 17px;
+}
+
+.rightContainer {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  justify-content: center;
 }
