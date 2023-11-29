@@ -12,3 +12,4 @@ connectDB().then(() => console.log("Connected to database!"));
 const server = app.listen(3000, () => {
   console.log("Server is up and running ⚡");
 });
+ 
