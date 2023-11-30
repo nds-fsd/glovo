@@ -1,7 +1,18 @@
-import "../src/index.css";
+import "./App.css";
+import RestaurantCard from "./components/restaurantCard";
+//import RestaurantList from "./components/RestaurantList";
 
-function App() {
-  return <div></div>;
+const App = () => {
+
+  return (
+    <>
+      <div>
+        <RestaurantCard />
+        
+      </div>
+      
+  </>
+  )
 }
 
 export default App;
