@@ -1,5 +1,5 @@
 .searchBar {
-  width: 300px;
+  width: 350px;
   height: 40%;
   background-color: white;
 
@@ -8,7 +8,6 @@
   justify-content: center;
 
   border-radius: 30px;
-  flex-basis: 0.5;
 }
 
 .inputContainer {
@@ -29,4 +28,14 @@
   text-align: center;
   font-size: 1rem;
   width: 50px;
+  transition: 0.3s;
+}
+
+.searchInput:focus {
+  width: 100%;
+  text-align: left;
+}
+
+.searchInput:focus::placeholder {
+  color: transparent;
 }

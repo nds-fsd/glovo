@@ -8,10 +8,14 @@ import locationIcon from "../../assets/icons/location-pin-svgrepo-com.svg";
 export default function NavBar() {
   return (
     <nav className={styles.navBar}>
-      <a href="">
-        <img className={styles.logo} src={logo} alt="" />
-      </a>
-      <SearchBar />
+      <div className={styles.logoContainer}>
+        <a href="">
+          <img className={styles.logo} src={logo} alt="" />
+        </a>
+      </div>
+      <div className={styles.searchBarContainer}>
+        <SearchBar />
+      </div>
       <div className={styles.rightContainer}>
         <div className={styles.locationContainer}>
           <img className={styles.locationIcon} src={locationIcon} alt="" />

@@ -13,16 +13,39 @@
   justify-content: space-around;
 
   padding: 0 20px;
+  gap: 30px;
 }
 
-a {
-  flex-grow: 0.35;
+.logoContainer {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  width: 30%;
+  padding-left: 5%;
+}
+
+.searchBarContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 30%;
+}
+
+.rightContainer {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  justify-content: right;
+  width: 30%;
+  padding-right: 5%;
 }
 
 .logo {
   height: 40px;
   filter: contrast(0.1) sepia(1) saturate(99) hue-rotate(173deg) brightness(1.4);
-  flex-grow: 0.6;
+  flex-grow: 0.5;
 }
 
 p {
@@ -60,7 +83,6 @@ button {
 
 .locationContainer {
   display: flex;
-  width: fit-conten;
   align-items: center;
   justify-content: center;
   gap: 3px;
@@ -68,11 +90,4 @@ button {
 
 .locationIcon {
   height: 17px;
-}
-
-.rightContainer {
-  display: flex;
-  gap: 20px;
-  align-items: center;
-  justify-content: center;
 }
