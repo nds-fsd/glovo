@@ -16,10 +16,11 @@
   width: 100%;
   background-color: var(--primary-color);
   padding-top: 100px;
+  overflow: hidden;
 }
 
 .burgerImg {
-  height: 300px;
+  height: 50%;
 }
 
 .textContainer {
@@ -33,8 +34,9 @@
 }
 
 h1 {
-  font-weight: 900;
-  line-height: 35px;
+  font-weight: 800;
+  line-height: 40px;
+  font-size: 2.7rem;
 }
 
 p {
@@ -43,7 +45,7 @@ p {
 
 .inputBar {
   background-color: white;
-  width: 100%;
+  width: 90%;
   height: 2.5rem;
   border-radius: 10px;
   overflow: hidden;
@@ -58,6 +60,8 @@ p {
   padding: 0;
   text-align: left;
   padding: 10px;
+  width: auto;
+  width: 37%;
 }
 
 .addressInput::placeholder {
