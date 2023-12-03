@@ -1,15 +1,18 @@
-const express = require("express");
-const { connectDB } = require("./mongo/connection");
-const cors = require("cors");
+const express = require('express');
+const {connectDB} =  require("./mongo/connection");
+const cors = require('cors');
 const app = express();
 const restauranteRoutes = require("../src/router/restauranteRoutes");
+const productRoutes = require("./router/productRoutes");
+
 app.use(cors());
 app.use(express.json());
 app.use(restauranteRoutes);
+app.use(productRoutes);
 
-connectDB().then(() => console.log("Connected to database!"));
 
-const server = app.listen(3000, () => {
-  console.log("Server is up and running ⚡");
+connectDB().then(() => console.log("Connected to database!"))
+
+const server = app.listen(3001, () => {
+    console.log('Server is up and running ⚡')
 });
- 
