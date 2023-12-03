@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
+require("dotenv").config();
 
-let dbUrl =
-  "mongodb+srv://Nuclio:Nuclio123@gloton.ptdjeam.mongodb.net/?retryWrites=true&w=majority";
+let dbUrl = process.env.MONGO_URL;
 
 let mongodb;
 
