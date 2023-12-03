@@ -52,7 +52,7 @@ exports.deleteRestaurante = async (req, res) => {
         message: "Restaurante deleted successfully",
         deletedRestaurante,
       });
-    } else res.status(500).json({ error: "Product not found" });
+    } else res.status(500).json({ error: "Restaurante not found" });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
