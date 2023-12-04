@@ -5,7 +5,7 @@ import userIcon from "../../assets/icons/user-svgrepo-com.svg";
 import listIcon from "../../assets/icons/list-ul-alt-svgrepo-com.svg";
 import locationIcon from "../../assets/icons/location-pin-svgrepo-com.svg";
 
-const logged = true;
+const logged = false;
 
 export default function NavBar() {
   {
@@ -39,12 +39,14 @@ export default function NavBar() {
     else {
       return (
         <nav className={styles.navBar}>
-          <div className={styles.logoContainer}>
+          <div className={styles.logoContainerUnlogged}>
             <a href="">
               <img className={styles.logo} src={logo} alt="" />
             </a>
           </div>
-          <button className={styles.getStartedButton}>Empieza aquí</button>
+          <div className={styles.getStartedContainer}>
+            <button className={styles.getStartedButton}>Empieza aquí</button>
+          </div>
         </nav>
       );
     }
