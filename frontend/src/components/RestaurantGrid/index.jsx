@@ -8,10 +8,70 @@ export default function RestaurantGrid() {
     <div className={styles.mainContainer}>
       <h2>Restaurantes recomendados</h2>
       <div className={styles.restaurantGrid}>
-        <RestaurantCard restaurantCardImg={restaurantImg} />
-        <RestaurantCard restaurantCardImg={restaurantImg} />
-        <RestaurantCard restaurantCardImg={restaurantImg} />
-        <RestaurantCard restaurantCardImg={restaurantImg} />
+        <RestaurantCard
+          restaurantCardImg={restaurantImg}
+          restaurantCategory="Americana"
+          restaurantName="McDonalds"
+          offer="90%"
+          likeRatio="89%"
+          opinionCount="500+"
+        />
+        <RestaurantCard
+          restaurantCardImg={restaurantImg}
+          restaurantCategory="Americana"
+          restaurantName="McDonalds"
+          offer="90%"
+          likeRatio="89%"
+          opinionCount="500+"
+        />
+        <RestaurantCard
+          restaurantCardImg={restaurantImg}
+          restaurantCategory="Americana"
+          restaurantName="McDonalds"
+          offer="90%"
+          likeRatio="89%"
+          opinionCount="500+"
+        />
+        <RestaurantCard
+          restaurantCardImg={restaurantImg}
+          restaurantCategory="Americana"
+          restaurantName="McDonalds"
+          offer="90%"
+          likeRatio="89%"
+          opinionCount="500+"
+        />
+        <RestaurantCard
+          restaurantCardImg={restaurantImg}
+          restaurantCategory="Americana"
+          restaurantName="McDonalds"
+          offer="90%"
+          likeRatio="89%"
+          opinionCount="500+"
+        />
+        <RestaurantCard
+          restaurantCardImg={restaurantImg}
+          restaurantCategory="Americana"
+          restaurantName="McDonalds"
+          offer="90%"
+          likeRatio="89%"
+          opinionCount="500+"
+        />
+        <RestaurantCard
+          restaurantCardImg={restaurantImg}
+          restaurantCategory="Americana"
+          restaurantName="McDonalds"
+          offer="90%"
+          likeRatio="89%"
+          opinionCount="500+"
+        />
+        <RestaurantCard
+          restaurantCardImg={restaurantImg}
+          restaurantCategory="Americana"
+          restaurantName="McDonalds"
+          offer="90%"
+          likeRatio="89%"
+          opinionCount="500+"
+        />
       </div>
     </div>
   );
