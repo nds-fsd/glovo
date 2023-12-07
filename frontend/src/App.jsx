@@ -1,8 +1,13 @@
 import "../src/index.css";
 import React from "react";
+import Footer from "./components/Footer";
 
 function App() {
-  return <div>{/* Your App here */}</div>;
+  return (
+    <div>
+      <Footer />
+    </div>
+  );
 }
 
 export default App;
