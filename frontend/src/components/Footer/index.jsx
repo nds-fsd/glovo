@@ -36,6 +36,12 @@ export default function Footer() {
                 <a href="">Twitter</a>
                 <a href="">Instagram</a>
               </div>
+              <div className={styles.verticalLinks}>
+                <a href="">CONDICIONES DE USO</a>
+                <a href="">POLÍTICA DE PRIVACIDAD</a>
+                <a href="">POLÍTICA DE COOKIES</a>
+                <a href="">CUMPLIMIENTO</a>
+              </div>
             </div>
             <aside className={styles.languageSelectorContainer}>
               <select name="languageSelector" id="">
