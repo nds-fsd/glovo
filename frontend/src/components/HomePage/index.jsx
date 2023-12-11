@@ -10,7 +10,8 @@ export default function HomePage() {
       <NavBar />
       <div className={styles.homeHeader}>
         <p>
-          Entregando a <span>Calle falsa, 123. 4o.</span>
+          Entregando a{" "}
+          <span className={styles.deliveryAdress}>Calle falsa, 123. 4o.</span>
         </p>
       </div>
       <img className={styles.borderImg} src={BorderImg} alt="" />

@@ -10,11 +10,18 @@ export default function RestaurantGrid() {
       <div className={styles.restaurantGrid}>
         <RestaurantCard
           restaurantCardImg={restaurantImg}
-          restaurantCategory="Americana"
+          restaurantCategory="Turkey"
+          restaurantName="Kebabish"
+          offer="2x1"
+          opinionCount="500+"
+          shipping="FREE"
+        />
+        <RestaurantCard
+          restaurantCardImg={restaurantImg}
           restaurantName="McDonalds"
           offer="90%"
           likeRatio="89%"
-          opinionCount="500+"
+          shipping="2e"
         />
         <RestaurantCard
           restaurantCardImg={restaurantImg}
@@ -28,15 +35,6 @@ export default function RestaurantGrid() {
           restaurantCardImg={restaurantImg}
           restaurantCategory="Americana"
           restaurantName="McDonalds"
-          offer="90%"
-          likeRatio="89%"
-          opinionCount="500+"
-        />
-        <RestaurantCard
-          restaurantCardImg={restaurantImg}
-          restaurantCategory="Americana"
-          restaurantName="McDonalds"
-          offer="90%"
           likeRatio="89%"
           opinionCount="500+"
         />

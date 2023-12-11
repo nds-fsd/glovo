@@ -10,6 +10,7 @@ export default function RestaurantCard({
   opinionCount,
   likeRatio,
   offer,
+  shipping,
 }) {
   return (
     <div className={styles.mainContainer}>
@@ -23,15 +24,19 @@ export default function RestaurantCard({
       <div className={styles.restaurantText}>
         {restaurantName && <h3>{restaurantName}</h3>}
         <div className={styles.secondLine}>
-          <img className={styles.likeIcon} src={likeIcon} alt="" />
+          {likeRatio && (
+            <img className={styles.likeIcon} src={likeIcon} alt="" />
+          )}
           {likeRatio && <p className={styles.likePercentage}>{likeRatio}</p>}
           {opinionCount && (
             <p className={styles.opinionCounter}>({opinionCount})</p>
           )}
-          <aside>
-            <img className={styles.scooterIcon} src={scooterIcon} alt="" />
-            FREE
-          </aside>
+          {shipping && (
+            <aside>
+              <img className={styles.scooterIcon} src={scooterIcon} alt="" />
+              {shipping}
+            </aside>
+          )}
         </div>
       </div>
     </div>

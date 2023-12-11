@@ -15,6 +15,7 @@
   align-items: center;
   justify-content: center;
   background-color: var(--primary-color);
+  z-index: 99;
 }
 
 .homeHeader > p {
@@ -22,7 +23,7 @@
   font-weight: 400;
 }
 
-span {
+span.deliveryAdress {
   font-weight: 700;
 }
 
