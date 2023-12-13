@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import RestauranteCard from "./RestauranteCard";
+import { api } from "../../utils/api";
 
 const RestaurantesList = () => {
   const [restaurantes, setRestaurantes] = useState([]);
@@ -8,9 +8,7 @@ const RestaurantesList = () => {
   useEffect(() => {
     const obtenerRestaurantes = async () => {
       try {
-        const response = await axios.get(
-          `${process.env.MONGO_URL}/restaurantes`
-        );
+        const response = await api.get("/restaurantes");
         setRestaurantes(response.data);
       } catch (error) {
         console.error("Error al obtener los datos de los restaurantes:", error);
