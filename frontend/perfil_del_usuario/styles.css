@@ -1,0 +1,292 @@
+body {
+  font-family: 'quicksand', sans-serif;
+  background-color:
+  margin: 0;
+  padding: 0;
+}
+
+.App {
+  max-width: 400px; /* Ancho máximo para la sección del perfil */
+  margin: 20px auto;
+  background-color: #ffffff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 25px;
+  margin-top: 100px;
+  padding-bottom:20px;
+  margin-right: 7%;
+}
+
+.person-icon{
+  width: 30px;
+    height: 30px;
+    margin-top: 5px;
+    position: absolute;
+    margin-left: -90px;
+}
+
+.password-icon{
+  width: 30px;
+  height: 30px;
+  margin-top: 54px;
+  position: absolute;
+  margin-left: -419px;
+}
+
+.email-icon{
+  width: 30px;
+    height: 30px;
+    margin-top: 10px;
+    position: absolute;
+    margin-left: -90px;
+}
+
+
+/* scrollbar */
+
+.scrollbar{
+  width: 400px;        
+  max-height: 750px;
+  overflow-y: auto;      
+ 
+}
+
+/* Cabecera del perfil */
+.profile-header {
+  
+  color: #000000;
+  padding: 20px;
+  padding-top: 30px;
+  
+}
+
+.promo-button {
+  background: none;
+  border: none;
+  color: #4CAF50;
+  cursor: pointer;
+  font-weight: bold !important;
+  float:right;
+  margin-left: auto;
+}
+
+
+/*texto p */
+
+.campo-p {
+  
+  margin-left: 20px;
+  color: #9B9B9BFF;
+}
+
+.input{
+  border: none;
+  font-size: 17px;
+  margin-left: 20px;
+  margin-top: 75px;
+}
+
+.separador {
+  border-bottom: 1px solid #cccccc;
+  margin: 20px;
+  margin-right: 27px;
+  margin-top: 25px;
+}
+
+.separador-header {
+  border-bottom: 1px solid #cccccc;
+  margin-bottom: 20px;
+}
+
+/* Estilo para los nombres de las secciones y los botones Editar */
+.user-section {
+  display: flex;
+  align-items: baseline;
+  padding: 10px 20px;
+  color: #9B9B9BFF !important;
+
+}
+
+.user-section label {
+  font-weight: bold;
+  margin-left: auto;
+  margin-top: auto;
+  margin-right: 5px;
+}
+
+.user-section p {
+  margin: 0;
+  
+}
+
+/* Estilo para los botones */
+.edit-button {
+  background: none;
+  border: none;
+  color: #4CAF50;
+  cursor: pointer;
+  font-weight: bold !important;
+  float:right;
+}
+
+/* Estilo para el formulario de edición */
+.edit-form {
+  padding: 20px;
+}
+
+/* Estilo para la sección de métodos de pago */
+.payment-methods {
+  padding: 20px;
+}
+
+/* Estilo para la sección de manejo de preferencias */
+.manage-preferences {
+  font-size: 13px;
+  padding: 20px;
+  color: #9B9B9BFF;
+ 
+}
+
+.preference-description {
+  font-size: 13px;
+  background-color: #eeeeee;
+  padding: 20px;
+  margin-right: 20px;
+
+}
+
+
+/* Estilo para el botón de logout */
+.logout-button {
+  background: none;
+  border: none;
+  color: #4CAF50;
+  cursor: pointer;
+  font-weight: bold !important;
+  margin-left: auto;
+  margin-bottom: 20px;
+}
+
+.logout-button-container {
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 20px;
+  margin-top: 25px;
+  padding-bottom: 25px;
+}
+
+.ReactModal__Content.ReactModal__Content--after-open {
+
+  width: 30%;
+    margin-left: 50%;
+    transform: translate(-50%, 0%);
+    padding: 20px;
+    height: 40%;
+    margin-top: 55px;
+    border-radius: 15px;
+    display: flex;
+    overflow-x: hidden !important;
+  
+  inset: 40px;
+  border: 0px solid rgb(204, 204, 204);
+  background: rgb(255, 255, 255);
+  overflow: auto;
+  border-radius: 4px;
+  outline: none;
+  padding: 20px;
+  box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.register-form {
+      display: block;
+      width: 100%;
+    margin-left: 25%;
+    
+    
+}
+
+.register-p {
+  margin-left: 25px;
+}
+
+
+
+.submit-button{
+    transform: translate(-50%, 90%);
+    margin-left: 50%;
+
+}
+
+.form-submit-button{
+  width:100%
+}
+
+.tu-nombre{
+  margin-left: 20%;
+  transform: translate(25%, 0%);
+  color: #4b4b4b;
+}
+
+.first-imput{
+  padding: 10px;
+  margin-left: -42px;
+  width: 350px;
+  border: none;
+  height: 27px;
+}
+.guardar-cambios{
+  border-radius: 25px;
+  width: 300px;
+  height: 45px;
+  background-color: #4CAF50;
+  color: white;
+  font-weight: bold;
+  font-size: 15px;
+  
+}
+/* switch */
+
+.react-switch-checkbox {
+  height: 0;
+  width: 0;
+  visibility: hidden;
+}
+
+.react-switch-label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  width: 50px; /* Width of the switch */
+  height: 25px; /* Height of the switch */
+  background: grey;
+  border-radius: 100px;
+  position: relative;
+  transition: background-color .2s;
+}
+
+.react-switch-label .react-switch-button {
+  content: '';
+  position: absolute;
+  top: 1px;
+  left: 1px;
+  width: 23px; /* Width of the slider */
+  height: 23px; /* Height of the slider */
+  border-radius: 45px;
+  transition: 0.2s;
+  background: #fff;
+  box-shadow: 0 0 2px 0px #333;
+}
+
+.hola{
+  margin-left: 25%;
+  font-size: 40px;
+}
+
+.react-switch-checkbox:checked + .react-switch-label .react-switch-button {
+  left: calc(100% - 2px);
+  transform: translateX(-100%);
+}
+
+.react-switch-label:active .react-switch-button {
+  width: 28px;
+}
