@@ -1,8 +1,10 @@
 #root {
 
+
   font-family: "quicksand", Inter, system-ui, Avenir, Helvetica, Arial,
 
     sans-serif;
+
   line-height: 1.5;
   font-weight: 400;
   font-synthesis: none;
@@ -11,13 +13,11 @@
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
   min-height: 100vh;
-
-  --primary-color: #ffc244;
-  --secondary-color: #00a082;
 }
 
 body {
   height: 100vh;
+
 }
 
 html,
@@ -144,4 +144,3 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
-
