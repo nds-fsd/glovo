@@ -11,7 +11,7 @@ export default function NavBar() {
   {
     if (logged === true)
       return (
-        <nav className={styles.navBar}>
+        <nav className={`${styles.navBar} ${styles.transparent}`}>
           <div className={styles.logoContainer}>
             <a href="">
               <img className={styles.logo} src={logo} alt="" />
