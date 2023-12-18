@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import RestauranteCard from "./RestauranteCard";
+import RestauranteCard from "../RestautantCard/index";
 import { api } from "../../utils/api";
 
 const RestaurantesList = () => {

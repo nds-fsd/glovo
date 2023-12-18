@@ -4,10 +4,17 @@ import logo from "../../assets/icons/logo.svg";
 import userIcon from "../../assets/icons/user-svgrepo-com.svg";
 import listIcon from "../../assets/icons/list-ul-alt-svgrepo-com.svg";
 import locationIcon from "../../assets/icons/location-pin-svgrepo-com.svg";
+import { useState } from "react";
+import PerfilUsuario from "../PerfilUsuario/PerfilUsuario";
 
 const logged = false;
 
 export default function NavBar() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const handleModal = () => {
+    setIsModalOpen(!isModalOpen);
+    console.log(isModalOpen);
+  };
   {
     if (logged === true)
       return (
@@ -45,8 +52,14 @@ export default function NavBar() {
             </a>
           </div>
           <div className={styles.getStartedContainer}>
-            <button className={styles.getStartedButton}>Empieza aquí</button>
+            <button className={styles.getStartedButton} onClick={handleModal}>
+              Empieza aquí
+            </button>
           </div>
+          <PerfilUsuario
+            modalState={isModalOpen}
+            changeModalState={handleModal}
+          ></PerfilUsuario>
         </nav>
       );
     }
