@@ -6,7 +6,7 @@
   justify-content: center;
   position: relative;
   flex-direction: column;
-  z-index: -9;
+  z-index: 1;
 }
 
 .imgContainer {

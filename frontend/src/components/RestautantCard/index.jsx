@@ -2,6 +2,7 @@ import react from "react";
 import styles from "../RestautantCard/styles.module.css";
 import scooterIcon from "../../assets/icons/scooter-svgrepo-com (1).svg";
 import likeIcon from "../../assets/icons/like-svgrepo-com.svg";
+import { useNavigate } from "react-router-dom";
 
 export default function RestaurantCard({
   restaurantName,
@@ -12,8 +13,12 @@ export default function RestaurantCard({
   offer,
   shipping,
 }) {
+  const navigate = useNavigate();
   return (
-    <div className={styles.mainContainer}>
+    <div
+      className={styles.mainContainer}
+      onClick={() => navigate("/restaurant")}
+    >
       <div className={styles.imgContainer}>
         <img src={restaurantCardImg} className={styles.restaurantCardImg} />
         {restaurantCategory && (

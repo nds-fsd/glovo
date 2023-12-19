@@ -4,8 +4,11 @@ import burguerImg from "../../assets/images/video-burger.png";
 import flagIcon from "../../assets/icons/flag-svgrepo-com.svg";
 import compassIcon from "../../assets/icons/location-svgrepo-com.svg";
 import wavySvg from "../../assets/images/address-jumbotron-wave-desktop.svg";
+import { useNavigate } from "react-router-dom";
 
 export default function HeroPage() {
+  const navigate = useNavigate();
+
   return (
     <div className={styles.viewport}>
       <NavBar />
@@ -24,6 +27,7 @@ export default function HeroPage() {
               type="text"
               name=""
               id=""
+              onBlur={() => navigate("restaurants")}
             />
             <button className={styles.useCurrentLocationButton}>
               <div className={styles.compassIconContainer}>
