@@ -7,8 +7,25 @@ import stopwatchIcon from "../../assets/icons/stopwatch-svgrepo-com.svg";
 import RestaurantStats from "../RestaurantStats";
 import ProductCard from "../ProductCard";
 import productExampleImg from "../../assets/images/productexampleimg.avif";
+import { React, useState, useEffect } from "react";
+import { api } from "../../utils/api";
 
 export default function RestaurantPage() {
+  const [productos, setProductos] = useState([]);
+
+  useEffect(() => {
+    const obtenerProductos = async () => {
+      try {
+        const response = await api.get("/products");
+        setProductos(response.data);
+      } catch (error) {
+        console.error("Error al obtener los datos de los productos:", error);
+      }
+    };
+
+    obtenerProductos();
+  }, []);
+
   return (
     <div className={styles.viewport}>
       <header className={styles.header}>
@@ -37,42 +54,17 @@ export default function RestaurantPage() {
           </section>
           <img src="" alt="" />
           <div className={styles.productGrid}>
-            <ProductCard
-              productName="Alitas y McNuggets"
-              productDescription="10 Alitas y 10 nuggets"
-              productPrice="13,49$"
-              productImg={productExampleImg}
-            />
-            <ProductCard
-              productName="Alitas y McNuggets"
-              productDescription="10 Alitas y 10 nuggets"
-              productPrice="13,49$"
-              productImg={productExampleImg}
-            />
-            <ProductCard
-              productName="Alitas y McNuggets"
-              productDescription="10 Alitas y 10 nuggets"
-              productPrice="13,49$"
-              productImg={productExampleImg}
-            />
-            <ProductCard
-              productName="Alitas y McNuggets"
-              productDescription="10 Alitas y 10 nuggets"
-              productPrice="13,49$"
-              productImg={productExampleImg}
-            />
-            <ProductCard
-              productName="Alitas y McNuggets"
-              productDescription="10 Alitas y 10 nuggets"
-              productPrice="13,49$"
-              productImg={productExampleImg}
-            />
-            <ProductCard
-              productName="Alitas y McNuggets"
-              productDescription="10 Alitas y 10 nuggets"
-              productPrice="13,49$"
-              productImg={productExampleImg}
-            />
+            {productos &&
+              productos.map((e) => {
+                return (
+                  <ProductCard
+                    productName={e.nombre}
+                    productDescription={e.descripcion}
+                    productPrice={`${e.precio}€`}
+                    productImg={productExampleImg}
+                  />
+                );
+              })}
           </div>
         </div>
 
