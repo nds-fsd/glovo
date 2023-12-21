@@ -5,6 +5,7 @@ import NavBar from "./components/NavBar/index";
 import HeroPage from "./components/HeroPage/index";
 import { React, useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Footer from "../src/components/Footer";
 
 function App() {
   const [location, setLocation] = useState("");
@@ -28,6 +29,7 @@ function App() {
           ></Route>
         </Routes>
       </BrowserRouter>
+      <Footer />
     </div>
   );
 }
