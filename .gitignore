@@ -2,4 +2,3 @@ node_modules/
 .idea
 .env
 design/
-package-lock.json
