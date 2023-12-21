@@ -9,11 +9,23 @@ import ProductCard from "../ProductCard";
 import productExampleImg from "../../assets/images/productexampleimg.avif";
 import { React, useState, useEffect } from "react";
 import { api } from "../../utils/api";
+import { useParams } from "react-router-dom";
 
 export default function RestaurantPage() {
+  const [restaurante, setRestaurante] = useState();
   const [productos, setProductos] = useState([]);
+  const params = useParams();
 
   useEffect(() => {
+    const obtenerRestaurante = async () => {
+      try {
+        const response = await api.get("/restaurantes/" + params.restaurantId);
+        setRestaurante(response.data);
+      } catch (error) {
+        console.error("Error al obtener los datos de los productos:", error);
+      }
+    };
+
     const obtenerProductos = async () => {
       try {
         const response = await api.get("/products");
@@ -24,65 +36,69 @@ export default function RestaurantPage() {
     };
 
     obtenerProductos();
+    obtenerRestaurante();
   }, []);
 
-  return (
-    <div className={styles.viewport}>
-      <header className={styles.header}>
-        <div className={styles.content}>
-          <address>
-            <span>Barcelona {">"}</span> &nbsp;McDonald's
-          </address>
-        </div>
-        <div className={styles.headerBackgroundContainer}>
-          <img
-            className={styles.headerBackgroundImg}
-            src={RestaurantImg}
-            alt=""
-          />
-        </div>
-      </header>
-      <main>
-        <div className={styles.mainRestaurantContent}>
-          <section className={styles.restaurantHeader}>
-            <h1>McDonald's</h1>
-            <div className={styles.description}>
-              <RestaurantStats iconSrc={likeIcon} statValue="90%" />
-              <RestaurantStats iconSrc={stopwatchIcon} statValue="5-10'" />
-              <RestaurantStats iconSrc={scooterIcon} statValue="1,49$" />
+  {
+    return (
+      restaurante && (
+        <div className={styles.viewport}>
+          <header className={styles.header}>
+            <div className={styles.content}>
+              <address>{restaurante.direccion}</address>
             </div>
-          </section>
-          <img src="" alt="" />
-          <div className={styles.productGrid}>
-            {productos &&
-              productos.map((e) => {
-                return (
-                  <ProductCard
-                    productName={e.nombre}
-                    productDescription={e.descripcion}
-                    productPrice={`${e.precio}€`}
-                    productImg={productExampleImg}
-                  />
-                );
-              })}
-          </div>
-        </div>
+            <div className={styles.headerBackgroundContainer}>
+              <img
+                className={styles.headerBackgroundImg}
+                src={RestaurantImg}
+                alt=""
+              />
+            </div>
+          </header>
+          <main>
+            <div className={styles.mainRestaurantContent}>
+              <section className={styles.restaurantHeader}>
+                <h1>{restaurante.nombre}</h1>
+                <div className={styles.description}>
+                  <RestaurantStats iconSrc={likeIcon} statValue="90%" />
+                  <RestaurantStats iconSrc={stopwatchIcon} statValue="5-10'" />
+                  <RestaurantStats iconSrc={scooterIcon} statValue="1,49$" />
+                </div>
+              </section>
+              <img src="" alt="" />
+              <div className={styles.productGrid}>
+                {productos &&
+                  productos.map((e) => {
+                    return (
+                      <ProductCard
+                        key={e._id}
+                        productName={e.nombre}
+                        productDescription={e.descripcion}
+                        productPrice={`${e.precio}€`}
+                        productImg={productExampleImg}
+                      />
+                    );
+                  })}
+              </div>
+            </div>
 
-        <div className={styles.shoppingCartContainer}>
-          <section className={styles.shoppingCart}>
-            <h2>Tu pedido</h2>
-            <img
-              className={styles.shoppingCartBackground}
-              src={shoppingCartBackground}
-              alt=""
-            />
-            <p>
-              Todavía no has añadido ningún producto. Cuando lo hagas, ¡verás
-              los productos aquí!
-            </p>
-          </section>
+            <div className={styles.shoppingCartContainer}>
+              <section className={styles.shoppingCart}>
+                <h2>Tu pedido</h2>
+                <img
+                  className={styles.shoppingCartBackground}
+                  src={shoppingCartBackground}
+                  alt=""
+                />
+                <p>
+                  Todavía no has añadido ningún producto. Cuando lo hagas,
+                  ¡verás los productos aquí!
+                </p>
+              </section>
+            </div>
+          </main>
         </div>
-      </main>
-    </div>
-  );
+      )
+    );
+  }
 }
