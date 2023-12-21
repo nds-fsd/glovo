@@ -4,13 +4,12 @@ import React from "react";
 import RestaurantGrid from "../RestaurantGrid";
 import NavBar from "../NavBar";
 
-export default function HomePage() {
+export default function HomePage({ location }) {
   return (
     <div className={styles.viewport}>
       <div className={styles.homeHeader}>
         <p>
-          Entregando a{" "}
-          <span className={styles.deliveryAdress}>Calle falsa, 123. 4o.</span>
+          Entregando a <span className={styles.deliveryAdress}>{location}</span>
         </p>
       </div>
       <img className={styles.borderImg} src={BorderImg} alt="" />
