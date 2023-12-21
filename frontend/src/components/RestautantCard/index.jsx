@@ -40,7 +40,7 @@ export default function RestaurantCard({
             <p className={styles.opinionCounter}>({opinionCount})</p>
           )}
           {shipping && (
-            <aside>
+            <aside className={styles.scooterAside}>
               <img className={styles.scooterIcon} src={scooterIcon} alt="" />
               {shipping}
             </aside>

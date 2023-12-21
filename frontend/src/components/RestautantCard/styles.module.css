@@ -80,7 +80,7 @@ h3 {
   margin: 0;
 }
 
-aside {
+.scooterAside {
   display: flex;
   background-color: var(--primary-color);
   align-items: center;

@@ -94,3 +94,7 @@ option {
   text-align: left;
   padding: 10px;
 }
+
+.languageSelectoContainer {
+  background-color: transparent;
+}
