@@ -4,8 +4,7 @@ import HomePage from "./components/HomePage/index";
 import NavBar from "./components/NavBar/index";
 import HeroPage from "./components/HeroPage/index";
 import { React, useState } from "react";
-import { Link, BrowserRouter, Routes, Route } from "react-router-dom";
-import { set } from "react-hook-form";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
   const [location, setLocation] = useState("");
@@ -23,7 +22,10 @@ function App() {
             path="/restaurants"
             element={<HomePage location={location} />}
           ></Route>
-          <Route path="/restaurant" element={<RestaurantPage />}></Route>
+          <Route
+            path="/restaurant/:restaurantId"
+            element={<RestaurantPage />}
+          ></Route>
         </Routes>
       </BrowserRouter>
     </div>
