@@ -35,7 +35,7 @@ const incluirCodigo = watch("incluirCodigo");
     return (
     <div  className={styles.formContainer}>
         <h2>Empieza a vender con Gloton</h2>
-        <p>Registrarse en Glovo nunca ha sido tan fácil. Hazte Partner ahora. {watch("")}</p>
+        <p>Registrarse en Gloton nunca ha sido tan fácil. Hazte Partner ahora. {watch("")}</p>
         <form onSubmit={handleSubmit(onSubmit)}>
         <div>
     <label></label>
