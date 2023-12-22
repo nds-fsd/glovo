@@ -6,6 +6,11 @@ const restauranteSchema = new mongoose.Schema({
   direccion: String,
   categoria: String,
   horarios: String,
+  imagen: String,
+  transporte: String,
+  oferta: String,
+  puntuacion: String,
+  votos: String,
 });
 
 const Restaurante = mongoose.model("Restaurante", restauranteSchema);

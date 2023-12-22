@@ -13,6 +13,7 @@ export default function RestaurantCard({
   offer,
   shipping,
   id,
+  img,
 }) {
   const navigate = useNavigate();
   const params = useParams();
@@ -23,7 +24,7 @@ export default function RestaurantCard({
       onClick={() => navigate("/restaurant/" + id)}
     >
       <div className={styles.imgContainer}>
-        <img src={restaurantCardImg} className={styles.restaurantCardImg} />
+        <img src={img} className={styles.restaurantCardImg} />
         {restaurantCategory && (
           <p className={styles.restaurantCategory}>{restaurantCategory}</p>
         )}{" "}
