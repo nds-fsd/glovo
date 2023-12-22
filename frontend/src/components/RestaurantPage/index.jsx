@@ -58,7 +58,7 @@ export default function RestaurantPage() {
             <div className={styles.headerBackgroundContainer}>
               <img
                 className={styles.headerBackgroundImg}
-                src={RestaurantImg}
+                src={restaurante.imagen}
                 alt=""
               />
             </div>
@@ -68,9 +68,15 @@ export default function RestaurantPage() {
               <section className={styles.restaurantHeader}>
                 <h1>{restaurante.nombre}</h1>
                 <div className={styles.description}>
-                  <RestaurantStats iconSrc={likeIcon} statValue="90%" />
+                  <RestaurantStats
+                    iconSrc={likeIcon}
+                    statValue={restaurante.puntuacion}
+                  />
                   <RestaurantStats iconSrc={stopwatchIcon} statValue="5-10'" />
-                  <RestaurantStats iconSrc={scooterIcon} statValue="1,49$" />
+                  <RestaurantStats
+                    iconSrc={scooterIcon}
+                    statValue={restaurante.transporte}
+                  />
                 </div>
               </section>
               <img src="" alt="" />

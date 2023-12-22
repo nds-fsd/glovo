@@ -7,6 +7,15 @@
   position: relative;
   flex-direction: column;
   z-index: 1;
+  transition: 0.2s;
+}
+
+.mainContainer:hover {
+  scale: 1.1;
+}
+
+.mainContainer:active {
+  scale: 1.05;
 }
 
 .imgContainer {
@@ -14,12 +23,14 @@
   align-items: center;
   justify-content: center;
   position: relative;
+  z-index: -1;
 }
 
 .restaurantCardImg {
   height: 100%;
   width: 100%;
   border-radius: 10px;
+  transition: 0.5s;
 }
 
 .restaurantCategory {
