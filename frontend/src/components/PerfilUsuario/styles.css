@@ -1,5 +1,5 @@
 body {
-  font-family: 'quicksand', sans-serif;
+  font-family: "quicksand", sans-serif;
   margin: 0;
   padding: 0;
 }
@@ -11,19 +11,19 @@ body {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   border-radius: 25px;
   margin-top: 100px;
-  padding-bottom:20px;
+  padding-bottom: 20px;
   margin-right: 7%;
 }
 
-.person-icon{
+.person-icon {
   width: 30px;
-    height: 30px;
-    margin-top: 5px;
-    position: absolute;
-    margin-left: -90px;
+  height: 30px;
+  margin-top: 5px;
+  position: absolute;
+  margin-left: -90px;
 }
 
-.password-icon{
+.password-icon {
   width: 30px;
   height: 30px;
   margin-top: 54px;
@@ -31,53 +31,47 @@ body {
   margin-left: -419px;
 }
 
-.email-icon{
+.email-icon {
   width: 30px;
-    height: 30px;
-    margin-top: 10px;
-    position: absolute;
-    margin-left: -90px;
+  height: 30px;
+  margin-top: 10px;
+  position: absolute;
+  margin-left: -90px;
 }
-
 
 /* scrollbar */
 
-.scrollbar{
-  width: 400px;        
+.scrollbar {
+  width: 400px;
   max-height: 750px;
-  overflow-y: auto;      
- 
+  overflow-y: auto;
 }
 
 /* Cabecera del perfil */
 .profile-header {
-  
   color: #000000;
   padding: 20px;
   padding-top: 30px;
-  
 }
 
 .promo-button {
   background: none;
   border: none;
-  color: #4CAF50;
+  color: #4caf50;
   cursor: pointer;
   font-weight: bold !important;
-  float:right;
+  float: right;
   margin-left: auto;
 }
-
 
 /*texto p */
 
 .campo-p {
-  
   margin-left: 20px;
-  color: #9B9B9BFF;
+  color: #9b9b9bff;
 }
 
-.input{
+.input {
   border: none;
   font-size: 17px;
   margin-left: 20px;
@@ -101,8 +95,7 @@ body {
   display: flex;
   align-items: baseline;
   padding: 10px 20px;
-  color: #9B9B9BFF !important;
-
+  color: #9b9b9bff !important;
 }
 
 .user-section label {
@@ -114,17 +107,16 @@ body {
 
 .user-section p {
   margin: 0;
-  
 }
 
 /* Estilo para los botones */
 .edit-button {
   background: none;
   border: none;
-  color: #4CAF50;
+  color: #4caf50;
   cursor: pointer;
   font-weight: bold !important;
-  float:right;
+  float: right;
 }
 
 /* Estilo para el formulario de edición */
@@ -141,8 +133,7 @@ body {
 .manage-preferences {
   font-size: 13px;
   padding: 20px;
-  color: #9B9B9BFF;
- 
+  color: #9b9b9bff;
 }
 
 .preference-description {
@@ -150,15 +141,13 @@ body {
   background-color: #eeeeee;
   padding: 20px;
   margin-right: 20px;
-
 }
-
 
 /* Estilo para el botón de logout */
 .logout-button {
   background: none;
   border: none;
-  color: #4CAF50;
+  color: #4caf50;
   cursor: pointer;
   font-weight: bold !important;
   margin-left: auto;
@@ -174,17 +163,16 @@ body {
 }
 
 .ReactModal__Content.ReactModal__Content--after-open {
-
   width: 30%;
-    margin-left: 50%;
-    transform: translate(-50%, 0%);
-    padding: 20px;
-    height: 40%;
-    margin-top: 55px;
-    border-radius: 15px;
-    display: flex;
-    overflow-x: hidden !important;
-  
+  margin-left: 50%;
+  transform: translate(-50%, 0%);
+  padding: 20px;
+  height: 40%;
+  margin-top: 55px;
+  border-radius: 15px;
+  display: flex;
+  overflow-x: hidden !important;
+
   inset: 40px;
   border: 0px solid rgb(204, 204, 204);
   background: rgb(255, 255, 255);
@@ -196,51 +184,45 @@ body {
 }
 
 .register-form {
-      display: block;
-      width: 100%;
-    margin-left: 25%;
-    
-    
+  display: block;
+  width: 100%;
+  margin-left: 25%;
 }
 
 .register-p {
   margin-left: 25px;
 }
 
-
-
-.submit-button{
-    transform: translate(-50%, 90%);
-    margin-left: 50%;
-
+.submit-button {
+  transform: translate(-50%, 90%);
+  margin-left: 50%;
 }
 
-.form-submit-button{
-  width:100%
+.form-submit-button {
+  width: 100%;
 }
 
-.tu-nombre{
+.tu-nombre {
   margin-left: 20%;
   transform: translate(25%, 0%);
   color: #4b4b4b;
 }
 
-.first-imput{
+.first-imput {
   padding: 10px;
   margin-left: -42px;
   width: 350px;
   border: none;
   height: 27px;
 }
-.guardar-cambios{
+.guardar-cambios {
   border-radius: 25px;
   width: 300px;
   height: 45px;
-  background-color: #4CAF50;
+  background-color: #4caf50;
   color: white;
   font-weight: bold;
   font-size: 15px;
-  
 }
 /* switch */
 
@@ -260,11 +242,11 @@ body {
   background: grey;
   border-radius: 100px;
   position: relative;
-  transition: background-color .2s;
+  transition: background-color 0.2s;
 }
 
 .react-switch-label .react-switch-button {
-  content: '';
+  content: "";
   position: absolute;
   top: 1px;
   left: 1px;
@@ -276,7 +258,7 @@ body {
   box-shadow: 0 0 2px 0px #333;
 }
 
-.hola{
+.hola {
   margin-left: 25%;
   font-size: 40px;
 }
