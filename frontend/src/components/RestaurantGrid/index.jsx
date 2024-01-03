@@ -32,10 +32,13 @@ export default function RestaurantGrid() {
                 restaurantCardImg={restaurantImg}
                 restaurantCategory={e.categoria}
                 restaurantName={e.nombre}
-                opinionCount="500+"
-                likeRatio={Math.floor(Math.random() * 100) + 1 + "%"}
-                shipping="FREE"
+                opinionCount={e.votos}
+                likeRatio={e.puntuacion}
+                shipping={e.transporte}
                 id={e._id}
+                img={e.imagen}
+                transporte={e.transporte}
+                offer={e.oferta}
               />
             );
           })}
