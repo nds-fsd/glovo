@@ -28,11 +28,14 @@ export default function RestaurantGrid() {
           restaurantes.map((e) => {
             return (
               <RestaurantCard
+                key={e._id}
                 restaurantCardImg={restaurantImg}
                 restaurantCategory={e.categoria}
                 restaurantName={e.nombre}
                 opinionCount="500+"
+                likeRatio={Math.floor(Math.random() * 100) + 1 + "%"}
                 shipping="FREE"
+                id={e._id}
               />
             );
           })}

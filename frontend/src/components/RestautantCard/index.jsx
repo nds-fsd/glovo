@@ -2,6 +2,7 @@ import react from "react";
 import styles from "../RestautantCard/styles.module.css";
 import scooterIcon from "../../assets/icons/scooter-svgrepo-com (1).svg";
 import likeIcon from "../../assets/icons/like-svgrepo-com.svg";
+import { useNavigate, useParams } from "react-router-dom";
 
 export default function RestaurantCard({
   restaurantName,
@@ -11,9 +12,16 @@ export default function RestaurantCard({
   likeRatio,
   offer,
   shipping,
+  id,
 }) {
+  const navigate = useNavigate();
+  const params = useParams();
+
   return (
-    <div className={styles.mainContainer}>
+    <div
+      className={styles.mainContainer}
+      onClick={() => navigate("/restaurant/" + id)}
+    >
       <div className={styles.imgContainer}>
         <img src={restaurantCardImg} className={styles.restaurantCardImg} />
         {restaurantCategory && (
@@ -32,7 +40,7 @@ export default function RestaurantCard({
             <p className={styles.opinionCounter}>({opinionCount})</p>
           )}
           {shipping && (
-            <aside>
+            <aside className={styles.scooterAside}>
               <img className={styles.scooterIcon} src={scooterIcon} alt="" />
               {shipping}
             </aside>

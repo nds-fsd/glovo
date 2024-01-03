@@ -4,8 +4,18 @@ import burguerImg from "../../assets/images/video-burger.png";
 import flagIcon from "../../assets/icons/flag-svgrepo-com.svg";
 import compassIcon from "../../assets/icons/location-svgrepo-com.svg";
 import wavySvg from "../../assets/images/address-jumbotron-wave-desktop.svg";
+import { useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { React, useState } from "react";
 
-export default function HeroPage() {
+export default function HeroPage({ setLocation }) {
+  const { register, handleSubmit } = useForm();
+  const navigate = useNavigate();
+  const onSubmit = (data) => {
+    setLocation(data.location);
+    navigate("/restaurants");
+  };
+
   return (
     <div className={styles.viewport}>
       <NavBar />
@@ -18,13 +28,14 @@ export default function HeroPage() {
             <div className={styles.flagIconContainer}>
               <img className={styles.flagIcon} src={flagIcon} alt="" />
             </div>
-            <input
-              className={styles.addressInput}
-              placeholder="Cual es tu dirección?"
-              type="text"
-              name=""
-              id=""
-            />
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <input
+                className={styles.addressInput}
+                placeholder="Cuál es tu dirección?"
+                {...register("location", { required: true })}
+              />
+              <input style={{ display: "none" }} type="submit" />
+            </form>
             <button className={styles.useCurrentLocationButton}>
               <div className={styles.compassIconContainer}>
                 <img className={styles.compassIcon} src={compassIcon} alt="" />

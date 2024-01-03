@@ -6,7 +6,7 @@
   justify-content: center;
   position: relative;
   flex-direction: column;
-  z-index: -9;
+  z-index: 1;
 }
 
 .imgContainer {
@@ -80,7 +80,7 @@ h3 {
   margin: 0;
 }
 
-aside {
+.scooterAside {
   display: flex;
   background-color: var(--primary-color);
   align-items: center;

@@ -6,17 +6,36 @@ import HeroPage from "./components/HeroPage/index";
 import PerfilUsuario from "./components/PerfilUsuario/PerfilUsuario";
 import Formulario from "./components/formularios/formularios";
 import VistaCompra from "./components/vistaCompra/vistaCompra";
+import { React, useState } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Footer from "../src/components/Footer";
+
 
 function App() {
+  const [location, setLocation] = useState("");
+
   return (
-    <>
-    {/* <HomePage/>
-    <NavBar/>
-    <HeroPage/> */}
-     <VistaCompra />
-{/* <VistaCompra/> */}
-      {/* <RestaurantPage /> */}
-    </>
+
+    <div>
+      <NavBar />
+      <BrowserRouter>
+        <Routes>
+          <Route
+            path="/"
+            element={<HeroPage setLocation={setLocation} />}
+          ></Route>
+          <Route
+            path="/restaurants"
+            element={<HomePage location={location} />}
+          ></Route>
+          <Route
+            path="/restaurant/:restaurantId"
+            element={<RestaurantPage />}
+          ></Route>
+        </Routes>
+      </BrowserRouter>
+      <Footer />
+    </div>
   );
 }
 
