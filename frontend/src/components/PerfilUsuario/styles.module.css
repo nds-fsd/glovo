@@ -1,0 +1,318 @@
+body {
+    font-family: 'quicksand', sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .profile {
+    max-width: 400px; /* Ancho máximo para la sección del perfil */
+    margin: 20px auto;
+    background-color: #ffffff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 25px;
+    margin-top: 50px;
+    padding-bottom:20px;
+    margin-right: 7%;
+    overflow: auto;
+  }
+  
+  .personIcon{
+    width: 30px;
+      height: 30px;
+      margin-top: 5px;
+      position: absolute;
+      margin-left: -10%;
+  }
+  
+  .passwordIcon{
+    width: 30px;
+    height: 30px;
+    margin-top: 5px;
+    position: absolute;
+    margin-left: -10%;
+  }
+  
+  .emailIcon{
+    width: 30px;
+      height: 30px;
+      margin-top: 10px;
+      position: absolute;
+      margin-left: -10%;
+  }
+  
+  
+  /* scrollbar */
+  
+  .scrollbar{
+    width: 400px;        
+    max-height: 750px;
+    overflow-y: auto;      
+   
+  }
+  
+  /* Cabecera del perfil */
+  .profileHeader {
+    
+    color: #000000;
+    padding: 20px;
+    padding-top: 30px;
+    
+  }
+  
+  .promoButton {
+    background: none;
+    border: none;
+    color: #00a082;
+    cursor: pointer;
+    font-weight: bold !important;
+    float:right;
+    margin-left: auto;
+    box-shadow: none;
+  }
+  
+  
+  /*texto p */
+  
+  .campoP {
+    
+    margin-left: 20px;
+    color: #706c6c;
+    text-align: justify;
+    padding: 10px;
+  }
+  
+  .input{
+    border: none;
+    font-size: 17px;
+    margin-left: 20px;
+    margin-top: 75px;
+  }
+  
+  .separador {
+    border-bottom: 1px solid #cccccc;
+    margin: 20px;
+    margin-right: 27px;
+    margin-top: 25px;
+  }
+  
+  .separadorHeader {
+    border-bottom: 1px solid #cccccc;
+    margin-bottom: 20px;
+  }
+  
+  /* Estilo para los nombres de las secciones y los botones Editar */
+  .userSection {
+    display: flex;
+    align-items: baseline;
+    padding: 10px 20px;
+    color: #706c6c !important;
+  
+  }
+  
+  .userSection label {
+    font-weight: bold;
+    margin-left: auto;
+    margin-top: auto;
+    margin-right: 5px;
+  }
+  
+  .userSection p {
+    margin: 0;
+    
+  }
+  
+  /* Estilo para los botones */
+  .editButton {
+    background: none;
+    border: none;
+    color: #00a082;
+    cursor: pointer;
+    font-weight: bold !important;
+    float:right;
+    margin-top: -4%;
+    box-shadow: none;
+    
+  }
+  
+  /* Estilo para el formulario de edición */
+  .editForm {
+    padding: 20px;
+  }
+  
+  /* Estilo para la sección de métodos de pago */
+  .paymentMethods {
+    padding: 20px;
+  }
+  
+  /* Estilo para la sección de manejo de preferencias */
+  .managePreferences {
+    font-size: 13px;
+    padding: 20px;
+    color: #9B9B9BFF;
+   
+  }
+  
+  .preferenceDescription {
+    font-size: 13px;
+    background-color: #eeeeee;
+    padding: 20px;
+    margin-right: 20px;
+  
+  }
+  
+  
+  /* Estilo para el botón de logout */
+  .logoutButton {
+    background: none;
+    border: none;
+    color: #00a082;
+    cursor: pointer;
+    font-weight: bold !important;
+    margin-left: auto;
+    margin-bottom: 20px;
+    box-shadow: none;
+  }
+  
+  .logoutButtonContainer {
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 20px;
+    margin-top: 25px;
+    padding-bottom: 25px;
+    box-shadow: none;
+  }
+  
+  div[class^="ReactModal__Content"]::-webkit-scrollbar {
+    display: none;
+  } 
+
+  div[class^="_profile_"]::-webkit-scrollbar {
+    overflow: hidden;
+  } 
+
+  .modalOverlay {
+  
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(255, 255, 255, 0%)
+  }
+
+  .modalContent {
+    position: fixed;
+      top: 40px;
+      left: 40px;
+      right: 40px;
+      bottom: 40px;
+      overflow: auto;
+      outline: none;
+      padding: 20px;
+  }
+
+  
+  
+  .registerForm {
+    position: fixed; /* Fija el modal sobre el contenido */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px; /* O el ancho que prefieras */
+    background-color: white;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    border-radius: 12px;
+      
+      
+  }
+  
+  .registerP {
+    margin-left: 25px;
+  }
+  
+  
+  
+  .submitButton{
+      transform: translate(-50%, 90%);
+      margin-left: 50%;
+  
+  }
+  
+  .formSubmitButton{
+    width:100%;
+    z-index: 1000
+  }
+  
+  .tuNombre{
+    margin-left: 20%;
+    transform: translate(25%, 0%);
+    color: #4b4b4b;
+  }
+  
+  .firstInput{
+    padding: 10px;
+    border: none;
+    height: 27px;
+  }
+  .guardarCambios{
+    border-radius: 25px;
+    width: 300px;
+    height: 45px;
+    background-color: var(--secondary-color);
+    color: white;
+    font-weight: bold;
+    font-size: 15px;
+    
+  }
+  /* switch */
+  
+  .reactSwitchCheckbox {
+    height: 0;
+    width: 0;
+    visibility: hidden;
+  }
+  
+  .reactSwitchLabel {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    width: 50px; /* Width of the switch */
+    height: 25px; /* Height of the switch */
+    background: grey;
+    border-radius: 100px;
+    position: relative;
+    transition: background-color .2s;
+  }
+  
+  .reactSwitchLabel .reactSwitchButton {
+    content: '';
+    position: absolute;
+    top: 1px;
+    left: 1px;
+    width: 23px; /* Width of the slider */
+    height: 23px; /* Height of the slider */
+    border-radius: 45px;
+    transition: 0.2s;
+    background: #fff;
+    box-shadow: 0 0 2px 0px #333;
+  }
+  
+  .hola{
+    text-align: center;
+    font-size: 40px;
+  }
+  
+  .reactSwitchCheckbox:checked + .reactSwitchLabel .reactSwitchButton {
+    left: calc(100% - 2px);
+    transform: translateX(-100%);
+  }
+  
+  .reactSwitchLabel:active .reactSwitchButton {
+    width: 28px;
+  }
+
+  .registerSection {
+    display: flow;
+  }

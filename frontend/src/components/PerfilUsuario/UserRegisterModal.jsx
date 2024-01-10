@@ -1,59 +1,59 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { useForm } from "react-hook-form";
 import { MdOutlineEmail, MdOutlinePassword } from "react-icons/md";
 import { RxPerson } from "react-icons/rx";
-// import { handleInitialRegistrationSubmit } from "./UserCrud";
+import { handleInitialRegistrationSubmit } from "../PerfilUsuario/Usercrud";
+import styles from "../PerfilUsuario/styles.module.css";
 
-const InitialRegistrationModalContent = ({ setUser, closeModal }) => {
-  const { register, handleSubmit } = useForm();
+function UserRegisterModal({ setUser, closeModal, changeModalState }) {
+    const { register, handleSubmit } = useForm();
+    
+    const onSubmit = async (data) => {
+        try {
+            await handleInitialRegistrationSubmit(data, setUser, closeModal);
+            changeModalState();
+        } catch (error) {
+            console.error("Error en el registro inicial:", error);
+        }
+    };
+  
+    return (
+        <form onSubmit={handleSubmit(onSubmit)} className={styles.registerForm}>
+            <h2 className={styles.hola}>¡Hola!</h2>
+            <p className={styles.registerP}>Selecciona una de estas opciones</p>
+            <div className={styles.registerSection}>
+                <RxPerson className={styles.personIcon} />
+                <input
+                    className={styles.firstInput}
+                    {...register("firstname")}
+                    placeholder="Nombre"
+                    required
+                />
+            </div>
+            <div>
+            <MdOutlineEmail className={styles.emailIcon} />
+            <input
+                className={styles.firstInput}
+                {...register("email")}
+                type="email"
+                placeholder="Email"
+                required
+            />
+            </div>
+            <div>
+            <MdOutlinePassword className={styles.passwordIcon} />
+            <input
+                className={styles.firstInput}
+                {...register("password")}
+                type="password"
+                placeholder="Contraseña"
+                required
+            />
+            <button className={styles.guardarCambios} type="submit">
+                Registrar
+            </button>
+            </div>
+        </ form>
+    )};
 
-  export default function UserRegisterModal({ modalState, changeModalState }) {
-    const { register, handleSubmit } = useForm(); 
-  const onSubmit = async (data) => {
-    try {
-      await handleInitialRegistrationSubmit(data, setUser, closeModal);
-     
-    } catch (error) {
-      console.error("Error en el registro inicial:", error);
-     
-    }
-  };
-   export default function UserRegisterModal ({ modalState, changeModalState }) {
-
-  return (
-    <form className="register-form" onSubmit={handleSubmit(onSubmit)}>
-      <h2 className="hola">¡Hola!</h2>
-      <p className="register-p">Selecciona una de estas opciones</p>
-      <div>
-        <RxPerson className="person-icon" />
-        <input
-          className="first-input"
-          {...register("firstname")}
-          placeholder="Nombre"
-          required
-        />
-      </div>
-      <MdOutlineEmail className="email-icon" />
-      <input
-        className="first-input"
-        {...register("email")}
-        type="email"
-        placeholder="Email"
-        required
-      />
-      <MdOutlinePassword className="password-icon" />
-      <input
-        className="first-input"
-        {...register("password")}
-        type="password"
-        placeholder="Contraseña"
-        required
-      />
-      <button className="guardar-cambios" type="submit" onClick={changeModalState}>
-        Registrar
-      </button>
-    </form>
-  );
-}
-};
-
+    export default UserRegisterModal;

@@ -6,19 +6,31 @@ import listIcon from "../../assets/icons/list-ul-alt-svgrepo-com.svg";
 import locationIcon from "../../assets/icons/location-pin-svgrepo-com.svg";
 import { useState } from "react";
 import UserRegisterModal from "../PerfilUsuario/UserRegisterModal";
+import PerfilUsuario from "../PerfilUsuario/PerfilUsuario";
 
-
-const logged = false;
+const logged = true;
 
 export default function NavBar() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const handleModal = () => {
-    setIsModalOpen(!isModalOpen);
-   
+  const [isPerfilUsuarioModalOpen, setIsPerfilUsuarioModalOpen] = useState(false);
+  const [isUserRegisterModalOpen, setIsUserRegisterModalOpen] = useState(false);
+
+  const handleUserModal = () => {
+    console.log("Antes de cambiar:", isPerfilUsuarioModalOpen); // Muestra el estado antes de cambiarlo
+    setIsPerfilUsuarioModalOpen((currentState) => !currentState);
+    console.log("Después de cambiar:", !isPerfilUsuarioModalOpen); // Muestra el estado que se va a establecer
   };
-  {
-    if (logged === true)
-      return (
+
+  const handleRegisterModal = () => {
+    setIsUserRegisterModalOpen((currentState) => !currentState);
+  };
+
+  console.log("Estado actual de isPerfilUsuarioModalOpen:", isPerfilUsuarioModalOpen); // Muestra el estado actual en cada renderización
+
+  if (logged === true) {
+    console.log("logged true")
+
+    return (
+      <>
         <nav className={styles.navBar}>
           <div className={styles.logoContainer}>
             <a href="">
@@ -34,7 +46,7 @@ export default function NavBar() {
               <p>Adress, 98, 3016. Barcelona</p>
             </div>
             <div className={styles.navBarButtons}>
-              <button>
+              <button onClick={handleUserModal}>
                 <img className={styles.userIcon} src={userIcon} alt="" />
               </button>
               <button>
@@ -43,9 +55,21 @@ export default function NavBar() {
             </div>
           </div>
         </nav>
-      );
-    else {
-      return (
+        {isPerfilUsuarioModalOpen && (
+          <PerfilUsuario
+            modalState={isPerfilUsuarioModalOpen}
+            changeModalState={handleUserModal}
+
+
+          />
+
+        )}
+      </>
+    );
+  } else {
+    console.log("logged false")
+    return (
+      <>
         <nav className={styles.navBar}>
           <div className={styles.logoContainerUnlogged}>
             <a href="">
@@ -53,12 +77,22 @@ export default function NavBar() {
             </a>
           </div>
           <div className={styles.getStartedContainer}>
-            <button className={styles.getStartedButton} onClick={handleModal}>Empieza aquí</button>
+            <button className={styles.getStartedButton} onClick={handleRegisterModal}>Empieza aquí</button>
           </div>
-          <UserRegisterModal modalState={isModalOpen}
-            changeModalState={handleModal}></UserRegisterModal>
+
         </nav>
-      );
-    }
+        {isUserRegisterModalOpen && (
+          <UserRegisterModal
+            modalState={isUserRegisterModalOpen}
+            changeModalState={handleRegisterModal}
+
+
+          />
+
+        )}
+      </>
+    );
+
   }
 }
+

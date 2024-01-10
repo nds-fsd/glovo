@@ -1,21 +1,22 @@
 import React from "react";
+import styles from "./styles.module.css";
 
 const Switch = ({ isOn, handleToggle }) => {
   return (
     <>
       <input
-        className="react-switch-checkbox"
+        className={styles.reactSwitchCheckbox}
         id={`react-switch-new`}
         type="checkbox"
         checked={isOn}
         onChange={handleToggle}
       />
       <label
-        className="react-switch-label"
+        className={styles.reactSwitchLabel}
         htmlFor={`react-switch-new`}
         style={{ background: isOn && "#06D6A0" }}
       >
-        <span className={`react-switch-button`} />
+        <span className={styles.reactSwitchButton} />
       </label>
     </>
   );

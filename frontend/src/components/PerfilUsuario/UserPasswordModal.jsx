@@ -1,7 +1,7 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 
-const PasswordChangeModalContent = ({ onSubmit }) => {
+const UserPasswordModal = ({ onSubmit }) => {
   const { register, handleSubmit } = useForm();
 
   return (
@@ -29,4 +29,4 @@ const PasswordChangeModalContent = ({ onSubmit }) => {
   );
 };
 
-export default PasswordChangeModalContent;
+export default UserPasswordModal;

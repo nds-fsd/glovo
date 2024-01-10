@@ -1,23 +1,24 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { RxPerson } from "react-icons/rx";
+import styles from "../PerfilUsuario/styles.module.css";
 
-const ProfileEditModalContent = ({ user, editingField, fieldTitles, onSubmit }) => {
+const UserProfileEditModal = ({ user, editingField, fieldTitles, onSubmit }) => {
   const { register, handleSubmit } = useForm();
   const title = fieldTitles[editingField] || "Editar Campo";
 
   return (
-    <form className="form-submit-button" onSubmit={handleSubmit(onSubmit)}>
-      <h2 className="tu-nombre">{title}</h2>
-      <RxPerson className="person-icon" />
+    <form className={styles.formSubmitButton} onSubmit={handleSubmit(onSubmit)}>
+      <h2 className={styles.tuNombre}>{title}</h2>
+      <RxPerson className={styles.personIcon} />
       <input
-        className="input"
+        className={styles.input}
         {...register(editingField)}
         defaultValue={user[editingField]}
       />
-      <div className="separador"></div>
-      <div className="submit-button">
-        <button className="guardar-cambios" type="submit">
+      <div className={styles.separador}></div>
+      <div className={styles.submitButton}>
+        <button className={styles.guardarCambios} type="submit">
           Guardar Cambios
         </button>
       </div>
@@ -25,4 +26,4 @@ const ProfileEditModalContent = ({ user, editingField, fieldTitles, onSubmit }) 
   );
 };
 
-export default ProfileEditModalContent;
+export default UserProfileEditModal;

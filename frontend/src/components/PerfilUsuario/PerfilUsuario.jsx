@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import Modal from "react-modal";
-//import axios from "axios";
-import "./styles.modules.css";
-import PasswordChangeModalContent from './UserPasswordModal.jsx';
-import ProfileEditModalContent from './UserProfileEditModal.jsx';
-// import UserRegisterModal from './UserRegisterModal.jsx';
+import UserPasswordModal from './UserPasswordModal.jsx';
+import UserProfileEditModal from './UserProfileEditModal.jsx';
+import UserRegisterModal from './UserRegisterModal.jsx';
+import styles from "./styles.module.css";
+import { handleInitialRegistrationSubmit } from "../PerfilUsuario/Usercrud";
+import Switch from "../PerfilUsuario/Switch.jsx";
+
+
 
 
 Modal.setAppElement("#root");
@@ -20,7 +23,7 @@ function PerfilUsuario({ modalState, changeModalState }) {
     phone: "",
     receivePromotions: false,
   });
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  
   const [isEditing, setIsEditing] = useState(false);
   const [editingField, setEditingField] = useState(null);
   const [isChangingPassword, setIsChangingPassword] = useState(false);
@@ -33,25 +36,14 @@ function PerfilUsuario({ modalState, changeModalState }) {
       setValue("phone", user.phone);
       setValue("receivePromotions", user.receivePromotions);
     }
-  }, [user, setValue]);
-  const openModal = () => setIsModalOpen(true);
-  const closeModal = () => {
-    setIsModalOpen(false);
-    setIsEditing(false);
-    setIsChangingPassword(false);
-    reset();
-  };
-  const handleGetStarted = () => {
-    openModal();
-  };
+  }, []);
   const handleEditClick = (field) => {
     setEditingField(field);
-    setIsEditing(true);
-    openModal();
+    setIsUserProfileEditModal(true);
   };
   const handleChangePasswordClick = () => {
     setIsChangingPassword(true);
-    openModal();
+    changeModalState(true);
   };
 
   const fieldTitles = {
@@ -60,32 +52,38 @@ function PerfilUsuario({ modalState, changeModalState }) {
     email: "Tu Email",
     phone: "Tu Teléfono",
   };
-  const renderModalContent = () => {
-    if (isChangingPassword) {
-      return <PasswordChangeModalContent onSubmit={handlePasswordChangeSubmit} />;
-    } else if (isEditing) {
-      return <ProfileEditModalContent user={user} editingField={editingField} fieldTitles={fieldTitles} onSubmit={handleProfileUpdateSubmit} />;
-    } else {
-      return <InitialRegistrationModalContent onSubmit={handleInitialRegistrationSubmit} />;
-    }
+
+  //const [userProfileModalOpen, setUserProfileModalOpen] = useState(false);
+
+  const [isUserProfileEditModal, setIsUserProfileEditModal] = useState(false);
+  const handleUserEditModal = () => {
+    setIsUserProfileEditModal((currentState) => {
+      console.log("Cambiando estado de modal a", !currentState);
+      return !currentState;
+    });
+  };
+
+  const handleFormSubmit = (formData) => {
+    console.log("Formulario enviado con:", formData);
+    setIsUserProfileEditModal(false);
   };
 
   return (
-    <div>
-      <Modal isOpen={modalState} onRequestClose={changeModalState}>
-        {renderModalContent()}
-      </Modal>
-      {!user._id ? (
-        <></>
-      ) : (
-        <div>
-          <h2 className="profile-header">¡Hola, {user.firstname}!</h2>
-          <div className="separador-header"></div>
+
+    <Modal isOpen={modalState} onRequestClose={() => changeModalState(false)}
+    className={styles.modalContent}
+    overlayClassName={styles.modalOverlay}
+    >
+      
+
+        <div className={styles.profile}>
+          <h2 className={styles.profileHeader}>¡Hola, {user.firstname}!</h2>
+          <div className={styles.separadorHeader}></div>
           <div>
-            <p className="campo-p">
-              Nombre:{" "}
+            <p className={styles.campoP}>
+              Nombre: <br /> {" Jose Garcia "}
               <button
-                className="edit-button"
+                className={styles.editButton}
                 onClick={() => handleEditClick("firstname")}
               >
                 Editar
@@ -94,11 +92,12 @@ function PerfilUsuario({ modalState, changeModalState }) {
               {user.firstname}
             </p>
           </div>
+        
           <div>
-            <p className="campo-p">
-              Email:{" "}
+            <p className={styles.campoP}>
+              Email: <br /> {"josegarcia1006 "}
               <button
-                className="edit-button"
+                className={styles.editButton}
                 onClick={() => handleEditClick("email")}
               >
                 Editar
@@ -106,12 +105,12 @@ function PerfilUsuario({ modalState, changeModalState }) {
               <br /> {user.email}
             </p>
           </div>
-          <div className="separador"></div>
+          <div className={styles.separador}></div>
           <div>
-            <p className="campo-p">
+            <p className={styles.campoP}>
               Teléfono:{" "}
               <button
-                className="edit-button"
+                className={styles.editButton}
                 onClick={() => handleEditClick("phone")}
               >
                 Editar
@@ -120,30 +119,30 @@ function PerfilUsuario({ modalState, changeModalState }) {
               {user.phone}
             </p>
           </div>
-          <div className="separador"></div>
+          <div className={styles.separador}></div>
           <div>
-            <p className="campo-p">
+            <p className={styles.campoP}>
               Contraseña:{" "}
               <button
-                className="edit-button"
+                className={styles.editButton}
                 onClick={handleChangePasswordClick}
               >
-                Cambiar Contraseña
+                Editar
               </button>{" "}
               <br />
               {"•••••••••"}
             </p>
           </div>
-          <div className="separador"></div>
+          <div className={styles.separador}></div>
           <div>
-            <p className="campo-p">Gestionar preferencias</p>
-            <p className="manage-preferences">
+            <p className={styles.campoP}>Gestionar preferencias</p>
+            <p className={styles.managePreferences}>
               Usamos los datos de clientes para mejorar la experiencia de
               nuestro servicio y mostrar promociones relevantes.
             </p>
           </div>
-          <div className="campo-p">
-            <p className="preference-description">
+          <div className={styles.campoP}>
+            <p className={styles.preferenceDescription}>
               Glovo puede compartir datos de usuario (como teléfonos,
               identificadores de dispositivos o e-mails cifrados) con Facebook y
               plataformas similares para personalizar los anuncios y contenidos,
@@ -151,7 +150,7 @@ function PerfilUsuario({ modalState, changeModalState }) {
               recibir este tipo de comunicaciones desactivando esta opción.
             </p>
           </div>
-          <div className="user-section">
+          <div className={styles.userSection}>
             <p>Recibir ofertas especiales y promociones:</p>
             <Switch
               isOn={user.receivePromotions}
@@ -160,34 +159,44 @@ function PerfilUsuario({ modalState, changeModalState }) {
               }
             />
           </div>
-          <div className="separador"></div>
-          <div className="user-section">
+          <div className={styles.separador}></div>
+          <div className={styles.userSection}>
             <p>Código promocional:</p>
             <button
-              className="promo-button"
+              className={styles.promoButton}
               onClick={() => handleEditClick("promo")}
             >
               Añadir
             </button>
           </div>
-          <p className="campo-p">-</p>
-          <div className="separador"></div>
-          <div className="user-section">
+          <p className={styles.campoP}>-</p>
+          <div className={styles.separador}></div>
+          <div className={styles.userSection}>
             <button
-              className="logout-button"
+              className={styles.logoutButton}
               onClick={() => handleEditClick("logout")}
             >
               Cerrar sesión
             </button>
           </div>
-          <div className="user-section">
-            <button className="logout-button" onClick={handleDelete}>
+          <div className={styles.userSection}>
+            <button className={styles.logoutButton}>
               Eliminar Cuenta
             </button>
           </div>
         </div>
-      )}
-    </div>
+    
+      
+    </Modal>
   );
-            }
+//}
+// {isUserProfileEditModal && (
+//   <UserProfileEditModal
+//     user={user}
+//     editingField={editingField}
+//     fieldTitles={fieldTitles}
+//     onSubmit={handleFormSubmit}
+//   />
+//)}
+
 export default PerfilUsuario;
