@@ -74,24 +74,7 @@ function PerfilUsuario({ modalState, changeModalState }) {
     overlayClassName={styles.modalOverlay}
     >
       
-
-        <div className={styles.profile}>
-          <h2 className={styles.profileHeader}>¡Hola, {user.firstname}!</h2>
-          <div className={styles.separadorHeader}></div>
-          <div>
-            <p className={styles.campoP}>
-              Nombre: <br /> {" Jose Garcia "}
-              <button
-                className={styles.editButton}
-                onClick={() => handleEditClick("firstname")}
-              >
-                Editar
-              </button>{" "}
-              <br />
-              {user.firstname}
-            </p>
-          </div>
-          {isUserProfileEditModal && (
+      {isUserProfileEditModal && (
         <UserProfileEditModal
           user={user}
           editingField={editingField}
@@ -99,15 +82,32 @@ function PerfilUsuario({ modalState, changeModalState }) {
           onSubmit={handleFormSubmit}
         />
       )}
+        <div className={styles.profile}>
+          <h2 className={styles.profileHeader}>¡Hola, {user.firstname}!</h2>
+          <div className={styles.separadorHeader}></div>
+          <div>
+            <p className={styles.campoP}>
+              Nombre: <br /> {" Jose Garcia "}
+              {/* <button
+                className={styles.editButton}
+                onClick={() => handleEditClick("firstname")}
+              >
+                Editar
+              </button>{" "} */}
+              <br />
+              {user.firstname}
+            </p>
+          </div>
+    
           <div>
             <p className={styles.campoP}>
               Email: <br /> {"josegarcia1006 "}
-              <button
+              {/* <button
                 className={styles.editButton}
                 onClick={() => handleEditClick("email")}
               >
                 Editar
-              </button>{" "}
+              </button>{" "} */}
               <br /> {user.email}
             </p>
           </div>
@@ -115,12 +115,12 @@ function PerfilUsuario({ modalState, changeModalState }) {
           <div>
             <p className={styles.campoP}>
               Teléfono:{" "}
-              <button
+              {/* <button
                 className={styles.editButton}
                 onClick={() => handleEditClick("phone")}
               >
                 Editar
-              </button>{" "}
+              </button>{" "} */}
               <br />
               {user.phone}
             </p>
@@ -129,12 +129,12 @@ function PerfilUsuario({ modalState, changeModalState }) {
           <div>
             <p className={styles.campoP}>
               Contraseña:{" "}
-              <button
+              {/* <button
                 className={styles.editButton}
                 onClick={handleChangePasswordClick}
               >
                 Editar
-              </button>{" "}
+              </button>{" "} */}
               <br />
               {"•••••••••"}
             </p>
@@ -168,32 +168,33 @@ function PerfilUsuario({ modalState, changeModalState }) {
           <div className={styles.separador}></div>
           <div className={styles.userSection}>
             <p>Código promocional:</p>
-            <button
+            {/* <button
               className={styles.promoButton}
               onClick={() => handleEditClick("promo")}
             >
               Añadir
-            </button>
+            </button> */}
           </div>
           <p className={styles.campoP}>-</p>
           <div className={styles.separador}></div>
           <div className={styles.userSection}>
-            <button
+            {/* <button
               className={styles.logoutButton}
               onClick={() => handleEditClick("logout")}
             >
               Cerrar sesión
-            </button>
+            </button> */}
           </div>
           <div className={styles.userSection}>
-            <button className={styles.logoutButton}>
+            {/* <button className={styles.logoutButton}>
               Eliminar Cuenta
-            </button>
+            </button> */}
           </div>
         </div>
-    
+     
       
     </Modal>
+    
   );
 }
 
