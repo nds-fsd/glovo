@@ -15,12 +15,10 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import PerfilPartner from "./components/PerfilPartner/perfilPartner";
 
 
-
 function App() {
   const [location, setLocation] = useState("");
 
   return (
-
     <div>
        {/* <PerfilPartner />   */} 
        <NavBar />
