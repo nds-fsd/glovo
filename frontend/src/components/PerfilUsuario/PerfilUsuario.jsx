@@ -23,6 +23,7 @@ function PerfilUsuario({ modalState, changeModalState }) {
     phone: "",
     receivePromotions: false,
   });
+
   
   const [isEditing, setIsEditing] = useState(false);
   const [editingField, setEditingField] = useState(null);
@@ -37,10 +38,10 @@ function PerfilUsuario({ modalState, changeModalState }) {
       setValue("receivePromotions", user.receivePromotions);
     }
   }, []);
-  const handleEditClick = (field) => {
-    setEditingField(field);
-    setIsUserProfileEditModal(true);
-  };
+  //const handleEditClick = (field) => {
+    //setEditingField(field);
+    //setIsUserProfileEditModal(true);
+  //};
   const handleChangePasswordClick = () => {
     setIsChangingPassword(true);
     changeModalState(true);
@@ -189,14 +190,14 @@ function PerfilUsuario({ modalState, changeModalState }) {
       
     </Modal>
   );
-//}
-// {isUserProfileEditModal && (
-//   <UserProfileEditModal
-//     user={user}
-//     editingField={editingField}
-//     fieldTitles={fieldTitles}
-//     onSubmit={handleFormSubmit}
-//   />
-//)}
+}
+//  {isUserProfileEditModal && (
+//    <UserProfileEditModal
+//      user={user}
+//      editingField={editingField}
+//      fieldTitles={fieldTitles}
+//      onSubmit={handleFormSubmit}
+//    />
+// )}
 
 export default PerfilUsuario;
