@@ -5,6 +5,7 @@ import NavBar from "./components/NavBar/index";
 import HeroPage from "./components/HeroPage/index";
 import PerfilUsuario from "./components/PerfilUsuario/PerfilUsuario";
 import Formulario from "./components/formularios/formularios";
+// import VistaCompra from "./components/vistaCompra/vistaCompra";
 import { React, useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Footer from "../src/components/Footer";
