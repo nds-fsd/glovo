@@ -26,18 +26,23 @@ export default function RestaurantPage() {
       }
     };
 
-    const obtenerProductos = async () => {
+    const obtenerProductosDelRestaurante = async () => {
       try {
-        const response = await api.get("/products");
+        const response = await api.get(
+          "/restaurantes/" + params.restaurantId + "/products"
+        );
         setProductos(response.data);
       } catch (error) {
-        console.error("Error al obtener los datos de los productos:", error);
+        console.error(
+          "Error al obtener los datos de los productos del restaurante:",
+          error
+        );
       }
     };
 
-    obtenerProductos();
+    obtenerProductosDelRestaurante();
     obtenerRestaurante();
-  }, []);
+  }, [params.restaurantId]);
 
   {
     return (
