@@ -22,7 +22,7 @@ function App() {
   return (
 
     <div>
-       {/* <PerfilPartner />   */}
+       {/* <PerfilPartner />   */} 
        <NavBar />
       <BrowserRouter>
       <Routes>
