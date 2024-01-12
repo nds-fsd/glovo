@@ -7,10 +7,12 @@ const productSchema = new mongoose.Schema({
   categoria: String,
   disponibilidad: Boolean,
   ingredientes: String,
+  restaurant: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Restaurante",
+  },
 });
-
 
 const Product = mongoose.model("Product", productSchema);
 
-module.exports = Product
-
+module.exports = Product;

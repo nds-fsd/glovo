@@ -77,9 +77,14 @@ export default function NavBar() {
             </a>
           </div>
           <div className={styles.getStartedContainer}>
-            <button className={styles.getStartedButton} onClick={handleRegisterModal}>Empieza aquí</button>
+            <button className={styles.getStartedButton} onClick={handleModal}>
+              Empieza aquí
+            </button>
           </div>
-
+          <PerfilUsuario
+            modalState={isModalOpen}
+            changeModalState={handleModal}
+          ></PerfilUsuario>
         </nav>
         {isUserRegisterModalOpen && (
           <UserRegisterModal
