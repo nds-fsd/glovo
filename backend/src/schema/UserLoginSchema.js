@@ -6,7 +6,7 @@ const secret = process.env.JWT_SECRET;
 const userSchema = new Schema({
     name:  {type: String, required: true}, 
     email: {type: String},
-    password:   String // String is shorthand for {type: String}
+    password:   String 
 });
 
 
