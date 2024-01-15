@@ -11,10 +11,12 @@ import { api } from "../../utils/api";
 import { useParams } from "react-router-dom";
 import ShoppingCart from "../ShoppingCart";
 
-export default function RestaurantPage() {
+export default function RestaurantPage({}) {
   const [restaurante, setRestaurante] = useState();
   const [productos, setProductos] = useState([]);
   const params = useParams();
+
+  const [shoppingList, setShoppingList] = useState([1, 2]);
 
   useEffect(() => {
     const obtenerRestaurante = async () => {
@@ -92,7 +94,7 @@ export default function RestaurantPage() {
                   })}
               </div>
             </div>
-            <ShoppingCart />
+            <ShoppingCart shoppingList={shoppingList} />
           </main>
         </div>
       )
