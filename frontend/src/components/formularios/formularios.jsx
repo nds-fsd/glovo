@@ -7,12 +7,6 @@ import { useParams, useNavigate } from "react-router-dom";
 
 export const Formulario = () => {
   const params = useParams();
-  const navigate = useNavigate();
-
-  const handleNavigateToRestaurantForm = () => {
-    navigate('../restaurantForm'); 
-  };
-
 const { 
     register, 
     formState:{ errors }, 
@@ -21,24 +15,25 @@ const {
     setValue,
 } = useForm();
 
-  const [partner, setPartner] = useState({})
-    useEffect(() => {
-  const fetchData = async () => {
-  try {
-    const response = await axios.post('http://localhost:3003/create-partner', partner);
-  } catch (error) {
-  }
-}
-fetchData();
-    }, [])
-   const onSubmit = (data) => { 
-      console.log(data)
-    setPartner(data) 
-  }
-
-
-  
 const incluirCodigo = watch("incluirCodigo");
+const [partner, setPartner] = useState({})
+const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState('');
+
+  const onSubmit = async (data) => {
+    console.log(data);
+    setIsSubmitting(true);
+    try {
+      const response = await axios.post('http://localhost:3003/create-partner', data);
+      console.log(response.data);
+      setIsDone(true);
+    } catch (error) {
+      setSubmitError('Failed to create partner. Please try again.');
+      console.error('Error creating partner:', error);
+    }
+    setIsSubmitting(false);
+  };
+  
     return (
     <div  className={styles.formContainer}>
         <h2>Empieza a vender con Gloton</h2>
@@ -84,6 +79,10 @@ const incluirCodigo = watch("incluirCodigo");
 </div>
 <div>
     <label className={styles.telefono}></label>
+    <input type="text" placeholder="Contraseña" {...register("contraseña")}/>
+</div>
+<div>
+    <label className={styles.telefono}></label>
     <input type="text" placeholder="Telefono" {...register("telefono", {
       validate: phoneValidator
   })}/>
@@ -119,7 +118,7 @@ const incluirCodigo = watch("incluirCodigo");
   {errors.privacidad && <p>{errors.privacidad.message}</p>}
 </div>
 <div className={styles.submit}>
-<button onClick={handleNavigateToRestaurantForm} className={styles.submitbtn} type="button" id={styles.miInputId} value="Empezar">Empezar</button>
+<button className={styles.submitbtn} id={styles.miInputId} type="submit" disabled={isSubmitting}>Registrarse</button>
 </div>
         </form>
     </div>
