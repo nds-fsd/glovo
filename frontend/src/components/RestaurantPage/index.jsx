@@ -113,7 +113,6 @@ export default function RestaurantPage() {
                   Todavía no has añadido ningún producto. Cuando lo hagas,
                   ¡verás los productos aquí!
                 </p>
-                <button onClick={handleNavigateToVistaCompra}>Pagar</button>
               </section>
             </div>
           </main>

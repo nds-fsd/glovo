@@ -79,7 +79,7 @@ const [isSubmitting, setIsSubmitting] = useState(false);
 </div>
 <div>
     <label className={styles.telefono}></label>
-    <input type="text" placeholder="Contraseña" {...register("contraseña")}/>
+    <input type="password" placeholder="Password" {...register("password")}/>
 </div>
 <div>
     <label className={styles.telefono}></label>
