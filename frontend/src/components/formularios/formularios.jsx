@@ -26,6 +26,7 @@ const [isSubmitting, setIsSubmitting] = useState(false);
     try {
       const response = await axios.post('http://localhost:3003/create-partner', data);
       console.log(response.data);
+      console.log("cambios")
       setIsDone(true);
     } catch (error) {
       setSubmitError('Failed to create partner. Please try again.');
