@@ -5,6 +5,9 @@ export default function ProductCard({
   productDescription,
   productPrice,
   productImg,
+  setShoppingList,
+  shoppingList,
+  producto,
 }) {
   return (
     <div className={styles.mainContainer}>
@@ -17,7 +20,14 @@ export default function ProductCard({
       </div>
       <div className={styles.bottomContainer}>
         <aside>{productPrice}</aside>
-        <button className={styles.addToCart}>+</button>
+        <button
+          onClick={() => {
+            setShoppingList([...shoppingList, producto]);
+          }}
+          className={styles.addToCart}
+        >
+          +
+        </button>
       </div>
     </div>
   );

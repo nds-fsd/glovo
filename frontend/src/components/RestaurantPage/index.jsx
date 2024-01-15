@@ -16,7 +16,9 @@ export default function RestaurantPage({}) {
   const [productos, setProductos] = useState([]);
   const params = useParams();
 
-  const [shoppingList, setShoppingList] = useState([1, 2]);
+  const [shoppingList, setShoppingList] = useState([]);
+
+  console.log(shoppingList);
 
   useEffect(() => {
     const obtenerRestaurante = async () => {
@@ -84,11 +86,15 @@ export default function RestaurantPage({}) {
                   productos.map((e) => {
                     return (
                       <ProductCard
+                        setShoppingList={setShoppingList}
+                        productos={productos}
                         key={e._id}
                         productName={e.nombre}
                         productDescription={e.descripcion}
                         productPrice={`${e.precio}€`}
                         productImg={productExampleImg}
+                        producto={e}
+                        shoppingList={shoppingList}
                       />
                     );
                   })}

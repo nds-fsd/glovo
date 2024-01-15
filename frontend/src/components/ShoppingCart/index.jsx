@@ -23,9 +23,13 @@ export default function ShoppingCart({ shoppingList }) {
           </>
         )}
 
-        {shoppingList.length !== 0 &&
+        {shoppingList &&
           shoppingList.map((e) => {
-            return e;
+            return (
+              <div>
+                <p>{e.nombre + " " + e.precio + "€"}</p>
+              </div>
+            );
           })}
       </section>
     </div>
