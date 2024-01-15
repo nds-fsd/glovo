@@ -1,6 +1,5 @@
 import styles from "../RestaurantPage/styles.module.css";
 import RestaurantImg from "../../assets/images/95a18827bb983bf2ce6c1318b069f2b68be5b7fe30bde4975319731008e90dec.jpg";
-import shoppingCartBackground from "../../assets/images/astronaut-grey-scale.svg";
 import likeIcon from "../../assets/icons/like-svgrepo-com.svg";
 import scooterIcon from "../../assets/icons/scooter-svgrepo-com (1).svg";
 import stopwatchIcon from "../../assets/icons/stopwatch-svgrepo-com.svg";
@@ -10,6 +9,7 @@ import productExampleImg from "../../assets/images/productexampleimg.avif";
 import { React, useState, useEffect } from "react";
 import { api } from "../../utils/api";
 import { useParams } from "react-router-dom";
+import ShoppingCart from "../ShoppingCart";
 
 export default function RestaurantPage() {
   const [restaurante, setRestaurante] = useState();
@@ -92,21 +92,7 @@ export default function RestaurantPage() {
                   })}
               </div>
             </div>
-
-            <div className={styles.shoppingCartContainer}>
-              <section className={styles.shoppingCart}>
-                <h2>Tu pedido</h2>
-                <img
-                  className={styles.shoppingCartBackground}
-                  src={shoppingCartBackground}
-                  alt=""
-                />
-                <p>
-                  Todavía no has añadido ningún producto. Cuando lo hagas,
-                  ¡verás los productos aquí!
-                </p>
-              </section>
-            </div>
+            <ShoppingCart />
           </main>
         </div>
       )

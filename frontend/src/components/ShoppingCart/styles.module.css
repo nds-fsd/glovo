@@ -1,0 +1,31 @@
+.shoppingCart {
+  width: 230px;
+  height: 400px;
+  box-shadow: 0 0 50px 7px rgba(0, 0, 0, 0.123);
+  border-radius: 10px;
+  z-index: 999;
+  background-color: white;
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  padding: 10px;
+}
+
+.shoppingCartContainer {
+  width: 270px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.shoppingCart > p {
+  width: 80%;
+  text-align: center;
+  font-size: 0.85rem;
+}
+
+.shoppingCartBackground {
+  width: 80%;
+}
