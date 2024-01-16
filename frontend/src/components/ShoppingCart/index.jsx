@@ -2,8 +2,8 @@ import styles from "../ShoppingCart/styles.module.css";
 import shoppingCartBackground from "../../assets/images/astronaut-grey-scale.svg";
 import { useState } from "react";
 
-export default function ShoppingCart({ shoppingList }) {
-  console.log(shoppingList.lenght);
+export default function ShoppingCart({ shoppingList, totalPrice }) {
+  const [quantity, setQuantity] = useState();
 
   return (
     <div className={styles.shoppingCartContainer}>
@@ -22,15 +22,25 @@ export default function ShoppingCart({ shoppingList }) {
             </p>
           </>
         )}
-
-        {shoppingList &&
-          shoppingList.map((e) => {
-            return (
-              <div>
-                <p>{e.nombre + " " + e.precio + "€"}</p>
-              </div>
-            );
-          })}
+        {shoppingList.length > 0 && (
+          <div className={styles.shoppingListContainer}>
+            {shoppingList.map((e) => {
+              return (
+                <div className={styles.cartItemContainer}>
+                  <div className={styles.ammountContainer}>
+                    <button className={styles.quantityButton}>+</button>
+                    <p className={styles.quantityNumber}>1</p>
+                    <button className={styles.quantityButton}>-</button>
+                  </div>
+                  <p className={styles.shoppingListItem}>
+                    {e.nombre + " " + e.precio + "€"}
+                  </p>
+                </div>
+              );
+            })}
+            <button className={styles.buyButton}>{totalPrice}</button>
+          </div>
+        )}
       </section>
     </div>
   );

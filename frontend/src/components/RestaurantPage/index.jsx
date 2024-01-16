@@ -17,8 +17,16 @@ export default function RestaurantPage({}) {
   const params = useParams();
 
   const [shoppingList, setShoppingList] = useState([]);
+  const [totalPrice, setTotalPrice] = useState(0);
 
-  console.log(shoppingList);
+  useEffect(() => {
+    const calculatePrice = () => {
+      shoppingList.forEach((e) => {
+        setTotalPrice(Math.floor((totalPrice + e.precio) * 100) / 100);
+      });
+    };
+    calculatePrice();
+  }, [shoppingList]);
 
   useEffect(() => {
     const obtenerRestaurante = async () => {
@@ -100,7 +108,7 @@ export default function RestaurantPage({}) {
                   })}
               </div>
             </div>
-            <ShoppingCart shoppingList={shoppingList} />
+            <ShoppingCart shoppingList={shoppingList} totalPrice={totalPrice} />
           </main>
         </div>
       )
