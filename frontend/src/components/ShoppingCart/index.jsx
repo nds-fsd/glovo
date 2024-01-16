@@ -2,8 +2,26 @@ import styles from "../ShoppingCart/styles.module.css";
 import shoppingCartBackground from "../../assets/images/astronaut-grey-scale.svg";
 import { useState } from "react";
 
-export default function ShoppingCart({ shoppingList, totalPrice }) {
-  const [quantity, setQuantity] = useState();
+export default function ShoppingCart({
+  productos,
+  shoppingList,
+  totalPrice,
+  setShoppingList,
+}) {
+  const ammountHandler = (e, operation) => {
+    const ProductIndex = shoppingList.findIndex((o) => o.id === e.id);
+    const updatedShoppingList = [...shoppingList];
+    if (operation === "-") {
+      updatedShoppingList[ProductIndex].ammount -= 1;
+      if (updatedShoppingList[ProductIndex].ammount <= 0) {
+        updatedShoppingList.splice(ProductIndex, 1);
+      } else {
+      }
+    } else {
+      updatedShoppingList[ProductIndex].ammount += 1;
+    }
+    setShoppingList(updatedShoppingList);
+  };
 
   return (
     <div className={styles.shoppingCartContainer}>
@@ -25,20 +43,37 @@ export default function ShoppingCart({ shoppingList, totalPrice }) {
         {shoppingList.length > 0 && (
           <div className={styles.shoppingListContainer}>
             {shoppingList.map((e) => {
+              const producto = productos.find((item) => item._id === e.id);
               return (
                 <div className={styles.cartItemContainer}>
                   <div className={styles.ammountContainer}>
-                    <button className={styles.quantityButton}>+</button>
-                    <p className={styles.quantityNumber}>1</p>
-                    <button className={styles.quantityButton}>-</button>
+                    <button
+                      onClick={() => {
+                        ammountHandler(e, "-");
+                      }}
+                      className={styles.quantityButton}
+                    >
+                      -
+                    </button>
+                    <p className={styles.quantityNumber}>{e.ammount}</p>
+                    <button
+                      onClick={() => {
+                        ammountHandler(e, "+");
+                      }}
+                      className={styles.quantityButton}
+                    >
+                      +
+                    </button>
                   </div>
                   <p className={styles.shoppingListItem}>
-                    {e.nombre + " " + e.precio + "€"}
+                    {producto.nombre + " " + producto.precio + "€"}
                   </p>
                 </div>
               );
             })}
-            <button className={styles.buyButton}>{totalPrice}</button>
+            <button className={styles.buyButton}>
+              Comprar por {totalPrice}€
+            </button>
           </div>
         )}
       </section>

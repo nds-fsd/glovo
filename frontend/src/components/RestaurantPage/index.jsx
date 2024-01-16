@@ -17,12 +17,15 @@ export default function RestaurantPage({}) {
   const params = useParams();
 
   const [shoppingList, setShoppingList] = useState([]);
-  const [totalPrice, setTotalPrice] = useState(0);
+  let [totalPrice, setTotalPrice] = useState(0);
 
   useEffect(() => {
     const calculatePrice = () => {
+      let fullPrice = 0;
       shoppingList.forEach((e) => {
-        setTotalPrice(Math.floor((totalPrice + e.precio) * 100) / 100);
+        const productPrice = productos.find((i) => i._id === e.id).precio;
+        const partialPrice = productPrice * e.ammount;
+        setTotalPrice(Math.floor((fullPrice += partialPrice) * 100) / 100);
       });
     };
     calculatePrice();
@@ -108,7 +111,12 @@ export default function RestaurantPage({}) {
                   })}
               </div>
             </div>
-            <ShoppingCart shoppingList={shoppingList} totalPrice={totalPrice} />
+            <ShoppingCart
+              productos={productos}
+              shoppingList={shoppingList}
+              totalPrice={totalPrice}
+              setShoppingList={setShoppingList}
+            />
           </main>
         </div>
       )

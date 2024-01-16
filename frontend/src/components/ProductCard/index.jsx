@@ -9,6 +9,18 @@ export default function ProductCard({
   shoppingList,
   producto,
 }) {
+  const addToCart = () => {
+    if (shoppingList.find((e) => e.id === producto._id)) {
+      const ProductIndex = shoppingList.findIndex((e) => e.id === producto._id);
+      const updatedShoppingList = [...shoppingList];
+      updatedShoppingList[ProductIndex].ammount += 1;
+      setShoppingList(updatedShoppingList);
+    } else {
+      setShoppingList([...shoppingList, { id: producto._id, ammount: 1 }]);
+      console.log("Producto agregado a la lista de compras");
+    }
+  };
+
   return (
     <div className={styles.mainContainer}>
       <div className={styles.upperContainer}>
@@ -20,12 +32,7 @@ export default function ProductCard({
       </div>
       <div className={styles.bottomContainer}>
         <aside>{productPrice}</aside>
-        <button
-          onClick={() => {
-            setShoppingList([...shoppingList, producto]);
-          }}
-          className={styles.addToCart}
-        >
+        <button onClick={addToCart} className={styles.addToCart}>
           +
         </button>
       </div>
