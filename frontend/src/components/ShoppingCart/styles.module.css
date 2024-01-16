@@ -52,6 +52,14 @@
   gap: 10px;
 }
 
+.cartItemContainer:nth-of-type(even) {
+  background-color: var(--secondary-color-lighter);
+}
+
+.cartItemContainer:nth-of-type(odd) {
+  background-color: var(--secondary-color-light);
+}
+
 .ammountContainer {
   display: flex;
   align-items: center;
