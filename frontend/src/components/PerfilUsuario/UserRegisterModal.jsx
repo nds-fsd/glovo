@@ -5,6 +5,19 @@ import { RxPerson } from "react-icons/rx";
 import { handleInitialRegistrationSubmit } from "../PerfilUsuario/Usercrud";
 import styles from "../PerfilUsuario/styles.module.css";
 
+
+const doRegister = (data) => {
+    api.post('/auth/register', data)
+    .then((response) => {
+        console.log(response);
+        if (response?.data.token) {
+            setUserSession(response.data);
+            forceUpdate();
+        }
+        
+    });
+};
+
 function UserRegisterModal({ setUser, closeModal, changeModalState }) {
     const { register, handleSubmit } = useForm();
     

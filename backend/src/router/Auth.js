@@ -1,6 +1,6 @@
 const express = require('express');
 const jwt = require('jsonwebtoken');
-const  User  = require('../data/schemas/user');
+const  User  = require('../schema/usersSchema');
 const jwtSecret = process.env.JWT_SECRET;
 
 const authRouter = express.Router();
@@ -16,14 +16,16 @@ authRouter.post('/register',(req,res) => {
     User.findOne({email: email})
     // * If the user is found, return an error because there is already a user registered
     .then((user) => {
+        console.log("found user", user)
         if (user) {
             return res.status(400).json({ error: { email: "Email already registered"}})
         }
+        console.log(data);
         const newUser = new User({
             email: data.email,
             password: data.password,
             firstName: data.firstName,
-            role: data.role
+            role: "USER"
           })
           
         newUser.save()
@@ -39,11 +41,60 @@ authRouter.post('/register',(req,res) => {
                 })
             }))
             .catch((err) => {
-                return res.status(500).json( { error: { firstName: "Error creating new User :("}})
+                return res.status(500).json({ error: { message: "Error creating new User :(", details: err.message }});
             })
+            
     })
     .catch((err) => {
-        return res.status(500).json( { error: { firstName: "Error creating new User :("}})
+        return res.status(500).json( { error: err.message})
+    })
+});
+
+authRouter.post('/register-restaurant',(req,res) => {
+    const email = req.body.email;
+    const data = req.body;
+    console.log(req.body)
+    // * Make sure request has the email
+    if(!email) {
+        return res.status(400).json({ error: { register: "Email not recieved"}});
+    }
+    User.findOne({email: email})
+    // * If the user is found, return an error because there is already a user registered
+    .then((user) => {
+        console.log("found user", user)
+        if (user) {
+            return res.status(400).json({ error: { email: "Email already registered"}})
+        }
+        console.log(data);
+        const newUser = new User({
+            email: data.email,
+            password: data.password,
+            firstName: data.firstName,
+            role: "RESTAURANT"
+          })
+          
+        newUser.save()
+            .then((createdUser => {
+
+                //CREAR ENTIDAD RESTAURANTE
+
+                return res.status(201).json({
+                    token: createdUser.generateJWT(), 
+                    user: {
+                        email: createdUser.email,
+                        name: createdUser.name, 
+                        id: createdUser._id,
+                        role: createdUser.role
+                    },
+                })
+            }))
+            .catch((err) => {
+                return res.status(500).json({ error: { message: "Error creating new User :(", details: err.message }});
+            })
+            
+    })
+    .catch((err) => {
+        return res.status(500).json( { error: err.message})
     })
 });
 
@@ -77,6 +128,9 @@ authRouter.post('/login', async (req,res) => {
         })
     })
     .catch((err) => {
-        return res.status(500).json( { error: { register: "Error Login in :(", error: err.message}})
+        return res.status(500).json({ error: { message: "Error creating new User :(", details: err.message }});
     })
+    
 });
+
+module.exports = authRouter;

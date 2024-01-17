@@ -8,8 +8,7 @@ exports.createUser = async (req, res) => {
     const encryptedPassword = await bcrypt.hash(password, 10);
     const newUser = await User.create({
       firstname,
-      lastname,
-      encrypted_password: encryptedPassword, 
+      password,
       created_date,
       email,
       phone,
@@ -98,3 +97,31 @@ exports.changePassword = async (req, res) => {
     res.status(500).json({ error: 'Error interno del servidor' });
   }
 };
+
+// de aqui para abajo es para el login //
+
+exports.loginUser = async (req, res) => {
+  try {
+    // Extraer credenciales del cuerpo de la solicitud
+    const { email, password } = req.body;
+
+    // Buscar al usuario por correo electrónico
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(401).json({ error: 'Credenciales incorrectas' });
+    }
+
+    // Comparar la contraseña proporcionada con la almacenada
+    const isMatch = await user.comparePassword(password);
+    if (!isMatch) {
+      return res.status(401).json({ error: 'Credenciales incorrectas' });
+    }
+
+    // Generar un token JWT
+    const token = user.generateJWT();
+    res.json({ message: 'Login exitoso', token });
+  } catch (err) {
+    res.status(500).json({ error: 'Error interno del servidor' });
+  }
+};
+
