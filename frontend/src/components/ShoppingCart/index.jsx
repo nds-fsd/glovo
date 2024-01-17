@@ -66,7 +66,8 @@ export default function ShoppingCart({
                     </button>
                   </div>
                   <p className={styles.shoppingListItem}>
-                    {producto.nombre + " " + producto.precio + "€"}
+                    {producto.nombre + " "}
+                    <b>{producto.precio + "€"}</b>
                   </p>
                 </div>
               );

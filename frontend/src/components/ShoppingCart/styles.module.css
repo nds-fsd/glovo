@@ -50,14 +50,11 @@
   display: flex;
   align-items: center;
   gap: 10px;
-}
-
-.cartItemContainer:nth-of-type(even) {
   background-color: var(--secondary-color-lighter);
 }
 
-.cartItemContainer:nth-of-type(odd) {
-  background-color: var(--secondary-color-light);
+.cartItemContainer > p {
+  width: ;
 }
 
 .ammountContainer {
@@ -110,4 +107,8 @@
 
 .buyButton:hover {
   background-color: var(--primary-color);
+}
+
+b {
+  font-weight: 600;
 }
