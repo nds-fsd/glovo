@@ -4,10 +4,7 @@ import RestaurantPage from "./components/RestaurantPage";
 import HomePage from "./components/HomePage/index";
 import NavBar from "./components/NavBar/index";
 import HeroPage from "./components/HeroPage/index";
-import Formulario from "./components/Formularios/formularios";
-import { React, useState } from "react";
-import Footer from "../src/components/Footer";
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
 
 function App() {
   const [location, setLocation] = useState("");

@@ -1,6 +1,8 @@
 const mongoose = require("mongoose");
 
 const restauranteSchema = new mongoose.Schema({
+  email: String,
+  password: String,
   nombre: String,
   descripcion: String,
   direccion: String,
