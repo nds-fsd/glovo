@@ -1,15 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import Modal from "react-modal";
-import UserPasswordModal from './UserPasswordModal.jsx';
-import UserProfileEditModal from './UserProfileEditModal.jsx';
-import UserRegisterModal from './UserRegisterModal.jsx';
+import UserPasswordModal from "./UserPasswordModal.jsx";
+import UserProfileEditModal from "./UserProfileEditModal.jsx";
+import UserRegisterModal from "./UserRegisterModal.jsx";
 import styles from "./styles.module.css";
 import { handleInitialRegistrationSubmit } from "../PerfilUsuario/Usercrud";
 import Switch from "../PerfilUsuario/Switch.jsx";
-
-
-
 
 Modal.setAppElement("#root");
 
@@ -68,12 +65,12 @@ function PerfilUsuario({ modalState, changeModalState }) {
   };
 
   return (
-
-    <Modal isOpen={modalState} onRequestClose={() => changeModalState(false)}
-    className={styles.modalContent}
-    overlayClassName={styles.modalOverlay}
+    <Modal
+      isOpen={modalState}
+      onRequestClose={() => changeModalState(false)}
+      className={styles.modalContent}
+      overlayClassName={styles.modalOverlay}
     >
-      
       {isUserProfileEditModal && (
         <UserProfileEditModal
           user={user}
@@ -82,119 +79,116 @@ function PerfilUsuario({ modalState, changeModalState }) {
           onSubmit={handleFormSubmit}
         />
       )}
-        <div className={styles.profile}>
-          <h2 className={styles.profileHeader}>¡Hola, {user.firstname}!</h2>
-          <div className={styles.separadorHeader}></div>
-          <div>
-            <p className={styles.campoP}>
-              Nombre: <br /> {" Jose Garcia "}
-              {/* <button
+      <div className={styles.profile}>
+        <h2 className={styles.profileHeader}>¡Hola, {user.firstname}!</h2>
+        <div className={styles.separadorHeader}></div>
+        <div>
+          <p className={styles.campoP}>
+            Nombre: <br /> {" Jose Garcia "}
+            {/* <button
                 className={styles.editButton}
                 onClick={() => handleEditClick("firstname")}
               >
                 Editar
               </button>{" "} */}
-              <br />
-              {user.firstname}
-            </p>
-          </div>
-    
-          <div>
-            <p className={styles.campoP}>
-              Email: <br /> {"josegarcia1006 "}
-              {/* <button
+            <br />
+            {user.firstname}
+          </p>
+        </div>
+
+        <div>
+          <p className={styles.campoP}>
+            Email: <br /> {"josegarcia1006 "}
+            {/* <button
                 className={styles.editButton}
                 onClick={() => handleEditClick("email")}
               >
                 Editar
               </button>{" "} */}
-              <br /> {user.email}
-            </p>
-          </div>
-          <div className={styles.separador}></div>
-          <div>
-            <p className={styles.campoP}>
-              Teléfono:{" "}
-              {/* <button
+            <br /> {user.email}
+          </p>
+        </div>
+        <div className={styles.separador}></div>
+        <div>
+          <p className={styles.campoP}>
+            Teléfono:{" "}
+            {/* <button
                 className={styles.editButton}
                 onClick={() => handleEditClick("phone")}
               >
                 Editar
               </button>{" "} */}
-              <br />
-              {user.phone}
-            </p>
-          </div>
-          <div className={styles.separador}></div>
-          <div>
-            <p className={styles.campoP}>
-              Contraseña:{" "}
-              {/* <button
+            <br />
+            {user.phone}
+          </p>
+        </div>
+        <div className={styles.separador}></div>
+        <div>
+          <p className={styles.campoP}>
+            Contraseña:{" "}
+            {/* <button
                 className={styles.editButton}
                 onClick={handleChangePasswordClick}
               >
                 Editar
               </button>{" "} */}
-              <br />
-              {"•••••••••"}
-            </p>
-          </div>
-          <div className={styles.separador}></div>
-          <div>
-            <p className={styles.campoP}>Gestionar preferencias</p>
-            <p className={styles.managePreferences}>
-              Usamos los datos de clientes para mejorar la experiencia de
-              nuestro servicio y mostrar promociones relevantes.
-            </p>
-          </div>
-          <div className={styles.campoP}>
-            <p className={styles.preferenceDescription}>
-              Glovo puede compartir datos de usuario (como teléfonos,
-              identificadores de dispositivos o e-mails cifrados) con Facebook y
-              plataformas similares para personalizar los anuncios y contenidos,
-              medir su eficacia y crear audiencias. Siempre puedes optar por no
-              recibir este tipo de comunicaciones desactivando esta opción.
-            </p>
-          </div>
-          <div className={styles.userSection}>
-            <p>Recibir ofertas especiales y promociones:</p>
-            <Switch
-              isOn={user.receivePromotions}
-              handleToggle={() =>
-                setUser({ ...user, receivePromotions: !user.receivePromotions })
-              }
-            />
-          </div>
-          <div className={styles.separador}></div>
-          <div className={styles.userSection}>
-            <p>Código promocional:</p>
-            {/* <button
+            <br />
+            {"•••••••••"}
+          </p>
+        </div>
+        <div className={styles.separador}></div>
+        <div>
+          <p className={styles.campoP}>Gestionar preferencias</p>
+          <p className={styles.managePreferences}>
+            Usamos los datos de clientes para mejorar la experiencia de nuestro
+            servicio y mostrar promociones relevantes.
+          </p>
+        </div>
+        <div className={styles.campoP}>
+          <p className={styles.preferenceDescription}>
+            Glovo puede compartir datos de usuario (como teléfonos,
+            identificadores de dispositivos o e-mails cifrados) con Facebook y
+            plataformas similares para personalizar los anuncios y contenidos,
+            medir su eficacia y crear audiencias. Siempre puedes optar por no
+            recibir este tipo de comunicaciones desactivando esta opción.
+          </p>
+        </div>
+        <div className={styles.userSection}>
+          <p>Recibir ofertas especiales y promociones:</p>
+          <Switch
+            isOn={user.receivePromotions}
+            handleToggle={() =>
+              setUser({ ...user, receivePromotions: !user.receivePromotions })
+            }
+          />
+        </div>
+        <div className={styles.separador}></div>
+        <div className={styles.userSection}>
+          <p>Código promocional:</p>
+          {/* <button
               className={styles.promoButton}
               onClick={() => handleEditClick("promo")}
             >
               Añadir
             </button> */}
-          </div>
-          <p className={styles.campoP}>-</p>
-          <div className={styles.separador}></div>
-          <div className={styles.userSection}>
-            {/* <button
+        </div>
+        <p className={styles.campoP}>-</p>
+        <div className={styles.separador}></div>
+        <div className={styles.userSection}>
+          {/* <button
               className={styles.logoutButton}
               onClick={() => handleEditClick("logout")}
             >
               Cerrar sesión
             </button> */}
-          </div>
-          <div className={styles.userSection}>
-            {/* <button className={styles.logoutButton}>
+        </div>
+        <div className={styles.userSection}>
+          {/* <button className={styles.logoutButton}>
               Eliminar Cuenta
             </button> */}
-          </div>
         </div>
-     
-      
+      </div>
     </Modal>
-    
   );
 }
 

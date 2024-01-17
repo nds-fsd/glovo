@@ -9,12 +9,20 @@ import ProductCard from "../ProductCard";
 import productExampleImg from "../../assets/images/productexampleimg.avif";
 import { React, useState, useEffect } from "react";
 import { api } from "../../utils/api";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 export default function RestaurantPage() {
   const [restaurante, setRestaurante] = useState();
   const [productos, setProductos] = useState([]);
   const params = useParams();
+  const navigate = useNavigate();
+
+
+
+
+  const handleNavigateToVistaCompra = () => {
+    navigate('../vistaCompra');
+  };
 
   useEffect(() => {
     const obtenerRestaurante = async () => {

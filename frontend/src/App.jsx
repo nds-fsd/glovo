@@ -1,3 +1,4 @@
+import "./App.css";
 import "../src/index.css";
 import RestaurantPage from "./components/RestaurantPage";
 import HomePage from "./components/HomePage/index";
@@ -7,8 +8,8 @@ import PerfilUsuario from "./components/PerfilUsuario/PerfilUsuario";
 import Formulario from "./components/formularios/formularios";
 // import VistaCompra from "./components/vistaCompra/vistaCompra";
 import { React, useState } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Footer from "../src/components/Footer";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
   const [location, setLocation] = useState("");
@@ -30,9 +31,10 @@ function App() {
             path="/restaurant/:restaurantId"
             element={<RestaurantPage />}
           ></Route>
+          <Route path="/formularios" element={<Formulario />} />
         </Routes>
+        <Footer />
       </BrowserRouter>
-      <Footer />
     </div>
   );
 }
