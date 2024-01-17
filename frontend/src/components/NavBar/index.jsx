@@ -6,10 +6,13 @@ import listIcon from "../../assets/icons/list-ul-alt-svgrepo-com.svg";
 import locationIcon from "../../assets/icons/location-pin-svgrepo-com.svg";
 import { useState } from "react";
 import PerfilUsuario from "../PerfilUsuario/PerfilUsuario";
+import { useNavigate } from "react-router-dom";
 
 const logged = false;
 
 export default function NavBar() {
+  const navigate = useNavigate();
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const handleModal = () => {
     setIsModalOpen(!isModalOpen);
@@ -46,10 +49,11 @@ export default function NavBar() {
     else {
       return (
         <nav className={styles.navBar}>
-          <div className={styles.logoContainerUnlogged}>
-            <a href="">
-              <img className={styles.logo} src={logo} alt="" />
-            </a>
+          <div
+            onClick={() => navigate("/")}
+            className={styles.logoContainerUnlogged}
+          >
+            <img className={styles.logo} src={logo} alt="" />
           </div>
           <div className={styles.getStartedContainer}>
             <button className={styles.getStartedButton} onClick={handleModal}>
