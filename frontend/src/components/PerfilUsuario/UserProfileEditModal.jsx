@@ -2,8 +2,14 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { RxPerson } from "react-icons/rx";
 import styles from "../PerfilUsuario/styles.module.css";
+import UserRegisterModal from "../PerfilUsuario/UserRegisterModal";
 
-const UserProfileEditModal = ({ user, editingField, fieldTitles, onSubmit }) => {
+const UserProfileEditModal = ({
+  user,
+  editingField,
+  fieldTitles,
+  onSubmit,
+}) => {
   const { register, handleSubmit } = useForm();
   const title = fieldTitles[editingField] || "Editar Campo";
 

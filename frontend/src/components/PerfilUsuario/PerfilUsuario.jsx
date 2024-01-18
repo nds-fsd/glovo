@@ -10,7 +10,7 @@ import Switch from "../PerfilUsuario/Switch.jsx";
 
 Modal.setAppElement("#root");
 
-function PerfilUsuario({ modalState, changeModalState }) {
+function PerfilUsuario({ modalState, changeModalState, setLogged }) {
   console.log("esto son los ", modalState);
   const [user, setUser] = useState({
     _id: "",
@@ -79,12 +79,22 @@ function PerfilUsuario({ modalState, changeModalState }) {
           onSubmit={handleFormSubmit}
         />
       )}
+
       <div className={styles.profile}>
-        <h2 className={styles.profileHeader}>¡Hola, {user.firstname}!</h2>
+        <div className={styles.flecha}></div>
+        <h2 className={styles.profileHeader}>¡Hola, {user.firstname} Jose!</h2>
+        <button
+          className={styles.logoutButton}
+          onClick={() => {
+            setLogged(false);
+          }}
+        >
+          Cerrar sesión
+        </button>
         <div className={styles.separadorHeader}></div>
-        <div>
+        <div className={styles.userInfoContainer}>
           <p className={styles.campoP}>
-            Nombre: <br /> {" Jose Garcia "}
+            <b>Nombre:</b> {" Jose García"}
             {/* <button
                 className={styles.editButton}
                 onClick={() => handleEditClick("firstname")}
@@ -96,9 +106,9 @@ function PerfilUsuario({ modalState, changeModalState }) {
           </p>
         </div>
 
-        <div>
+        <div className={styles.userInfoContainer}>
           <p className={styles.campoP}>
-            Email: <br /> {"josegarcia1006 "}
+            <b>Email:</b> {"josegarcia1006@gmail.com"}
             {/* <button
                 className={styles.editButton}
                 onClick={() => handleEditClick("email")}
@@ -108,51 +118,54 @@ function PerfilUsuario({ modalState, changeModalState }) {
             <br /> {user.email}
           </p>
         </div>
-        <div className={styles.separador}></div>
-        <div>
+
+        <div className={styles.userInfoContainer}>
           <p className={styles.campoP}>
-            Teléfono:{" "}
+            <b>Teléfono:</b> {"6475557978"}
             {/* <button
                 className={styles.editButton}
                 onClick={() => handleEditClick("phone")}
               >
                 Editar
               </button>{" "} */}
-            <br />
             {user.phone}
           </p>
         </div>
-        <div className={styles.separador}></div>
-        <div>
+
+        <div className={styles.userInfoContainer}>
           <p className={styles.campoP}>
-            Contraseña:{" "}
+            <b>Contraseña: </b>{" "}
             {/* <button
                 className={styles.editButton}
                 onClick={handleChangePasswordClick}
               >
                 Editar
               </button>{" "} */}
-            <br />
             {"•••••••••"}
           </p>
         </div>
         <div className={styles.separador}></div>
-        <div>
-          <p className={styles.campoP}>Gestionar preferencias</p>
-          <p className={styles.managePreferences}>
-            Usamos los datos de clientes para mejorar la experiencia de nuestro
-            servicio y mostrar promociones relevantes.
-          </p>
+        <div className={styles.preferenceContainer}>
+          <div className={styles.preferenceTextContainer}>
+            <p className={styles.campoP}>
+              <b>Gestionar preferencias</b>
+            </p>
+            <p className={styles.managePreferences}>
+              Usamos los datos de clientes para mejorar la experiencia de
+              nuestro servicio y mostrar promociones relevantes.
+            </p>
+          </div>
+          <div className={styles.campoP}>
+            <p className={styles.preferenceDescription}>
+              Glovo puede compartir datos de usuario (como teléfonos,
+              identificadores de dispositivos o e-mails cifrados) con Facebook y
+              plataformas similares para personalizar los anuncios y contenidos,
+              medir su eficacia y crear audiencias. Siempre puedes optar por no
+              recibir este tipo de comunicaciones desactivando esta opción.
+            </p>
+          </div>
         </div>
-        <div className={styles.campoP}>
-          <p className={styles.preferenceDescription}>
-            Glovo puede compartir datos de usuario (como teléfonos,
-            identificadores de dispositivos o e-mails cifrados) con Facebook y
-            plataformas similares para personalizar los anuncios y contenidos,
-            medir su eficacia y crear audiencias. Siempre puedes optar por no
-            recibir este tipo de comunicaciones desactivando esta opción.
-          </p>
-        </div>
+
         <div className={styles.userSection}>
           <p>Recibir ofertas especiales y promociones:</p>
           <Switch
@@ -172,21 +185,7 @@ function PerfilUsuario({ modalState, changeModalState }) {
               Añadir
             </button> */}
         </div>
-        <p className={styles.campoP}>-</p>
-        <div className={styles.separador}></div>
-        <div className={styles.userSection}>
-          {/* <button
-              className={styles.logoutButton}
-              onClick={() => handleEditClick("logout")}
-            >
-              Cerrar sesión
-            </button> */}
-        </div>
-        <div className={styles.userSection}>
-          {/* <button className={styles.logoutButton}>
-              Eliminar Cuenta
-            </button> */}
-        </div>
+        <p className={styles.campoP}></p>
       </div>
     </Modal>
   );

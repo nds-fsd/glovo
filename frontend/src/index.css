@@ -136,8 +136,12 @@ table {
   -webkit-text-size-adjust: 100%;
   min-height: 100vh;
 
-  --primary-color: #ffc244;
-  --secondary-color: #00a082;
+  --primary-color: rgb(255, 140, 128);
+  --primary-color-light: rgba(255, 112, 96, 0.414);
+  --secondary-color: #018790;
+  --secondary-color-light: #01879045;
+  --secondary-color-lighter: #0187901b;
+  --terciary-color: #ffd278;
 }
 
 body {

@@ -7,11 +7,14 @@ import locationIcon from "../../assets/icons/location-pin-svgrepo-com.svg";
 import { useState } from "react";
 import UserRegisterModal from "../PerfilUsuario/UserRegisterModal";
 import PerfilUsuario from "../PerfilUsuario/PerfilUsuario";
-
-const logged = true;
+import { useNavigate } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function NavBar() {
-  const [isPerfilUsuarioModalOpen, setIsPerfilUsuarioModalOpen] = useState(false);
+  const [logged, setLogged] = useState(true);
+  const navigate = useNavigate();
+  const [isPerfilUsuarioModalOpen, setIsPerfilUsuarioModalOpen] =
+    useState(false);
   const [isUserRegisterModalOpen, setIsUserRegisterModalOpen] = useState(false);
 
   const handleUserModal = () => {
@@ -24,18 +27,19 @@ export default function NavBar() {
     setIsUserRegisterModalOpen((currentState) => !currentState);
   };
 
-  console.log("Estado actual de isPerfilUsuarioModalOpen:", isPerfilUsuarioModalOpen); // Muestra el estado actual en cada renderización
+  console.log(
+    "Estado actual de isPerfilUsuarioModalOpen:",
+    isPerfilUsuarioModalOpen
+  ); // Muestra el estado actual en cada renderización
 
   if (logged === true) {
-    console.log("logged true")
+    console.log("logged true");
 
     return (
       <>
         <nav className={styles.navBar}>
-          <div className={styles.logoContainer}>
-            <a href="">
-              <img className={styles.logo} src={logo} alt="" />
-            </a>
+          <div onClick={() => navigate("/")} className={styles.logoContainer}>
+            <img className={styles.logo} src={logo} alt="" />
           </div>
           <div className={styles.searchBarContainer}>
             <SearchBar />
@@ -55,44 +59,44 @@ export default function NavBar() {
             </div>
           </div>
         </nav>
+
         {isPerfilUsuarioModalOpen && (
           <PerfilUsuario
             modalState={isPerfilUsuarioModalOpen}
             changeModalState={handleUserModal}
-
-
+            setLogged={setLogged}
           />
-
         )}
       </>
     );
   } else {
-    console.log("logged false")
+    console.log("logged false");
     return (
       <>
         <nav className={styles.navBar}>
-          <div className={styles.logoContainerUnlogged}>
-            <a href="">
-              <img className={styles.logo} src={logo} alt="" />
-            </a>
+          <div
+            onClick={() => navigate("/")}
+            className={styles.logoContainerUnlogged}
+          >
+            <img className={styles.logo} src={logo} alt="" />
           </div>
           <div className={styles.getStartedContainer}>
-            <button className={styles.getStartedButton} onClick={handleRegisterModal}>Empieza aquí</button>
+            <button
+              className={styles.getStartedButton}
+              onClick={handleRegisterModal}
+            >
+              Empieza aquí
+            </button>
           </div>
-
         </nav>
         {isUserRegisterModalOpen && (
           <UserRegisterModal
             modalState={isUserRegisterModalOpen}
             changeModalState={handleRegisterModal}
-
-
+            setLogged={setLogged}
           />
-
         )}
       </>
     );
-
   }
 }
-
