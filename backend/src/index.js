@@ -6,12 +6,14 @@ const app = express();
 const restauranteRoutes = require("../src/router/restauranteRoutes");
 const productRoutes = require("./router/productRoutes");
 const userRoutes = require("./router/UserRoutes");
+const authRoutes = require("./router/Auth");
 
 app.use(cors());
 app.use(express.json());
 app.use(restauranteRoutes);
 app.use(productRoutes);
-app.use(userRoutes);
+app.use('/users',userRoutes);
+app.use(authRoutes);
 
 connectDB().then(() => console.log("Connected to database!"));
 

@@ -12,6 +12,8 @@ import Footer from "../src/components/Footer";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
+  const [forceUpdate, setForceUpdate] = useState(false);
+  const isLogged = !!getUserToken();
   const [location, setLocation] = useState("");
 
   return (

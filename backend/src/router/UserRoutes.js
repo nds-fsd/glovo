@@ -1,13 +1,15 @@
 const express = require('express');
-const router = express.Router();
+const router = express.Router("/users");
 const userController = require('../controller/usersController');
+const { jwtMiddleware } = require('../security/jwt'); //poner la ruta correcta //
 
-router.post('/users', userController.createUser); 
-router.get('/users', userController.getAllUsers);         
-router.get('/users/:id', userController.getUserById);     
-router.patch('/users/:id', userController.updateUser);
-router.delete('/users/:id', userController.deleteUser);
-router.patch('/users/change-password/:id', userController.changePassword);
+router.use(jwtMiddleware)
+router.post('/', userController.createUser); 
+router.get('/', userController.getAllUsers);         
+router.get('/:id', userController.getUserById);     
+router.patch('/:id', userController.updateUser);
+router.delete('/:id', userController.deleteUser);
+router.patch('/change-password/:id', userController.changePassword);
 
 
 
