@@ -12,6 +12,7 @@
 
 .mainContainer:hover {
   scale: 1.1;
+  cursor: pointer;
 }
 
 .mainContainer:active {
@@ -36,7 +37,7 @@
 .restaurantCategory {
   position: absolute;
   left: 3%;
-  bottom: -5%;
+  bottom: 5%;
   background-color: rgba(0, 0, 0, 0.576);
   color: white;
   padding: 2.5px 5px;
@@ -48,8 +49,8 @@
 .offer {
   position: absolute;
   background-color: var(--primary-color);
-  top: -15%;
-  right: 5%;
+  top: -11%;
+  right: 6%;
   border-radius: 5px;
   font-size: 0.9rem;
   padding: 2.5px 5px;
