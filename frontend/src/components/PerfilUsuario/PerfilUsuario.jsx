@@ -79,7 +79,9 @@ function PerfilUsuario({ modalState, changeModalState }) {
           onSubmit={handleFormSubmit}
         />
       )}
+
       <div className={styles.profile}>
+        <div className={styles.flecha}></div>
         <h2 className={styles.profileHeader}>¡Hola, {user.firstname} Jose!</h2>
         <div className={styles.separadorHeader}></div>
         <div className={styles.userInfoContainer}>

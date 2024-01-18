@@ -19,6 +19,7 @@ body {
   top: 10%;
   display: flex;
   flex-direction: column;
+  overflow: visible;
 }
 
 .userInfoContainer {
@@ -59,6 +60,18 @@ body {
 
 /*texto p */
 
+.flecha {
+  background-color: white;
+  height: 60px;
+  width: 60px;
+
+  position: absolute;
+  top: 0px;
+  right: 50px;
+  rotate: 45deg;
+  z-index: -1;
+}
+
 .campoP {
   color: #706c6c;
   text-align: justify;
@@ -97,8 +110,9 @@ body {
   margin-right: 5px;
 }
 
-.userSection p {
+.userSection > p {
   margin: 0;
+  text-align: left;
 }
 
 /* Estilo para los botones */
