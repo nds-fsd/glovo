@@ -2,8 +2,23 @@ import React from "react";
 import styles from "../Footer/styles.module.css";
 import footerWaveSvg from "../../assets/images/footer-wave-desktop.svg";
 import logoImg from "../../assets/icons/logo.svg";
+import { useParams, useNavigate } from "react-router-dom";
+
+
+
 
 export default function Footer() {
+
+
+  const params = useParams();
+  const navigate = useNavigate();
+
+  const handleNavigateToFormularios = () => {
+    navigate('../formularios'); 
+  };
+
+
+
   return (
     <div className={styles.viewport}>
       <footer className={styles.footerContainer}>
@@ -17,7 +32,7 @@ export default function Footer() {
               <div className={styles.verticalLinks}>
                 <h4>Colabora con Gloton</h4>
                 <a href="">Carreras</a>
-                <a href="">Gloton para socios</a>
+                <a onClick={handleNavigateToFormularios} href="">Gloton para socios</a>
                 <a href="">Repartidores</a>
                 <a href="">Gloton Business</a>
               </div>

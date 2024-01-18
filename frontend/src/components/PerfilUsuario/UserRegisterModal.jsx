@@ -18,6 +18,7 @@ import styles from "../PerfilUsuario/styles.module.css";
   //  });
 //};
 
+
 function UserRegisterModal({ setUser, closeModal, changeModalState }) {
     const { register, handleSubmit } = useForm();
     
