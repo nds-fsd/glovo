@@ -10,9 +10,8 @@ import PerfilUsuario from "../PerfilUsuario/PerfilUsuario";
 import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 
-const logged = false;
-
 export default function NavBar() {
+  const [logged, setLogged] = useState(true);
   const navigate = useNavigate();
   const [isPerfilUsuarioModalOpen, setIsPerfilUsuarioModalOpen] =
     useState(false);
@@ -65,6 +64,7 @@ export default function NavBar() {
           <PerfilUsuario
             modalState={isPerfilUsuarioModalOpen}
             changeModalState={handleUserModal}
+            setLogged={setLogged}
           />
         )}
       </>
@@ -93,6 +93,7 @@ export default function NavBar() {
           <UserRegisterModal
             modalState={isUserRegisterModalOpen}
             changeModalState={handleRegisterModal}
+            setLogged={setLogged}
           />
         )}
       </>

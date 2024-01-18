@@ -1,5 +1,5 @@
 import React from "react";
-import { useForm } from "react-hook-form";
+import { set, useForm } from "react-hook-form";
 import { MdOutlineEmail, MdOutlinePassword } from "react-icons/md";
 import { RxPerson } from "react-icons/rx";
 import { handleInitialRegistrationSubmit } from "../PerfilUsuario/Usercrud";
@@ -18,10 +18,16 @@ import { motion, AnimatePresence, easeOut } from "framer-motion";
 //  });
 //};
 
-function UserRegisterModal({ setUser, closeModal, changeModalState }) {
+function UserRegisterModal({
+  setLogged,
+  setUser,
+  closeModal,
+  changeModalState,
+}) {
   const { register, handleSubmit } = useForm();
 
   const onSubmit = async (data) => {
+    setLogged(true);
     console.log(data);
     try {
       await handleInitialRegistrationSubmit(data, setUser, closeModal);

@@ -10,7 +10,7 @@ import Switch from "../PerfilUsuario/Switch.jsx";
 
 Modal.setAppElement("#root");
 
-function PerfilUsuario({ modalState, changeModalState }) {
+function PerfilUsuario({ modalState, changeModalState, setLogged }) {
   console.log("esto son los ", modalState);
   const [user, setUser] = useState({
     _id: "",
@@ -83,6 +83,14 @@ function PerfilUsuario({ modalState, changeModalState }) {
       <div className={styles.profile}>
         <div className={styles.flecha}></div>
         <h2 className={styles.profileHeader}>¡Hola, {user.firstname} Jose!</h2>
+        <button
+          className={styles.logoutButton}
+          onClick={() => {
+            setLogged(false);
+          }}
+        >
+          Cerrar sesión
+        </button>
         <div className={styles.separadorHeader}></div>
         <div className={styles.userInfoContainer}>
           <p className={styles.campoP}>

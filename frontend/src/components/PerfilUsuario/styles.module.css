@@ -352,3 +352,11 @@ div[class^="_profile_"]::-webkit-scrollbar {
   align-items: center;
   justify-content: center;
 }
+.logoutButton {
+  position: absolute;
+  top: 31px;
+  right: 28px;
+
+  padding: 23px;
+  font-size: 0.7rem;
+}

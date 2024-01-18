@@ -9,6 +9,7 @@ export default function ShoppingCart({
   totalPrice,
   setShoppingList,
   restaurante,
+  setLogged,
 }) {
   const ammountHandler = (e, operation) => {
     const ProductIndex = shoppingList.findIndex((o) => o.id === e.id);
