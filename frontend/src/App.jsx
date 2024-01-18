@@ -6,10 +6,10 @@ import NavBar from "./components/NavBar/index";
 import HeroPage from "./components/HeroPage/index";
 import PerfilUsuario from "./components/PerfilUsuario/PerfilUsuario";
 import Formulario from "./components/formularios/formularios";
-// import VistaCompra from "./components/vistaCompra/vistaCompra";
 import { React, useState } from "react";
 import Footer from "../src/components/Footer";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { getUserToken } from "./utils/localStorage.utils";
 
 function App() {
   const [forceUpdate, setForceUpdate] = useState(false);
