@@ -4,6 +4,7 @@ import { MdOutlineEmail, MdOutlinePassword } from "react-icons/md";
 import { RxPerson } from "react-icons/rx";
 import { handleInitialRegistrationSubmit } from "../PerfilUsuario/Usercrud";
 import styles from "../PerfilUsuario/styles.module.css";
+import { motion, AnimatePresence, easeOut } from "framer-motion";
 
 //const doRegister = (data) => {
 // api.post('/auth/register', data)
@@ -21,6 +22,7 @@ function UserRegisterModal({ setUser, closeModal, changeModalState }) {
   const { register, handleSubmit } = useForm();
 
   const onSubmit = async (data) => {
+    console.log(data);
     try {
       await handleInitialRegistrationSubmit(data, setUser, closeModal);
       changeModalState();
@@ -30,16 +32,33 @@ function UserRegisterModal({ setUser, closeModal, changeModalState }) {
   };
 
   return (
-    <div className={styles.everything}>
-      <form onSubmit={handleSubmit(onSubmit)} className={styles.registerForm}>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.2 }}
+      className={styles.everything}
+      onClick={(e) => {
+        if (e.target.className === "_everything_1q1ve_473") {
+          changeModalState();
+        }
+      }}
+    >
+      <motion.form
+        initial={{ translateY: 100 }}
+        animate={{ translateY: 0 }}
+        transition={{ ease: "easeOut", duration: 0.2 }}
+        onSubmit={handleSubmit(onSubmit)}
+        className={styles.registerForm}
+      >
         <h2 className={styles.hola}>¡Hola!</h2>
-        <p className={styles.registerP}>Introduce tus datos</p>
+        <p className={styles.registerP}>Introduce tus datos:</p>
         <div className={styles.inputContainer}>
           <div className={styles.inputPictureContainer}>
             <RxPerson className={styles.personIcon} />
             <input
               className={styles.firstInput}
-              {...register("firstname")}
+              {...register("firstName")}
               placeholder="Nombre"
               required
             />
@@ -70,8 +89,8 @@ function UserRegisterModal({ setUser, closeModal, changeModalState }) {
         <button className={styles.guardarCambios} type="submit">
           Registrar
         </button>
-      </form>
-    </div>
+      </motion.form>
+    </motion.div>
   );
 }
 

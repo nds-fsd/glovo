@@ -4,7 +4,6 @@ import RestaurantPage from "./components/RestaurantPage";
 import HomePage from "./components/HomePage/index";
 import NavBar from "./components/NavBar/index";
 import HeroPage from "./components/HeroPage/index";
-import PerfilUsuario from "./components/PerfilUsuario/PerfilUsuario";
 import Formulario from "./components/formularios/formularios";
 import { React, useState } from "react";
 import Footer from "../src/components/Footer";
@@ -20,6 +19,7 @@ function App() {
     <div>
       <BrowserRouter>
         <NavBar />
+
         <Routes>
           <Route
             path="/"

@@ -217,9 +217,7 @@ div[class^="_profile_"]::-webkit-scrollbar {
 
 .registerForm {
   position: fixed; /* Fija el modal sobre el contenido */
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+
   width: fit-content;
   height: fit-content;
   background-color: white;
@@ -350,4 +348,7 @@ div[class^="_profile_"]::-webkit-scrollbar {
   position: fixed;
   z-index: 999;
   background-color: #00000048;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

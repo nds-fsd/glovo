@@ -1,6 +1,7 @@
 import styles from "../ShoppingCart/styles.module.css";
 import shoppingCartBackground from "../../assets/images/astronaut-grey-scale.svg";
 import scooterIcon from "../../assets/icons/scooter-svgrepo-com (1).svg";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function ShoppingCart({
   productos,
@@ -46,7 +47,13 @@ export default function ShoppingCart({
             {shoppingList.map((e) => {
               const producto = productos.find((item) => item._id === e.id);
               return (
-                <div className={styles.cartItemContainer}>
+                <motion.div
+                  initial={{ opacity: 0, translateY: 50 }}
+                  animate={{ opacity: 1, translateY: 0 }}
+                  transition={{ ease: "easeOut", duration: 0.2 }}
+                  exit={{ opacity: 0 }}
+                  className={styles.cartItemContainer}
+                >
                   <div className={styles.ammountContainer}>
                     <button
                       onClick={() => {
@@ -70,9 +77,10 @@ export default function ShoppingCart({
                     {producto.nombre + " "}
                     <b>{producto.precio + "€"}</b>
                   </p>
-                </div>
+                </motion.div>
               );
             })}
+
             <div className={styles.transportContainer}>
               <img className={styles.scooterIcon} src={scooterIcon} alt="" />
               <p>
@@ -85,7 +93,7 @@ export default function ShoppingCart({
               Comprar por {totalPrice}€
             </button>
           </div>
-        )}
+        )}{" "}
       </section>
     </div>
   );
