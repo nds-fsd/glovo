@@ -1,11 +1,12 @@
+import styles from "./styles.module.css";
+import axios from 'axios';
 import { useForm, useWatch } from "react-hook-form";
 import { mailValidator, phoneValidator, validateCity } from "./validators";
-import styles from "./styles.module.css";
 import React, { useEffect, useState } from "react";
-import axios from 'axios';
-// import { partner } from "./PartnerService";
+import { useParams, useNavigate } from "react-router-dom";
 
 export const Formulario = () => {
+  const params = useParams();
 const { 
     register, 
     formState:{ errors }, 
@@ -14,24 +15,26 @@ const {
     setValue,
 } = useForm();
 
-  const [partner, setPartner] = useState({})
-    useEffect(() => {
-  const fetchData = async () => {
-  try {
-    const response = await axios.post('http://localhost:3003/create-partner', partner);
-  } catch (error) {
-  }
-}
-fetchData();
-    }, [])
-   const onSubmit = (data) => { 
-      console.log(data)
-    setPartner(data) 
-  }
-
-
-  
 const incluirCodigo = watch("incluirCodigo");
+const [partner, setPartner] = useState({})
+const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState('');
+
+  const onSubmit = async (data) => {
+    console.log(data);
+    setIsSubmitting(true);
+    try {
+      const response = await axios.post('http://localhost:3003/create-partner', data);
+      console.log(response.data);
+      console.log("cambios")
+      setIsDone(true);
+    } catch (error) {
+      setSubmitError('Failed to create partner. Please try again.');
+      console.error('Error creating partner:', error);
+    }
+    setIsSubmitting(false);
+  };
+  
     return (
     <div  className={styles.formContainer}>
         <h2>Empieza a vender con Gloton</h2>
@@ -39,7 +42,7 @@ const incluirCodigo = watch("incluirCodigo");
         <form onSubmit={handleSubmit(onSubmit)}>
         <div>
     <label></label>
-    <select {...register("pais")}>
+    <select className={styles.options} {...register("pais")}>
         <option value="ES">🇪🇸 España</option>
         <option value="GEO">🇬🇪 Georgia</option>
         <option value="FR">🇫🇷 Francia</option>
@@ -77,13 +80,17 @@ const incluirCodigo = watch("incluirCodigo");
 </div>
 <div>
     <label className={styles.telefono}></label>
+    <input type="password" placeholder="Password" {...register("password")}/>
+</div>
+<div>
+    <label className={styles.telefono}></label>
     <input type="text" placeholder="Telefono" {...register("telefono", {
       validate: phoneValidator
   })}/>
    {errors["telefono"] && <p>{errors["telefono"].message}</p>}
 </div>
 <label></label>
-<select {...register("Tipo de establecimiento")}>
+<select className={styles.options} {...register("Tipo de establecimiento")}>
 <option value="Tipo de establecimiento">Tipo de establecimiento</option>
         <option value="restaurante">Restaurante (cafeteria, brunch y panaderia, helados, zumos y smoothies...)</option>
         <option value="farmacia">Farmacia</option>
@@ -97,7 +104,7 @@ const incluirCodigo = watch("incluirCodigo");
  {incluirCodigo && (
   <div className={styles.aplicar}> 
     <input type="text" placeholder="Codigo Promocional" {...register("codigo", {
-      validate : promoCode
+      //! validate : promoCode debemos añadir en futuro ...
     })} /> 
     <button className={styles.aplicarbtn}>Aplicar</button>
   </div>
@@ -112,7 +119,7 @@ const incluirCodigo = watch("incluirCodigo");
   {errors.privacidad && <p>{errors.privacidad.message}</p>}
 </div>
 <div className={styles.submit}>
-<button className={styles.submitbtn} type="submit" id={styles.miInputId} value="Empezar">Empezar</button>
+<button className={styles.submitbtn} id={styles.miInputId} type="submit" disabled={isSubmitting}>Registrarse</button>
 </div>
         </form>
     </div>
