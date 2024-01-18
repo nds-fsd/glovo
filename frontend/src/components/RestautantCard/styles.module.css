@@ -48,7 +48,7 @@
 
 .offer {
   position: absolute;
-  background-color: var(--primary-color);
+  background-color: var(--terciary-color);
   top: -11%;
   right: 6%;
   border-radius: 5px;
@@ -94,7 +94,7 @@ h3 {
 
 .scooterAside {
   display: flex;
-  background-color: var(--primary-color);
+  background-color: var(--terciary-color);
   align-items: center;
   gap: 5px;
   padding: 1px 3px;

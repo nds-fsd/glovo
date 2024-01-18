@@ -53,10 +53,6 @@
   background-color: var(--secondary-color-lighter);
 }
 
-.cartItemContainer > p {
-  width: ;
-}
-
 .ammountContainer {
   display: flex;
   align-items: center;
