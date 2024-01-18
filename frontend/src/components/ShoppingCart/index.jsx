@@ -1,12 +1,13 @@
 import styles from "../ShoppingCart/styles.module.css";
 import shoppingCartBackground from "../../assets/images/astronaut-grey-scale.svg";
-import { useState } from "react";
+import scooterIcon from "../../assets/icons/scooter-svgrepo-com (1).svg";
 
 export default function ShoppingCart({
   productos,
   shoppingList,
   totalPrice,
   setShoppingList,
+  restaurante,
 }) {
   const ammountHandler = (e, operation) => {
     const ProductIndex = shoppingList.findIndex((o) => o.id === e.id);
@@ -26,7 +27,7 @@ export default function ShoppingCart({
   return (
     <div className={styles.shoppingCartContainer}>
       <section className={styles.shoppingCart}>
-        <h2>Tu pedido</h2>
+        <h2>Tu pedido </h2>
         {shoppingList.length === 0 && (
           <>
             <img
@@ -72,6 +73,14 @@ export default function ShoppingCart({
                 </div>
               );
             })}
+            <div className={styles.transportContainer}>
+              <img className={styles.scooterIcon} src={scooterIcon} alt="" />
+              <p>
+                {" "}
+                Tasas de tranporte
+                <b> {restaurante.transporte}</b>{" "}
+              </p>
+            </div>
             <button className={styles.buyButton}>
               Comprar por {totalPrice}€
             </button>

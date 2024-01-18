@@ -25,8 +25,21 @@ export default function RestaurantPage({}) {
       shoppingList.forEach((e) => {
         const productPrice = productos.find((i) => i._id === e.id).precio;
         const partialPrice = productPrice * e.ammount;
-        setTotalPrice(Math.floor((fullPrice += partialPrice) * 100) / 100);
+        fullPrice += partialPrice;
       });
+
+      if (restaurante && restaurante.transporte === "FREE") {
+        setTotalPrice(fullPrice);
+      } else {
+        restaurante &&
+          setTotalPrice(
+            Math.floor(
+              (fullPrice += parseFloat(
+                restaurante.transporte.replace("€", "").replace(",", ".")
+              )) * 100
+            ) / 100
+          );
+      }
     };
     calculatePrice();
   }, [shoppingList]);
@@ -116,6 +129,7 @@ export default function RestaurantPage({}) {
               shoppingList={shoppingList}
               totalPrice={totalPrice}
               setShoppingList={setShoppingList}
+              restaurante={restaurante}
             />
           </main>
         </div>

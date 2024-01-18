@@ -112,3 +112,20 @@
 b {
   font-weight: 600;
 }
+
+.transportContainer {
+  position: absolute;
+  display: flex;
+  bottom: 50px;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  background-color: var(--primary-color-light);
+  padding: 1px 5px;
+  border-radius: 50px;
+}
+
+.scooterIcon {
+  height: 15px;
+  width: 15px;
+}
