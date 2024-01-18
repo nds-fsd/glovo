@@ -38,10 +38,8 @@ export default function NavBar() {
     return (
       <>
         <nav className={styles.navBar}>
-          <div className={styles.logoContainer}>
-            <a href="">
-              <img className={styles.logo} src={logo} alt="" />
-            </a>
+          <div onClick={() => navigate("/")} className={styles.logoContainer}>
+            <img className={styles.logo} src={logo} alt="" />
           </div>
           <div className={styles.searchBarContainer}>
             <SearchBar />
