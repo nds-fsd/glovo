@@ -34,7 +34,7 @@ export default function RestaurantPage({}) {
       });
 
       if (restaurante && restaurante.transporte === "FREE") {
-        setTotalPrice(fullPrice);
+        setTotalPrice(Math.floor(fullPrice * 100) / 100);
       } else {
         restaurante &&
           setTotalPrice(
