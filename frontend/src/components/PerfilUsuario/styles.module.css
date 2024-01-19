@@ -213,6 +213,8 @@ div[class^="_profile_"]::-webkit-scrollbar {
   outline: none;
 
   background-color: #00000034;
+  -webkit-backdrop-filter: blur(3px);
+  backdrop-filter: blur(3px);
 }
 
 .registerForm {
@@ -294,6 +296,10 @@ div[class^="_profile_"]::-webkit-scrollbar {
   font-size: 15px;
   padding: 0 20px;
 }
+
+.guardarCambios:hover {
+  background-color: var(--primary-color);
+}
 /* switch */
 
 .reactSwitchCheckbox {
@@ -351,6 +357,8 @@ div[class^="_profile_"]::-webkit-scrollbar {
   display: flex;
   align-items: center;
   justify-content: center;
+  -webkit-backdrop-filter: blur(3px);
+  backdrop-filter: blur(3px);
 }
 .logoutButton {
   position: absolute;

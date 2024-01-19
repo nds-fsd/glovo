@@ -76,8 +76,8 @@ export default function ShoppingCart({
                   </div>
                   <p className={styles.shoppingListItem}>
                     {producto.nombre + " "}
-                    <b>{producto.precio + "€"}</b>
                   </p>
+                  <b>{producto.precio + "€"}</b>
                 </motion.div>
               );
             })}
