@@ -7,6 +7,7 @@ import UserRegisterModal from "./UserRegisterModal.jsx";
 import styles from "./styles.module.css";
 import { handleInitialRegistrationSubmit } from "../PerfilUsuario/Usercrud";
 import Switch from "../PerfilUsuario/Switch.jsx";
+import { motion } from "framer-motion";
 
 Modal.setAppElement("#root");
 
@@ -80,7 +81,12 @@ function PerfilUsuario({ modalState, changeModalState, setLogged }) {
         />
       )}
 
-      <div className={styles.profile}>
+      <motion.div
+        initial={{ opacity: 0, translateY: 50 }}
+        animate={{ opacity: 1, translateY: 0 }}
+        transition={{ ease: "easeOut", duration: 0.2 }}
+        className={styles.profile}
+      >
         <div className={styles.flecha}></div>
         <h2 className={styles.profileHeader}>¡Hola, {user.firstname} Jose!</h2>
         <button
@@ -186,7 +192,7 @@ function PerfilUsuario({ modalState, changeModalState, setLogged }) {
             </button> */}
         </div>
         <p className={styles.campoP}></p>
-      </div>
+      </motion.div>
     </Modal>
   );
 }
