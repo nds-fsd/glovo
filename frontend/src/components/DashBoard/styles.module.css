@@ -1,0 +1,43 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+
+.container {
+    display: grid;
+    grid-template-columns: 35% 30% auto;
+    padding: 0;
+    margin: 0;
+    border-left-width: 0cap;
+    height: 1200px;
+}
+.disconnect {
+    grid-column: 3 / 4;
+    justify-self: center;
+    color: white;
+    background-color: #00a082;
+    height: 40px;
+    width: 100px;
+    border-radius: 15px;
+}
+div {
+    height: 35px;
+}
+input {
+    height: 35px;
+}
+.primero {
+    /* height: 25px;
+    width: 40px;
+    border-radius: 15px;
+    background-color: white; */
+    background: none;   
+    color: inherit;    
+    border: none;      
+    padding: 0;        
+    font: inherit;     
+    cursor: pointer;   
+    outline: inherit; 
+    box-shadow: 000;
+}

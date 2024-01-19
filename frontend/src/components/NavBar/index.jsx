@@ -8,7 +8,7 @@ import { useState } from "react";
 import UserRegisterModal from "../PerfilUsuario/UserRegisterModal";
 import PerfilUsuario from "../PerfilUsuario/PerfilUsuario";
 
-const logged = false;
+const logged = true;
 
 export default function NavBar() {
   const [isPerfilUsuarioModalOpen, setIsPerfilUsuarioModalOpen] = useState(false);

@@ -6,18 +6,19 @@ import NavBar from "./components/NavBar/index";
 import HeroPage from "./components/HeroPage/index";
 import PerfilUsuario from "./components/PerfilUsuario/PerfilUsuario";
 import Formulario from "./components/formularios/formularios";
-// import VistaCompra from "./components/vistaCompra/vistaCompra";
 import { React, useState } from "react";
 import Footer from "../src/components/Footer";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import  DashBoard  from "./components/DashBoard/dashBoard/";
 
 function App() {
   const [location, setLocation] = useState("");
 
   return (
     <div>
+      <DashBoard />
+      {/* <BrowserRouter>
       <NavBar />
-      <BrowserRouter>
         <Routes>
           <Route
             path="/"
@@ -34,7 +35,7 @@ function App() {
           <Route path="/formularios" element={<Formulario />} />
         </Routes>
         <Footer />
-      </BrowserRouter>
+      </BrowserRouter> */}
     </div>
   );
 }
