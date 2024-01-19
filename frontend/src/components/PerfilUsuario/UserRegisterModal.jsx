@@ -92,6 +92,9 @@ function UserRegisterModal({
             />
           </div>
         </div>
+        <p>
+          Ya eres usuario? <b className={styles.loginButton}>Log in</b>
+        </p>
         <button className={styles.guardarCambios} type="submit">
           Registrar
         </button>

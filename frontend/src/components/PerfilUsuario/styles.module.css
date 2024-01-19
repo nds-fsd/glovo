@@ -368,3 +368,14 @@ div[class^="_profile_"]::-webkit-scrollbar {
   padding: 23px;
   font-size: 0.7rem;
 }
+
+.loginButton {
+  font-size: 0.78rem;
+  transition: 0.3s;
+}
+
+.loginButton:hover {
+  color: var(--secondary-color);
+  filter: brightness(0.9);
+  cursor: pointer;
+}
