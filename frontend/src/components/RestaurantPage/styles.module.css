@@ -1,28 +1,32 @@
 .viewport {
-  height: 100vh;
+  height: fit-content;
   width: calc(100vw - var(--scrollbarWidth));
   margin: 0;
   padding: 0;
   overflow-x: hidden;
   display: flex;
   justify-content: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 .header {
-  height: 200px;
+  height: 300px;
   width: 100%;
   overflow: hidden;
-  position: relative;
+  position: absolute;
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: -99;
+  top: 0;
 }
 
 .headerBackgroundImg {
   object-fit: cover;
   width: 100%;
   filter: blur(8px) brightness(0.8);
-  position: absolute;
 }
 
 .headerBackgroundContainer {
@@ -40,6 +44,7 @@
   justify-content: flex-start;
   width: 98%;
   height: 200px;
+  max-width: 1100px;
 }
 
 address {
@@ -57,11 +62,14 @@ span {
 
 main {
   width: 98%;
-  height: 100%;
+  max-width: 1100px;
+  height: fit-content;
   display: flex;
-  position: absolute;
-  top: 150px;
+  top: 250px;
   z-index: 2;
+
+  padding-top: 230px;
+  padding-bottom: 100px;
 }
 
 .mainRestaurantContent {
@@ -83,41 +91,9 @@ main {
   justify-content: center;
 }
 
-.shoppingCartContainer {
-  width: 270px;
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-}
-
 h2 {
   font-weight: 700;
   font-size: 1.3rem;
-}
-
-.shoppingCart {
-  width: 230px;
-  height: 400px;
-  box-shadow: 0 0 50px 7px rgba(0, 0, 0, 0.123);
-  border-radius: 10px;
-  z-index: 999;
-  background-color: white;
-  position: fixed;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-around;
-  padding: 10px;
-}
-
-.shoppingCart > p {
-  width: 80%;
-  text-align: center;
-  font-size: 0.85rem;
-}
-
-.shoppingCartBackground {
-  width: 80%;
 }
 
 .restaurantHeader > h1 {
