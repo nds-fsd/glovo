@@ -42,15 +42,20 @@
 .shoppingListItem {
   height: fit-content;
   color: black;
+  width: 45%;
+  white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  text-align: left;
 }
+
 .cartItemContainer {
-  padding: 5px;
+  padding: 5px 0;
   display: flex;
   align-items: center;
   gap: 10px;
   background-color: var(--secondary-color-lighter);
+  width: 100%;
 }
 
 .ammountContainer {
@@ -61,6 +66,8 @@
   background-color: var(--secondary-color-light);
   height: 15px;
   border-radius: 50px;
+  margin: 5px;
+  width: 20%;
 }
 
 .quantityButton {
@@ -107,6 +114,7 @@
 
 b {
   font-weight: 600;
+  font-size: 0.9rem;
 }
 
 .transportContainer {
