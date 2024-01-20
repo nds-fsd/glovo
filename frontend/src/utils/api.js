@@ -7,6 +7,11 @@ export const api = axios.create({
       'Content-Type': 'application/json',
     }
 });
+api.interceptors.request.use((config) => {
+  const token = getUserToken();
+  config.headers.Authorization = token ? `Bearer ${token}` : '';
+  return config;
+});
 
 export const  objectToQueryString = (obj) => {
     const queryString = Object.keys(obj)

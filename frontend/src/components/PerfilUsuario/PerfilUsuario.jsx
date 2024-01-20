@@ -88,7 +88,7 @@ function PerfilUsuario({ modalState, changeModalState, setLogged }) {
         className={styles.profile}
       >
         <div className={styles.flecha}></div>
-        <h2 className={styles.profileHeader}>¡Hola, {user.firstname} Jose!</h2>
+        <h2 className={styles.profileHeader}>¡Hola, {user.firstname} !</h2>
         <button
           className={styles.logoutButton}
           onClick={() => {
@@ -100,7 +100,7 @@ function PerfilUsuario({ modalState, changeModalState, setLogged }) {
         <div className={styles.separadorHeader}></div>
         <div className={styles.userInfoContainer}>
           <p className={styles.campoP}>
-            <b>Nombre:</b> {" Jose García"}
+            <b>Nombre:</b> {user.firstname}
             {/* <button
                 className={styles.editButton}
                 onClick={() => handleEditClick("firstname")}
@@ -114,7 +114,7 @@ function PerfilUsuario({ modalState, changeModalState, setLogged }) {
 
         <div className={styles.userInfoContainer}>
           <p className={styles.campoP}>
-            <b>Email:</b> {"josegarcia1006@gmail.com"}
+            <b>Email:</b> {user.email}
             {/* <button
                 className={styles.editButton}
                 onClick={() => handleEditClick("email")}
@@ -127,7 +127,7 @@ function PerfilUsuario({ modalState, changeModalState, setLogged }) {
 
         <div className={styles.userInfoContainer}>
           <p className={styles.campoP}>
-            <b>Teléfono:</b> {"6475557978"}
+            <b>Teléfono:</b> {user.phone}
             {/* <button
                 className={styles.editButton}
                 onClick={() => handleEditClick("phone")}

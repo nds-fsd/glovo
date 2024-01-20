@@ -6,17 +6,6 @@ import { handleInitialRegistrationSubmit } from "../PerfilUsuario/Usercrud";
 import styles from "../PerfilUsuario/styles.module.css";
 import { motion, AnimatePresence, easeOut } from "framer-motion";
 
-//const doRegister = (data) => {
-// api.post('/auth/register', data)
-// .then((response) => {
-// console.log(response);
-// if (response?.data.token) {
-//    setUserSession(response.data);
-//      forceUpdate();
-//    }
-
-//  });
-//};
 
 function UserRegisterModal({
   setLogged,
