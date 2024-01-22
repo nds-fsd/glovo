@@ -5,11 +5,10 @@ import HomePage from "./components/HomePage/index";
 import NavBar from "./components/NavBar/index";
 import HeroPage from "./components/HeroPage/index";
 import Formulario from "./components/formularios/formularios";
-import React, { useState } from "react"; // Cambia a 'React, { useState }'
+import React, { useState, useEffect } from "react"; 
 import Footer from "../src/components/Footer";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { getUserToken } from "./utils/localStorage.utils";
-// Asegúrate de importar loginApi si es necesario
+import { getUserToken, getUserSession } from "./utils/localStorage.utils";
 
 function App() {
   const [forceUpdate, setForceUpdate] = useState(false);
@@ -19,13 +18,20 @@ function App() {
     email: "",
     phone: ""
   });
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  useEffect(() => {
+    const session = getUserSession();
+    if (session && session.token) {
+      setIsAuthenticated(true);
+      setUser(session.user); // Opcional, si quieres almacenar los datos del usuario en el estado
+    }
+  }, []);
 
   const handleLogin = async (credentials) => {
-    const response = await loginApi(credentials); // Implementa loginApi adecuadamente
-    setUser(response.data.user);
+    // Implementación de inicio de sesión
   };
 
-  const isLogged = !!getUserToken();
 
   return (
     <div>

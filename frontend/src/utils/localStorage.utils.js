@@ -31,10 +31,9 @@ const getStorageObject = (key) => {
   };
   
   export const setUserSession = (sessionData) => {
-    setStorageObject('user-session', sessionData);
+    setStorageObject('user-session', JSON.stringify(sessionData));
   };
   
   export const removeSession = () => {
     deleteStorageObject('user-session');
   };
-  
