@@ -1,15 +1,14 @@
 import axios from 'axios';
-import { setUserSession, getUserToken } from '../utils/localStorage.utils';
-
-const API_URL = 'http://localhost:3001';
+import { setUserSession, getUserToken } from '../utils/localStorage.utils'; 
 
 // Configuración de Axios
-const api = axios.create({
-    baseURL: API_URL,
-    headers: {
-      'Content-Type': 'application/json',
-    }
+export const api = axios.create({
+  baseURL: 'http://localhost:3001',
+  headers: {
+    'Content-Type': 'application/json',
+  }
 });
+
 api.interceptors.request.use((config) => {
   const token = getUserToken();
   config.headers.Authorization = token ? `Bearer ${token}` : '';
@@ -17,7 +16,7 @@ api.interceptors.request.use((config) => {
 });
 
 // Función para iniciar sesión
-const login = async (credentials) => {
+export const login = async (credentials) => {
   try {
     const response = await api.post('/login', credentials);
     setUserSession({ token: response.data.token, user: response.data.user });
@@ -29,7 +28,7 @@ const login = async (credentials) => {
 };
 
 // Función para registrar un nuevo usuario
-const register = async (userData) => {
+export const register = async (userData) => {
   try {
     const response = await api.post('/register', userData);
     setUserSession({ token: response.data.token, user: response.data.user });
@@ -40,7 +39,9 @@ const register = async (userData) => {
   }
 };
 
-export default {
-  login,
-  register,
+export const objectToQueryString = (obj) => {
+  const queryString = Object.keys(obj)
+    .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(obj[key])}`)
+    .join('&');
+  return queryString;
 };

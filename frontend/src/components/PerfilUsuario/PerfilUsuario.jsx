@@ -5,7 +5,7 @@ import UserPasswordModal from "./UserPasswordModal.jsx";
 import UserProfileEditModal from "./UserProfileEditModal.jsx";
 import UserRegisterModal from "./UserRegisterModal.jsx";
 import styles from "./styles.module.css";
-import { handleInitialRegistrationSubmit } from "../PerfilUsuario/Usercrud";
+import { handleInitialRegistrationSubmit } from "../../utils/Usercrud.js";
 import Switch from "../PerfilUsuario/Switch.jsx";
 import { motion } from "framer-motion";
 
