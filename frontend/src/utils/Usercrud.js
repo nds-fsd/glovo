@@ -7,18 +7,16 @@ export const handleInitialRegistrationSubmit = async (
   closeModal
 ) => {
   try {
-    const response = await axios.post("http://localhost:3001/register", data);
     
-    // Aquí se asume que la respuesta incluye un objeto con un token y un usuario
-    const { token, user } = response.data;
-    setUserSession({ token, user }); // Guarda el token y el usuario en localStorage
-
-    setUser(user);
-    console.log("Registro exitoso");
+    const response = await axios.post("http://localhost:3001/register", data);
+    setUser(response.data);
+    console.log("aqui va bien");
     closeModal();
   } catch (error) {
     console.error("Error en el registro inicial:", error);
   }
+
+
 };
 export const handleProfileUpdateSubmit = async (
   data,
