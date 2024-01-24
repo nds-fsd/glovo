@@ -28,7 +28,7 @@ export default function CreditCard({ modalIsOpen, shoppingList, productos }) {
                       <span>
                         {e.ammount} x {producto.nombre}
                       </span>{" "}
-                      <b>{producto.precio}€</b>
+                      <b>{producto.precio * e.ammount}€</b>
                     </p>
                   </>
                 );

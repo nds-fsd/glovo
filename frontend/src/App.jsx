@@ -9,6 +9,7 @@ import { React, useState } from "react";
 import Footer from "../src/components/Footer";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { getUserToken } from "./utils/localStorage.utils";
+import ConfirmationPage from "./components/ConfirmationPage";
 
 function App() {
   const [forceUpdate, setForceUpdate] = useState(false);
@@ -33,6 +34,7 @@ function App() {
             path="/restaurant/:restaurantId"
             element={<RestaurantPage />}
           ></Route>
+          <Route path="/confirmation" element={<ConfirmationPage />}></Route>
           <Route path="/formularios" element={<Formulario />} />
         </Routes>
         <Footer />
