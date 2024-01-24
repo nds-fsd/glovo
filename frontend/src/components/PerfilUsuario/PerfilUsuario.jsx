@@ -11,6 +11,11 @@ import { motion } from "framer-motion";
 import {getStorageObject} from '../../utils/localStorage.utils.js';
 import { deleteStorageObject } from "../../utils/localStorage.utils.js";
 
+
+
+//NO funciona
+
+
 Modal.setAppElement("#root");
 
 function PerfilUsuario({ modalState, changeModalState, setLogged }) {
