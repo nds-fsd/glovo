@@ -1,0 +1,14 @@
+.container {
+    display: grid;
+    grid-template-columns: 25% 75%;
+    padding: 20px;
+    border: 1px solid black;
+    gap: 20px; /* This adds some space between your columns */
+  }
+  
+  .box {
+    padding: 10px;
+    border: 1px solid grey;
+    height: 400px;
+  }
+  
