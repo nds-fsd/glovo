@@ -10,6 +10,7 @@ import { React, useState, useEffect } from "react";
 import { api } from "../../utils/api";
 import ShoppingCart from "../ShoppingCart";
 import { useParams, useNavigate } from "react-router-dom";
+import CreditCard from "../CreditCard";
 
 export default function RestaurantPage({}) {
   const [restaurante, setRestaurante] = useState();

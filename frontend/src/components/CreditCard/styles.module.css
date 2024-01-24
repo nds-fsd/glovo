@@ -1,0 +1,139 @@
+.modalOverlay {
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0%);
+}
+
+.modalContent {
+  height: 100vh;
+  width: 100vw;
+  top: 0;
+  left: 0;
+  position: fixed;
+  z-index: 999;
+  overflow: auto;
+  outline: none;
+
+  background-color: #00000034;
+  -webkit-backdrop-filter: blur(3px);
+  backdrop-filter: blur(3px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mainContainer {
+  height: fit-content;
+  width: 300px;
+  background-color: white;
+  border-radius: 25px;
+  z-index: 9999999;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  gap: 5px;
+}
+
+.confirmButton {
+  background-color: rgb(1, 139, 123);
+  color: white;
+  border-radius: 25px;
+  width: 100%;
+  font-weight: bold;
+  font-size: 15px;
+  padding: 0 20px;
+}
+
+.itemContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.itemContainerInner {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.individualItemContainer {
+  background-color: rgba(169, 222, 219, 0.36);
+  padding: 10px;
+  border-radius: 25px;
+  width: 120px;
+  height: 50px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  text-wrap: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+span {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  padding: 5px;
+  width: 100%;
+  display: block;
+  overflow: hidden;
+}
+
+.individualItemContainer > b {
+  padding: 3px;
+}
+
+.deliveryInfoContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px;
+}
+
+.modifiableItem {
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.modifiableItem:hover {
+  color: rgb(0, 145, 145);
+}
+
+.icon {
+  height: 25px;
+  background-color: rgba(245, 233, 141, 0.568);
+  border-radius: 100%;
+  padding: 2px;
+}
+
+.deliveryInfoContainer {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.deliveryInfoElement {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  justify-content: flex-start;
+  text-align: left;
+  width: 100%;
+}
+
+b {
+  overflow: hidden;
+  text-wrap: nowrap;
+  text-overflow: ellipsis;
+}

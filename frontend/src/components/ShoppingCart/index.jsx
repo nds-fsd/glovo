@@ -2,6 +2,9 @@ import styles from "../ShoppingCart/styles.module.css";
 import shoppingCartBackground from "../../assets/images/astronaut-grey-scale.svg";
 import scooterIcon from "../../assets/icons/scooter-svgrepo-com (1).svg";
 import { motion, AnimatePresence } from "framer-motion";
+import CreditCard from "../CreditCard";
+
+import { useState } from "react";
 
 export default function ShoppingCart({
   productos,
@@ -11,6 +14,16 @@ export default function ShoppingCart({
   restaurante,
   setLogged,
 }) {
+  let [modalIsOpen, setIsOpen] = useState(false);
+
+  const openModal = () => {
+    setIsOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsOpen(false);
+  };
+
   const ammountHandler = (e, operation) => {
     const ProductIndex = shoppingList.findIndex((o) => o.id === e.id);
     const updatedShoppingList = [...shoppingList];
@@ -90,12 +103,18 @@ export default function ShoppingCart({
                 <b> {restaurante.transporte}</b>{" "}
               </p>
             </div>
-            <button className={styles.buyButton}>
+            <button onClick={openModal} className={styles.buyButton}>
               Comprar por {totalPrice}€
             </button>
           </div>
         )}{" "}
       </section>
+
+      <CreditCard
+        shoppingList={shoppingList}
+        modalIsOpen={modalIsOpen}
+        productos={productos}
+      />
     </div>
   );
 }
