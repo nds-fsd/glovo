@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { setUserSession, getUserToken } from '../utils/localStorage.utils'; 
+import { setStorageObject, setUserSession, getUserToken } from '../utils/localStorage.utils'; 
 
 // Configuración de Axios
 export const api = axios.create({
@@ -19,6 +19,8 @@ api.interceptors.request.use((config) => {
 export const login = async (credentials) => {
   try {
     const response = await api.post('/login', credentials);
+    console.log(response)
+    // setStorageObject("user-session", response.data)
     setUserSession({ token: response.data.token, user: response.data.user });
     return response.data;
   } catch (error) {
@@ -31,7 +33,9 @@ export const login = async (credentials) => {
 export const register = async (userData) => {
   try {
     const response = await api.post('/register', userData);
-    setUserSession({ token: response.data.token, user: response.data.user });
+    setStorageObject("token", response.data.token)
+    setStorageObject("user", response.data.user)
+    // setUserSession({ token: response.data.token, user: response.data.user });
     return response.data;
   } catch (error) {
     console.error('Error durante el registro:', error);

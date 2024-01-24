@@ -12,10 +12,10 @@ function UserRegisterModal({ setLogged, closeModal, changeModalState }) {
   const [user, setLocalUser] = useState(null);
 
   const onSubmit = async (data) => {
-    setLogged(true);
     try {
       await handleInitialRegistrationSubmit(data, setLocalUser, closeModal); 
       changeModalState();
+      setLogged(true);
     } catch (error) {
       console.error("Error en el registro inicial:", error);
     }

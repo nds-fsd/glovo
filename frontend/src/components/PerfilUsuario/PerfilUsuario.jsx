@@ -8,6 +8,8 @@ import styles from "./styles.module.css";
 import { handleInitialRegistrationSubmit } from "../../utils/Usercrud.js";
 import Switch from "../PerfilUsuario/Switch.jsx";
 import { motion } from "framer-motion";
+import {getStorageObject} from '../../utils/localStorage.utils.js';
+import { deleteStorageObject } from "../../utils/localStorage.utils.js";
 
 Modal.setAppElement("#root");
 
@@ -21,10 +23,23 @@ function PerfilUsuario({ modalState, changeModalState, setLogged }) {
     phone: "",
     receivePromotions: false,
   });
-  const [isEditing, setIsEditing] = useState(false);
+  const [isEditing, setIsEditing] = useState(false); 
   const [editingField, setEditingField] = useState(null);
   const [isChangingPassword, setIsChangingPassword] = useState(false);
   const { register, handleSubmit, setValue, reset } = useForm();
+
+  // Would be implemented like this 
+  const [userInfo, setUserInfo] = useState("");
+  useEffect(() => { 
+    const userDataFromToken = getStorageObject("token")  
+    if (userDataFromToken !== null) {
+      setUserInfo(userDataFromToken)
+    }
+    return 
+  }, []) 
+
+
+
   useEffect(() => {
     if (user._id) {
       setValue("firstname", user.firstname);
@@ -65,6 +80,12 @@ function PerfilUsuario({ modalState, changeModalState, setLogged }) {
     setIsUserProfileEditModal(false);
   };
 
+  const closeUserSession = () => {
+    deleteStorageObject("user")
+    deleteStorageObject("token")
+    setLogged(false)
+  }
+
   return (
     <Modal
       isOpen={modalState}
@@ -91,16 +112,14 @@ function PerfilUsuario({ modalState, changeModalState, setLogged }) {
         <h2 className={styles.profileHeader}>¡Hola, {user.firstname} !</h2>
         <button
           className={styles.logoutButton}
-          onClick={() => {
-            setLogged(false);
-          }}
+          onClick={() =>  closeUserSession()}
         >
           Cerrar sesión
         </button>
         <div className={styles.separadorHeader}></div>
         <div className={styles.userInfoContainer}>
           <p className={styles.campoP}>
-            <b>Nombre:</b> {user.firstname}
+            <b>Nombre:</b> {userInfo.firstName || "no hay contenido"}
             {/* <button
                 className={styles.editButton}
                 onClick={() => handleEditClick("firstname")}
@@ -114,20 +133,20 @@ function PerfilUsuario({ modalState, changeModalState, setLogged }) {
 
         <div className={styles.userInfoContainer}>
           <p className={styles.campoP}>
-            <b>Email:</b> {user.email}
+            <b>Email:</b> {userInfo.email}
             {/* <button
                 className={styles.editButton}
                 onClick={() => handleEditClick("email")}
               >
                 Editar
               </button>{" "} */}
-            <br /> {user.email}
+            <br />
           </p>
         </div>
 
         <div className={styles.userInfoContainer}>
           <p className={styles.campoP}>
-            <b>Teléfono:</b> {user.phone}
+            <b>Teléfono:</b> {user.phone || "añade tu numero aquí 📱"}
             {/* <button
                 className={styles.editButton}
                 onClick={() => handleEditClick("phone")}
