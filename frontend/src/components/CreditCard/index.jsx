@@ -64,6 +64,29 @@ export default function CreditCard({ modalIsOpen, shoppingList, productos }) {
           Confirmar pedido
         </button>
       </motion.div>
+
+      <Modal
+        className={styles.modalContent}
+        overlayClassName={styles.modalOverlay}
+        isOpen={true}
+      >
+        <div className={styles.mainContainer}>
+          <h2>Nueva tarjeta</h2>
+          <p>Introduce tus datos</p>
+          <form action="">
+            <input type="text" placeholder="Nombre del titular" />
+            <input type="text" placeholder="Numero" />
+            <div className={styles.extraInfoContainer}>
+              <input
+                className={styles.cvcInput}
+                type="text"
+                placeholder="CVC"
+              />
+              <input className={styles.cvcInput} type="date" />
+            </div>
+          </form>
+        </div>
+      </Modal>
     </Modal>
   );
 }

@@ -137,3 +137,13 @@ b {
   text-wrap: nowrap;
   text-overflow: ellipsis;
 }
+.extraInfoContainer {
+  display: flex;
+  justify-content: space-around;
+  padding: 10px;
+  background-color: var(--primary-color);
+}
+
+.cvcInput {
+  width: 40%;
+}
