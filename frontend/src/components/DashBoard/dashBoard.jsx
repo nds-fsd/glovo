@@ -55,7 +55,7 @@ const DashBoard = () => {
       <div className={styles.container}>
         <div className={styles.box}>
           <h2>Partner Inf.</h2>
-          {/* Render all products here */}
+          {/* Render partner here */}
           {products.length > 0 ? (
             <ul>
               {products.map((product) => (

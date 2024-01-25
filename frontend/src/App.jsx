@@ -9,7 +9,7 @@ import { React, useState } from "react";
 import Footer from "../src/components/Footer";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { getUserToken } from "./utils/localStorage.utils";
-
+import DashBoard from "./components/DashBoard/dashBoard"
 function App() {
   const [forceUpdate, setForceUpdate] = useState(false);
   const isLogged = !!getUserToken();
@@ -17,9 +17,9 @@ function App() {
 
   return (
     <div>
-      <BrowserRouter>
+      <DashBoard />
+      {/* <BrowserRouter>
         <NavBar />
-
         <Routes>
           <Route
             path="/"
@@ -36,7 +36,7 @@ function App() {
           <Route path="/formularios" element={<Formulario />} />
         </Routes>
         <Footer />
-      </BrowserRouter>
+      </BrowserRouter> */}
     </div>
   );
 }
