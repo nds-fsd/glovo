@@ -1,16 +1,26 @@
-const getStorageObject = (key) => {
-    const item = localStorage.getItem(key);
-    if (item !== null) {
-      return JSON.parse(item);
+import {jwtDecode} from 'jwt-decode'
+
+export const getStorageObject = (key) => {
+  if (key === "token") {
+    const token = localStorage.getItem("token")
+    if (token) {
+      return jwtDecode(token)
     }
-    return null;
+  } else {
+    const item = localStorage.getItem(key);
+    if(item) return JSON.parse(item)
+  }
+  return null
   };
   
-  const setStorageObject = (key, object) => {
-    localStorage.setItem(key, JSON.stringify(object));
+  export const setStorageObject = (key, value) => {
+    localStorage.setItem(key, JSON.stringify(value));
   };
   
-  const deleteStorageObject = (key) => {
+
+
+
+ export const deleteStorageObject = (key) => {
     localStorage.removeItem(key);
   };
 
@@ -30,11 +40,12 @@ const getStorageObject = (key) => {
     return null;
   };
   
+
+
   export const setUserSession = (sessionData) => {
-    setStorageObject('user-session', sessionData);
+    setStorageObject('user-session', JSON.stringify(sessionData));
   };
   
   export const removeSession = () => {
     deleteStorageObject('user-session');
   };
-  

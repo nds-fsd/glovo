@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router("/users");
 const userController = require('../controller/usersController');
-const { jwtMiddleware } = require('../security/jwt'); //poner la ruta correcta //
+const { jwtMiddleware } = require('../security/jwt');
 
 router.use(jwtMiddleware)
 router.post('/', userController.createUser); 

@@ -38,7 +38,7 @@ authRouter.post("/register", (req, res) => {
             token: createdUser.generateJWT(),
             user: {
               email: createdUser.email,
-              name: createdUser.name,
+              firstname: createdUser.firstName,
               id: createdUser._id,
               role: createdUser.role,
             },
