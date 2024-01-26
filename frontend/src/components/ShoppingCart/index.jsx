@@ -119,6 +119,7 @@ export default function ShoppingCart({
         modalIsOpen={modalIsOpen}
         productos={productos}
         closeModal={closeModal}
+        setIsOpen={setIsOpen}
       />
     </div>
   );

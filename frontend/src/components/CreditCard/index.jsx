@@ -46,6 +46,7 @@ export default function CreditCard({
         animate={{ opacity: 1, translateY: 0 }}
         transition={{ ease: "easeOut", duration: 0.2 }}
         className={styles.mainContainer}
+        style={cardModalIsOpen || addressModalIsOpen ? { display: "none" } : {}}
       >
         {" "}
         <button onClick={closeModal} className={styles.closeButton}>
@@ -103,7 +104,7 @@ export default function CreditCard({
       </motion.div>
 
       <Modal
-        className={styles.modalContent}
+        className={styles.modalSecondaryContent}
         overlayClassName={styles.modalOverlay}
         isOpen={cardModalIsOpen}
       >
@@ -144,7 +145,7 @@ export default function CreditCard({
         </motion.div>
       </Modal>
       <Modal
-        className={styles.modalContent}
+        className={styles.modalSecondaryContent}
         overlayClassName={styles.modalOverlay}
         isOpen={addressModalIsOpen}
       >
