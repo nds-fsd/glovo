@@ -5,6 +5,7 @@ import { RxPerson } from "react-icons/rx";
 import { handleInitialRegistrationSubmit } from "../PerfilUsuario/Usercrud";
 import styles from "../PerfilUsuario/styles.module.css";
 import { motion, AnimatePresence, easeOut } from "framer-motion";
+import UserLoginModal from "./UserLoginModal";
 
 //const doRegister = (data) => {
 // api.post('/auth/register', data)
@@ -24,6 +25,8 @@ function UserRegisterModal({
   closeModal,
   changeModalState,
   openLoginModal,
+  setLoginModalOpen,
+  setIsUserRegisterModalOpen,
 }) {
   const { register, handleSubmit } = useForm();
 
@@ -97,7 +100,15 @@ function UserRegisterModal({
           Registrar
         </button>
         <p className={styles.loginLink}>
-          ¿Ya tienes cuenta? <span onClick={openLoginModal}>Accede</span>
+          ¿Ya tienes cuenta?{" "}
+          <span
+            onClick={() => {
+              setLoginModalOpen(true);
+              setIsUserRegisterModalOpen(false);
+            }}
+          >
+            Accede
+          </span>
         </p>
       </motion.form>
     </motion.div>

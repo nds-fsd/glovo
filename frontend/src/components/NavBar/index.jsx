@@ -9,6 +9,7 @@ import UserRegisterModal from "../PerfilUsuario/UserRegisterModal";
 import PerfilUsuario from "../PerfilUsuario/PerfilUsuario";
 import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
+import UserLoginModal from "../PerfilUsuario/UserLoginModal";
 
 export default function NavBar() {
   const [logged, setLogged] = useState(true);
@@ -16,6 +17,7 @@ export default function NavBar() {
   const [isPerfilUsuarioModalOpen, setIsPerfilUsuarioModalOpen] =
     useState(false);
   const [isUserRegisterModalOpen, setIsUserRegisterModalOpen] = useState(false);
+  const [loginModalOpen, setLoginModalOpen] = useState(false);
 
   const handleUserModal = () => {
     console.log("Antes de cambiar:", isPerfilUsuarioModalOpen); // Muestra el estado antes de cambiarlo
@@ -94,8 +96,11 @@ export default function NavBar() {
             modalState={isUserRegisterModalOpen}
             changeModalState={handleRegisterModal}
             setLogged={setLogged}
+            setLoginModalOpen={setLoginModalOpen}
+            setIsUserRegisterModalOpen={setIsUserRegisterModalOpen}
           />
         )}
+        <UserLoginModal loginModalOpen={loginModalOpen} />
       </>
     );
   }
