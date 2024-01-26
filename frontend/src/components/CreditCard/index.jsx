@@ -240,15 +240,11 @@ export default function CreditCard({
             <p>Introduce tus datos</p>
           </div>
           <div className={styles.inputContainer}>
-            <form action="">
+            <form onSubmit={handleSubmit(onSubmit)} action="">
               <input type="text" placeholder="Nombre" />
               <input type="text" placeholder="Dirección" />
 
-              <button
-                onClick={closeAddressModal}
-                type="submit"
-                className={styles.agregarTarjeta}
-              >
+              <button type="submit" className={styles.agregarTarjeta}>
                 Agregar dirección
               </button>
             </form>
