@@ -1,10 +1,13 @@
-import { useState } from "react";
+import React, { useState } from "react";
+import Cards from "react-credit-cards-2";
 import styles from "../CreditCard/styles.module.css";
 import Modal from "react-modal";
 import flagIcon from "../../assets/icons/flag-svgrepo-com.svg";
 import walletIcon from "../../assets/icons/credit-card-svgrepo-com.svg";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router";
+import "react-credit-cards-2/dist/es/styles-compiled.css";
+import { useForm } from "react-hook-form";
 
 Modal.setAppElement("#root");
 
@@ -14,6 +17,30 @@ export default function CreditCard({
   shoppingList,
   productos,
 }) {
+  const [state, setState] = useState({
+    number: "",
+    expiry: "",
+    cvc: "",
+    name: "",
+    focus: "",
+  });
+
+  const handleInputChange = (evt) => {
+    const { name, value } = evt.target;
+
+    setState((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleInputFocus = (evt) => {
+    setState((prev) => ({ ...prev, focus: evt.target.name }));
+  };
+
+  const { register, handleSubmit } = useForm();
+
+  const onSubmit = (data) => {
+    console.log("data", data);
+  };
+
   const navigate = useNavigate();
 
   const [cardModalIsOpen, setCardModalIsOpen] = useState(false);
@@ -121,23 +148,73 @@ export default function CreditCard({
             <h2>Nueva tarjeta</h2>
             <p>Introduce tus datos</p>
           </div>
-          <div className={styles.inputContainer}>
-            <form action="">
-              <input type="text" placeholder="Nombre del titular" />
-              <input type="text" placeholder="Numero" />
+          <div>
+            <div className={styles.cardImage}>
+              <Cards
+                number={state.number}
+                expiry={state.expiry}
+                cvc={state.cvc}
+                name={state.name}
+                focused={state.focus}
+                placeholders={{ name: "TU NOMBRE AQUÍ" }}
+                locale={{ valid: "válido hasta" }}
+              />
+            </div>
+            <form
+              onSubmit={handleSubmit(onSubmit)}
+              className={styles.formContainer}
+            >
+              <input
+                {...register("name")}
+                required
+                type="name"
+                name="name"
+                placeholder="Nombre"
+                value={state.name}
+                onChange={handleInputChange}
+                onFocus={handleInputFocus}
+              />
+              <input
+                required
+                maxLength={16}
+                minLength={16}
+                {...register("number")}
+                type="text"
+                name="number"
+                placeholder="Numero de la tarjeta"
+                value={state.number}
+                onChange={handleInputChange}
+                onFocus={handleInputFocus}
+              />
               <div className={styles.extraInfoContainer}>
                 <input
-                  className={styles.cvcInput}
+                  {...register("expiry")}
+                  required
+                  maxLength={5}
+                  minLength={3}
                   type="text"
-                  placeholder="CVC"
+                  name="expiry"
+                  placeholder="Validez"
+                  value={state.expiry}
+                  onChange={handleInputChange}
+                  onFocus={handleInputFocus}
+                  className={styles.cvcInput}
                 />
-                <input className={styles.cvcInput} type="date" />
+                <input
+                  {...register("cvc")}
+                  required
+                  maxLength={3}
+                  minLength={3}
+                  type="cvc"
+                  name="cvc"
+                  placeholder="CVC"
+                  value={state.cvc}
+                  onChange={handleInputChange}
+                  onFocus={handleInputFocus}
+                  className={styles.cvcInput}
+                />
               </div>
-              <button
-                onClick={closeCardModal}
-                type="submit"
-                className={styles.agregarTarjeta}
-              >
+              <button type="submit" className={styles.confirmButton}>
                 Agregar tarjeta
               </button>
             </form>

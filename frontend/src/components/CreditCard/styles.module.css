@@ -218,3 +218,18 @@ input::placeholder {
   color: white;
   font-size: 10px;
 }
+
+.cardImage {
+  padding: 20px;
+}
+
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  padding: 0 20px;
+  gap: 5px;
+}
+
+.formContainer > button {
+  margin-top: 15px;
+}
