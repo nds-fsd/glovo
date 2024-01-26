@@ -35,8 +35,8 @@ function App() {
 
   return (
     <div>
-      <DashBoard />
-      {/* <BrowserRouter>
+      {/* <DashBoard /> */}
+      <BrowserRouter>
         <NavBar />
         <Routes>
           <Route path="/" element={<HeroPage setLocation={setLocation} />}></Route>
@@ -46,7 +46,7 @@ function App() {
         </Routes>
 
         <Footer />
-      </BrowserRouter> */}
+      </BrowserRouter>
     </div>
   );
 }
