@@ -15,8 +15,19 @@ import { CartContext } from "../../contexts/CartContext";
 export default function RestaurantPage({}) {
   const [restaurante, setRestaurante] = useState();
   const [productos, setProductos] = useState([]);
+  const [fix, setFix] = useState(false);
   const params = useParams();
   const navigate = useNavigate();
+
+  function setFixedCart() {
+    if (window.scrollY >= 500) {
+      setFix(true);
+    } else {
+      setFix(false);
+    }
+  }
+
+  wubdiw, addEventListener("scroll", setFixedCart);
 
   const handleNavigateToVistaCompra = () => {
     navigate("../vistaCompra");
