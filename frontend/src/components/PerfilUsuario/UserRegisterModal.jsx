@@ -1,27 +1,14 @@
-import React from "react";
-import { set, useForm } from "react-hook-form";
+import React, { useState } from "react";
+import { useForm } from "react-hook-form";
 import { MdOutlineEmail, MdOutlinePassword } from "react-icons/md";
 import { RxPerson } from "react-icons/rx";
-import { handleInitialRegistrationSubmit } from "../PerfilUsuario/Usercrud";
+import { handleInitialRegistrationSubmit } from "../../utils/Usercrud";
 import styles from "../PerfilUsuario/styles.module.css";
 import { motion, AnimatePresence, easeOut } from "framer-motion";
 import UserLoginModal from "./UserLoginModal";
 
-//const doRegister = (data) => {
-// api.post('/auth/register', data)
-// .then((response) => {
-// console.log(response);
-// if (response?.data.token) {
-//    setUserSession(response.data);
-//      forceUpdate();
-//    }
-
-//  });
-//};
-
 function UserRegisterModal({
   setLogged,
-  setUser,
   closeModal,
   changeModalState,
   openLoginModal,
@@ -29,13 +16,13 @@ function UserRegisterModal({
   setIsUserRegisterModalOpen,
 }) {
   const { register, handleSubmit } = useForm();
+  const [user, setLocalUser] = useState(null);
 
   const onSubmit = async (data) => {
-    setLogged(true);
-    console.log(data);
     try {
-      await handleInitialRegistrationSubmit(data, setUser, closeModal);
+      await handleInitialRegistrationSubmit(data, setLocalUser, closeModal);
       changeModalState();
+      setLogged(true);
     } catch (error) {
       console.error("Error en el registro inicial:", error);
     }
