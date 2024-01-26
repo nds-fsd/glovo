@@ -10,7 +10,6 @@ import { React, useState, useEffect, useContext } from "react";
 import { api } from "../../utils/api";
 import ShoppingCart from "../ShoppingCart";
 import { useParams, useNavigate } from "react-router-dom";
-import CreditCard from "../CreditCard";
 import { CartContext } from "../../contexts/CartContext";
 
 export default function RestaurantPage({}) {
@@ -31,12 +30,13 @@ export default function RestaurantPage({}) {
 
   const calculatePrice = () => {
     let fullPrice = 0;
-    console.log(productos);
 
     shoppingList.forEach((e) => {
-      const productPrice = productos.find((i) => i._id === e.id).precio;
-      const partialPrice = productPrice * e.ammount;
-      fullPrice += partialPrice;
+      if (productos.find((i) => i._id === e.id)) {
+        const productPrice = productos.find((i) => i._id === e.id).precio;
+        const partialPrice = productPrice * e.ammount;
+        fullPrice += partialPrice;
+      }
     });
 
     if (restaurante && restaurante.transporte === "FREE") {
@@ -135,6 +135,7 @@ export default function RestaurantPage({}) {
                         productImg={productExampleImg}
                         producto={e}
                         shoppingList={shoppingList}
+                        restaurante={restaurante}
                       />
                     );
                   })}

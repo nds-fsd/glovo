@@ -60,17 +60,19 @@ export default function CreditCard({
             ) : (
               shoppingList.map((e) => {
                 const producto = productos.find((item) => item._id === e.id);
-                return (
-                  <>
-                    <p className={styles.individualItemContainer}>
-                      {" "}
-                      <span>
-                        {e.ammount} x {producto.nombre}
-                      </span>{" "}
-                      <b>{producto.precio * e.ammount}€</b>
-                    </p>
-                  </>
-                );
+                if (producto) {
+                  return (
+                    <>
+                      <p className={styles.individualItemContainer}>
+                        {" "}
+                        <span>
+                          {e.ammount} x {producto.nombre}
+                        </span>{" "}
+                        <b>{producto.precio * e.ammount}€</b>
+                      </p>
+                    </>
+                  );
+                }
               })
             )}
           </div>

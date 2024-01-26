@@ -43,7 +43,9 @@ export default function ShoppingCart({
     <div className={styles.shoppingCartContainer}>
       <section className={styles.shoppingCart}>
         <h2>Tu pedido </h2>
-        {shoppingList.length === 0 || productos.length === 0 ? (
+        {shoppingList.length === 0 ||
+        productos.length === 0 ||
+        !shoppingList.find((item) => item.shop === restaurante._id) ? (
           <>
             <img
               className={styles.shoppingCartBackground}
@@ -59,40 +61,42 @@ export default function ShoppingCart({
           <div className={styles.shoppingListContainer}>
             {shoppingList.map((e) => {
               const producto = productos.find((item) => item._id === e.id);
-              return (
-                <motion.div
-                  initial={{ opacity: 0, translateY: 50 }}
-                  animate={{ opacity: 1, translateY: 0 }}
-                  transition={{ ease: "easeOut", duration: 0.2 }}
-                  exit={{ opacity: 0 }}
-                  className={styles.cartItemContainer}
-                  key={e.id}
-                >
-                  <div className={styles.ammountContainer}>
-                    <button
-                      onClick={() => {
-                        ammountHandler(e, "-");
-                      }}
-                      className={styles.quantityButton}
-                    >
-                      -
-                    </button>
-                    <p className={styles.quantityNumber}>{e.ammount}</p>
-                    <button
-                      onClick={() => {
-                        ammountHandler(e, "+");
-                      }}
-                      className={styles.quantityButton}
-                    >
-                      +
-                    </button>
-                  </div>
-                  <p className={styles.shoppingListItem}>
-                    {producto.nombre + " "}
-                  </p>
-                  <b>{producto.precio + "€"}</b>
-                </motion.div>
-              );
+              if (producto) {
+                return (
+                  <motion.div
+                    initial={{ opacity: 0, translateY: 50 }}
+                    animate={{ opacity: 1, translateY: 0 }}
+                    transition={{ ease: "easeOut", duration: 0.2 }}
+                    exit={{ opacity: 0 }}
+                    className={styles.cartItemContainer}
+                    key={e.id}
+                  >
+                    <div className={styles.ammountContainer}>
+                      <button
+                        onClick={() => {
+                          ammountHandler(e, "-");
+                        }}
+                        className={styles.quantityButton}
+                      >
+                        -
+                      </button>
+                      <p className={styles.quantityNumber}>{e.ammount}</p>
+                      <button
+                        onClick={() => {
+                          ammountHandler(e, "+");
+                        }}
+                        className={styles.quantityButton}
+                      >
+                        +
+                      </button>
+                    </div>
+                    <p className={styles.shoppingListItem}>
+                      {producto.nombre + " "}
+                    </p>
+                    <b>{producto.precio + "€"}</b>
+                  </motion.div>
+                );
+              }
             })}
 
             <div className={styles.transportContainer}>
