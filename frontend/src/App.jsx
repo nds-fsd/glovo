@@ -9,10 +9,12 @@ import React, { useState, useEffect } from "react";
 import Footer from "../src/components/Footer";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { getUserToken, getUserSession } from "./utils/localStorage.utils";
+import { CartContext } from "./contexts/CartContext";
 
 import ConfirmationPage from "./components/ConfirmationPage";
 
 function App() {
+  const [shoppingList, setShoppingList] = useState([]);
   const [forceUpdate, setForceUpdate] = useState(false);
   const [location, setLocation] = useState("");
   const [user, setUser] = useState({
@@ -36,28 +38,30 @@ function App() {
 
   return (
     <div>
-      <BrowserRouter>
-        <NavBar />
+      <CartContext.Provider value={{ shoppingList, setShoppingList }}>
+        <BrowserRouter>
+          <NavBar />
 
-        <Routes>
-          <Route
-            path="/"
-            element={<HeroPage setLocation={setLocation} />}
-          ></Route>
-          <Route
-            path="/restaurants"
-            element={<HomePage location={location} />}
-          ></Route>
-          <Route
-            path="/restaurant/:restaurantId"
-            element={<RestaurantPage />}
-          ></Route>
-          <Route path="/confirmation" element={<ConfirmationPage />}></Route>
-          <Route path="/formularios" element={<Formulario />} />
-        </Routes>
+          <Routes>
+            <Route
+              path="/"
+              element={<HeroPage setLocation={setLocation} />}
+            ></Route>
+            <Route
+              path="/restaurants"
+              element={<HomePage location={location} />}
+            ></Route>
+            <Route
+              path="/restaurant/:restaurantId"
+              element={<RestaurantPage />}
+            ></Route>
+            <Route path="/confirmation" element={<ConfirmationPage />}></Route>
+            <Route path="/formularios" element={<Formulario />} />
+          </Routes>
 
-        <Footer />
-      </BrowserRouter>
+          <Footer />
+        </BrowserRouter>
+      </CartContext.Provider>
     </div>
   );
 }

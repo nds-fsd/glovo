@@ -12,7 +12,7 @@ export default function ShoppingCart({
   totalPrice,
   setShoppingList,
   restaurante,
-  setLogged,
+  isLoadingProducts,
 }) {
   let [modalIsOpen, setIsOpen] = useState(false);
 
@@ -43,7 +43,7 @@ export default function ShoppingCart({
     <div className={styles.shoppingCartContainer}>
       <section className={styles.shoppingCart}>
         <h2>Tu pedido </h2>
-        {shoppingList.length === 0 && (
+        {shoppingList.length === 0 || productos.length === 0 ? (
           <>
             <img
               className={styles.shoppingCartBackground}
@@ -55,8 +55,7 @@ export default function ShoppingCart({
               los productos aquí!
             </p>
           </>
-        )}
-        {shoppingList.length > 0 && (
+        ) : (
           <div className={styles.shoppingListContainer}>
             {shoppingList.map((e) => {
               const producto = productos.find((item) => item._id === e.id);
@@ -67,6 +66,7 @@ export default function ShoppingCart({
                   transition={{ ease: "easeOut", duration: 0.2 }}
                   exit={{ opacity: 0 }}
                   className={styles.cartItemContainer}
+                  key={e.id}
                 >
                   <div className={styles.ammountContainer}>
                     <button

@@ -55,7 +55,9 @@ export default function CreditCard({
         <div className={styles.itemContainer}>
           <p>Resumen de tu pedido</p>
           <div className={styles.itemContainerInner}>
-            {shoppingList &&
+            {shoppingList.length === 0 || productos.length === 0 ? (
+              <>loading</>
+            ) : (
               shoppingList.map((e) => {
                 const producto = productos.find((item) => item._id === e.id);
                 return (
@@ -69,7 +71,8 @@ export default function CreditCard({
                     </p>
                   </>
                 );
-              })}
+              })
+            )}
           </div>
         </div>
         <div className={styles.deliveryInfoContainer}>
