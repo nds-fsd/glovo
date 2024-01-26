@@ -100,10 +100,8 @@ export default function NavBar() {
             setIsUserRegisterModalOpen={setIsUserRegisterModalOpen}
           />
         )}
-        <UserLoginModal loginModalOpen={loginModalOpen} />
+        <UserLoginModal setLogged={setLogged} loginModalOpen={loginModalOpen} />
       </>
     );
   }
 }
-
-

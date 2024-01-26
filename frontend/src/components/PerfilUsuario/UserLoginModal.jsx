@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { MdOutlineEmail, MdOutlinePassword } from "react-icons/md";
 import { motion } from "framer-motion";
 import styles from "../PerfilUsuario/styles.module.css";
 import Modal from "react-modal";
+import { handleLoginSubmit } from "../../utils/Usercrud";
 
 Modal.setAppElement("#root");
 
@@ -15,12 +16,15 @@ function UserLoginModal({
   loginModalOpen,
 }) {
   const { register, handleSubmit } = useForm();
+  const [user, setLocalUser] = useState(null);
 
   const onSubmit = async (data) => {
-    setLogged(true);
-    console.log(data);
-
-    changeModalState();
+    try {
+      await handleLoginSubmit(data, setLocalUser);
+      setLogged(true);
+    } catch (error) {
+      console.error("Error en el registro inicial:", error);
+    }
   };
 
   return (
