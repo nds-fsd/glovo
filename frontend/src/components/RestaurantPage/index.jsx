@@ -20,14 +20,14 @@ export default function RestaurantPage({}) {
   const navigate = useNavigate();
 
   function setFixedCart() {
-    if (window.scrollY >= 500) {
+    if (window.scrollY <= 190) {
       setFix(true);
     } else {
       setFix(false);
     }
   }
 
-  wubdiw, addEventListener("scroll", setFixedCart);
+  window.addEventListener("scroll", setFixedCart);
 
   const handleNavigateToVistaCompra = () => {
     navigate("../vistaCompra");
@@ -159,6 +159,7 @@ export default function RestaurantPage({}) {
               setShoppingList={setShoppingList}
               restaurante={restaurante}
               isLoadingProducts={isLoadingProducts}
+              fix={fix}
             />
           </main>
         </div>

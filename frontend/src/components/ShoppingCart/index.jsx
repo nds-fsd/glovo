@@ -13,6 +13,7 @@ export default function ShoppingCart({
   setShoppingList,
   restaurante,
   isLoadingProducts,
+  fix,
 }) {
   let [modalIsOpen, setIsOpen] = useState(false);
 
@@ -41,7 +42,7 @@ export default function ShoppingCart({
 
   return (
     <div className={styles.shoppingCartContainer}>
-      <section className={styles.shoppingCart}>
+      <section className={fix ? styles.shoppingCart : styles.shoppingCartFixed}>
         <h2>Tu pedido </h2>
         {shoppingList.length === 0 ||
         productos.length === 0 ||
