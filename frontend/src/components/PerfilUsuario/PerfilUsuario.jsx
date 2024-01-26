@@ -50,13 +50,25 @@ function PerfilUsuario({ modalState, changeModalState, setLogged }) {
     }
   }, []);
   const handleEditClick = (field) => {
+    console.log("Editando campo:", field);
+    setIsEditing(true);
     setEditingField(field);
-    setIsUserProfileEditModal(true);
   };
+
+  const handleSaveClick = () => {
+    setIsEditing(false);
+    setEditingField(null);
+  };
+
   const handleChangePasswordClick = () => {
     setIsChangingPassword(true);
     changeModalState(true);
   };
+
+  const handleChange = (e) => {
+    setUserInfo({ ...userInfo, [editingField]: e.target.value });
+  };
+
 
   const fieldTitles = {
     firstname: "Tu Nombre",
@@ -67,13 +79,27 @@ function PerfilUsuario({ modalState, changeModalState, setLogged }) {
 
   //const [userProfileModalOpen, setUserProfileModalOpen] = useState(false);
 
-  const [isUserProfileEditModal, setIsUserProfileEditModal] = useState(false);
-  const handleUserEditModal = () => {
-    setIsUserProfileEditModal((currentState) => {
-      console.log("Cambiando estado de modal a", !currentState);
-      return !currentState;
-    });
-  };
+  const renderEditableField = (field) => {
+    if (isEditing && editingField === field) {
+      return (
+        <div>
+          <input
+            type="text"
+            value={userInfo[field]}
+            onChange={handleChange}
+          />
+          <button onClick={handleSaveClick}>Guardar</button>
+        </div>
+      );
+    } else {
+      return (
+        <span>
+          {userInfo[field]}
+          <button className={styles.editButton} onClick={() => handleEditClick(field)}>Editar</button>
+        </span>
+      );
+    }
+  };  
 
   const handleFormSubmit = (formData) => {
     console.log("Formulario enviado con:", formData);
@@ -93,15 +119,6 @@ function PerfilUsuario({ modalState, changeModalState, setLogged }) {
       className={styles.modalContent}
       overlayClassName={styles.modalOverlay}
     >
-      {isUserProfileEditModal && (
-        <UserProfileEditModal
-          user={user}
-          editingField={editingField}
-          fieldTitles={fieldTitles}
-          onSubmit={handleFormSubmit}
-        />
-      )}
-
       <motion.div
         initial={{ opacity: 0, translateY: 50 }}
         animate={{ opacity: 1, translateY: 0 }}
@@ -109,7 +126,7 @@ function PerfilUsuario({ modalState, changeModalState, setLogged }) {
         className={styles.profile}
       >
         <div className={styles.flecha}></div>
-        <h2 className={styles.profileHeader}>¡Hola, {user.firstname} !</h2>
+        <h2 className={styles.profileHeader}>¡Hola, {userInfo.firstName}!</h2>
         <button
           className={styles.logoutButton}
           onClick={() =>  closeUserSession()}
@@ -119,27 +136,15 @@ function PerfilUsuario({ modalState, changeModalState, setLogged }) {
         <div className={styles.separadorHeader}></div>
         <div className={styles.userInfoContainer}>
           <p className={styles.campoP}>
-            <b>Nombre:</b> {userInfo.firstName || "no hay contenido"}
-            {/* <button
-                className={styles.editButton}
-                onClick={() => handleEditClick("firstname")}
-              >
-                Editar
-              </button>{" "} */}
-            <br />
-            {user.firstname}
-          </p>
-        </div>
+          <b>Nombre:</b> {renderEditableField('firstName')}
+          <br />
+          {user.firstname}
+        </p>
+      </div>
 
         <div className={styles.userInfoContainer}>
           <p className={styles.campoP}>
-            <b>Email:</b> {userInfo.email}
-            {/* <button
-                className={styles.editButton}
-                onClick={() => handleEditClick("email")}
-              >
-                Editar
-              </button>{" "} */}
+            <b>Email:</b> {renderEditableField('email')}
             <br />
           </p>
         </div>
@@ -147,26 +152,15 @@ function PerfilUsuario({ modalState, changeModalState, setLogged }) {
         <div className={styles.userInfoContainer}>
           <p className={styles.campoP}>
             <b>Teléfono:</b> {user.phone || "añade tu numero aquí 📱"}
-            {/* <button
-                className={styles.editButton}
-                onClick={() => handleEditClick("phone")}
-              >
-                Editar
-              </button>{" "} */}
-            {user.phone}
+            {renderEditableField('Movil')}
           </p>
         </div>
 
         <div className={styles.userInfoContainer}>
           <p className={styles.campoP}>
             <b>Contraseña: </b>{" "}
-            {/* <button
-                className={styles.editButton}
-                onClick={handleChangePasswordClick}
-              >
-                Editar
-              </button>{" "} */}
             {"•••••••••"}
+            {renderEditableField('Password')}
           </p>
         </div>
         <div className={styles.separador}></div>
@@ -203,12 +197,7 @@ function PerfilUsuario({ modalState, changeModalState, setLogged }) {
         <div className={styles.separador}></div>
         <div className={styles.userSection}>
           <p>Código promocional:</p>
-          {/* <button
-              className={styles.promoButton}
-              onClick={() => handleEditClick("promo")}
-            >
-              Añadir
-            </button> */}
+          {renderEditableField('Codigo')}
         </div>
         <p className={styles.campoP}></p>
       </motion.div>
