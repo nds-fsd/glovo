@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 
-import styles from "./styles.module.css";
 import Modal from "react-modal";
 import flagIcon from "../../assets/icons/flag-svgrepo-com.svg";
 import walletIcon from "../../assets/icons/credit-card-svgrepo-com.svg";
@@ -10,6 +9,7 @@ import "react-credit-cards-2/dist/es/styles-compiled.css";
 import { useForm } from "react-hook-form";
 import AddressModal from "../AddressModal";
 import CreditCardModal from "../CreditCardModal";
+import styles from "../PurchaseConfirmationModal/styles.module.css";
 
 Modal.setAppElement("#root");
 
@@ -20,7 +20,7 @@ export default function PurchaseConfirmationModal({
   productos,
 }) {
   const [cardModalIsOpen, setCardModalIsOpen] = useState(false);
-  const [addressModalIsOpen, setAddressModalIsOpen] = useState(true);
+  const [addressModalIsOpen, setAddressModalIsOpen] = useState(false);
 
   const openCardModal = () => {
     setCardModalIsOpen(true);
@@ -45,6 +45,7 @@ export default function PurchaseConfirmationModal({
       className={styles.modalContent}
       isOpen={modalIsOpen}
       overlayClassName={styles.modalOverlay}
+      parentSelector={() => document.querySelector("#root")}
     >
       <motion.div
         initial={{ opacity: 0, translateY: 50 }}

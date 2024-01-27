@@ -55,7 +55,7 @@
 }
 
 .confirmButton {
-  background-color: rgb(1, 139, 123);
+  background-color: var(--secondary-color);
   color: white;
   border-radius: 25px;
   width: 100%;
@@ -80,7 +80,7 @@
 }
 
 .individualItemContainer {
-  background-color: rgba(169, 222, 219, 0.36);
+  background-color: var(--secondary-color-lighter);
   padding: 10px;
   border-radius: 25px;
   width: 120px;
@@ -121,7 +121,7 @@ span {
 }
 
 .modifiableItem:hover {
-  color: rgb(0, 145, 145);
+  color: var(--secondary-color);
 }
 
 .icon {
@@ -153,54 +153,6 @@ b {
   text-wrap: nowrap;
   text-overflow: ellipsis;
 }
-.extraInfoContainer {
-  display: flex;
-  justify-content: space-between;
-
-  background-color: var(--primary-color);
-  width: 100%;
-}
-
-.cvcInput {
-  width: 49%;
-  outline: none;
-}
-
-input {
-  background-color: #e4f9f6;
-
-  outline: none;
-  font-size: 0.85rem;
-  font-family: "quicksand";
-}
-
-input::placeholder {
-  font-size: 0.85rem;
-  font-family: "quicksand";
-}
-
-.inputContainer {
-  display: flex;
-
-  width: 80%;
-}
-
-.agregarTarjeta {
-  border-radius: 25px;
-  width: 100%;
-  background-color: #11757c;
-  color: white;
-  font-weight: bold;
-  font-size: 15px;
-  padding: 0 20px;
-  margin-top: 10px;
-}
-
-.topText {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
 
 .closeButton {
   position: absolute;
@@ -212,23 +164,8 @@ input::placeholder {
   padding: 2px;
   height: 20px;
   width: 20px;
-  background-color: #11757c;
+  background-color: var(--secondary-color);
   box-shadow: 0 0 0 0;
   color: white;
   font-size: 10px;
-}
-
-.cardImage {
-  padding: 20px;
-}
-
-.formContainer {
-  display: flex;
-  flex-direction: column;
-  padding: 0 20px;
-  gap: 5px;
-}
-
-.formContainer > button {
-  margin-top: 15px;
 }

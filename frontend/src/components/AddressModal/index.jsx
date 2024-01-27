@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import styles from "../PurchaseConfirmationModal/styles.module.css";
+import styles from "./styles.module.css";
 import Modal from "react-modal";
 import { motion } from "framer-motion";
 import React, { useState } from "react";
@@ -16,6 +16,7 @@ export default function AddressModal({
 
   return (
     <Modal
+      parentSelector={() => document.querySelector("#root")}
       className={styles.modalSecondaryContent}
       overlayClassName={styles.modalOverlay}
       isOpen={addressModalIsOpen}
@@ -35,8 +36,12 @@ export default function AddressModal({
         </div>
         <div className={styles.inputContainer}>
           <form onSubmit={handleSubmit(onSubmit)} action="">
-            <input name="erar" type="text" placeholder="Nombre" />
-            <input name="eraar" type="text" placeholder="Dirección" />
+            <input {...register("name")} type="text" placeholder="Nombre" />
+            <input
+              {...register("address")}
+              type="text"
+              placeholder="Dirección"
+            />
 
             <button type="submit" className={styles.agregarTarjeta}>
               Agregar dirección

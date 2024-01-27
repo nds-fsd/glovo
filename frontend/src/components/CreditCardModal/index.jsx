@@ -1,9 +1,11 @@
 import { useForm } from "react-hook-form";
-import styles from "../PurchaseConfirmationModal/styles.module.css";
+import styles from "./styles.module.css";
 import Modal from "react-modal";
 import Cards from "react-credit-cards-2";
 import { motion } from "framer-motion";
 import React, { useState } from "react";
+
+Modal.setAppElement("#root");
 
 export default function CreditCardModal({ cardModalIsOpen, closeCardModal }) {
   const [state, setState] = useState({
@@ -57,6 +59,7 @@ export default function CreditCardModal({ cardModalIsOpen, closeCardModal }) {
 
   return (
     <Modal
+      parentSelector={() => document.querySelector("#root")}
       className={styles.modalSecondaryContent}
       overlayClassName={styles.modalOverlay}
       isOpen={cardModalIsOpen}
