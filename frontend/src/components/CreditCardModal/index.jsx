@@ -14,11 +14,37 @@ export default function CreditCardModal({ cardModalIsOpen, closeCardModal }) {
     focus: "",
   });
 
-  const handleInputChange = (evt) => {
-    const { name, value } = evt.target;
+  function handleInputChange(event) {
+    const { name, value } = event.target;
+    let formattedValue = value;
 
-    setState((prev) => ({ ...prev, [name]: value }));
-  };
+    switch (name) {
+      case "number":
+        // Formatear el número de tarjeta con espacios cada 4 dígitos
+        formattedValue = value
+          .replace(/\s+/g, "")
+          .replace(/(\d{4})/g, "$1 ")
+          .trim();
+        break;
+      case "expiry":
+        // Aceptar solo números y limitar la longitud a 4 caracteres (sin contar el /)
+        const cleaned = value.replace(/\D/g, "").slice(0, 4);
+        formattedValue =
+          cleaned.length >= 3
+            ? `${cleaned.slice(0, 2)}/${cleaned.slice(2)}`
+            : cleaned;
+        break;
+      case "cvc":
+        // Asegurarse de que CVC solo tenga dígitos y hasta 3 caracteres
+        formattedValue = value.replace(/\D/g, "").slice(0, 3);
+        break;
+      default:
+        // No se aplica formateo especial para otros campos
+        formattedValue = value;
+    }
+
+    setState({ ...state, [name]: formattedValue });
+  }
 
   const handleInputFocus = (evt) => {
     setState((prev) => ({ ...prev, focus: evt.target.name }));
@@ -67,45 +93,48 @@ export default function CreditCardModal({ cardModalIsOpen, closeCardModal }) {
             <input
               {...register("name")}
               required
-              type="name"
+              type="text" // Cambiado a text para ser consistente
               name="name"
               placeholder="Nombre"
               value={state.name}
               onChange={handleInputChange}
               onFocus={handleInputFocus}
             />
+
             <input
               required
-              maxLength={16}
-              minLength={16}
+              maxLength={19}
+              minLength={19}
               {...register("number")}
-              type="number"
+              type="text"
               name="number"
-              placeholder="Numero de la tarjeta"
+              placeholder="Número de la tarjeta"
               value={state.number}
               onChange={handleInputChange}
               onFocus={handleInputFocus}
             />
+
             <div className={styles.extraInfoContainer}>
               <input
                 {...register("expiry")}
                 required
                 maxLength={5}
-                minLength={3}
+                minLength={5}
                 type="text"
                 name="expiry"
-                placeholder="Validez"
+                placeholder="Validez (MM/AA)"
                 value={state.expiry}
                 onChange={handleInputChange}
                 onFocus={handleInputFocus}
                 className={styles.cvcInput}
               />
+
               <input
                 {...register("cvc")}
                 required
                 maxLength={3}
                 minLength={3}
-                type="cvc"
+                type="text"
                 name="cvc"
                 placeholder="CVC"
                 value={state.cvc}
@@ -114,6 +143,7 @@ export default function CreditCardModal({ cardModalIsOpen, closeCardModal }) {
                 className={styles.cvcInput}
               />
             </div>
+
             <button type="submit" className={styles.confirmButton}>
               Agregar tarjeta
             </button>
