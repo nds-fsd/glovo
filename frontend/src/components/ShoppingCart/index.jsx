@@ -2,7 +2,7 @@ import styles from "../ShoppingCart/styles.module.css";
 import shoppingCartBackground from "../../assets/images/astronaut-grey-scale.svg";
 import scooterIcon from "../../assets/icons/scooter-svgrepo-com (1).svg";
 import { motion, AnimatePresence } from "framer-motion";
-import CreditCard from "../CreditCard";
+import PurchaseConfirmationModal from "../PurchaseConfirmationModal";
 
 import { useState } from "react";
 
@@ -12,7 +12,6 @@ export default function ShoppingCart({
   totalPrice,
   setShoppingList,
   restaurante,
-  isLoadingProducts,
   fix,
 }) {
   let [modalIsOpen, setIsOpen] = useState(false);
@@ -115,7 +114,7 @@ export default function ShoppingCart({
         )}{" "}
       </section>
 
-      <CreditCard
+      <PurchaseConfirmationModal
         shoppingList={shoppingList}
         modalIsOpen={modalIsOpen}
         productos={productos}
