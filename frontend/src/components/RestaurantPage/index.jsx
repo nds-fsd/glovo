@@ -20,11 +20,16 @@ export default function RestaurantPage({}) {
   const navigate = useNavigate();
 
   function setFixedCart() {
-    if (window.scrollY <= 190) {
+    const dynamicScrollY = calculateDynamicScrollY();
+    if (window.scrollY <= dynamicScrollY - 229) {
       setFix(true);
     } else {
       setFix(false);
     }
+  }
+
+  function calculateDynamicScrollY() {
+    return document.getElementById("cartContainer").offsetHeight;
   }
 
   window.addEventListener("scroll", setFixedCart);
@@ -132,7 +137,7 @@ export default function RestaurantPage({}) {
                 </div>
               </section>
               <img src="" alt="" />
-              <div className={styles.productGrid}>
+              <div id="cartContainer" className={styles.productGrid}>
                 {productos &&
                   productos.map((e) => {
                     return (
