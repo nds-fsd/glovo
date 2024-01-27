@@ -5,18 +5,18 @@ import HomePage from "./components/HomePage/index";
 import NavBar from "./components/NavBar/index";
 import HeroPage from "./components/HeroPage/index";
 import Formulario from "./components/formularios/formularios";
-import React, { useState, useEffect } from "react"; 
+import React, { useState, useEffect } from "react";
 import Footer from "../src/components/Footer";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { getUserToken, getUserSession } from "./utils/localStorage.utils";
-import DashBoard from "./components/DashBoard/dashBoard"
+import DashBoard from "./components/DashBoard/dashBoard";
 function App() {
   const [forceUpdate, setForceUpdate] = useState(false);
   const [location, setLocation] = useState("");
   const [user, setUser] = useState({
     firstname: "",
     email: "",
-    phone: ""
+    phone: "",
   });
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
@@ -32,11 +32,10 @@ function App() {
     // Implementación de inicio de sesión
   };
 
-
   return (
     <div>
-      {/* <DashBoard /> */}
-      <BrowserRouter>
+      <DashBoard />
+      {/* <BrowserRouter>
         <NavBar />
         <Routes>
           <Route path="/" element={<HeroPage setLocation={setLocation} />}></Route>
@@ -46,7 +45,7 @@ function App() {
         </Routes>
 
         <Footer />
-      </BrowserRouter>
+      </BrowserRouter> */}
     </div>
   );
 }
