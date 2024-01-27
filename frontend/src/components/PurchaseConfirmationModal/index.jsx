@@ -19,8 +19,16 @@ export default function PurchaseConfirmationModal({
   shoppingList,
   productos,
 }) {
+  const handleConfirmButton = () => {
+    setConfirmationAnimation(true);
+
+    // setTimeout(() => {
+    //   navigate("/confirmation");
+    // }, 2000);
+  };
   const [cardModalIsOpen, setCardModalIsOpen] = useState(false);
   const [addressModalIsOpen, setAddressModalIsOpen] = useState(false);
+  const [confirmationAnimation, setConfirmationAnimation] = useState(false);
 
   const openCardModal = () => {
     setCardModalIsOpen(true);
@@ -52,7 +60,11 @@ export default function PurchaseConfirmationModal({
         animate={{ opacity: 1, translateY: 0 }}
         transition={{ ease: "easeOut", duration: 0.2 }}
         className={styles.mainContainer}
-        style={cardModalIsOpen || addressModalIsOpen ? { display: "none" } : {}}
+        style={
+          cardModalIsOpen || addressModalIsOpen || confirmationAnimation
+            ? { display: "none" }
+            : {}
+        }
       >
         {" "}
         <button onClick={closeModal} className={styles.closeButton}>
@@ -101,14 +113,10 @@ export default function PurchaseConfirmationModal({
             </b>
           </p>
         </div>
-        <button
-          onClick={() => navigate("/confirmation")}
-          className={styles.confirmButton}
-        >
+        <button onClick={handleConfirmButton} className={styles.confirmButton}>
           Confirmar pedido
         </button>
       </motion.div>
-
       <AddressModal
         addressModalIsOpen={addressModalIsOpen}
         closeAddressModal={closeAddressModal}
@@ -117,6 +125,29 @@ export default function PurchaseConfirmationModal({
         cardModalIsOpen={cardModalIsOpen}
         closeCardModal={closeCardModal}
       />
+      {confirmationAnimation && (
+        <motion.div
+          initial={{ opacity: 0, scale: 0 }}
+          animate={{
+            opacity: ["0", "100%", "100%", "100%", "100%"],
+
+            borderRadius: [
+              "20%",
+              "40%",
+              "20%",
+              "20%",
+              "40%",
+              "20%",
+              "20%",
+              "0%",
+            ],
+            scale: ["20%", "45%", "31%", "40%", "45%", "31%", "40%", "100%"],
+          }}
+          transition={{ ease: "easeOut", duration: 3 }}
+          className={styles.animationConfirmation}
+          onClick={() => setConfirmationAnimation(false)}
+        ></motion.div>
+      )}{" "}
     </Modal>
   );
 }
