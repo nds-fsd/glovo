@@ -11,7 +11,6 @@ function UserRegisterModal({
   setLogged,
   closeModal,
   changeModalState,
-  openLoginModal,
   setLoginModalOpen,
   setIsUserRegisterModalOpen,
 }) {
