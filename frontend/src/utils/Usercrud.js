@@ -1,5 +1,5 @@
 import axios from "axios";
-import { setUserSession, setStorageObject } from '../utils/localStorage.utils';
+import { setUserSession, setStorageObject } from "../utils/localStorage.utils";
 
 export const handleInitialRegistrationSubmit = async (
   data,
@@ -7,17 +7,30 @@ export const handleInitialRegistrationSubmit = async (
   closeModal
 ) => {
   try {
-   const response = await axios.post("http://localhost:3001/register", data);
-   setStorageObject("token", response.data.token)
-   setStorageObject("user", response.data.user)
-   setLocalUser(response.data);
+    const response = await axios.post("http://localhost:3001/register", data);
+    setStorageObject("token", response.data.token);
+    setStorageObject("user", response.data.user);
+    setLocalUser(response.data);
     closeModal();
   } catch (error) {
     console.error("Error en el registro inicial:", error);
   }
-
-
 };
+
+export const handleLoginSubmit = async (data, setLocalUser, closeModal) => {
+  try {
+    const response = await axios.post("http://localhost:3001/login", data);
+    console.log("repuesta del Backend ", response);
+    setStorageObject("token", response.data.token);
+    setStorageObject("user", response.data.user);
+    setLocalUser(response.data);
+    return response.status;
+  } catch (error) {
+    console.error("Error en el Login:", error);
+    return error.response.status;
+  }
+};
+
 export const handleProfileUpdateSubmit = async (
   data,
   user,

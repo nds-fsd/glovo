@@ -13,17 +13,15 @@ import { CartContext } from "./contexts/CartContext";
 import { OrderContext } from "./contexts/OrderContext";
 
 import ConfirmationPage from "./components/ConfirmationPage";
+import { UserContext } from "./contexts/UserContext";
 
 function App() {
   const [shoppingList, setShoppingList] = useState([]);
   const [order, setOrder] = useState([]);
   const [forceUpdate, setForceUpdate] = useState(false);
   const [location, setLocation] = useState("");
-  const [user, setUser] = useState({
-    firstname: "",
-    email: "",
-    phone: "",
-  });
+  const [user, setLocalUser] = useState(null);
+
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
@@ -40,35 +38,37 @@ function App() {
 
   return (
     <div>
-      <OrderContext.Provider value={{ order, setOrder }}>
-        <CartContext.Provider value={{ shoppingList, setShoppingList }}>
-          <BrowserRouter>
-            <NavBar />
+      <UserContext.Provider value={{ user, setLocalUser }}>
+        <OrderContext.Provider value={{ order, setOrder }}>
+          <CartContext.Provider value={{ shoppingList, setShoppingList }}>
+            <BrowserRouter>
+              <NavBar />
 
-            <Routes>
-              <Route
-                path="/"
-                element={<HeroPage setLocation={setLocation} />}
-              ></Route>
-              <Route
-                path="/restaurants"
-                element={<HomePage location={location} />}
-              ></Route>
-              <Route
-                path="/restaurant/:restaurantId"
-                element={<RestaurantPage />}
-              ></Route>
-              <Route
-                path="/confirmation"
-                element={<ConfirmationPage />}
-              ></Route>
-              <Route path="/formularios" element={<Formulario />} />
-            </Routes>
+              <Routes>
+                <Route
+                  path="/"
+                  element={<HeroPage setLocation={setLocation} />}
+                ></Route>
+                <Route
+                  path="/restaurants"
+                  element={<HomePage location={location} />}
+                ></Route>
+                <Route
+                  path="/restaurant/:restaurantId"
+                  element={<RestaurantPage />}
+                ></Route>
+                <Route
+                  path="/confirmation"
+                  element={<ConfirmationPage />}
+                ></Route>
+                <Route path="/formularios" element={<Formulario />} />
+              </Routes>
 
-            <Footer />
-          </BrowserRouter>
-        </CartContext.Provider>
-      </OrderContext.Provider>
+              <Footer />
+            </BrowserRouter>
+          </CartContext.Provider>
+        </OrderContext.Provider>
+      </UserContext.Provider>
     </div>
   );
 }
