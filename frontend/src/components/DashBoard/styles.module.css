@@ -12,40 +12,52 @@
   background-color: rgb(171, 180, 180);
   border-radius: 5px;
 }
-
-/* .box2 {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  grid-template-rows: auto;
-  padding: 10px;
-  border: 1px solid grey;
-  height: 400px;
-} */
 .input {
-  grid-column: 5 / 6;
+  grid-column: 3 / 4;
+  grid-row: 1 / 2;
   height: 30px;
   width: 150px;
+}
+.close {
+  grid-column: 6 / 7;
+  grid-row: 1 / 2;
+  height: 30px;
+  width: 60px;
+  border-radius: 20px;
+  background-color: rgba(0, 0, 0, 0);
+  color: white;
+  padding: 3px;
+  margin: 5px;
+}
+.switch {
+  grid-column: 5 / 6;
+  grid-row: 1 / 2;
+  height: 30px;
+  width: 60px;
+  border-radius: 20px;
+  background-color: rgba(0, 0, 0, 0);
+  color: white;
+  padding: 3px;
+  margin: 5px;
 }
 .h2 {
   grid-column: 3 / 4;
 }
-
 .p {
   grid-column: 3 / 4;
   grid-row: 2 / 3;
   color: white;
 }
-
 .divFondoPantalla {
   background-image: url("../../assets/images/burger.jpg");
-  background-size: cover; /* Asegura que la imagen cubra todo el div */
-  background-position: center; /* Centra la imagen en el div */
-  background-repeat: no-repeat; /* Evita que la imagen se repita */
-  height: 90vh; /* O ajusta según tus necesidades */
-  width: 97%; /* Ancho completo */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 90vh;
+  width: 97%;
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  grid-template-rows: auto;
+  grid-template-rows: repeat(8, 1fr);
   padding: 10px;
   height: 600px;
   backdrop-filter: blur(5px);
@@ -58,4 +70,40 @@ p {
 h2 {
   color: rgb(118, 122, 126);
   grid-row: 2 / 3;
+}
+.buttons {
+  display: flex;
+  justify-content: flex-end;
+  grid-column: 6 / 7;
+}
+.buttons2 {
+  display: flex;
+  justify-content: flex-end;
+  grid-row: 8 / 9;
+  grid-column: 3 / 5;
+}
+
+.slider {
+  grid-column: 2 / 6;
+  grid-row: 7 / 8;
+}
+
+.add {
+  height: 30px;
+  width: 120px;
+  border-radius: 20px;
+  background-color: rgba(0, 0, 0, 0);
+  color: white;
+  padding: 3px;
+  margin: 5px;
+}
+
+.delete {
+  height: 30px;
+  width: 120px;
+  border-radius: 20px;
+  background-color: rgba(0, 0, 0, 0);
+  color: white;
+  padding: 3px;
+  margin: 5px;
 }
