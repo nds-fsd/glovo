@@ -8,7 +8,6 @@ import { useState } from "react";
 import UserRegisterModal from "../PerfilUsuario/UserRegisterModal";
 import PerfilUsuario from "../PerfilUsuario/PerfilUsuario";
 import { useNavigate } from "react-router-dom";
-import { motion, AnimatePresence } from "framer-motion";
 
 export default function NavBar() {
   const [logged, setLogged] = useState(true);

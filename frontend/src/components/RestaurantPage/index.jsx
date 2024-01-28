@@ -6,48 +6,74 @@ import stopwatchIcon from "../../assets/icons/stopwatch-svgrepo-com.svg";
 import RestaurantStats from "../RestaurantStats";
 import ProductCard from "../ProductCard";
 import productExampleImg from "../../assets/images/productexampleimg.avif";
-import { React, useState, useEffect } from "react";
+import { React, useState, useEffect, useContext } from "react";
 import { api } from "../../utils/api";
 import ShoppingCart from "../ShoppingCart";
 import { useParams, useNavigate } from "react-router-dom";
+import { CartContext } from "../../contexts/CartContext";
 
 export default function RestaurantPage({}) {
   const [restaurante, setRestaurante] = useState();
   const [productos, setProductos] = useState([]);
+  const [fix, setFix] = useState(true);
   const params = useParams();
   const navigate = useNavigate();
+
+  function setFixedCart() {
+    const dynamicScrollY = calculateDynamicScrollY();
+    if (window.scrollY <= dynamicScrollY - 229) {
+      setFix(true);
+    } else {
+      setFix(false);
+    }
+  }
+
+  function calculateDynamicScrollY() {
+    return document.getElementById("cartContainer").offsetHeight;
+  }
+
+  window.addEventListener("scroll", setFixedCart);
 
   const handleNavigateToVistaCompra = () => {
     navigate("../vistaCompra");
   };
 
-  const [shoppingList, setShoppingList] = useState([]);
+  const { shoppingList, setShoppingList } = useContext(CartContext);
+
   let [totalPrice, setTotalPrice] = useState(0);
 
-  useEffect(() => {
-    const calculatePrice = () => {
-      let fullPrice = 0;
-      shoppingList.forEach((e) => {
+  const [isLoadingProducts, setIsLoadingProducts] = useState(true);
+
+  const calculatePrice = () => {
+    let fullPrice = 0;
+
+    shoppingList.forEach((e) => {
+      if (productos.find((i) => i._id === e.id)) {
         const productPrice = productos.find((i) => i._id === e.id).precio;
         const partialPrice = productPrice * e.ammount;
         fullPrice += partialPrice;
-      });
-
-      if (restaurante && restaurante.transporte === "FREE") {
-        setTotalPrice(Math.floor(fullPrice * 100) / 100);
-      } else {
-        restaurante &&
-          setTotalPrice(
-            Math.floor(
-              (fullPrice += parseFloat(
-                restaurante.transporte.replace("€", "").replace(",", ".")
-              )) * 100
-            ) / 100
-          );
       }
-    };
-    calculatePrice();
-  }, [shoppingList]);
+    });
+
+    if (restaurante && restaurante.transporte === "FREE") {
+      setTotalPrice(Math.floor(fullPrice * 100) / 100);
+    } else {
+      restaurante &&
+        setTotalPrice(
+          Math.floor(
+            (fullPrice += parseFloat(
+              restaurante.transporte.replace("€", "").replace(",", ".")
+            )) * 100
+          ) / 100
+        );
+    }
+  };
+
+  useEffect(() => {
+    if (!isLoadingProducts) {
+      calculatePrice();
+    }
+  }, [shoppingList, isLoadingProducts]);
 
   useEffect(() => {
     const obtenerRestaurante = async () => {
@@ -65,6 +91,7 @@ export default function RestaurantPage({}) {
           "/restaurantes/" + params.restaurantId + "/products"
         );
         setProductos(response.data);
+        setIsLoadingProducts(false);
       } catch (error) {
         console.error(
           "Error al obtener los datos de los productos del restaurante:",
@@ -110,7 +137,7 @@ export default function RestaurantPage({}) {
                 </div>
               </section>
               <img src="" alt="" />
-              <div className={styles.productGrid}>
+              <div id="cartContainer" className={styles.productGrid}>
                 {productos &&
                   productos.map((e) => {
                     return (
@@ -124,6 +151,7 @@ export default function RestaurantPage({}) {
                         productImg={productExampleImg}
                         producto={e}
                         shoppingList={shoppingList}
+                        restaurante={restaurante}
                       />
                     );
                   })}
@@ -135,6 +163,8 @@ export default function RestaurantPage({}) {
               totalPrice={totalPrice}
               setShoppingList={setShoppingList}
               restaurante={restaurante}
+              isLoadingProducts={isLoadingProducts}
+              fix={fix}
             />
           </main>
         </div>
