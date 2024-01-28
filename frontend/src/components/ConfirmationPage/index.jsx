@@ -5,7 +5,7 @@ import ThumbsUpImg from "../../assets/images/thumb-up-svgrepo-com.svg";
 import wavySvg from "../../assets/images/address-jumbotron-wave-desktop.svg";
 
 export default function ConfirmationPage() {
-  const { order, setOrder } = useContext(OrderContext);
+  const { order } = useContext(OrderContext);
 
   return (
     <div className={styles.viewport}>
@@ -23,16 +23,14 @@ export default function ConfirmationPage() {
           </div>
           {order.map((e) => {
             return (
-              <>
-                <li>
-                  <div className={styles.individualItemContainer}>
-                    <p>
-                      {e.ammount} x {e.producto.nombre}
-                      <b> {e.producto.precio}€</b>
-                    </p>
-                  </div>
-                </li>
-              </>
+              <li key={e.producto._id}>
+                <div className={styles.individualItemContainer}>
+                  <p>
+                    {e.ammount} x {e.producto.nombre}
+                    <b> {e.producto.precio}€</b>
+                  </p>
+                </div>
+              </li>
             );
           })}
           <div className={styles.individualItemContainer}>

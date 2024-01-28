@@ -3,14 +3,12 @@ import { OrderContext } from "../../contexts/OrderContext";
 import Modal from "react-modal";
 import flagIcon from "../../assets/icons/flag-svgrepo-com.svg";
 import walletIcon from "../../assets/icons/credit-card-svgrepo-com.svg";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { useNavigate } from "react-router";
 import "react-credit-cards-2/dist/es/styles-compiled.css";
-import { set, useForm } from "react-hook-form";
 import AddressModal from "../AddressModal";
 import CreditCardModal from "../CreditCardModal";
 import styles from "../PurchaseConfirmationModal/styles.module.css";
-import { CSSProperties } from "react";
 import { BounceLoader } from "react-spinners";
 import { CartContext } from "../../contexts/CartContext";
 
@@ -49,7 +47,6 @@ export default function PurchaseConfirmationModal({
     });
 
     setOrder(order2);
-    console.log(order);
   };
 
   const [cardModalIsOpen, setCardModalIsOpen] = useState(false);
@@ -108,7 +105,7 @@ export default function PurchaseConfirmationModal({
                 const producto = productos.find((item) => item._id === e.id);
                 if (producto) {
                   return (
-                    <>
+                    <div key={e.id}>
                       <p className={styles.individualItemContainer}>
                         {" "}
                         <span>
@@ -116,7 +113,7 @@ export default function PurchaseConfirmationModal({
                         </span>{" "}
                         <b>{producto.precio * e.ammount}€</b>
                       </p>
-                    </>
+                    </div>
                   );
                 }
               })

@@ -15,7 +15,7 @@ import { CartContext } from "../../contexts/CartContext";
 export default function RestaurantPage({}) {
   const [restaurante, setRestaurante] = useState();
   const [productos, setProductos] = useState([]);
-  const [fix, setFix] = useState(false);
+  const [fix, setFix] = useState(true);
   const params = useParams();
   const navigate = useNavigate();
 

@@ -21,7 +21,6 @@ export default function ProductCard({
         ...shoppingList,
         { shop: restaurante._id, id: producto._id, ammount: 1 },
       ]);
-      console.log(shoppingList);
     }
   };
 
