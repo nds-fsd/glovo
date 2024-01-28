@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useForm } from "react-hook-form";
 import { MdOutlineEmail, MdOutlinePassword } from "react-icons/md";
 import { motion } from "framer-motion";
 import styles from "../PerfilUsuario/styles.module.css";
 import Modal from "react-modal";
 import { handleLoginSubmit } from "../../utils/Usercrud";
+import { UserContext } from "../../contexts/UserContext";
 
 function UserLoginModal({
   setLogged,
@@ -14,7 +15,8 @@ function UserLoginModal({
   loginModalOpen,
 }) {
   const { register, handleSubmit } = useForm();
-  const [user, setLocalUser] = useState(null);
+  const { user, setLocalUser } = useContext(UserContext);
+
   const [error, setError] = useState(null);
   const onSubmit = async (data) => {
     try {
