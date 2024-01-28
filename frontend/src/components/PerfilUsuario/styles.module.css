@@ -211,10 +211,6 @@ div[class^="_profile_"]::-webkit-scrollbar {
   z-index: 999;
   overflow: auto;
   outline: none;
-
-  background-color: #00000034;
-  -webkit-backdrop-filter: blur(3px);
-  backdrop-filter: blur(3px);
 }
 
 .registerForm {

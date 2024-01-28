@@ -6,8 +6,6 @@ import styles from "../PerfilUsuario/styles.module.css";
 import Modal from "react-modal";
 import { handleLoginSubmit } from "../../utils/Usercrud";
 
-Modal.setAppElement("#root");
-
 function UserLoginModal({
   setLogged,
   setUser,
@@ -33,7 +31,14 @@ function UserLoginModal({
   };
 
   return (
-    <Modal isOpen={loginModalOpen}>
+    <Modal
+      isOpen={loginModalOpen}
+      parentSelector={() => document.querySelector("#root")}
+      className={styles.modalContent}
+      overlayClassName={styles.modalOverlay}
+    >
+      {" "}
+      overlayClassName={styles.modalOverlay}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
