@@ -112,6 +112,8 @@ authRouter.post("/register-restaurant", (req, res) => {
     });
 });
 
+
+
 authRouter.post("/login", async (req, res) => {
   const { email, password } = req.body;
   // * Validate, email and password were provided in the request

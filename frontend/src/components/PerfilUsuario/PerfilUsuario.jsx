@@ -1,15 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import Modal from "react-modal";
-import UserPasswordModal from "./UserPasswordModal.jsx";
-import UserProfileEditModal from "./UserProfileEditModal.jsx";
-import UserRegisterModal from "./UserRegisterModal.jsx";
 import styles from "./styles.module.css";
-import { handleInitialRegistrationSubmit } from "../../utils/Usercrud.js";
 import Switch from "../PerfilUsuario/Switch.jsx";
 import { motion } from "framer-motion";
-import {getStorageObject} from '../../utils/localStorage.utils.js';
+import { getStorageObject } from '../../utils/localStorage.utils.js';
 import { deleteStorageObject } from "../../utils/localStorage.utils.js";
+import { handleProfileUpdateSubmit } from '../../utils/Usercrud.js';
 
 Modal.setAppElement("#root");
 
@@ -23,20 +20,20 @@ function PerfilUsuario({ modalState, changeModalState, setLogged }) {
     phone: "",
     receivePromotions: false,
   });
-  const [isEditing, setIsEditing] = useState(false); 
+  const [isEditing, setIsEditing] = useState(false);
   const [editingField, setEditingField] = useState(null);
   const [isChangingPassword, setIsChangingPassword] = useState(false);
   const { register, handleSubmit, setValue, reset } = useForm();
 
   // Would be implemented like this 
   const [userInfo, setUserInfo] = useState("");
-  useEffect(() => { 
-    const userDataFromToken = getStorageObject("token")  
+  useEffect(() => {
+    const userDataFromToken = getStorageObject("token")
     if (userDataFromToken !== null) {
       setUserInfo(userDataFromToken)
     }
-    return 
-  }, []) 
+    return
+  }, [])
 
 
 
@@ -55,10 +52,19 @@ function PerfilUsuario({ modalState, changeModalState, setLogged }) {
     setEditingField(field);
   };
 
-  const handleSaveClick = () => {
-    setIsEditing(false);
-    setEditingField(null);
+  const handleSaveClick = async () => {
+    const updatedData = { [editingField]: userInfo[editingField] };
+  
+    try {
+      await handleProfileUpdateSubmit(editingField, updatedData, user._id, setUser);
+      setIsEditing(false);
+      setEditingField(null);
+    } catch (error) {
+      console.error('Hubo un error al actualizar la información del usuario:', error);
+      // Manejar el error aquí
+    }
   };
+  
 
   const handleChangePasswordClick = () => {
     setIsChangingPassword(true);
@@ -99,7 +105,7 @@ function PerfilUsuario({ modalState, changeModalState, setLogged }) {
         </span>
       );
     }
-  };  
+  };
 
   const handleFormSubmit = (formData) => {
     console.log("Formulario enviado con:", formData);
@@ -129,46 +135,58 @@ function PerfilUsuario({ modalState, changeModalState, setLogged }) {
         <h2 className={styles.profileHeader}>¡Hola, {userInfo.firstName}!</h2>
         <button
           className={styles.logoutButton}
-          onClick={() =>  closeUserSession()}
+          onClick={() => closeUserSession()}
         >
           Cerrar sesión
         </button>
         <div className={styles.separadorHeader}></div>
         <div className={styles.userInfoContainer}>
-          <p className={styles.campoP}>
-          <b>Nombre:</b> {renderEditableField('firstName')}
-          <br />
-          {user.firstname}
-        </p>
-      </div>
+          <div className={styles.campoP}>
+            <b>Nombre:</b> {renderEditableField('firstName')}
+            <br />
+            {user.firstname}
+          </div>
+        </div>
 
         <div className={styles.userInfoContainer}>
-          <p className={styles.campoP}>
+          <div className={styles.campoP}>
             <b>Email:</b> {renderEditableField('email')}
             <br />
-          </p>
+          </div>
         </div>
+        <div className={styles.userInfoContainer}>
+  <div className={styles.campoP}>
+    <b>Teléfono:</b> 
+    {isEditing && editingField === 'phone'
+      ? renderEditableField('phone')
+      : (
+          <>
+            {user.phone || "añade tu número aquí 📱"}
+            <button 
+              className={styles.editButton} 
+              onClick={() => handleEditClick('phone')}
+            >
+              Editar
+            </button>
+          </>
+        )
+    }
+  </div>
+</div>
 
         <div className={styles.userInfoContainer}>
-          <p className={styles.campoP}>
-            <b>Teléfono:</b> {user.phone || "añade tu numero aquí 📱"}
-            {renderEditableField('Movil')}
-          </p>
-        </div>
-
-        <div className={styles.userInfoContainer}>
-          <p className={styles.campoP}>
+          <div className={styles.campoP}>
             <b>Contraseña: </b>{" "}
             {"•••••••••"}
             {renderEditableField('Password')}
-          </p>
+          </div>
         </div>
         <div className={styles.separador}></div>
         <div className={styles.preferenceContainer}>
           <div className={styles.preferenceTextContainer}>
-            <p className={styles.campoP}>
+            <div className={styles.campoP}>
               <b>Gestionar preferencias</b>
-            </p>
+            </div>
             <p className={styles.managePreferences}>
               Usamos los datos de clientes para mejorar la experiencia de
               nuestro servicio y mostrar promociones relevantes.
@@ -176,7 +194,7 @@ function PerfilUsuario({ modalState, changeModalState, setLogged }) {
           </div>
           <div className={styles.campoP}>
             <p className={styles.preferenceDescription}>
-              Glovo puede compartir datos de usuario (como teléfonos,
+              Glotón puede compartir datos de usuario (como teléfonos,
               identificadores de dispositivos o e-mails cifrados) con Facebook y
               plataformas similares para personalizar los anuncios y contenidos,
               medir su eficacia y crear audiencias. Siempre puedes optar por no
