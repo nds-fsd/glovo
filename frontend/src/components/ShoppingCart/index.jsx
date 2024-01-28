@@ -3,6 +3,8 @@ import shoppingCartBackground from "../../assets/images/astronaut-grey-scale.svg
 import scooterIcon from "../../assets/icons/scooter-svgrepo-com (1).svg";
 import { motion, AnimatePresence } from "framer-motion";
 import PurchaseConfirmationModal from "../PurchaseConfirmationModal";
+import { CartContext } from "../../contexts/CartContext";
+import { useContext } from "react";
 
 import { useState } from "react";
 
@@ -10,8 +12,8 @@ export default function ShoppingCart({
   productos,
   shoppingList,
   totalPrice,
-  setShoppingList,
   restaurante,
+  setShoppingList,
   fix,
 }) {
   let [modalIsOpen, setIsOpen] = useState(false);
@@ -119,6 +121,7 @@ export default function ShoppingCart({
         modalIsOpen={modalIsOpen}
         productos={productos}
         closeModal={closeModal}
+        totalPrice={totalPrice}
       />
     </div>
   );
