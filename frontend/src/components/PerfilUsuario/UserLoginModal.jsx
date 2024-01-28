@@ -17,11 +17,16 @@ function UserLoginModal({
 }) {
   const { register, handleSubmit } = useForm();
   const [user, setLocalUser] = useState(null);
-
+  const [error, setError] = useState(null);
   const onSubmit = async (data) => {
     try {
-      await handleLoginSubmit(data, setLocalUser);
-      setLogged(true);
+      const response = await handleLoginSubmit(data, setLocalUser);
+      if (response == 200) {
+        setLogged(true);
+      } else {
+        setLogged(false);
+        setError("Error en tus credenciales");
+      }
     } catch (error) {
       console.error("Error en el registro inicial:", error);
     }
@@ -72,6 +77,7 @@ function UserLoginModal({
               />
             </div>
           </div>
+          {error && <p>{error}</p>}
           <button className={styles.guardarCambios} type="submit">
             Iniciar Sesión
           </button>

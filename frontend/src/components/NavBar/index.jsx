@@ -12,7 +12,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import UserLoginModal from "../PerfilUsuario/UserLoginModal";
 
 export default function NavBar() {
-  const [logged, setLogged] = useState(true);
+  const [logged, setLogged] = useState(false);
   const navigate = useNavigate();
   const [isPerfilUsuarioModalOpen, setIsPerfilUsuarioModalOpen] =
     useState(false);
