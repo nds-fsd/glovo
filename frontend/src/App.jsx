@@ -36,31 +36,31 @@ function App() {
   };
 
   return (
-    <userContext.Provider value={user}>
-      <div>
-        {/* <DashBoard /> */}
-        <BrowserRouter>
-          <NavBar />
-          <Routes>
-            <Route
-              path="/"
-              element={<HeroPage setLocation={setLocation} />}
-            ></Route>
-            <Route
-              path="/restaurants"
-              element={<HomePage location={location} />}
-            ></Route>
-            <Route
-              path="/restaurant/:restaurantId"
-              element={<RestaurantPage />}
-            ></Route>
-            <Route path="/formularios" element={<Formulario />} />
-          </Routes>
+    <DashBoard />
+    // <userContext.Provider value={user}>
+    //   <div>
+    //     <BrowserRouter>
+    //       <NavBar />
+    //       <Routes>
+    //         <Route
+    //           path="/"
+    //           element={<HeroPage setLocation={setLocation} />}
+    //         ></Route>
+    //         <Route
+    //           path="/restaurants"
+    //           element={<HomePage location={location} />}
+    //         ></Route>
+    //         <Route
+    //           path="/restaurant/:restaurantId"
+    //           element={<RestaurantPage />}
+    //         ></Route>
+    //         <Route path="/formularios" element={<Formulario />} />
+    //       </Routes>
 
-          <Footer />
-        </BrowserRouter>
-      </div>
-    </userContext.Provider>
+    //       <Footer />
+    //     </BrowserRouter>
+    //   </div>
+    // </userContext.Provider>
   );
 }
 
