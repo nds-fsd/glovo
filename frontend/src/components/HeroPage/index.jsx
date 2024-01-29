@@ -10,43 +10,75 @@ import { React, useState } from "react";
 import MapsComponent from "../MapsComponent";
 import MapsAutocomplete from "../MapsAutocomplete";
 import { useRef, useEffect } from "react";
+import usePlacesAutocomplete, {
+  getGeocode,
+  getLatLng,
+} from "use-places-autocomplete";
+import useOnclickOutside from "react-cool-onclickoutside";
 
 export default function HeroPage({ setLocation }) {
-  const { register, handleSubmit, setValue } = useForm();
+  const { register, handleSubmit } = useForm();
   const navigate = useNavigate();
   const onSubmit = (data) => {
     setLocation(data.location);
     navigate("/restaurants");
   };
-  const autoCompleteRef = useRef();
-  const inputRef = useRef();
-  const options = {
-    componentRestrictions: { country: "es" },
-    fields: ["address_components", "geometry", "icon", "name"],
+  const {
+    ready,
+    value,
+    suggestions: { status, data },
+    setValue,
+    clearSuggestions,
+  } = usePlacesAutocomplete({
+    callbackName: "YOUR_CALLBACK_NAME",
+    requestOptions: {
+      /* Define search scope here */
+    },
+    debounce: 300,
+  });
+  const ref = useOnclickOutside(() => {
+    // When the user clicks outside of the component, we can dismiss
+    // the searched suggestions by calling this method
+    clearSuggestions();
+  });
+
+  const handleInput = (e) => {
+    // Update the keyword of the input element
+    setValue(e.target.value);
   };
-  useEffect(() => {
-    const autocomplete = new window.google.maps.places.Autocomplete(
-      inputRef.current,
-      options
-    );
 
-    autocomplete.addListener("place_changed", () => {
-      const place = autocomplete.getPlace();
-      if (!place.geometry || !place.geometry.location) {
-        // Manejar caso en que no se selecciona un lugar válido
-        return;
-      }
+  const handleSelect =
+    ({ description }) =>
+    () => {
+      // When the user selects a place, we can replace the keyword without request data from API
+      // by setting the second parameter to "false"
+      setValue(description, false);
+      clearSuggestions();
 
-      // Actualizar el valor del formulario aquí
-      console.log(inputRef);
-      setValue("location", place.formatted_address || place.name);
-    });
-
-    return () => {
-      // Limpieza (remover el listener) cuando el componente se desmonte
-      window.google.maps.event.clearInstanceListeners(autocomplete);
+      // Get latitude and longitude via utility functions
+      getGeocode({ address: description }).then((results) => {
+        const { lat, lng } = getLatLng(results[0]);
+        console.log("📍 Coordinates: ", { lat, lng });
+      });
     };
-  }, []);
+
+  const renderSuggestions = () =>
+    data.map((suggestion) => {
+      const {
+        place_id,
+        structured_formatting: { main_text, secondary_text },
+      } = suggestion;
+
+      return (
+        <li
+          className={styles.individualPlace}
+          key={place_id}
+          onClick={handleSelect(suggestion)}
+        >
+          <strong>{main_text}</strong> <small>{secondary_text}</small>
+        </li>
+      );
+    });
 
   return (
     <div className={styles.viewport}>
@@ -57,7 +89,7 @@ export default function HeroPage({ setLocation }) {
           <h1>Comida a domicilio y más</h1>
           <p>Tiendas, farmacias, todo!</p>
 
-          <div className={styles.inputBar}>
+          <div ref={ref} className={styles.inputBar}>
             <div className={styles.flagIconContainer}>
               <img className={styles.flagIcon} src={flagIcon} alt="" />
             </div>
@@ -65,7 +97,9 @@ export default function HeroPage({ setLocation }) {
             <form onSubmit={handleSubmit(onSubmit)}>
               <input
                 {...register("location", { required: true })}
-                ref={inputRef}
+                value={value}
+                onChange={handleInput}
+                disabled={!ready}
                 className={styles.addressInput}
                 placeholder="Cuál es tu dirección?"
               />
@@ -80,6 +114,9 @@ export default function HeroPage({ setLocation }) {
               </p>
             </button>
           </div>
+          {status === "OK" && (
+            <ul className={styles.listContainer}>{renderSuggestions()}</ul>
+          )}
         </div>
       </div>
       <img className={styles.wavySvg} src={wavySvg} alt="" />

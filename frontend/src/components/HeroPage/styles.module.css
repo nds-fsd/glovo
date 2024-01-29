@@ -132,3 +132,29 @@ button.useCurrentLocationButton:active {
   width: 100%;
   padding: 0;
 }
+
+.listContainer {
+  overflow: scroll;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  border-radius: 20px;
+}
+
+.listContainer::-webkit-scrollbar {
+  width: 0;
+}
+
+.individualPlace {
+  background-color: white;
+
+  border-radius: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+  padding: 5px;
+}
+
+.individualPlace:hover {
+  background-color: var(--secondary-color);
+  color: white;
+}

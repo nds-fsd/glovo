@@ -31,7 +31,10 @@ function MapsComponent() {
 
   return (
     <>
-      <APIProvider libraries={["places"]} apiKey={""}>
+      <APIProvider
+        libraries={["places"]}
+        apiKey={"AIzaSyD0k0uSKnmT8n2bHWKlWfZUW92q1Bixvf8"}
+      >
         <Map disableDefaultUI={true} center={position} zoom={10}>
           <Marker position={position} />
         </Map>
