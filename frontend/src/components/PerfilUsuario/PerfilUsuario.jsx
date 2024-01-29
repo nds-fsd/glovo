@@ -4,7 +4,7 @@ import Modal from "react-modal";
 import styles from "./styles.module.css";
 import Switch from "../PerfilUsuario/Switch.jsx";
 import { motion } from "framer-motion";
-import { getStorageObject } from '../../utils/localStorage.utils.js';
+import { getStorageObject, getUserSession } from '../../utils/localStorage.utils.js';
 import { deleteStorageObject } from "../../utils/localStorage.utils.js";
 import { handleProfileUpdateSubmit } from '../../utils/Usercrud.js';
 
@@ -12,8 +12,9 @@ Modal.setAppElement("#root");
 
 function PerfilUsuario({ modalState, changeModalState, setLogged }) {
   console.log("esto son los ", modalState);
+  const {id} = getUserSession()
   const [user, setUser] = useState({
-    _id: "",
+    _id: id,
     firstname: "",
     lastname: "",
     email: "",
@@ -25,17 +26,16 @@ function PerfilUsuario({ modalState, changeModalState, setLogged }) {
   const [isChangingPassword, setIsChangingPassword] = useState(false);
   const { register, handleSubmit, setValue, reset } = useForm();
 
-  // Would be implemented like this 
   const [userInfo, setUserInfo] = useState("");
   useEffect(() => {
-    const userDataFromToken = getStorageObject("token")
+    const userDataFromToken = getStorageObject("token");
     if (userDataFromToken !== null) {
-      setUserInfo(userDataFromToken)
+      setUserInfo((prevUserInfo) => ({
+        ...prevUserInfo,
+        ...userDataFromToken,
+      }));
     }
-    return
-  }, [])
-
-
+  }, []);
 
   useEffect(() => {
     if (user._id) {
@@ -46,6 +46,7 @@ function PerfilUsuario({ modalState, changeModalState, setLogged }) {
       setValue("receivePromotions", user.receivePromotions);
     }
   }, []);
+
   const handleEditClick = (field) => {
     console.log("Editando campo:", field);
     setIsEditing(true);
@@ -53,18 +54,45 @@ function PerfilUsuario({ modalState, changeModalState, setLogged }) {
   };
 
   const handleSaveClick = async () => {
-    const updatedData = { [editingField]: userInfo[editingField] };
-  
     try {
-      await handleProfileUpdateSubmit(editingField, updatedData, user._id, setUser);
+      // Verificar si el ID del usuario está definido
+      if (!user._id) {
+        console.error("ID del usuario no está definido");
+        return;
+      }
+  
+      // Obtener el token JWT del local storage
+      const token = getStorageObject("token");
+      if (!token) {
+        console.error("No se encontró el token de autenticación");
+        return;
+      }
+  
+      // Preparar los datos para la actualización
+      const updateData = { [editingField]: userInfo[editingField] };
+  
+      // Enviar la actualización al backend y obtener la respuesta
+      const updatedUser = await handleProfileUpdateSubmit(editingField, updateData, user._id, token);
+  
+      // Verificar si la respuesta del backend es válida
+      if (updatedUser) {
+        // Actualizar user con los cambios
+        setUser({ ...user, ...updateData });
+      } else {
+        throw new Error("No se recibieron datos actualizados del usuario.");
+      }
+  
+      // Confirmación en la consola
+      console.log("Usuario actualizado:", updatedUser);
+  
+      // Salir del modo de edición
       setIsEditing(false);
       setEditingField(null);
+  
     } catch (error) {
       console.error('Hubo un error al actualizar la información del usuario:', error);
-      // Manejar el error aquí
     }
   };
-  
 
   const handleChangePasswordClick = () => {
     setIsChangingPassword(true);
@@ -72,9 +100,12 @@ function PerfilUsuario({ modalState, changeModalState, setLogged }) {
   };
 
   const handleChange = (e) => {
-    setUserInfo({ ...userInfo, [editingField]: e.target.value });
+    setUserInfo((prevUserInfo) => ({
+      ...prevUserInfo,
+      [editingField]: e.target.value,
+    }));
   };
-
+  
 
   const fieldTitles = {
     firstname: "Tu Nombre",
@@ -155,24 +186,24 @@ function PerfilUsuario({ modalState, changeModalState, setLogged }) {
           </div>
         </div>
         <div className={styles.userInfoContainer}>
-  <div className={styles.campoP}>
-    <b>Teléfono:</b> 
-    {isEditing && editingField === 'phone'
-      ? renderEditableField('phone')
-      : (
-          <>
-            {user.phone || "añade tu número aquí 📱"}
-            <button 
-              className={styles.editButton} 
-              onClick={() => handleEditClick('phone')}
-            >
-              Editar
-            </button>
-          </>
-        )
-    }
-  </div>
-</div>
+          <div className={styles.campoP}>
+            <b>Teléfono:</b>
+            {isEditing && editingField === 'phone'
+              ? renderEditableField('phone')
+              : (
+                <>
+                  {user.phone || "añade tu número aquí 📱"}
+                  <button
+                    className={styles.editButton}
+                    onClick={() => handleEditClick('phone')}
+                  >
+                    Editar
+                  </button>
+                </>
+              )
+            }
+          </div>
+        </div>
 
         <div className={styles.userInfoContainer}>
           <div className={styles.campoP}>

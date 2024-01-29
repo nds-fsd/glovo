@@ -33,9 +33,9 @@ export const getStorageObject = (key) => {
   };
 
   export const getUserSession = () => {
-    const session = getStorageObject('user-session');
+    const session = getStorageObject('user');
     if (session) {
-      return session.user;
+      return session;
     }
     return null;
   };

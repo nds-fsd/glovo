@@ -9,14 +9,12 @@ export const handleInitialRegistrationSubmit = async (data, setLocalUser, closeM
     const response = await axios.post(`${API_BASE_URL}/register`, data);
     setStorageObject("token", response.data.token);
     setStorageObject("user", response.data.user);
-    setLocalUser(response.data);
+    setLocalUser(response.data.user);
     closeModal();
   } catch (error) {
     console.error("Error en el registro inicial:", error);
-    
   }
 };
-
 export const handleProfileUpdateSubmit = async (editingField, data, userId, setLocalUser) => {
   // Obtener el token de autenticación del local storage
   const token = getStorageObject("token");
@@ -37,6 +35,7 @@ export const handleProfileUpdateSubmit = async (editingField, data, userId, setL
     throw error; // Lanzar el error para manejarlo en el componente
   }
 };
+
 
 
 export const handlePasswordChangeSubmit = async (data, user, closeModal) => {
