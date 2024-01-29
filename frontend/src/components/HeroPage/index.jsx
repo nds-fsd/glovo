@@ -7,6 +7,7 @@ import wavySvg from "../../assets/images/address-jumbotron-wave-desktop.svg";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { React, useState } from "react";
+import MapsComponent from "../MapsComponent";
 
 export default function HeroPage({ setLocation }) {
   const { register, handleSubmit } = useForm();

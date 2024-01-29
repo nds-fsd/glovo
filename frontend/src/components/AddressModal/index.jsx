@@ -3,6 +3,7 @@ import styles from "./styles.module.css";
 import Modal from "react-modal";
 import { motion } from "framer-motion";
 import React, { useState } from "react";
+import MapsComponent from "../MapsComponent";
 
 export default function AddressModal({
   addressModalIsOpen,
@@ -34,6 +35,11 @@ export default function AddressModal({
           <h2>Nueva dirección</h2>
           <p>Introduce tus datos</p>
         </div>
+
+        <div className={styles.mapContainer}>
+          <MapsComponent />
+        </div>
+
         <div className={styles.inputContainer}>
           <form onSubmit={handleSubmit(onSubmit)} action="">
             <input {...register("name")} type="text" placeholder="Nombre" />
