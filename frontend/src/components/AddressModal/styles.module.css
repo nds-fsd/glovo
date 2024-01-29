@@ -158,5 +158,5 @@ input::placeholder {
   height: 200px;
   width: 235px;
   border-radius: 20px;
-  overflow: hidden;
+  overflow: scroll;
 }
