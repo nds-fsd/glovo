@@ -139,6 +139,7 @@ button.useCurrentLocationButton:active {
   flex-direction: column;
   gap: 5px;
   border-radius: 20px;
+  max-width: calc(100% - 35px);
 }
 
 .listContainer::-webkit-scrollbar {
@@ -147,7 +148,6 @@ button.useCurrentLocationButton:active {
 
 .individualPlace {
   background-color: white;
-
   border-radius: 20px;
   cursor: pointer;
   transition: 0.3s;
@@ -157,4 +157,14 @@ button.useCurrentLocationButton:active {
 .individualPlace:hover {
   background-color: var(--secondary-color);
   color: white;
+}
+
+.onlyTextContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+strong {
+  font-weight: 700;
 }

@@ -15,6 +15,7 @@ import usePlacesAutocomplete, {
   getLatLng,
 } from "use-places-autocomplete";
 import useOnclickOutside from "react-cool-onclickoutside";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function HeroPage({ setLocation }) {
   const { register, handleSubmit } = useForm();
@@ -70,13 +71,17 @@ export default function HeroPage({ setLocation }) {
       } = suggestion;
 
       return (
-        <li
+        <motion.li
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ ease: "easeOut", duration: 0.8 }}
           className={styles.individualPlace}
           key={place_id}
           onClick={handleSelect(suggestion)}
         >
           <strong>{main_text}</strong> <small>{secondary_text}</small>
-        </li>
+        </motion.li>
       );
     });
 
@@ -85,39 +90,49 @@ export default function HeroPage({ setLocation }) {
       <NavBar />
       <div className={styles.heroContainer}>
         <img className={styles.burgerImg} src={burguerImg} alt="" />
-        <div className={styles.textContainer}>
-          <h1>Comida a domicilio y más</h1>
-          <p>Tiendas, farmacias, todo!</p>
+        <AnimatePresence>
+          <motion.div className={styles.textContainer}>
+            <motion.div className={styles.onlyTextContainer} layout>
+              <h1>Comida a domicilio y más</h1>
+              <p>Tiendas, farmacias, todo!</p>
+            </motion.div>
 
-          <div ref={ref} className={styles.inputBar}>
-            <div className={styles.flagIconContainer}>
-              <img className={styles.flagIcon} src={flagIcon} alt="" />
-            </div>
-
-            <form onSubmit={handleSubmit(onSubmit)}>
-              <input
-                {...register("location", { required: true })}
-                value={value}
-                onChange={handleInput}
-                disabled={!ready}
-                className={styles.addressInput}
-                placeholder="Cuál es tu dirección?"
-              />
-              <input style={{ display: "none" }} type="submit" />
-            </form>
-            <button className={styles.useCurrentLocationButton}>
-              <div className={styles.compassIconContainer}>
-                <img className={styles.compassIcon} src={compassIcon} alt="" />
+            <motion.div layout ref={ref} className={styles.inputBar}>
+              <div className={styles.flagIconContainer}>
+                <img className={styles.flagIcon} src={flagIcon} alt="" />
               </div>
-              <p className={styles.useCurrentLocationText}>
-                Usar la ubicación actual
-              </p>
-            </button>
-          </div>
-          {status === "OK" && (
-            <ul className={styles.listContainer}>{renderSuggestions()}</ul>
-          )}
-        </div>
+
+              <form onSubmit={handleSubmit(onSubmit)}>
+                <input
+                  {...register("location", { required: true })}
+                  autocomplete="off"
+                  value={value}
+                  onChange={handleInput}
+                  disabled={!ready}
+                  className={styles.addressInput}
+                  placeholder="Cuál es tu dirección?"
+                />
+                <input style={{ display: "none" }} type="submit" />
+              </form>
+              <button className={styles.useCurrentLocationButton}>
+                <div className={styles.compassIconContainer}>
+                  <img
+                    className={styles.compassIcon}
+                    src={compassIcon}
+                    alt=""
+                  />
+                </div>
+                <p className={styles.useCurrentLocationText}>
+                  Usar la ubicación actual
+                </p>
+              </button>
+            </motion.div>
+
+            {status === "OK" && (
+              <ul className={styles.listContainer}>{renderSuggestions()}</ul>
+            )}
+          </motion.div>
+        </AnimatePresence>
       </div>
       <img className={styles.wavySvg} src={wavySvg} alt="" />
     </div>
