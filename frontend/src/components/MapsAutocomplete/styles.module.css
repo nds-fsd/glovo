@@ -1,0 +1,20 @@
+.listContainer {
+  max-height: 200px;
+  overflow: scroll;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 5px;
+  background-color: var(--secondary-color);
+  border-radius: 20px;
+}
+
+.listContainer::-webkit-scrollbar {
+  width: 0;
+}
+
+.individualPlace {
+  background-color: var(--primary-color);
+
+  border-radius: 20px;
+}
