@@ -4,15 +4,15 @@ import Modal from "react-modal";
 import styles from "./styles.module.css";
 import Switch from "../PerfilUsuario/Switch.jsx";
 import { motion } from "framer-motion";
-import {getStorageObject  getUserSession} from '../../utils/localStorage.utils.js';
+import { getStorageObject, getUserSession } from '../../utils/localStorage.utils.js';
 import { deleteStorageObject } from "../../utils/localStorage.utils.js";
 import { handleProfileUpdateSubmit } from '../../utils/Usercrud.js';
 
 Modal.setAppElement("#root");
 
-function PerfilUsuario({ modalState, changeModalState, setLogged }) {
+function PerfilUsuario({ modalState, changeModalState, setLogged }) { // Añadida llave de apertura
   console.log("esto son los ", modalState);
-  const {id} = getUserSession()
+  const { id } = getUserSession(); // Añadido punto y coma
   const [user, setUser] = useState({
     _id: id,
     firstname: "",
@@ -21,15 +21,13 @@ function PerfilUsuario({ modalState, changeModalState, setLogged }) {
     phone: "",
     receivePromotions: false,
   });
-  const [isEditing, setIsEditing] = useState(false);
-  const [isEditing, setIsEditing] = useState(false);
+
+  // Eliminada línea duplicada setIsEditing
   const [editingField, setEditingField] = useState(null);
   const [isChangingPassword, setIsChangingPassword] = useState(false);
   const { register, handleSubmit, setValue, reset } = useForm();
 
   const [userInfo, setUserInfo] = useState("");
-  useEffect(() => {
-    const userDataFromToken = getStorageObject("token");
   useEffect(() => {
     const userDataFromToken = getStorageObject("token");
     if (userDataFromToken !== null) {
@@ -48,7 +46,7 @@ function PerfilUsuario({ modalState, changeModalState, setLogged }) {
       setValue("phone", user.phone);
       setValue("receivePromotions", user.receivePromotions);
     }
-  }, []);
+  }, [user, setValue]); // Añadidas dependencias
 
   const handleEditClick = (field) => {
     console.log("Editando campo:", field);
