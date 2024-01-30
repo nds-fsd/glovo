@@ -33,7 +33,7 @@ export default function HeroPage({ setLocation }) {
   } = usePlacesAutocomplete({
     callbackName: "YOUR_CALLBACK_NAME",
     requestOptions: {
-      country: "es",
+      componentRestrictions: { country: "es" },
 
       /* Define search scope here */
     },
