@@ -4,7 +4,7 @@ import Modal from "react-modal";
 import styles from "./styles.module.css";
 import Switch from "../PerfilUsuario/Switch.jsx";
 import { motion } from "framer-motion";
-import { getStorageObject, getUserSession } from '../../utils/localStorage.utils.js';
+import {getStorageObject  getUserSession} from '../../utils/localStorage.utils.js';
 import { deleteStorageObject } from "../../utils/localStorage.utils.js";
 import { handleProfileUpdateSubmit } from '../../utils/Usercrud.js';
 
@@ -22,11 +22,14 @@ function PerfilUsuario({ modalState, changeModalState, setLogged }) {
     receivePromotions: false,
   });
   const [isEditing, setIsEditing] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
   const [editingField, setEditingField] = useState(null);
   const [isChangingPassword, setIsChangingPassword] = useState(false);
   const { register, handleSubmit, setValue, reset } = useForm();
 
   const [userInfo, setUserInfo] = useState("");
+  useEffect(() => {
+    const userDataFromToken = getStorageObject("token");
   useEffect(() => {
     const userDataFromToken = getStorageObject("token");
     if (userDataFromToken !== null) {
@@ -144,10 +147,10 @@ function PerfilUsuario({ modalState, changeModalState, setLogged }) {
   };
 
   const closeUserSession = () => {
-    deleteStorageObject("user")
-    deleteStorageObject("token")
-    setLogged(false)
-  }
+    deleteStorageObject("user");
+    deleteStorageObject("token");
+    setLogged(false);
+  };
 
   return (
     <Modal

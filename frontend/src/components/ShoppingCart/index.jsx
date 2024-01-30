@@ -2,15 +2,30 @@ import styles from "../ShoppingCart/styles.module.css";
 import shoppingCartBackground from "../../assets/images/astronaut-grey-scale.svg";
 import scooterIcon from "../../assets/icons/scooter-svgrepo-com (1).svg";
 import { motion, AnimatePresence } from "framer-motion";
+import PurchaseConfirmationModal from "../PurchaseConfirmationModal";
+import { CartContext } from "../../contexts/CartContext";
+import { useContext } from "react";
+
+import { useState } from "react";
 
 export default function ShoppingCart({
   productos,
   shoppingList,
   totalPrice,
-  setShoppingList,
   restaurante,
-  setLogged,
+  setShoppingList,
+  fix,
 }) {
+  let [modalIsOpen, setIsOpen] = useState(false);
+
+  const openModal = () => {
+    setIsOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsOpen(false);
+  };
+
   const ammountHandler = (e, operation) => {
     const ProductIndex = shoppingList.findIndex((o) => o.id === e.id);
     const updatedShoppingList = [...shoppingList];
@@ -28,9 +43,11 @@ export default function ShoppingCart({
 
   return (
     <div className={styles.shoppingCartContainer}>
-      <section className={styles.shoppingCart}>
+      <section className={fix ? styles.shoppingCart : styles.shoppingCartFixed}>
         <h2>Tu pedido </h2>
-        {shoppingList.length === 0 && (
+        {shoppingList.length === 0 ||
+        productos.length === 0 ||
+        !shoppingList.find((item) => item.shop === restaurante._id) ? (
           <>
             <img
               className={styles.shoppingCartBackground}
@@ -42,44 +59,46 @@ export default function ShoppingCart({
               los productos aquí!
             </p>
           </>
-        )}
-        {shoppingList.length > 0 && (
+        ) : (
           <div className={styles.shoppingListContainer}>
             {shoppingList.map((e) => {
               const producto = productos.find((item) => item._id === e.id);
-              return (
-                <motion.div
-                  initial={{ opacity: 0, translateY: 50 }}
-                  animate={{ opacity: 1, translateY: 0 }}
-                  transition={{ ease: "easeOut", duration: 0.2 }}
-                  exit={{ opacity: 0 }}
-                  className={styles.cartItemContainer}
-                >
-                  <div className={styles.ammountContainer}>
-                    <button
-                      onClick={() => {
-                        ammountHandler(e, "-");
-                      }}
-                      className={styles.quantityButton}
-                    >
-                      -
-                    </button>
-                    <p className={styles.quantityNumber}>{e.ammount}</p>
-                    <button
-                      onClick={() => {
-                        ammountHandler(e, "+");
-                      }}
-                      className={styles.quantityButton}
-                    >
-                      +
-                    </button>
-                  </div>
-                  <p className={styles.shoppingListItem}>
-                    {producto.nombre + " "}
-                  </p>
-                  <b>{producto.precio + "€"}</b>
-                </motion.div>
-              );
+              if (producto) {
+                return (
+                  <motion.div
+                    initial={{ opacity: 0, translateY: 50 }}
+                    animate={{ opacity: 1, translateY: 0 }}
+                    transition={{ ease: "easeOut", duration: 0.2 }}
+                    exit={{ opacity: 0 }}
+                    className={styles.cartItemContainer}
+                    key={e.id}
+                  >
+                    <div className={styles.ammountContainer}>
+                      <button
+                        onClick={() => {
+                          ammountHandler(e, "-");
+                        }}
+                        className={styles.quantityButton}
+                      >
+                        -
+                      </button>
+                      <p className={styles.quantityNumber}>{e.ammount}</p>
+                      <button
+                        onClick={() => {
+                          ammountHandler(e, "+");
+                        }}
+                        className={styles.quantityButton}
+                      >
+                        +
+                      </button>
+                    </div>
+                    <p className={styles.shoppingListItem}>
+                      {producto.nombre + " "}
+                    </p>
+                    <b>{producto.precio + "€"}</b>
+                  </motion.div>
+                );
+              }
             })}
 
             <div className={styles.transportContainer}>
@@ -90,12 +109,20 @@ export default function ShoppingCart({
                 <b> {restaurante.transporte}</b>{" "}
               </p>
             </div>
-            <button className={styles.buyButton}>
+            <button onClick={openModal} className={styles.buyButton}>
               Comprar por {totalPrice}€
             </button>
           </div>
         )}{" "}
       </section>
+
+      <PurchaseConfirmationModal
+        shoppingList={shoppingList}
+        modalIsOpen={modalIsOpen}
+        productos={productos}
+        closeModal={closeModal}
+        totalPrice={totalPrice}
+      />
     </div>
   );
 }
