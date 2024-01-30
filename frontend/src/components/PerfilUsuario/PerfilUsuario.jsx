@@ -10,9 +10,9 @@ import { handleProfileUpdateSubmit } from '../../utils/Usercrud.js';
 
 Modal.setAppElement("#root");
 
-function PerfilUsuario({ modalState, changeModalState, setLogged }) { // Añadida llave de apertura
+function PerfilUsuario({ modalState, changeModalState, setLogged }) {
   console.log("esto son los ", modalState);
-  const { id } = getUserSession(); // Añadido punto y coma
+  const { id } = getUserSession();
   const [user, setUser] = useState({
     _id: id,
     firstname: "",
@@ -22,7 +22,7 @@ function PerfilUsuario({ modalState, changeModalState, setLogged }) { // Añadid
     receivePromotions: false,
   });
 
-  // Eliminada línea duplicada setIsEditing
+  
   const [editingField, setEditingField] = useState(null);
   const [isChangingPassword, setIsChangingPassword] = useState(false);
   const { register, handleSubmit, setValue, reset } = useForm();
