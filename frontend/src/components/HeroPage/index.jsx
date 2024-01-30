@@ -62,6 +62,27 @@ export default function HeroPage({ setLocation }) {
     setValue(e.target.value);
   };
 
+  const findMyLocation = () => {
+    const statusLocation = document.querySelector(".status");
+    const success = (position) => {
+      const lat = position.coords.latitude;
+      const lng = position.coords.longitude;
+      const geolocationUrl = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}
+      &location_type=ROOFTOP&result_type=street_address&key=AIzaSyD0k0uSKnmT8n2bHWKlWfZUW92q1Bixvf8`;
+      fetch(geolocationUrl)
+        .then((res) => res.json())
+        .then((data) => {
+          const formattedAdress = data.results[0].formatted_address;
+          console.log(data.results[0].formatted_address);
+          setValue(formattedAdress);
+        });
+    };
+    const error = () => {
+      console.log("hubo un error");
+    };
+    navigator.geolocation.getCurrentPosition(success, error);
+  };
+
   const handleSelect =
     ({ description }) =>
     () => {
@@ -134,7 +155,10 @@ export default function HeroPage({ setLocation }) {
                 <input style={{ display: "none" }} type="submit" />
               </form>
               {windowWidth > 900 ? (
-                <button className={styles.useCurrentLocationButton}>
+                <button
+                  onClick={findMyLocation}
+                  className={styles.useCurrentLocationButton}
+                >
                   <div className={styles.compassIconContainer}>
                     <img
                       className={styles.compassIcon}
@@ -147,7 +171,10 @@ export default function HeroPage({ setLocation }) {
                   </p>
                 </button>
               ) : (
-                <button className={styles.useCurrentLocationButtonSmall}>
+                <button
+                  onClick={findMyLocation}
+                  className={styles.useCurrentLocationButtonSmall}
+                >
                   <div className={styles.compassIconContainer}>
                     <img
                       className={styles.compassIcon}
