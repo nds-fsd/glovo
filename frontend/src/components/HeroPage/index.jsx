@@ -63,6 +63,11 @@ export default function HeroPage({ setLocation }) {
         const { lat, lng } = getLatLng(results[0]);
         console.log("📍 Coordinates: ", { lat, lng });
       });
+
+      setLocation(description, false);
+      setTimeout(() => {
+        navigate("/restaurants");
+      }, 500);
     };
 
   const renderSuggestions = () =>
@@ -93,13 +98,13 @@ export default function HeroPage({ setLocation }) {
       <div className={styles.heroContainer}>
         <img className={styles.burgerImg} src={burguerImg} alt="" />
         <AnimatePresence>
-          <motion.div className={styles.textContainer}>
+          <motion.div ref={ref} className={styles.textContainer}>
             <motion.div className={styles.onlyTextContainer} layout>
               <h1>Comida a domicilio y más</h1>
               <p>Tiendas, farmacias, todo!</p>
             </motion.div>
 
-            <motion.div layout ref={ref} className={styles.inputBar}>
+            <motion.div layout className={styles.inputBar}>
               <div className={styles.flagIconContainer}>
                 <img className={styles.flagIcon} src={flagIcon} alt="" />
               </div>
@@ -129,7 +134,6 @@ export default function HeroPage({ setLocation }) {
                 </p>
               </button>
             </motion.div>
-
             {status === "OK" && (
               <ul className={styles.listContainer}>{renderSuggestions()}</ul>
             )}

@@ -9,7 +9,7 @@ import UserRegisterModal from "../PerfilUsuario/UserRegisterModal";
 import PerfilUsuario from "../PerfilUsuario/PerfilUsuario";
 import { useNavigate } from "react-router-dom";
 
-export default function NavBar() {
+export default function NavBar({ location }) {
   const [logged, setLogged] = useState(true);
   const navigate = useNavigate();
   const [isPerfilUsuarioModalOpen, setIsPerfilUsuarioModalOpen] =
@@ -46,7 +46,7 @@ export default function NavBar() {
           <div className={styles.rightContainer}>
             <div className={styles.locationContainer}>
               <img className={styles.locationIcon} src={locationIcon} alt="" />
-              <p>Adress, 98, 3016. Barcelona</p>
+              <p>{location}</p>
             </div>
             <div className={styles.navBarButtons}>
               <button onClick={handleUserModal}>
@@ -99,5 +99,3 @@ export default function NavBar() {
     );
   }
 }
-
-
