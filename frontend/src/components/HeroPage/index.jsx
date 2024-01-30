@@ -141,72 +141,77 @@ export default function HeroPage({ setLocation }) {
     });
 
   return (
-    <div className={styles.viewport}>
-      <NavBar />
-      <div className={styles.heroContainer}>
-        <img className={styles.burgerImg} src={burguerImg} alt="" />
-        <AnimatePresence>
-          <motion.div ref={ref} className={styles.textContainer}>
-            <motion.div className={styles.onlyTextContainer} layout>
-              <h1>Comida a domicilio y más</h1>
-              <p>Tiendas, farmacias, todo!</p>
-            </motion.div>
+    <motion.div
+      initial={{ opacity: 0, translateY: -50 }}
+      animate={{ opacity: 1, translateY: 0 }}
+      transition={{ ease: "easeOut", duration: 0.3 }}
+    >
+      <div className={styles.viewport}>
+        <div className={styles.heroContainer}>
+          <img className={styles.burgerImg} src={burguerImg} alt="" />
+          <AnimatePresence>
+            <motion.div ref={ref} className={styles.textContainer}>
+              <motion.div className={styles.onlyTextContainer} layout>
+                <h1>Comida a domicilio y más</h1>
+                <p>Tiendas, farmacias, todo!</p>
+              </motion.div>
 
-            <motion.div layout className={styles.inputBar}>
-              <div className={styles.flagIconContainer}>
-                <img className={styles.flagIcon} src={flagIcon} alt="" />
-              </div>
+              <motion.div layout className={styles.inputBar}>
+                <div className={styles.flagIconContainer}>
+                  <img className={styles.flagIcon} src={flagIcon} alt="" />
+                </div>
 
-              <form onSubmit={handleSubmit(onSubmit)}>
-                <input
-                  {...register("location", { required: true })}
-                  autocomplete="off"
-                  value={value}
-                  onChange={handleInput}
-                  disabled={!ready}
-                  className={styles.addressInput}
-                  placeholder="Cuál es tu dirección?"
-                />
-                <input style={{ display: "none" }} type="submit" />
-              </form>
-              {windowWidth > 900 ? (
-                <button
-                  onClick={findMyLocation}
-                  className={styles.useCurrentLocationButton}
-                >
-                  <div className={styles.compassIconContainer}>
-                    <img
-                      className={styles.compassIcon}
-                      src={compassIcon}
-                      alt=""
-                    />
-                  </div>
-                  <p className={styles.useCurrentLocationText}>
-                    Usar la ubicación actual
-                  </p>
-                </button>
-              ) : (
-                <button
-                  onClick={findMyLocation}
-                  className={styles.useCurrentLocationButtonSmall}
-                >
-                  <div className={styles.compassIconContainer}>
-                    <img
-                      className={styles.compassIcon}
-                      src={compassIcon}
-                      alt=""
-                    />
-                  </div>
-                </button>
+                <form onSubmit={handleSubmit(onSubmit)}>
+                  <input
+                    {...register("location", { required: true })}
+                    autocomplete="off"
+                    value={value}
+                    onChange={handleInput}
+                    disabled={!ready}
+                    className={styles.addressInput}
+                    placeholder="Cuál es tu dirección?"
+                  />
+                  <input style={{ display: "none" }} type="submit" />
+                </form>
+                {windowWidth > 900 ? (
+                  <button
+                    onClick={findMyLocation}
+                    className={styles.useCurrentLocationButton}
+                  >
+                    <div className={styles.compassIconContainer}>
+                      <img
+                        className={styles.compassIcon}
+                        src={compassIcon}
+                        alt=""
+                      />
+                    </div>
+                    <p className={styles.useCurrentLocationText}>
+                      Usar la ubicación actual
+                    </p>
+                  </button>
+                ) : (
+                  <button
+                    onClick={findMyLocation}
+                    className={styles.useCurrentLocationButtonSmall}
+                  >
+                    <div className={styles.compassIconContainer}>
+                      <img
+                        className={styles.compassIcon}
+                        src={compassIcon}
+                        alt=""
+                      />
+                    </div>
+                  </button>
+                )}
+              </motion.div>
+              {status === "OK" && (
+                <ul className={styles.listContainer}>{renderSuggestions()}</ul>
               )}
             </motion.div>
-            {status === "OK" && (
-              <ul className={styles.listContainer}>{renderSuggestions()}</ul>
-            )}
-          </motion.div>
-        </AnimatePresence>
+          </AnimatePresence>
+        </div>
+        <img className={styles.wavySvg} src={wavySvg} alt="" />
       </div>
-      <img className={styles.wavySvg} src={wavySvg} alt="" />
-    </div>
+    </motion.div>
   );
 }
