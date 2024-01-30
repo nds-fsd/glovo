@@ -15,6 +15,21 @@ export const handleInitialRegistrationSubmit = async (data, setLocalUser, closeM
     console.error("Error en el registro inicial:", error);
   }
 };
+
+export const handleLoginSubmit = async (data, setLocalUser, closeModal) => {
+  try {
+    const response = await axios.post("http://localhost:3001/login", data);
+    console.log("repuesta del Backend ", response);
+    setStorageObject("token", response.data.token);
+    setStorageObject("user", response.data.user);
+    setLocalUser(response.data);
+    return response.status;
+  } catch (error) {
+    console.error("Error en el Login:", error);
+    return error.response.status;
+  }
+  
+};
 export const handleProfileUpdateSubmit = async (editingField, data, userId, setLocalUser) => {
   // Obtener el token de autenticación del local storage
   const token = getStorageObject("token");
