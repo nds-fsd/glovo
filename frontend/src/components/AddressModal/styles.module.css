@@ -160,3 +160,7 @@ input::placeholder {
   border-radius: 20px;
   overflow: scroll;
 }
+
+.formElement {
+  width: 100%;
+}

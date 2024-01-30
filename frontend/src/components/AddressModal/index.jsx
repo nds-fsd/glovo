@@ -10,7 +10,7 @@ export default function AddressModal({
   addressModalIsOpen,
   closeAddressModal,
 }) {
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, setValue: setFormValue } = useForm();
 
   const onSubmit = (data) => {
     console.log("data", data);
@@ -42,15 +42,13 @@ export default function AddressModal({
         </div>
 
         <div className={styles.inputContainer}>
-          <form onSubmit={handleSubmit(onSubmit)} action="">
-            <AutoComplete />
+          <form
+            className={styles.formElement}
+            onSubmit={handleSubmit(onSubmit)}
+            action=""
+          >
             <input {...register("name")} type="text" placeholder="Nombre" />
-            <input
-              {...register("address")}
-              type="text"
-              placeholder="Dirección"
-            />
-
+            <AutoComplete register={register} setFormValue={setFormValue} />
             <button type="submit" className={styles.agregarTarjeta}>
               Agregar dirección
             </button>

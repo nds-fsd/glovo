@@ -1,11 +1,14 @@
 .listContainer {
-  max-height: 200px;
-  overflow: scroll;
+  max-height: 38vw;
+  overflow: auto;
   display: flex;
   flex-direction: column;
   gap: 5px;
   background-color: white;
   border-radius: 20px;
+  position: fixed;
+  width: 235px;
+  padding: 5px;
 }
 
 .listContainer::-webkit-scrollbar {

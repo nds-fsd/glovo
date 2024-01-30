@@ -5,7 +5,7 @@ import usePlacesAutocomplete, {
 import useOnclickOutside from "react-cool-onclickoutside";
 import styles from "../MapsAutocomplete/styles.module.css";
 
-const AutoComplete = () => {
+const AutoComplete = ({ register, setFormValue }) => {
   const {
     ready,
     value,
@@ -35,6 +35,7 @@ const AutoComplete = () => {
     () => {
       // When the user selects a place, we can replace the keyword without request data from API
       // by setting the second parameter to "false"
+      setFormValue("address", description);
       setValue(description, false);
       clearSuggestions();
 
@@ -66,12 +67,16 @@ const AutoComplete = () => {
   return (
     <div ref={ref}>
       <input
+        {...register("address")}
+        autoComplete="off"
+        type="text"
+        placeholder="Dirección"
         value={value}
         onChange={handleInput}
         disabled={!ready}
-        placeholder="Where are you going?"
       />
       {/* We can use the "status" to decide whether we should display the dropdown or not */}
+
       {status === "OK" && (
         <ul className={styles.listContainer}>{renderSuggestions()}</ul>
       )}
