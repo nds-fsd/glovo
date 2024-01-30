@@ -5,6 +5,7 @@ import {
   useAutocomplete,
 } from "@vis.gl/react-google-maps";
 import React, { useRef, useState } from "react";
+import "./styles.css";
 
 function MapsComponent({ coordinates }) {
   const position = coordinates;
@@ -15,7 +16,7 @@ function MapsComponent({ coordinates }) {
     <>
       <APIProvider
         libraries={["places"]}
-        apiKey={"AIzaSyD0k0uSKnmT8n2bHWKlWfZUW92q1Bixvf8"}
+        apiKey={import.meta.env.VITE_GOOGLE_API_KEY}
       >
         <Map disableDefaultUI={true} center={position} zoom={15}>
           <Marker position={position} />

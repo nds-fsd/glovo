@@ -68,12 +68,27 @@ export default function HeroPage({ setLocation }) {
       const lat = position.coords.latitude;
       const lng = position.coords.longitude;
       const geolocationUrl = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}
-      &location_type=ROOFTOP&result_type=street_address&key=AIzaSyD0k0uSKnmT8n2bHWKlWfZUW92q1Bixvf8`;
+      &location_type=ROOFTOP&result_type=street_address&key=${
+        import.meta.env.VITE_GOOGLE_API_KEY
+      }`;
       fetch(geolocationUrl)
         .then((res) => res.json())
         .then((data) => {
-          const formattedAdress = data.results[0].formatted_address;
-          console.log(data.results[0].formatted_address);
+          // const formattedAdress = data.results[0].formatted_address;
+          const addressComponents = data.results[0].address_components;
+          console.log(addressComponents[1].short_name);
+
+          const formattedAdress =
+            addressComponents[1].short_name +
+            ", " +
+            addressComponents[2].short_name +
+            ", " +
+            addressComponents[3].long_name +
+            ", " +
+            addressComponents[5].long_name;
+
+          console.log(formattedAdress);
+
           setValue(formattedAdress);
         });
     };
