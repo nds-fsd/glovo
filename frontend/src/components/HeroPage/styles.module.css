@@ -114,6 +114,20 @@ p {
   margin-right: 10px;
 }
 
+.useCurrentLocationButtonSmall {
+  border-radius: 0;
+  width: fit-content;
+  box-shadow: 0 0 0 0;
+  display: flex;
+  gap: 7px;
+
+  background-color: var(--secondary-color-lighter);
+  border-radius: 25px;
+  height: fit-content;
+  width: fit-content;
+  margin-right: 10px;
+}
+
 button.useCurrentLocationButton:hover {
   background-color: var(--secondary-color-light);
 }

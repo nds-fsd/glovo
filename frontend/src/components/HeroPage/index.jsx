@@ -24,6 +24,18 @@ export default function HeroPage({ setLocation }) {
     setLocation(data.location);
     navigate("/restaurants");
   };
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    // Limpiar el event listener al desmontar el componente
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   const {
     ready,
     value,
@@ -121,18 +133,30 @@ export default function HeroPage({ setLocation }) {
                 />
                 <input style={{ display: "none" }} type="submit" />
               </form>
-              <button className={styles.useCurrentLocationButton}>
-                <div className={styles.compassIconContainer}>
-                  <img
-                    className={styles.compassIcon}
-                    src={compassIcon}
-                    alt=""
-                  />
-                </div>
-                <p className={styles.useCurrentLocationText}>
-                  Usar la ubicación actual
-                </p>
-              </button>
+              {windowWidth > 900 ? (
+                <button className={styles.useCurrentLocationButton}>
+                  <div className={styles.compassIconContainer}>
+                    <img
+                      className={styles.compassIcon}
+                      src={compassIcon}
+                      alt=""
+                    />
+                  </div>
+                  <p className={styles.useCurrentLocationText}>
+                    Usar la ubicación actual
+                  </p>
+                </button>
+              ) : (
+                <button className={styles.useCurrentLocationButtonSmall}>
+                  <div className={styles.compassIconContainer}>
+                    <img
+                      className={styles.compassIcon}
+                      src={compassIcon}
+                      alt=""
+                    />
+                  </div>
+                </button>
+              )}
             </motion.div>
             {status === "OK" && (
               <ul className={styles.listContainer}>{renderSuggestions()}</ul>
