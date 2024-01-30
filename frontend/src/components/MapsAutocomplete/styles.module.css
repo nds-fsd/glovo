@@ -9,7 +9,7 @@
   position: fixed;
   width: 260px;
   padding: 5px;
-  box-shadow: 0 10px 20px 1px rgba(0, 0, 0, 0.291);
+  box-shadow: 0 10px 30px 0px rgba(0, 0, 0, 0.14);
 }
 
 .listContainer::-webkit-scrollbar {

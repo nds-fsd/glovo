@@ -5,7 +5,6 @@ import {
   useAutocomplete,
 } from "@vis.gl/react-google-maps";
 import React, { useRef, useState } from "react";
-import "./styles.css";
 
 function MapsComponent({ coordinates }) {
   const position = coordinates;
