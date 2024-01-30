@@ -15,7 +15,7 @@ const AutoComplete = () => {
   } = usePlacesAutocomplete({
     callbackName: "YOUR_CALLBACK_NAME",
     requestOptions: {
-      /* Define search scope here */
+      country: "es",
     },
     debounce: 300,
   });
