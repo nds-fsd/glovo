@@ -22,7 +22,7 @@ function PerfilUsuario({ modalState, changeModalState, setLogged }) {
     receivePromotions: false,
   });
 
-  
+  const [isEditing, setIsEditing] = useState(false);
   const [editingField, setEditingField] = useState(null);
   const [isChangingPassword, setIsChangingPassword] = useState(false);
   const { register, handleSubmit, setValue, reset } = useForm();
