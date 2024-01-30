@@ -11,9 +11,11 @@ export default function AddressModal({
   closeAddressModal,
 }) {
   const { register, handleSubmit, setValue: setFormValue } = useForm();
+  const [coordinates, setCoordinates] = useState("");
 
   const onSubmit = (data) => {
     console.log("data", data);
+    console.log(data.address);
   };
 
   return (
@@ -24,6 +26,7 @@ export default function AddressModal({
       isOpen={addressModalIsOpen}
     >
       <motion.div
+        layout
         initial={{ opacity: 0, translateY: 50 }}
         animate={{ opacity: 1, translateY: 0 }}
         transition={{ ease: "easeOut", duration: 0.2 }}
@@ -37,9 +40,18 @@ export default function AddressModal({
           <p>Introduce tus datos</p>
         </div>
 
-        <div className={styles.mapContainer}>
-          <MapsComponent />
-        </div>
+        {coordinates ? (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ ease: "easeOut", duration: 0.8 }}
+            className={styles.mapContainer}
+          >
+            <MapsComponent coordinates={coordinates} />
+          </motion.div>
+        ) : (
+          <></>
+        )}
 
         <div className={styles.inputContainer}>
           <form
@@ -47,8 +59,12 @@ export default function AddressModal({
             onSubmit={handleSubmit(onSubmit)}
             action=""
           >
-            <input {...register("name")} type="text" placeholder="Nombre" />
-            <AutoComplete register={register} setFormValue={setFormValue} />
+            <AutoComplete
+              register={register}
+              setFormValue={setFormValue}
+              setCoordinates={setCoordinates}
+              coordinates={coordinates}
+            />
             <button type="submit" className={styles.agregarTarjeta}>
               Agregar dirección
             </button>

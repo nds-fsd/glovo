@@ -7,8 +7,9 @@
   background-color: white;
   border-radius: 20px;
   position: fixed;
-  width: 235px;
+  width: 260px;
   padding: 5px;
+  box-shadow: 0 10px 20px 1px rgba(0, 0, 0, 0.291);
 }
 
 .listContainer::-webkit-scrollbar {
@@ -22,9 +23,20 @@
   cursor: pointer;
   transition: 0.3s;
   padding: 5px;
+  font-size: 0.85rem;
 }
 
 .individualPlace:hover {
   background-color: var(--secondary-color);
   color: white;
+}
+
+.individualPlace:active {
+  background-color: #000;
+  scale: 0.9;
+}
+
+.extraInputs {
+  display: flex;
+  gap: 5px;
 }

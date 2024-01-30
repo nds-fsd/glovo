@@ -93,7 +93,7 @@ input::placeholder {
 .inputContainer {
   display: flex;
 
-  width: 80%;
+  width: 90%;
 }
 
 .agregarTarjeta {
@@ -110,7 +110,7 @@ input::placeholder {
 .topText {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  margin-bottom: 15px;
 }
 
 .closeButton {
@@ -156,9 +156,10 @@ input::placeholder {
 
 .mapContainer {
   height: 200px;
-  width: 235px;
+  width: 90%;
   border-radius: 20px;
-  overflow: scroll;
+  overflow: hidden;
+  margin: 0 5px;
 }
 
 .formElement {

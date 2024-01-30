@@ -6,28 +6,10 @@ import {
 } from "@vis.gl/react-google-maps";
 import React, { useRef, useState } from "react";
 
-function MapsComponent() {
-  const position = { lat: 53.54992, lng: 10.00678 };
+function MapsComponent({ coordinates }) {
+  const position = coordinates;
   const inputRef = useRef(null);
   const [inputValue, setInputValue] = useState("");
-
-  const onPlaceChanged = (place) => {
-    if (place) {
-      setInputValue(place.formatted_address || place.name);
-    }
-
-    // Keep focus on input element
-    inputRef.current && inputRef.current.focus();
-  };
-
-  useAutocomplete({
-    inputField: inputRef && inputRef.current,
-    onPlaceChanged,
-  });
-
-  const handleInputChange = (event) => {
-    setInputValue(event.target.value);
-  };
 
   return (
     <>
@@ -35,11 +17,10 @@ function MapsComponent() {
         libraries={["places"]}
         apiKey={"AIzaSyD0k0uSKnmT8n2bHWKlWfZUW92q1Bixvf8"}
       >
-        <Map disableDefaultUI={true} center={position} zoom={10}>
+        <Map disableDefaultUI={true} center={position} zoom={15}>
           <Marker position={position} />
         </Map>
       </APIProvider>
-      <input ref={inputRef} value={inputValue} onChange={handleInputChange} />
     </>
   );
 }
