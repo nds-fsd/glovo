@@ -3,7 +3,6 @@ import usePlacesAutocomplete, {
   getLatLng,
   getZipCode,
 } from "use-places-autocomplete";
-import useOnclickOutside from "react-cool-onclickoutside";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
 import styles from "../HeroPage/styles.module.css";
@@ -83,7 +82,7 @@ export default function DirectionBar({ setLocation }) {
         });
     };
     const error = () => {
-      console.log("hubo un error");
+      console.error("Hubo un error");
     };
     navigator.geolocation.getCurrentPosition(success, error);
   };
@@ -99,7 +98,6 @@ export default function DirectionBar({ setLocation }) {
       // Get latitude and longitude via utility functions
       getGeocode({ address: description }).then((results) => {
         const { lat, lng } = getLatLng(results[0]);
-        console.log("📍 Coordinates: ", { lat, lng });
       });
 
       setLocation(description, false);

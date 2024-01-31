@@ -4,7 +4,7 @@ import Modal from "react-modal";
 import { motion } from "framer-motion";
 import React, { useState } from "react";
 import MapsComponent from "../MapsComponent";
-import AutoComplete from "../MapsAutocomplete";
+import AutoCompleteAddressInput from "../AutoCompleteAddressInput";
 
 export default function AddressModal({
   addressModalIsOpen,
@@ -15,7 +15,6 @@ export default function AddressModal({
 
   const onSubmit = (data) => {
     console.log("data", data);
-    console.log(data.address);
   };
 
   return (
@@ -59,7 +58,7 @@ export default function AddressModal({
             onSubmit={handleSubmit(onSubmit)}
             action=""
           >
-            <AutoComplete
+            <AutoCompleteAddressInput
               register={register}
               setFormValue={setFormValue}
               setCoordinates={setCoordinates}

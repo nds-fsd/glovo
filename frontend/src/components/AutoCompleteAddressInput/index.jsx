@@ -4,12 +4,11 @@ import usePlacesAutocomplete, {
   getZipCode,
 } from "use-places-autocomplete";
 import useOnclickOutside from "react-cool-onclickoutside";
-import styles from "../MapsAutocomplete/styles.module.css";
+import styles from "./styles.module.css";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
-import flagIcon from "../../assets/icons/flag-svgrepo-com.svg";
-import compassIcon from "../../assets/icons/location-svgrepo-com.svg";
-const AutoComplete = ({
+
+const AutoCompleteAdrressInput = ({
   register,
   setFormValue,
   setCoordinates,
@@ -30,27 +29,20 @@ const AutoComplete = ({
     debounce: 300,
   });
   const ref = useOnclickOutside(() => {
-    // When the user clicks outside of the component, we can dismiss
-    // the searched suggestions by calling this method
     clearSuggestions();
   });
 
   const handleInput = (e) => {
-    // Update the keyword of the input element
     setValue(e.target.value);
   };
 
   const handleSelect =
     ({ description }) =>
     () => {
-      // When the user selects a place, we can replace the keyword without request data from API
-      // by setting the second parameter to "false"
       setFormValue("address", description);
       setValue(description, false);
       clearSuggestions();
-      console.log(data);
 
-      // Get latitude and longitude via utility functions
       getGeocode({ address: description }).then((results) => {
         const zipCode = getZipCode(results[0], false);
         setPostalCode(zipCode);
@@ -137,4 +129,4 @@ const AutoComplete = ({
   );
 };
 
-export default AutoComplete;
+export default AutoCompleteAdrressInput;
