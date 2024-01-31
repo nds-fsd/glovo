@@ -42,7 +42,7 @@ function App() {
         <OrderContext.Provider value={{ order, setOrder }}>
           <CartContext.Provider value={{ shoppingList, setShoppingList }}>
             <BrowserRouter>
-              <NavBar />
+              <NavBar location={location} />
 
               <Routes>
                 <Route
