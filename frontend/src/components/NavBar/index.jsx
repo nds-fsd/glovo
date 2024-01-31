@@ -4,7 +4,7 @@ import logo from "../../assets/icons/logo.svg";
 import userIcon from "../../assets/icons/user-svgrepo-com.svg";
 import listIcon from "../../assets/icons/list-ul-alt-svgrepo-com.svg";
 import locationIcon from "../../assets/icons/location-pin-svgrepo-com.svg";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import UserRegisterModal from "../PerfilUsuario/UserRegisterModal";
 import PerfilUsuario from "../PerfilUsuario/PerfilUsuario";
 import { useNavigate } from "react-router-dom";
