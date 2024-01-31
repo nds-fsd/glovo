@@ -53,6 +53,7 @@ p {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: relative;
 }
 
 .addressInput {
@@ -63,7 +64,8 @@ p {
   text-align: left;
   padding: 10px;
   font-family: "quicksand";
-  width: auto;
+  width: 100%;
+  text-align: left;
 }
 
 .addressInput::placeholder {
@@ -112,7 +114,8 @@ p {
   border-radius: 25px;
   height: fit-content;
   width: fit-content;
-  margin-right: 10px;
+  position: absolute;
+  right: 10px;
 }
 
 .useCurrentLocationButtonSmall {
@@ -138,7 +141,8 @@ button.useCurrentLocationButton:active {
 }
 
 .useCurrentLocationText {
-  text-wrap: nowrap;
+  text-wrap: nowrap !important;
+  white-space: nowrap;
   font-size: 0.6rem;
   color: var(--secondary-color);
 }
