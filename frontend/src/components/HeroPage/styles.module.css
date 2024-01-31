@@ -53,6 +53,7 @@ p {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: relative;
 }
 
 .addressInput {
@@ -63,6 +64,8 @@ p {
   text-align: left;
   padding: 10px;
   font-family: "quicksand";
+  width: 100%;
+  text-align: left;
 }
 
 .addressInput::placeholder {
@@ -111,6 +114,21 @@ p {
   border-radius: 25px;
   height: fit-content;
   width: fit-content;
+  position: absolute;
+  right: 10px;
+}
+
+.useCurrentLocationButtonSmall {
+  border-radius: 0;
+  width: fit-content;
+  box-shadow: 0 0 0 0;
+  display: flex;
+  gap: 7px;
+
+  background-color: var(--secondary-color-lighter);
+  border-radius: 25px;
+  height: fit-content;
+  width: fit-content;
   margin-right: 10px;
 }
 
@@ -123,7 +141,8 @@ button.useCurrentLocationButton:active {
 }
 
 .useCurrentLocationText {
-  text-wrap: nowrap;
+  text-wrap: nowrap !important;
+  white-space: nowrap;
   font-size: 0.6rem;
   color: var(--secondary-color);
 }
@@ -131,4 +150,50 @@ button.useCurrentLocationButton:active {
 .wavySvg {
   width: 100%;
   padding: 0;
+}
+
+.listContainer {
+  overflow: scroll;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  border-radius: 20px;
+  max-width: calc(100% - 35px);
+}
+
+.listContainer::-webkit-scrollbar {
+  width: 0;
+}
+
+.individualPlace {
+  background-color: white;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+  padding: 5px;
+}
+
+.individualPlace:hover {
+  background-color: var(--secondary-color);
+  color: white;
+}
+
+.onlyTextContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+strong {
+  font-weight: 700;
+}
+
+@media only screen and (max-width: 700px) {
+  .heroContainer {
+    flex-direction: column;
+    padding-top: 60px;
+  }
+  .textContainer {
+    width: 90%;
+  }
 }
