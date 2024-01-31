@@ -7,10 +7,11 @@ import HeroPage from "./components/HeroPage/index";
 import Formulario from "./components/formularios/formularios";
 import React, { useState, useEffect } from "react";
 import Footer from "../src/components/Footer";
-import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { getUserToken, getUserSession } from "./utils/localStorage.utils";
 import { CartContext } from "./contexts/CartContext";
 import { OrderContext } from "./contexts/OrderContext";
+
 import ConfirmationPage from "./components/ConfirmationPage";
 import { UserContext } from "./contexts/UserContext";
 
@@ -19,7 +20,6 @@ function App() {
   const [order, setOrder] = useState([]);
   const [forceUpdate, setForceUpdate] = useState(false);
   const [location, setLocation] = useState("");
-
   const [user, setLocalUser] = useState(null);
 
   const [isAuthenticated, setIsAuthenticated] = useState(false);
