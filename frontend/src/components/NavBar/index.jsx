@@ -12,10 +12,16 @@ import { motion, AnimatePresence } from "framer-motion";
 
 export default function NavBar({ location }) {
   const [logged, setLogged] = useState(true);
+
+import UserLoginModal from "../PerfilUsuario/UserLoginModal";
+
+export default function NavBar() {
+  const [logged, setLogged] = useState(false);
   const navigate = useNavigate();
   const [isPerfilUsuarioModalOpen, setIsPerfilUsuarioModalOpen] =
     useState(false);
   const [isUserRegisterModalOpen, setIsUserRegisterModalOpen] = useState(false);
+  const [loginModalOpen, setLoginModalOpen] = useState(false);
 
   const handleUserModal = () => {
     console.log("Antes de cambiar:", isPerfilUsuarioModalOpen); // Muestra el estado antes de cambiarlo
@@ -69,14 +75,12 @@ export default function NavBar({ location }) {
             </div>
           </nav>
 
-          {isPerfilUsuarioModalOpen && (
-            <PerfilUsuario
-              modalState={isPerfilUsuarioModalOpen}
-              changeModalState={handleUserModal}
-              setLogged={setLogged}
-            />
-          )}
-        </motion.div>
+        <PerfilUsuario
+          modalState={isPerfilUsuarioModalOpen}
+          changeModalState={handleUserModal}
+          setLogged={setLogged}
+        />
+
       </>
     );
   } else {
@@ -93,25 +97,20 @@ export default function NavBar({ location }) {
               onClick={() => navigate("/")}
               className={styles.logoContainerUnlogged}
             >
-              <img className={styles.logo} src={logo} alt="" />
-            </div>
-            <div className={styles.getStartedContainer}>
-              <button
-                className={styles.getStartedButton}
-                onClick={handleRegisterModal}
-              >
-                Empieza aquí
-              </button>
-            </div>
-          </nav>
-          {isUserRegisterModalOpen && (
-            <UserRegisterModal
-              modalState={isUserRegisterModalOpen}
-              changeModalState={handleRegisterModal}
-              setLogged={setLogged}
-            />
-          )}
-        </motion.div>
+              Empieza aquí
+            </button>
+          </div>
+        </nav>
+        {isUserRegisterModalOpen && (
+          <UserRegisterModal
+            modalState={isUserRegisterModalOpen}
+            changeModalState={handleRegisterModal}
+            setLogged={setLogged}
+            setLoginModalOpen={setLoginModalOpen}
+            setIsUserRegisterModalOpen={setIsUserRegisterModalOpen}
+          />
+        )}
+        <UserLoginModal setLogged={setLogged} loginModalOpen={loginModalOpen} />
       </>
     );
   }
