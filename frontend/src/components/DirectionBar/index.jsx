@@ -131,8 +131,12 @@ export default function DirectionBar({ setLocation }) {
     });
   return (
     <>
-      {" "}
-      <AnimatePresence>
+      <motion.div className={styles.textContainer}>
+        <motion.div className={styles.onlyTextContainer} layout>
+          <h1>Comida a domicilio y más</h1>
+          <p>Tiendas, farmacias, todo!</p>
+        </motion.div>
+
         <motion.div layout className={styles.inputBar}>
           <div className={styles.flagIconContainer}>
             <img className={styles.flagIcon} src={flagIcon} alt="" />
@@ -181,7 +185,7 @@ export default function DirectionBar({ setLocation }) {
         {status === "OK" && (
           <ul className={styles.listContainer}>{renderSuggestions()}</ul>
         )}
-      </AnimatePresence>
+      </motion.div>
     </>
   );
 }

@@ -20,13 +20,7 @@ export default function HeroPage({ setLocation }) {
         <div className={styles.heroContainer}>
           <img className={styles.burgerImg} src={burguerImg} alt="" />
           <AnimatePresence>
-            <motion.div className={styles.textContainer}>
-              <motion.div className={styles.onlyTextContainer} layout>
-                <h1>Comida a domicilio y más</h1>
-                <p>Tiendas, farmacias, todo!</p>
-              </motion.div>
-              <DirectionBar setLocation={setLocation} />
-            </motion.div>
+            <DirectionBar setLocation={setLocation} />
           </AnimatePresence>
         </div>
         <img className={styles.wavySvg} src={wavySvg} alt="" />
