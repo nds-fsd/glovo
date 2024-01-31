@@ -1,9 +1,4 @@
-import {
-  APIProvider,
-  Map,
-  Marker,
-  useAutocomplete,
-} from "@vis.gl/react-google-maps";
+import { APIProvider, Map, Marker } from "@vis.gl/react-google-maps";
 import React, { useRef, useState } from "react";
 
 function MapsComponent({ coordinates }) {

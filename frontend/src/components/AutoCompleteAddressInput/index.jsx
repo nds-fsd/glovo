@@ -34,6 +34,9 @@ const AutoCompleteAdrressInput = ({
 
   const handleInput = (e) => {
     setValue(e.target.value);
+    if (!e.target.value) {
+      setCoordinates();
+    }
   };
 
   const handleSelect =
@@ -45,7 +48,11 @@ const AutoCompleteAdrressInput = ({
 
       getGeocode({ address: description }).then((results) => {
         const zipCode = getZipCode(results[0], false);
-        setPostalCode(zipCode);
+        if (zipCode) {
+          setPostalCode(zipCode);
+        } else {
+          setPostalCode("");
+        }
 
         const { lat, lng } = getLatLng(results[0]);
         setCoordinates({ lat: lat, lng: lng });
@@ -60,13 +67,12 @@ const AutoCompleteAdrressInput = ({
       } = suggestion;
 
       return (
-        <AnimatePresence>
+        <AnimatePresence key={place_id}>
           <motion.li
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ ease: "easeOut", duration: 0.3 }}
             className={styles.individualPlace}
-            key={place_id}
             onClick={handleSelect(suggestion)}
           >
             <strong>{main_text}</strong> <small>{secondary_text}</small>
@@ -108,6 +114,7 @@ const AutoCompleteAdrressInput = ({
               {...register("cp")}
               type="text"
               value={postalCode}
+              onChange={(e) => setPostalCode(e.target.value)}
               placeholder="Código postal"
               required
             />

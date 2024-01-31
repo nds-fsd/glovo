@@ -1,9 +1,8 @@
 import usePlacesAutocomplete, {
   getGeocode,
   getLatLng,
-  getZipCode,
 } from "use-places-autocomplete";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import styles from "../HeroPage/styles.module.css";
 import flagIcon from "../../assets/icons/flag-svgrepo-com.svg";
@@ -13,7 +12,9 @@ import { useForm } from "react-hook-form";
 
 export default function DirectionBar({ setLocation }) {
   const { register, handleSubmit } = useForm();
+
   const navigate = useNavigate();
+
   const onSubmit = (data) => {
     setLocation(data.location);
     navigate("/restaurants");
@@ -23,10 +24,7 @@ export default function DirectionBar({ setLocation }) {
     const handleResize = () => {
       setWindowWidth(window.innerWidth);
     };
-
     window.addEventListener("resize", handleResize);
-
-    // Limpiar el event listener al desmontar el componente
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
@@ -40,14 +38,11 @@ export default function DirectionBar({ setLocation }) {
     callbackName: "YOUR_CALLBACK_NAME",
     requestOptions: {
       componentRestrictions: { country: "es" },
-
-      /* Define search scope here */
     },
     debounce: 300,
   });
 
   const handleInput = (e) => {
-    // Update the keyword of the input element
     setValue(e.target.value);
   };
 
@@ -63,7 +58,6 @@ export default function DirectionBar({ setLocation }) {
       fetch(geolocationUrl)
         .then((res) => res.json())
         .then((data) => {
-          // const formattedAdress = data.results[0].formatted_address;
           const addressComponents = data.results[0].address_components;
           console.log(addressComponents[1].short_name);
 
@@ -82,7 +76,7 @@ export default function DirectionBar({ setLocation }) {
         });
     };
     const error = () => {
-      console.error("Hubo un error");
+      console.error("Hubo un error al localizar su dispositivo");
     };
     navigator.geolocation.getCurrentPosition(success, error);
   };
@@ -90,16 +84,11 @@ export default function DirectionBar({ setLocation }) {
   const handleSelect =
     ({ description }) =>
     () => {
-      // When the user selects a place, we can replace the keyword without request data from API
-      // by setting the second parameter to "false"
       setValue(description, false);
       clearSuggestions();
-
-      // Get latitude and longitude via utility functions
       getGeocode({ address: description }).then((results) => {
         const { lat, lng } = getLatLng(results[0]);
       });
-
       setLocation(description, false);
       setTimeout(() => {
         navigate("/restaurants");
@@ -134,12 +123,10 @@ export default function DirectionBar({ setLocation }) {
           <h1>Comida a domicilio y más</h1>
           <p>Tiendas, farmacias, todo!</p>
         </motion.div>
-
         <motion.div layout className={styles.inputBar}>
           <div className={styles.flagIconContainer}>
             <img className={styles.flagIcon} src={flagIcon} alt="" />
           </div>
-
           <input
             {...register("location", { required: true })}
             autoComplete="off"

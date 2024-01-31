@@ -11,8 +11,6 @@ import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { getUserToken, getUserSession } from "./utils/localStorage.utils";
 import { CartContext } from "./contexts/CartContext";
 import { OrderContext } from "./contexts/OrderContext";
-import { motion, AnimatePresence } from "framer-motion";
-
 import ConfirmationPage from "./components/ConfirmationPage";
 
 function App() {
@@ -44,33 +42,29 @@ function App() {
     <div>
       <OrderContext.Provider value={{ order, setOrder }}>
         <CartContext.Provider value={{ shoppingList, setShoppingList }}>
-          <AnimatePresence>
-            <BrowserRouter>
-              <NavBar location={location} />
-
-              <Routes>
-                <Route
-                  path="/"
-                  element={<HeroPage setLocation={setLocation} />}
-                ></Route>
-                <Route
-                  path="/restaurants"
-                  element={<HomePage location={location} />}
-                ></Route>
-                <Route
-                  path="/restaurant/:restaurantId"
-                  element={<RestaurantPage />}
-                ></Route>
-                <Route
-                  path="/confirmation"
-                  element={<ConfirmationPage />}
-                ></Route>
-                <Route path="/formularios" element={<Formulario />} />
-              </Routes>
-
-              <Footer />
-            </BrowserRouter>
-          </AnimatePresence>
+          <BrowserRouter>
+            <NavBar location={location} />
+            <Routes>
+              <Route
+                path="/"
+                element={<HeroPage setLocation={setLocation} />}
+              ></Route>
+              <Route
+                path="/restaurants"
+                element={<HomePage location={location} />}
+              ></Route>
+              <Route
+                path="/restaurant/:restaurantId"
+                element={<RestaurantPage />}
+              ></Route>
+              <Route
+                path="/confirmation"
+                element={<ConfirmationPage />}
+              ></Route>
+              <Route path="/formularios" element={<Formulario />} />
+            </Routes>
+            <Footer />
+          </BrowserRouter>
         </CartContext.Provider>
       </OrderContext.Provider>
     </div>

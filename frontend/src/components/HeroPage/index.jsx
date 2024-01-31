@@ -1,11 +1,7 @@
 import styles from "./styles.module.css";
-import NavBar from "../NavBar";
 import burguerImg from "../../assets/images/video-burger.png";
-
 import wavySvg from "../../assets/images/address-jumbotron-wave-desktop.svg";
-
-import { React, useState } from "react";
-
+import { React } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import DirectionBar from "../DirectionBar";
 
