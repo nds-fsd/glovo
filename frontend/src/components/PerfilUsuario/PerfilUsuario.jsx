@@ -55,6 +55,7 @@ function PerfilUsuario({ modalState, changeModalState, setLogged }) {
   };
 
   const handleSaveClick = async () => {
+   
     try {
       // Verificar si el ID del usuario está definido
       if (!user._id) {
@@ -71,13 +72,16 @@ function PerfilUsuario({ modalState, changeModalState, setLogged }) {
   
       // Preparar los datos para la actualización
       const updateData = { [editingField]: userInfo[editingField] };
-  
+      
+      console.log("Este es el usuario desde el handleSaveClick " + user._id);
       // Enviar la actualización al backend y obtener la respuesta
       const updatedUser = await handleProfileUpdateSubmit(editingField, updateData, user._id, token);
-  
+     
       // Verificar si la respuesta del backend es válida
+     
       if (updatedUser) {
         // Actualizar user con los cambios
+       
         setUser({ ...user, ...updateData });
       } else {
         throw new Error("No se recibieron datos actualizados del usuario.");

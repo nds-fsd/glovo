@@ -2,7 +2,16 @@ import axios from "axios";
 import { setUserSession, setStorageObject } from '../utils/localStorage.utils';
 import { getStorageObject } from '../utils/localStorage.utils';
 
+
 const API_BASE_URL = 'http://localhost:3001';
+
+const api = axios.create({
+  baseURL: 'http://localhost:3001',
+  timeout: 1000,
+  headers: {
+    'Content-Type': "application/json",
+  }
+})
 
 export const handleInitialRegistrationSubmit = async (data, setLocalUser, closeModal) => {
   try {
@@ -17,6 +26,8 @@ export const handleInitialRegistrationSubmit = async (data, setLocalUser, closeM
 };
 
 export const handleLoginSubmit = async (data, setLocalUser, closeModal) => {
+
+  
   try {
     const response = await axios.post("http://localhost:3001/login", data);
     console.log("repuesta del Backend ", response);
@@ -31,23 +42,28 @@ export const handleLoginSubmit = async (data, setLocalUser, closeModal) => {
   
 };
 export const handleProfileUpdateSubmit = async (editingField, data, userId, setLocalUser) => {
+  console.log("PASAMOS POR AQUI")
+  console.log("editingField", editingField)
+  console.log("data", data)
   // Obtener el token de autenticación del local storage
-  const token = getStorageObject("token");
-
+  let token = localStorage.getItem("token");
+  token = JSON.parse(token)
+  console.log("TOKEN", token)
   try {
-    const response = await axios.patch(`${API_BASE_URL}/users/${userId}`, {
-      [editingField]: data[editingField],
-    }, {
+   
+    const response = await api.patch(`/users/${userId}`, data, {
       headers: {
-        'Authorization': `Bearer ${token}`
+        "Authorization" : `Bearer ${token}`
       }
-    });
+    })
 
     const updatedUser = response.data;
-    setLocalUser(updatedUser); // Actualizar el estado local
+    return updatedUser
+    console.log("Datos del usuario actualizados", updatedUser)
+    // setLocalUser(updatedUser); // Actualizar el estado local
   } catch (error) {
     console.error("Error al actualizar el perfil:", error);
-    throw error; // Lanzar el error para manejarlo en el componente
+    throw error;
   }
 };
 
