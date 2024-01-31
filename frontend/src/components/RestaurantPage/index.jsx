@@ -27,11 +27,11 @@ export default function RestaurantPage({}) {
 
   window.addEventListener("scroll", setFixedCart);
 
-  useEffect(() => {
-    if (!isLoadingProducts) {
-      calculatePrice();
-    }
-  }, [shoppingList, isLoadingProducts]);
+  // useEffect(() => {
+  //   if (!isLoadingProducts) {
+  //     calculatePrice();
+  //   }
+  // }, [shoppingList, isLoadingProducts]);
 
   useEffect(() => {
     const obtenerRestaurante = async () => {
