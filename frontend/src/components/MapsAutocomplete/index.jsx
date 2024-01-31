@@ -7,7 +7,8 @@ import useOnclickOutside from "react-cool-onclickoutside";
 import styles from "../MapsAutocomplete/styles.module.css";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
-
+import flagIcon from "../../assets/icons/flag-svgrepo-com.svg";
+import compassIcon from "../../assets/icons/location-svgrepo-com.svg";
 const AutoComplete = ({
   register,
   setFormValue,
