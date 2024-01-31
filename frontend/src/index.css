@@ -136,7 +136,7 @@ table {
   -webkit-text-size-adjust: 100%;
   min-height: 100vh;
 
-  --primary-color: #bcdbdb;
+  --primary-color: rgb(188, 219, 219);
   --primary-color-light: rgba(64, 133, 162, 0.414);
   --secondary-color: #09827e;
   --secondary-color-light: #00c5c542;

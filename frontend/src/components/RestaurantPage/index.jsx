@@ -11,7 +11,6 @@ import { api } from "../../utils/api";
 import ShoppingCart from "../ShoppingCart";
 import { useParams, useNavigate } from "react-router-dom";
 import { CartContext } from "../../contexts/CartContext";
-import { motion, AnimatePresence } from "framer-motion";
 
 export default function RestaurantPage({}) {
   const [restaurante, setRestaurante] = useState();
@@ -108,76 +107,67 @@ export default function RestaurantPage({}) {
   {
     return (
       restaurante && (
-        <motion.div
-          initial={{ opacity: 0, translateY: -50 }}
-          animate={{ opacity: 1, translateY: 0 }}
-          transition={{ ease: "easeOut", duration: 0.3 }}
-        >
-          <div className={styles.viewport}>
-            <header className={styles.header}>
-              <div className={styles.content}>
-                <address>{restaurante.direccion}</address>
-              </div>
-              <div className={styles.headerBackgroundContainer}>
-                <img
-                  className={styles.headerBackgroundImg}
-                  src={restaurante.imagen}
-                  alt=""
-                />
-              </div>
-            </header>
-            <main>
-              <div className={styles.mainRestaurantContent}>
-                <section className={styles.restaurantHeader}>
-                  <h1>{restaurante.nombre}</h1>
-                  <div className={styles.description}>
-                    <RestaurantStats
-                      iconSrc={likeIcon}
-                      statValue={restaurante.puntuacion}
-                    />
-                    <RestaurantStats
-                      iconSrc={stopwatchIcon}
-                      statValue="5-10'"
-                    />
-                    <RestaurantStats
-                      iconSrc={scooterIcon}
-                      statValue={restaurante.transporte}
-                    />
-                  </div>
-                </section>
-                <img src="" alt="" />
-                <div id="cartContainer" className={styles.productGrid}>
-                  {productos &&
-                    productos.map((e) => {
-                      return (
-                        <ProductCard
-                          setShoppingList={setShoppingList}
-                          productos={productos}
-                          key={e._id}
-                          productName={e.nombre}
-                          productDescription={e.descripcion}
-                          productPrice={`${e.precio}€`}
-                          productImg={productExampleImg}
-                          producto={e}
-                          shoppingList={shoppingList}
-                          restaurante={restaurante}
-                        />
-                      );
-                    })}
-                </div>
-              </div>
-              <ShoppingCart
-                productos={productos}
-                shoppingList={shoppingList}
-                totalPrice={totalPrice}
-                setShoppingList={setShoppingList}
-                restaurante={restaurante}
-                isLoadingProducts={isLoadingProducts}
-                fix={fix}
+        <div className={styles.viewport}>
+          <header className={styles.header}>
+            <div className={styles.content}>
+              <address>{restaurante.direccion}</address>
+            </div>
+            <div className={styles.headerBackgroundContainer}>
+              <img
+                className={styles.headerBackgroundImg}
+                src={restaurante.imagen}
+                alt=""
               />
-            </main>
-          </div>
-        </motion.div>
+            </div>
+          </header>
+          <main>
+            <div className={styles.mainRestaurantContent}>
+              <section className={styles.restaurantHeader}>
+                <h1>{restaurante.nombre}</h1>
+                <div className={styles.description}>
+                  <RestaurantStats
+                    iconSrc={likeIcon}
+                    statValue={restaurante.puntuacion}
+                  />
+                  <RestaurantStats iconSrc={stopwatchIcon} statValue="5-10'" />
+                  <RestaurantStats
+                    iconSrc={scooterIcon}
+                    statValue={restaurante.transporte}
+                  />
+                </div>
+              </section>
+              <img src="" alt="" />
+              <div id="cartContainer" className={styles.productGrid}>
+                {productos &&
+                  productos.map((e) => {
+                    return (
+                      <ProductCard
+                        setShoppingList={setShoppingList}
+                        productos={productos}
+                        key={e._id}
+                        productName={e.nombre}
+                        productDescription={e.descripcion}
+                        productPrice={`${e.precio}€`}
+                        productImg={productExampleImg}
+                        producto={e}
+                        shoppingList={shoppingList}
+                        restaurante={restaurante}
+                      />
+                    );
+                  })}
+              </div>
+            </div>
+            <ShoppingCart
+              productos={productos}
+              shoppingList={shoppingList}
+              totalPrice={totalPrice}
+              setShoppingList={setShoppingList}
+              restaurante={restaurante}
+              isLoadingProducts={isLoadingProducts}
+              fix={fix}
+            />
+          </main>
+        </div>
       )
     );
   }

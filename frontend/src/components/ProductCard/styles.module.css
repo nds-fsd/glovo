@@ -16,22 +16,12 @@
 }
 
 h5 {
-  max-height: 20px;
   font-size: 0.9rem;
   font-weight: 500;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 p {
   font-size: 0.7rem;
-  overflow: hidden;
-}
-
-.description {
-  max-height: 37px;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 .productImg {
@@ -69,10 +59,4 @@ button.addToCart:hover {
 
 button.addToCart:active {
   transform: scale(0.85);
-}
-
-@media only screen and (max-width: 800px) {
-  .mainContainer {
-    width: 98%;
-  }
 }
