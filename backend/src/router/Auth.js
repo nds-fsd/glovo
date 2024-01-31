@@ -27,6 +27,7 @@ authRouter.post("/register", (req, res) => {
         email: data.email,
         password: data.password,
         firstName: data.firstName,
+        phone: data.phone,
         role: "USER",
       });
 
