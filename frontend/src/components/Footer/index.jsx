@@ -29,7 +29,12 @@ export default function Footer() {
               <div className={styles.verticalLinks}>
                 <h4>Colabora con Gloton</h4>
                 <a href="">Carreras</a>
-                <p onClick={openFormularios}>Gloton para socios</p>
+                <p
+                  className={styles.formularioButton}
+                  onClick={openFormularios}
+                >
+                  Gloton para socios
+                </p>
                 <a href="">Repartidores</a>
                 <a href="">Gloton Business</a>
               </div>
@@ -55,13 +60,6 @@ export default function Footer() {
                 <a href="">CUMPLIMIENTO</a>
               </div>
             </div>
-            <aside className={styles.languageSelectorContainer}>
-              <select name="languageSelector" id="">
-                <option value="1">Español</option>
-                <option value="2">English</option>
-                <option value="3">Swahili</option>
-              </select>
-            </aside>
           </div>
         </div>
       </footer>

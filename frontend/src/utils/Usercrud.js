@@ -1,19 +1,22 @@
 import axios from "axios";
-import { setUserSession, setStorageObject } from '../utils/localStorage.utils';
-import { getStorageObject } from '../utils/localStorage.utils';
+import { setUserSession, setStorageObject } from "../utils/localStorage.utils";
+import { getStorageObject } from "../utils/localStorage.utils";
 
-
-const API_BASE_URL = 'http://localhost:3001';
+const API_BASE_URL = "http://localhost:3001";
 
 const api = axios.create({
-  baseURL: 'http://localhost:3001',
+  baseURL: "http://localhost:3001",
   timeout: 1000,
   headers: {
-    'Content-Type': "application/json",
-  }
-})
+    "Content-Type": "application/json",
+  },
+});
 
-export const handleInitialRegistrationSubmit = async (data, setLocalUser, closeModal) => {
+export const handleInitialRegistrationSubmit = async (
+  data,
+  setLocalUser,
+  closeModal
+) => {
   try {
     const response = await axios.post(`${API_BASE_URL}/register`, data);
     setStorageObject("token", response.data.token);
@@ -26,11 +29,10 @@ export const handleInitialRegistrationSubmit = async (data, setLocalUser, closeM
 };
 
 export const handleLoginSubmit = async (data, setLocalUser, closeModal) => {
-
-  
   try {
     const response = await axios.post("http://localhost:3001/login", data);
     console.log("repuesta del Backend ", response);
+    console.log(response);
     setStorageObject("token", response.data.token);
     setStorageObject("user", response.data.user);
     setLocalUser(response.data);
@@ -39,35 +41,36 @@ export const handleLoginSubmit = async (data, setLocalUser, closeModal) => {
     console.error("Error en el Login:", error);
     return error.response.status;
   }
-  
 };
-export const handleProfileUpdateSubmit = async (editingField, data, userId, setLocalUser) => {
-  console.log("PASAMOS POR AQUI")
-  console.log("editingField", editingField)
-  console.log("data", data)
+export const handleProfileUpdateSubmit = async (
+  editingField,
+  data,
+  userId,
+  setLocalUser
+) => {
+  console.log("PASAMOS POR AQUI");
+  console.log("editingField", editingField);
+  console.log("data", data);
   // Obtener el token de autenticación del local storage
   let token = localStorage.getItem("token");
-  token = JSON.parse(token)
-  console.log("TOKEN", token)
+  token = JSON.parse(token);
+  console.log("TOKEN", token);
   try {
-   
     const response = await api.patch(`/users/${userId}`, data, {
       headers: {
-        "Authorization" : `Bearer ${token}`
-      }
-    })
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
     const updatedUser = response.data;
-    return updatedUser
-    console.log("Datos del usuario actualizados", updatedUser)
+    return updatedUser;
+    console.log("Datos del usuario actualizados", updatedUser);
     // setLocalUser(updatedUser); // Actualizar el estado local
   } catch (error) {
     console.error("Error al actualizar el perfil:", error);
     throw error;
   }
 };
-
-
 
 export const handlePasswordChangeSubmit = async (data, user, closeModal) => {
   const { currentPassword, newPassword, confirmPassword } = data;
@@ -84,12 +87,13 @@ export const handlePasswordChangeSubmit = async (data, user, closeModal) => {
     closeModal();
   } catch (error) {
     console.error("Error al cambiar la contraseña:", error);
-   
   }
 };
 
 export const handleDelete = async (user, setUser, setIsModalOpen) => {
-  const confirmDelete = window.confirm("¿Estás seguro de que quieres eliminar tu cuenta?");
+  const confirmDelete = window.confirm(
+    "¿Estás seguro de que quieres eliminar tu cuenta?"
+  );
   if (confirmDelete) {
     try {
       await axios.delete(`${API_BASE_URL}/users/${user._id}`);
@@ -98,7 +102,6 @@ export const handleDelete = async (user, setUser, setIsModalOpen) => {
       setIsModalOpen(false);
     } catch (error) {
       console.error("Error al eliminar la cuenta:", error);
-      
     }
   }
 };

@@ -43,7 +43,7 @@ export default function NavBar({ location }) {
         <motion.nav
           initial={{ translateY: -100 }}
           animate={{ translateY: 0 }}
-          transition={{ delay: 0.3, duration: 0.5 }}
+          transition={{ delay: 1, duration: 0.5 }}
           className={styles.navBar}
         >
           <div onClick={() => navigate("/")} className={styles.logoContainer}>
@@ -88,7 +88,7 @@ export default function NavBar({ location }) {
         <motion.nav
           initial={{ translateY: -100 }}
           animate={{ translateY: 0 }}
-          transition={{ delay: 0.3, duration: 0.5 }}
+          transition={{ delay: 1, duration: 0.5 }}
           exit={{ translateY: -100 }}
           className={styles.navBar}
         >

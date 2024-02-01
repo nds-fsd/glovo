@@ -5,15 +5,16 @@
 }
 
 .viewport {
-  height: 100vh;
-  width: 100vw;
+  min-height: 100vh;
+  width: 100%;
 }
 
 .heroContainer {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 70%;
+  height: fit-content;
+  min-height: 70%;
   width: 100%;
   background-color: var(--primary-color);
   padding-top: 100px;
@@ -191,7 +192,6 @@ strong {
 
 .burgerContainer {
   position: relative;
-
   height: 400px;
   width: 400px;
 }
@@ -251,12 +251,26 @@ strong {
   .textContainer {
     width: 90%;
   }
-  .burgerContainer {
-    width: 100%;
-    height: fit-content;
-    margin-top: 300px;
+  .heroContainer {
+    position: relative;
+    display: flex;
+    justify-content: center;
   }
+
+  .burgerContainer {
+    width: fit-content;
+    height: 10px;
+    margin-top: 200px;
+    left: 125px;
+    margin-bottom: 20px;
+  }
+
   .burgerSegment {
-    scale: 0.6;
+    height: 200px;
+  }
+
+  .heroContainer {
+    padding-bottom: 50px;
+    padding-top: 100px;
   }
 }

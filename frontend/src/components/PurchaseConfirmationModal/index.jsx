@@ -24,6 +24,9 @@ export default function PurchaseConfirmationModal({
   creditCard,
   transportPrice,
 }) {
+  const [cardModalIsOpen, setCardModalIsOpen] = useState(false);
+  const [addressModalIsOpen, setAddressModalIsOpen] = useState(false);
+  const [confirmationAnimation, setConfirmationAnimation] = useState(false);
   const { order, setOrder } = useContext(OrderContext);
   let { shoppingList, setShoppingList } = useContext(CartContext);
 
@@ -37,12 +40,12 @@ export default function PurchaseConfirmationModal({
   };
 
   const createOrder = () => {
-    const order2 = [];
+    const orderArray = [];
 
     shoppingList.forEach((e) => {
       const producto = productos.find((item) => item._id === e.id);
       if (producto) {
-        order2.push({
+        orderArray.push({
           producto: producto,
           ammount: e.ammount,
           totalPrice: totalPrice,
@@ -50,12 +53,8 @@ export default function PurchaseConfirmationModal({
       }
     });
 
-    setOrder(order2);
+    setOrder(orderArray);
   };
-
-  const [cardModalIsOpen, setCardModalIsOpen] = useState(false);
-  const [addressModalIsOpen, setAddressModalIsOpen] = useState(false);
-  const [confirmationAnimation, setConfirmationAnimation] = useState(false);
 
   const openCardModal = () => {
     setCardModalIsOpen(true);

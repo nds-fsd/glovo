@@ -2,7 +2,7 @@ import usePlacesAutocomplete, {
   getGeocode,
   getLatLng,
 } from "use-places-autocomplete";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import styles from "../HeroPage/styles.module.css";
 import flagIcon from "../../assets/icons/flag-svgrepo-com.svg";
@@ -27,6 +27,8 @@ export default function DirectionBar({ setLocation }) {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+  console.log("eeeeeeeeeeeeeeeeeeeeeeeeeeeee" + user);
 
   const {
     ready,
@@ -136,36 +138,46 @@ export default function DirectionBar({ setLocation }) {
             className={styles.addressInput}
             placeholder="Cuál es tu dirección?"
           />
-          {windowWidth > 900 && !value ? (
-            <button
-              transition={{ ease: "easeOut", duration: 0.1 }}
-              onClick={findMyLocation}
-              className={styles.useCurrentLocationButton}
-            >
-              <div className={styles.compassIconContainer}>
-                <img className={styles.compassIcon} src={compassIcon} alt="" />
-              </div>
-              <motion.p
-                key="button1"
-                initial={{ width: 0 }}
-                animate={{ width: "110px" }}
-                exit={{ width: 0 }}
-                transition={{ ease: "easeOut", duration: 0.5 }}
-                className={styles.useCurrentLocationText}
+          <AnimatePresence>
+            {windowWidth > 900 && !value ? (
+              <button
+                transition={{ ease: "easeOut", duration: 0.1 }}
+                onClick={findMyLocation}
+                className={styles.useCurrentLocationButton}
               >
-                Usar la ubicación actual
-              </motion.p>
-            </button>
-          ) : (
-            <button
-              onClick={findMyLocation}
-              className={styles.useCurrentLocationButtonSmall}
-            >
-              <div className={styles.compassIconContainer}>
-                <img className={styles.compassIcon} src={compassIcon} alt="" />
-              </div>
-            </button>
-          )}
+                <div className={styles.compassIconContainer}>
+                  <img
+                    className={styles.compassIcon}
+                    src={compassIcon}
+                    alt=""
+                  />
+                </div>
+                <motion.p
+                  // key="button1"
+                  // initial={{ width: 0 }}
+                  // animate={{ width: "110px" }}
+                  // exit={{ width: 0 }}
+                  // transition={{ ease: "easeOut", duration: 0.3 }}
+                  className={styles.useCurrentLocationText}
+                >
+                  Usar la ubicación actual
+                </motion.p>
+              </button>
+            ) : (
+              <button
+                onClick={findMyLocation}
+                className={styles.useCurrentLocationButtonSmall}
+              >
+                <div className={styles.compassIconContainer}>
+                  <img
+                    className={styles.compassIcon}
+                    src={compassIcon}
+                    alt=""
+                  />
+                </div>
+              </button>
+            )}
+          </AnimatePresence>
         </motion.div>
         {status === "OK" && (
           <ul className={styles.listContainer}>{renderSuggestions()}</ul>
