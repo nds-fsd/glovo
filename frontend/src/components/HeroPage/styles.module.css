@@ -22,6 +22,7 @@
 
 .burgerImg {
   height: 50%;
+  transition: 0.8s;
 }
 
 .textContainer {
@@ -53,7 +54,6 @@ p {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  position: relative;
 }
 
 .addressInput {
@@ -186,6 +186,64 @@ button.useCurrentLocationButton:active {
 
 strong {
   font-weight: 700;
+}
+
+.burgerContainer {
+  position: relative;
+
+  height: 400px;
+  width: 400px;
+}
+
+.burgerSegment {
+  position: absolute;
+  height: 350px;
+  right: 7%;
+  bottom: 12%;
+  transition: 0.5s;
+}
+
+.burgerImg:hover {
+  scale: 1.1;
+}
+
+.burguerFront {
+  animation: burguerFrontAn 3s;
+}
+
+.burguerMiddle {
+  animation: burguerMiddleAn 3s;
+}
+
+.burguerBack {
+  animation: burguerBackAn 3s;
+}
+
+@keyframes burguerFrontAn {
+  from {
+    transform: scale(0.7) rotate(-20deg);
+  }
+  to {
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+@keyframes burguerMiddleAn {
+  from {
+    transform: scale(0.8) rotate(-10deg);
+  }
+  to {
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+@keyframes burguerBackAn {
+  from {
+    transform: scale(0.7);
+  }
+  to {
+    transform: scale(1);
+  }
 }
 
 @media only screen and (max-width: 700px) {

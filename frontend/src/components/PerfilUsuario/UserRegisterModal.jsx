@@ -46,6 +46,7 @@ function UserRegisterModal({
       <motion.form
         initial={{ translateY: 100 }}
         animate={{ translateY: 0 }}
+        exit={{ translateY: -100 }}
         transition={{ ease: "easeOut", duration: 0.2 }}
         onSubmit={handleSubmit(onSubmit)}
         className={styles.registerForm}

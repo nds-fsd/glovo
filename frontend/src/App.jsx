@@ -61,7 +61,6 @@ function App() {
                   path="/confirmation"
                   element={<ConfirmationPage />}
                 ></Route>
-                <Route path="/formularios" element={<Formulario />} />
               </Routes>
 
               <Footer />

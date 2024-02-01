@@ -10,6 +10,7 @@ import PerfilUsuario from "../PerfilUsuario/PerfilUsuario";
 import { useNavigate } from "react-router-dom";
 import UserLoginModal from "../PerfilUsuario/UserLoginModal";
 import Formulario from "../formularios/formularios";
+import { AnimatePresence } from "framer-motion";
 
 export default function NavBar({ location }) {
   const [logged, setLogged] = useState(false);
@@ -89,20 +90,25 @@ export default function NavBar({ location }) {
             </button>
           </div>
         </nav>
-        {isUserRegisterModalOpen && (
-          <UserRegisterModal
-            modalState={isUserRegisterModalOpen}
-            changeModalState={handleRegisterModal}
+        <AnimatePresence>
+          {isUserRegisterModalOpen && (
+            <UserRegisterModal
+              modalState={isUserRegisterModalOpen}
+              changeModalState={handleRegisterModal}
+              setLogged={setLogged}
+              setLoginModalOpen={setLoginModalOpen}
+              setIsUserRegisterModalOpen={setIsUserRegisterModalOpen}
+            />
+          )}
+        </AnimatePresence>
+
+        <AnimatePresence>
+          <UserLoginModal
             setLogged={setLogged}
+            loginModalOpen={loginModalOpen}
             setLoginModalOpen={setLoginModalOpen}
-            setIsUserRegisterModalOpen={setIsUserRegisterModalOpen}
           />
-        )}
-        <UserLoginModal
-          setLogged={setLogged}
-          loginModalOpen={loginModalOpen}
-          setLoginModalOpen={setLoginModalOpen}
-        />
+        </AnimatePresence>
       </>
     );
   }
