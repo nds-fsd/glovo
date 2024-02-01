@@ -11,7 +11,6 @@ exports.createUser = async (req, res) => {
 
     const encryptedPassword = await encryptValue(req.body.password);
     const newUser = await User.create({
-
       firstname,
       password,
       created_date,
@@ -25,12 +24,10 @@ exports.createUser = async (req, res) => {
   }
 };
 
-// Resto del código sin cambios
-
 exports.getAllUsers = async (req, res) => {
   try {
     const users = await User.find();
-    res.json(users);
+    res.status(200).json(users);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
@@ -69,7 +66,6 @@ exports.updateUser = async (req, res) => {
   }
 };
 
-// borrar user
 exports.deleteUser = async (req, res) => {
   try {
     const user = await User.findByIdAndDelete(req.params.id);
@@ -108,30 +104,26 @@ exports.changePassword = async (req, res) => {
   }
 };
 
-// de aqui para abajo es para el login //
-
 exports.loginUser = async (req, res) => {
   try {
-    // Extraer credenciales del cuerpo de la solicitud
     const { email, password } = req.body;
 
     // Buscar al usuario por correo electrónico
     const user = await User.findOne({ email });
     if (!user) {
-      return res.status(401).json({ error: 'Credenciales incorrectas' });
+      return res.status(401).json({ error: "Credenciales incorrectas" });
     }
 
     // Comparar la contraseña proporcionada con la almacenada
     const isMatch = await user.comparePassword(password);
     if (!isMatch) {
-      return res.status(401).json({ error: 'Credenciales incorrectas' });
+      return res.status(401).json({ error: "Credenciales incorrectas" });
     }
 
     // Generar un token JWT
     const token = user.generateJWT();
-    res.json({ message: 'Login exitoso', token });
+    res.json({ message: "Login exitoso", token });
   } catch (err) {
-    res.status(500).json({ error: 'Error interno del servidor' });
+    res.status(500).json({ error: "Error interno del servidor" });
   }
 };
-

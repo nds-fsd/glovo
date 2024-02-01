@@ -4,6 +4,7 @@ export const getStorageObject = (key) => {
   if (key === "token") {
     const token = localStorage.getItem("token")
     if (token) {
+      console.log("este es el token en userCrud " + token);
       return jwtDecode(token)
     }
   } else {
@@ -33,9 +34,9 @@ export const getStorageObject = (key) => {
   };
 
   export const getUserSession = () => {
-    const session = getStorageObject('user-session');
+    const session = getStorageObject('user');
     if (session) {
-      return session.user;
+      return session;
     }
     return null;
   };

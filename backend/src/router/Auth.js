@@ -27,6 +27,7 @@ authRouter.post("/register", (req, res) => {
         email: data.email,
         password: data.password,
         firstName: data.firstName,
+        phone: data.phone,
         role: "USER",
       });
 
@@ -111,6 +112,8 @@ authRouter.post("/register-restaurant", (req, res) => {
       return res.status(500).json({ error: err.message });
     });
 });
+
+
 
 authRouter.post("/login", async (req, res) => {
   const { email, password } = req.body;
