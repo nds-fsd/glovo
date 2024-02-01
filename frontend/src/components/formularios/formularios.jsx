@@ -5,6 +5,7 @@ import { emailValidator, phoneValidator, validateCity } from "./validators";
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { api } from "../../utils/api";
+
 export const Formulario = () => {
   const params = useParams();
   const {
@@ -24,16 +25,31 @@ export const Formulario = () => {
     console.log(data);
     setIsSubmitting(true);
     try {
-      const response = await api.post("/restaurantes", data);
+      const response = await api.post("/restaurantes", data, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
       console.log(response.data);
       setIsDone(true);
     } catch (error) {
-      setSubmitError("Failed to create restaurant. Please try again.");
-      console.error("Error creating restaurant:", error);
+      if (error.response) {
+        // La respuesta fue hecha por el servidor con un código de estado fuera del rango 2xx
+        console.error("Error data:", error.response.data);
+        console.error("Error status:", error.response.status);
+        setSubmitError("Error from server: " + error.response.data.message);
+      } else if (error.request) {
+        // La solicitud fue hecha pero no hubo respuesta
+        console.error("No response:", error.request);
+        setSubmitError("No response from server");
+      } else {
+        // Algo ocurrió al configurar la solicitud que disparó un error
+        console.error("Error:", error.message);
+        setSubmitError("Error: " + error.message);
+      }
     }
     setIsSubmitting(false);
   };
-
   return (
     <div className={styles.formContainer}>
       <h2>Empieza a vender con Gloton</h2>

@@ -54,8 +54,6 @@ export const objectToQueryString = (obj) => {
   return queryString;
 };
 
-// *------------------------Crear Restaurante--------------------------
-
 export const createRestaurant = async (restaurantData) => {
   try {
     const response = await api.post("/restaurantes", restaurantData);
