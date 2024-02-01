@@ -15,13 +15,19 @@ function UserRegisterModal({
   setIsUserRegisterModalOpen,
 }) {
   const { register, handleSubmit } = useForm();
-  const [user, setLocalUser] = useState(null);
+  const [localUser, setLocalUser] = useState(null);
 
   const onSubmit = async (data) => {
     try {
-      await handleInitialRegistrationSubmit(data, setLocalUser, closeModal);
-      changeModalState();
-      setLogged(true);
+      await handleInitialRegistrationSubmit(data, setLocalUser, () => {
+        if (typeof closeModal === 'function') {
+          closeModal(); // Cerrar el modal solo si closeModal es una función
+        }
+        if (typeof changeModalState === 'function') {
+          changeModalState(); // Cambiar el estado del modal solo si changeModalState es una función
+        }
+        setLogged(true);
+      }); 
     } catch (error) {
       console.error("Error en el registro inicial:", error);
     }
