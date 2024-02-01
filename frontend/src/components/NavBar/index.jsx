@@ -9,6 +9,7 @@ import UserRegisterModal from "../PerfilUsuario/UserRegisterModal";
 import PerfilUsuario from "../PerfilUsuario/PerfilUsuario";
 import { useNavigate } from "react-router-dom";
 import UserLoginModal from "../PerfilUsuario/UserLoginModal";
+import Formulario from "../formularios/formularios";
 
 export default function NavBar({ location }) {
   const [logged, setLogged] = useState(false);
@@ -98,6 +99,7 @@ export default function NavBar({ location }) {
           />
         )}
         <UserLoginModal setLogged={setLogged} loginModalOpen={loginModalOpen} />
+        <Formulario />
       </>
     );
   }
