@@ -3,7 +3,7 @@ const router = express.Router("/users");
 const userController = require("../controller/usersController");
 const { jwtMiddleware } = require("../security/jwt");
 
-router.use(jwtMiddleware);
+// router.use(jwtMiddleware);
 router.post("/", userController.createUser);
 router.get("/", userController.getAllUsers);
 router.get("/:id", userController.getUserById);

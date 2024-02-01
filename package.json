@@ -9,7 +9,7 @@
     "start:frontend": "dotenv -- turbo run dev --scope='frontend'",
     "start:backend": "dotenv -- turbo run dev --scope='backend'",
     "dev": "dotenv -- turbo run dev ",
-    "test": "cross-env NODE_ENV=test jest --testTimeout=10000 --detectOpsenHandle --coverage"
+    "test": "cross-env NODE_ENV=test jest --testTimeout=10000 --detectOpenHandles --coverage"
   },
   "devDependencies": {
     "dotenv-cli": "^7.0.0",
