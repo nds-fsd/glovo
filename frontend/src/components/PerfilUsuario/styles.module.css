@@ -374,3 +374,9 @@ span {
 span:hover {
   color: var(--secondary-color);
 }
+
+.loginLink {
+  display: flex;
+  text-wrap: nowrap;
+  align-items: center;
+}

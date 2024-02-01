@@ -6,6 +6,7 @@ import styles from "../PerfilUsuario/styles.module.css";
 import Modal from "react-modal";
 import { handleLoginSubmit } from "../../utils/Usercrud";
 import { UserContext } from "../../contexts/UserContext";
+import useOnclickOutside from "react-cool-onclickoutside";
 
 function UserLoginModal({
   setLogged,
@@ -13,9 +14,13 @@ function UserLoginModal({
   closeModal,
   changeModalState,
   loginModalOpen,
+  setLoginModalOpen,
 }) {
   const { register, handleSubmit } = useForm();
   const { user, setLocalUser } = useContext(UserContext);
+  const ref = useOnclickOutside(() => {
+    setLoginModalOpen(false);
+  });
 
   const [error, setError] = useState(null);
   const onSubmit = async (data) => {
@@ -47,11 +52,6 @@ function UserLoginModal({
         exit={{ opacity: 0 }}
         transition={{ duration: 0.2 }}
         className={styles.everything}
-        onClick={(e) => {
-          if (e.target.className === "_everything_1q1ve_473") {
-            changeModalState();
-          }
-        }}
       >
         <motion.form
           initial={{ translateY: 100 }}
@@ -59,6 +59,7 @@ function UserLoginModal({
           transition={{ ease: "easeOut", duration: 0.2 }}
           onSubmit={handleSubmit(onSubmit)}
           className={styles.registerForm}
+          ref={ref}
         >
           <h2 className={styles.hola}>¡Bienvenido de nuevo!</h2>
           <p className={styles.registerP}>Ingresa tus credenciales:</p>

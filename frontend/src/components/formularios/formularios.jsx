@@ -5,8 +5,9 @@ import { mailValidator, phoneValidator, validateCity } from "./validators";
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import Modal from "react-modal";
+import useOnclickOutside from "react-cool-onclickoutside";
 
-export const Formulario = () => {
+export const Formulario = ({ formulariosIsOpen, setFormulariosIsOpen }) => {
   const params = useParams();
   const {
     register,
@@ -20,6 +21,9 @@ export const Formulario = () => {
   const [partner, setPartner] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState("");
+  const ref = useOnclickOutside(() => {
+    setFormulariosIsOpen(false);
+  });
 
   const onSubmit = async (data) => {
     console.log(data);
@@ -44,10 +48,10 @@ export const Formulario = () => {
       parentSelector={() => document.querySelector("#root")}
       className={styles.modalContent}
       overlayClassName={styles.modalOverlay}
-      isOpen={true}
+      isOpen={formulariosIsOpen}
     >
       <div className={styles.everything}>
-        <div className={styles.formContainer}>
+        <div ref={ref} className={styles.formContainer}>
           <h2>Empieza a vender con Gloton</h2>
           <p>
             Registrarse en Gloton nunca ha sido tan fácil. Hazte Partner ahora.{" "}

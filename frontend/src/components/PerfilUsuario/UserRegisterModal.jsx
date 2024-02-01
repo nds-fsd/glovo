@@ -5,7 +5,7 @@ import { RxPerson } from "react-icons/rx";
 import { handleInitialRegistrationSubmit } from "../../utils/Usercrud";
 import styles from "../PerfilUsuario/styles.module.css";
 import { motion, AnimatePresence, easeOut } from "framer-motion";
-import UserLoginModal from "./UserLoginModal";
+import useOnclickOutside from "react-cool-onclickoutside";
 
 function UserRegisterModal({
   setLogged,
@@ -16,6 +16,9 @@ function UserRegisterModal({
 }) {
   const { register, handleSubmit } = useForm();
   const [user, setLocalUser] = useState(null);
+  const ref = useOnclickOutside(() => {
+    setIsUserRegisterModalOpen(false);
+  });
 
   const onSubmit = async (data) => {
     try {
@@ -46,6 +49,7 @@ function UserRegisterModal({
         transition={{ ease: "easeOut", duration: 0.2 }}
         onSubmit={handleSubmit(onSubmit)}
         className={styles.registerForm}
+        ref={ref}
       >
         <h2 className={styles.hola}>¡Hola!</h2>
         <p className={styles.registerP}>Introduce tus datos:</p>
@@ -93,6 +97,7 @@ function UserRegisterModal({
               setIsUserRegisterModalOpen(false);
             }}
           >
+            {" "}
             Accede
           </span>
         </p>
