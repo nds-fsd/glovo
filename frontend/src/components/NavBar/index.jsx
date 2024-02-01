@@ -4,13 +4,13 @@ import logo from "../../assets/icons/logo.svg";
 import userIcon from "../../assets/icons/user-svgrepo-com.svg";
 import listIcon from "../../assets/icons/list-ul-alt-svgrepo-com.svg";
 import locationIcon from "../../assets/icons/location-pin-svgrepo-com.svg";
-import { useState } from "react";
+import { useState, useContext, useEffect } from "react";
 import UserRegisterModal from "../PerfilUsuario/UserRegisterModal";
 import PerfilUsuario from "../PerfilUsuario/PerfilUsuario";
 import { useNavigate } from "react-router-dom";
 import UserLoginModal from "../PerfilUsuario/UserLoginModal";
 
-export default function NavBar() {
+export default function NavBar({ location }) {
   const [logged, setLogged] = useState(false);
   const navigate = useNavigate();
   const [isPerfilUsuarioModalOpen, setIsPerfilUsuarioModalOpen] =
@@ -18,20 +18,21 @@ export default function NavBar() {
   const [isUserRegisterModalOpen, setIsUserRegisterModalOpen] = useState(false);
   const [loginModalOpen, setLoginModalOpen] = useState(false);
 
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      setLogged(true);
+    }
+  }, []);
+
   const handleUserModal = () => {
-    console.log("Antes de cambiar:", isPerfilUsuarioModalOpen); // Muestra el estado antes de cambiarlo
     setIsPerfilUsuarioModalOpen((currentState) => !currentState);
-    console.log("Después de cambiar:", !isPerfilUsuarioModalOpen); // Muestra el estado que se va a establecer
   };
 
   const handleRegisterModal = () => {
     setIsUserRegisterModalOpen((currentState) => !currentState);
   };
 
-  console.log(
-    "Estado actual de isPerfilUsuarioModalOpen:",
-    isPerfilUsuarioModalOpen
-  ); // Muestra el estado actual en cada renderización
 
   if (logged === true) {
     console.log("logged true");
@@ -48,7 +49,7 @@ export default function NavBar() {
           <div className={styles.rightContainer}>
             <div className={styles.locationContainer}>
               <img className={styles.locationIcon} src={locationIcon} alt="" />
-              <p>Adress, 98, 3016. Barcelona</p>
+              <p>{location}</p>
             </div>
             <div className={styles.navBarButtons}>
               <button onClick={handleUserModal}>

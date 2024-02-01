@@ -3,12 +3,15 @@ import styles from "./styles.module.css";
 import Modal from "react-modal";
 import { motion } from "framer-motion";
 import React, { useState } from "react";
+import MapsComponent from "../MapsComponent";
+import AutoCompleteAddressInput from "../AutoCompleteAddressInput";
 
 export default function AddressModal({
   addressModalIsOpen,
   closeAddressModal,
 }) {
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, setValue: setFormValue } = useForm();
+  const [coordinates, setCoordinates] = useState("");
 
   const onSubmit = (data) => {
     console.log("data", data);
@@ -22,6 +25,7 @@ export default function AddressModal({
       isOpen={addressModalIsOpen}
     >
       <motion.div
+        layout
         initial={{ opacity: 0, translateY: 50 }}
         animate={{ opacity: 1, translateY: 0 }}
         transition={{ ease: "easeOut", duration: 0.2 }}
@@ -34,15 +38,32 @@ export default function AddressModal({
           <h2>Nueva dirección</h2>
           <p>Introduce tus datos</p>
         </div>
-        <div className={styles.inputContainer}>
-          <form onSubmit={handleSubmit(onSubmit)} action="">
-            <input {...register("name")} type="text" placeholder="Nombre" />
-            <input
-              {...register("address")}
-              type="text"
-              placeholder="Dirección"
-            />
 
+        {coordinates ? (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ ease: "easeOut", duration: 0.8 }}
+            className={styles.mapContainer}
+          >
+            <MapsComponent coordinates={coordinates} />
+          </motion.div>
+        ) : (
+          <></>
+        )}
+
+        <div className={styles.inputContainer}>
+          <form
+            className={styles.formElement}
+            onSubmit={handleSubmit(onSubmit)}
+            action=""
+          >
+            <AutoCompleteAddressInput
+              register={register}
+              setFormValue={setFormValue}
+              setCoordinates={setCoordinates}
+              coordinates={coordinates}
+            />
             <button type="submit" className={styles.agregarTarjeta}>
               Agregar dirección
             </button>
