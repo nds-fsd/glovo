@@ -150,7 +150,7 @@ export default function CreditCardModal({ cardModalIsOpen, closeCardModal }) {
                   />
                 </div>
 
-                <button type="submit" className={styles.confirmButton}>
+                <button type="submit" className={styles.agregarTarjeta}>
                   Agregar tarjeta
                 </button>
               </form>

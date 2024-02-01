@@ -8,6 +8,7 @@
   flex-direction: column;
   justify-content: space-between;
   padding: 5px;
+  transition: 0.5s;
 }
 
 .upperContainer {
@@ -52,7 +53,7 @@ button.addToCart {
   border: 0;
   outline: none;
   color: var(--secondary-color);
-  background-color: rgba(61, 248, 176, 0.164);
+  background-color: var(--secondary-color-lighter);
   border-radius: 100%;
   font-size: 1.6rem;
   display: flex;
@@ -61,10 +62,12 @@ button.addToCart {
   font-weight: 100;
   transition: 0.2s;
   box-shadow: 0 0 0 0;
+  border: 2px solid transparent;
 }
 
 button.addToCart:hover {
-  transform: scale(1.2);
+  transform: scale(1.25);
+  border: 2px solid var(--secondary-color);
 }
 
 button.addToCart:active {

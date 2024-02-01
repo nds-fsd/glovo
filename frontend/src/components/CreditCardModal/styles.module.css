@@ -105,6 +105,29 @@ input::placeholder {
   font-size: 15px;
   padding: 0 20px;
   margin-top: 10px;
+  font-family: "quicksand";
+  transition: 0.2s;
+}
+
+.agregarTarjeta:hover {
+  background-color: white;
+  scale: 1.02;
+  color: var(--secondary-color);
+  box-shadow: 0 0 16px 0px var(--secondary-color);
+  animation: PulsingShadow 2s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes PulsingShadow {
+  from {
+    box-shadow: 0 -1px 16px 0px var(--secondary-color);
+  }
+  50% {
+    box-shadow: 0 1px 13px 2px var(--secondary-color);
+  }
+  to {
+    box-shadow: 0 -1px 16px 0px var(--secondary-color);
+  }
 }
 
 .topText {

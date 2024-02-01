@@ -93,6 +93,7 @@ function UserRegisterModal({
         <p className={styles.loginLink}>
           ¿Ya tienes cuenta?{" "}
           <span
+            className={styles.loginSpan}
             onClick={() => {
               setLoginModalOpen(true);
               setIsUserRegisterModalOpen(false);

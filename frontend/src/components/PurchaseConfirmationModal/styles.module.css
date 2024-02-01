@@ -73,6 +73,29 @@
   font-weight: bold;
   font-size: 15px;
   padding: 0 20px;
+  transition: 0.2s;
+  font-family: "quicksand";
+}
+
+.confirmButton:hover {
+  background-color: white;
+  scale: 1.02;
+  color: var(--secondary-color);
+  box-shadow: 0 0 16px 0px var(--secondary-color);
+  animation: PulsingShadow 2s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes PulsingShadow {
+  from {
+    box-shadow: 0 -1px 16px 0px var(--secondary-color);
+  }
+  50% {
+    box-shadow: 0 1px 13px 2px var(--secondary-color);
+  }
+  to {
+    box-shadow: 0 -1px 16px 0px var(--secondary-color);
+  }
 }
 
 .itemContainer {
@@ -93,6 +116,7 @@
 .individualItemContainer {
   background-color: var(--secondary-color-lighter);
   padding: 10px;
+  border: 2px solid transparent;
   border-radius: 25px;
   width: 120px;
   height: 50px;
@@ -104,6 +128,11 @@
   text-wrap: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
+  transition: border 0.4s;
+}
+
+.individualItemContainer:hover {
+  border: 2px solid var(--secondary-color);
 }
 
 span {
@@ -145,7 +174,7 @@ span {
   justify-content: center;
   align-items: center;
   width: 85%;
-  background-color: rgb(240, 240, 240);
+  background-color: rgb(229, 229, 229);
   border-radius: 20px;
 }
 
@@ -201,7 +230,6 @@ b {
   align-items: center;
   justify-content: center;
   gap: 4px;
-  background-color: var(--primary-color-light);
   padding: 1px 5px;
   border-radius: 50px;
   width: 88%;

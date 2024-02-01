@@ -10,7 +10,7 @@ import PerfilUsuario from "../PerfilUsuario/PerfilUsuario";
 import { useNavigate } from "react-router-dom";
 import UserLoginModal from "../PerfilUsuario/UserLoginModal";
 import Formulario from "../formularios/formularios";
-import { AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 
 export default function NavBar({ location }) {
   const [logged, setLogged] = useState(false);
@@ -40,7 +40,12 @@ export default function NavBar({ location }) {
 
     return (
       <>
-        <nav className={styles.navBar}>
+        <motion.nav
+          initial={{ translateY: -100 }}
+          animate={{ translateY: 0 }}
+          transition={{ delay: 0.3, duration: 0.5 }}
+          className={styles.navBar}
+        >
           <div onClick={() => navigate("/")} className={styles.logoContainer}>
             <img className={styles.logo} src={logo} alt="" />
           </div>
@@ -61,7 +66,7 @@ export default function NavBar({ location }) {
               </button>
             </div>
           </div>
-        </nav>
+        </motion.nav>
 
         <PerfilUsuario
           modalState={isPerfilUsuarioModalOpen}
@@ -74,7 +79,13 @@ export default function NavBar({ location }) {
     console.log("logged false");
     return (
       <>
-        <nav className={styles.navBar}>
+        <motion.nav
+          initial={{ translateY: -100 }}
+          animate={{ translateY: 0 }}
+          transition={{ delay: 0.3, duration: 0.5 }}
+          exit={{ translateY: -100 }}
+          className={styles.navBar}
+        >
           <div
             onClick={() => navigate("/")}
             className={styles.logoContainerUnlogged}
@@ -89,7 +100,7 @@ export default function NavBar({ location }) {
               Empieza aquí
             </button>
           </div>
-        </nav>
+        </motion.nav>
         <AnimatePresence>
           {isUserRegisterModalOpen && (
             <UserRegisterModal

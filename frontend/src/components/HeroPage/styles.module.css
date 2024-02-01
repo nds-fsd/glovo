@@ -46,6 +46,7 @@ p {
 }
 
 .inputBar {
+  position: relative;
   background-color: white;
   width: 90%;
   height: 2.5rem;
@@ -203,20 +204,16 @@ strong {
   transition: 0.5s;
 }
 
-.burgerImg:hover {
-  scale: 1.1;
-}
-
 .burguerFront {
-  animation: burguerFrontAn 3s;
+  animation: burguerFrontAn 1s;
 }
 
 .burguerMiddle {
-  animation: burguerMiddleAn 3s;
+  animation: burguerMiddleAn 1s;
 }
 
 .burguerBack {
-  animation: burguerBackAn 3s;
+  animation: burguerBackAn 1s;
 }
 
 @keyframes burguerFrontAn {
@@ -253,5 +250,13 @@ strong {
   }
   .textContainer {
     width: 90%;
+  }
+  .burgerContainer {
+    width: 100%;
+    height: fit-content;
+    margin-top: 300px;
+  }
+  .burgerSegment {
+    scale: 0.6;
   }
 }

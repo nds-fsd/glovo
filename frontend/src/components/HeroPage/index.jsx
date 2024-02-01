@@ -18,11 +18,10 @@ export default function HeroPage({ setLocation }) {
     >
       <div className={styles.viewport}>
         <div className={styles.heroContainer}>
-          {/* <img className={styles.burgerImg} src={burguerImg} alt="" /> */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1, translateY: 0 }}
-            transition={{ ease: "easeOut", duration: 0.3 }}
+            transition={{ ease: "easeOut", duration: 1 }}
             className={styles.burgerContainer}
           >
             <img

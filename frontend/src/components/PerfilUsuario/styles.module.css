@@ -238,7 +238,7 @@ div[class^="_profile_"]::-webkit-scrollbar {
   display: flex;
   flex-direction: column;
   border-radius: 15px;
-  margin: 20px 0;
+  margin: 10px 0;
   gap: 10px;
 }
 
@@ -288,13 +288,31 @@ div[class^="_profile_"]::-webkit-scrollbar {
   width: 100%;
   background-color: var(--secondary-color);
   color: white;
-  font-weight: bold;
+  font-weight: 500;
   font-size: 15px;
   padding: 0 20px;
+  font-family: "quicksand";
 }
 
 .guardarCambios:hover {
-  background-color: var(--primary-color);
+  background-color: white;
+  scale: 1.02;
+  color: var(--secondary-color);
+  box-shadow: 0 0 16px 0px var(--secondary-color);
+  animation: PulsingShadow 2s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes PulsingShadow {
+  from {
+    box-shadow: 0 -1px 16px 0px var(--secondary-color);
+  }
+  50% {
+    box-shadow: 0 1px 13px 2px var(--secondary-color);
+  }
+  to {
+    box-shadow: 0 -1px 16px 0px var(--secondary-color);
+  }
 }
 /* switch */
 
@@ -365,14 +383,20 @@ div[class^="_profile_"]::-webkit-scrollbar {
   font-size: 0.7rem;
 }
 
-span {
+.loginSpan {
   font-weight: 600;
   cursor: pointer;
   transition: 0.2s;
+  padding: 0 5px;
+  margin-left: 10px;
+
+  border-radius: 20px;
 }
 
-span:hover {
-  color: var(--secondary-color);
+.loginSpan:hover {
+  background-color: var(--secondary-color);
+  scale: 1.02;
+  color: white;
 }
 
 .loginLink {
