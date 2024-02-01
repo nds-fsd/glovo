@@ -53,14 +53,22 @@ export const Formulario = () => {
             Registrarse en Gloton nunca ha sido tan fácil. Hazte Partner ahora.{" "}
             {watch("")}
           </p>
-          <form onSubmit={handleSubmit(onSubmit)}>
+          <form className={styles.formObject} onSubmit={handleSubmit(onSubmit)}>
             <div>
               <label></label>
               <select className={styles.options} {...register("pais")}>
-                <option value="ES">🇪🇸 España</option>
-                <option value="GEO">🇬🇪 Georgia</option>
-                <option value="FR">🇫🇷 Francia</option>
-                <option value="VE">🇻🇪 Venezuela</option>
+                <option className={styles.individualOption} value="ES">
+                  🇪🇸 España
+                </option>
+                <option className={styles.individualOption} value="GEO">
+                  🇬🇪 Georgia
+                </option>
+                <option className={styles.individualOption} value="FR">
+                  🇫🇷 Francia
+                </option>
+                <option className={styles.individualOption} value="VE">
+                  🇻🇪 Venezuela
+                </option>
               </select>
             </div>
             <div>
@@ -104,7 +112,7 @@ export const Formulario = () => {
               <label className={styles.mail}></label>
               <input
                 type="email"
-                placeholder="E-mail"
+                placeholder="Email"
                 {...register("e-mail", { validate: mailValidator })}
               />
               {errors["e-mail"] && <p>{errors["e-mail"].message}</p>}
@@ -113,7 +121,7 @@ export const Formulario = () => {
               <label className={styles.telefono}></label>
               <input
                 type="password"
-                placeholder="Password"
+                placeholder="Contraseña"
                 {...register("password")}
               />
             </div>
@@ -121,7 +129,7 @@ export const Formulario = () => {
               <label className={styles.telefono}></label>
               <input
                 type="text"
-                placeholder="Telefono"
+                placeholder="Teléfono"
                 {...register("telefono", {
                   validate: phoneValidator,
                 })}
@@ -133,55 +141,68 @@ export const Formulario = () => {
               className={styles.options}
               {...register("Tipo de establecimiento")}
             >
-              <option value="Tipo de establecimiento">
+              <option
+                className={styles.individualOption}
+                value="Tipo de establecimiento"
+              >
                 Tipo de establecimiento
               </option>
-              <option value="restaurante">
+              <option className={styles.individualOption} value="restaurante">
                 Restaurante (cafeteria, brunch y panaderia, helados, zumos y
                 smoothies...)
               </option>
-              <option value="farmacia">Farmacia</option>
-              <option value="tienda">
+              <option className={styles.individualOption} value="farmacia">
+                Farmacia
+              </option>
+              <option className={styles.individualOption} value="tienda">
                 Tienda (regalos, belleza, electronica, tienda de mascotas...)
               </option>
-              <option value="lofisteria">Floristeria</option>
+              <option className={styles.individualOption} value="lofisteria">
+                Floristeria
+              </option>
             </select>
-            <div className={styles.codigo}>
-              <input type="checkbox" {...register("incluirCodigo")} />
-              <label>¿Tienes un código promocional?</label>
-            </div>
-            {incluirCodigo && (
-              <div className={styles.aplicar}>
+            <div className={styles.bottomContainer}>
+              <div className={styles.codigo}>
+                <input type="checkbox" {...register("incluirCodigo")} />
+                <label className={styles.bottomLabels}>
+                  ¿Tienes un código promocional?
+                </label>
+              </div>
+              {incluirCodigo && (
+                <div className={styles.aplicar}>
+                  <input
+                    className={styles.codigoPromocionalInput}
+                    type="text"
+                    placeholder="Codigo Promocional"
+                    {...register("codigo", {
+                      //! validate : promoCode debemos añadir en futuro ...
+                    })}
+                  />
+                  <button className={styles.aplicarbtn}>Aplicar</button>
+                </div>
+              )}
+              <div className={styles.whatsapp}>
+                <input type="checkbox" {...register("whatsapp")} />
+                <label className={styles.bottomLabels}>
+                  Acepto recibir actualizaciones de Gloton a través de WhatsApp
+                  o plataformas similares
+                </label>
+              </div>
+              <div className={styles.privacidad}>
                 <input
-                  type="text"
-                  placeholder="Codigo Promocional"
-                  {...register("codigo", {
-                    //! validate : promoCode debemos añadir en futuro ...
+                  type="checkbox"
+                  {...register("privacidad", {
+                    required: "Debe aceptar la política de privacidad",
                   })}
                 />
-                <button className={styles.aplicarbtn}>Aplicar</button>
+                <label className={styles.bottomLabels}>
+                  Acepto la politica de privacidad
+                </label>
+                {errors.privacidad && <p>{errors.privacidad.message}</p>}
               </div>
-            )}
-            <div className={styles.whatsapp}>
-              <input type="checkbox" {...register("whatsapp")} />
-              <label>
-                Acepto recibir actualizaciones de Gloton a tarves de WhatsApp o
-                plataformas similares
-              </label>
-            </div>
-            <div className={styles.privacidad}>
-              <input
-                type="checkbox"
-                {...register("privacidad", {
-                  required: "Debe aceptar la política de privacidad",
-                })}
-              />
-              <label>Acepto la politica de privacidad</label>
-              {errors.privacidad && <p>{errors.privacidad.message}</p>}
             </div>
             <div className={styles.submit}>
               <button
-                className={styles.submitbtn}
                 id={styles.miInputId}
                 type="submit"
                 disabled={isSubmitting}
