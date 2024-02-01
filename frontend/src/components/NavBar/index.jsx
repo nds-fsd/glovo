@@ -35,7 +35,6 @@ export default function NavBar({ location }) {
     setIsUserRegisterModalOpen((currentState) => !currentState);
   };
 
-
   if (logged === true) {
     console.log("logged true");
 
@@ -54,10 +53,16 @@ export default function NavBar({ location }) {
             <SearchBar />
           </div>
           <div className={styles.rightContainer}>
-            <div className={styles.locationContainer}>
-              <img className={styles.locationIcon} src={locationIcon} alt="" />
-              <p>{location}</p>
-            </div>
+            {location && (
+              <div className={styles.locationContainer}>
+                <img
+                  className={styles.locationIcon}
+                  src={locationIcon}
+                  alt=""
+                />
+                <p>{location}</p>
+              </div>
+            )}
             <div className={styles.navBarButtons}>
               <button onClick={handleUserModal}>
                 <img className={styles.userIcon} src={userIcon} alt="" />
@@ -91,7 +96,7 @@ export default function NavBar({ location }) {
             onClick={() => navigate("/")}
             className={styles.logoContainerUnlogged}
           >
-            <img className={styles.logo} src={logo} alt="" />
+            <img className={styles.logoUnlogged} src={logo} alt="" />
           </div>
           <div className={styles.getStartedContainer}>
             <button

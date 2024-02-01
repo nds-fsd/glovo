@@ -23,26 +23,45 @@
   align-items: center;
   justify-content: center;
   height: 100%;
-  width: 30%;
+  width: 30vw;
+  position: absolute;
 }
 
 .rightContainer {
+  position: absolute;
   display: flex;
   gap: 50px;
   align-items: center;
   justify-content: space-evenly;
-  width: 30%;
-  padding-right: 5%;
+  width: fit-content;
+
+  right: 10%;
 }
 
 .logo {
-  height: 50px;
+  height: 45px;
   filter: contrast(0.1) sepia(1) brightness(1) saturate(99) hue-rotate(179deg)
     brightness(1.25);
   flex-grow: 0.5;
   cursor: pointer;
   transform: translateY(-10px);
   transition: 0.2s;
+  position: absolute;
+  left: 10%;
+  top: 25%;
+}
+
+.logoUnlogged {
+  height: 45px;
+  filter: contrast(0.1) sepia(1) brightness(1) saturate(99) hue-rotate(179deg)
+    brightness(1.25);
+  flex-grow: 0.5;
+  cursor: pointer;
+  transform: translateY(-10px);
+  transition: 0.2s;
+
+  left: 10%;
+  top: 25%;
 }
 
 .logo:hover {
@@ -102,6 +121,15 @@ button:active {
   align-items: center;
   justify-content: center;
   gap: 3px;
+  white-space: nowrap;
+  width: 3vw;
+  max-width: 400px;
+  text-overflow: ellipsis;
+  display: none;
+}
+
+.locationContainer > p {
+  text-overflow: ellipsis;
 }
 
 .locationIcon {
@@ -156,5 +184,16 @@ button:active {
   }
   to {
     box-shadow: 0 0 30px 0px var(--secondary-color);
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .logo {
+    display: none;
+  }
+
+  .searchBarContainer {
+    width: 60vw;
+    left: 5%;
   }
 }
