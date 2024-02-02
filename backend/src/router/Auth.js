@@ -113,8 +113,6 @@ authRouter.post("/register-restaurant", (req, res) => {
     });
 });
 
-
-
 authRouter.post("/login", async (req, res) => {
   const { email, password } = req.body;
   // * Validate, email and password were provided in the request
@@ -143,9 +141,10 @@ authRouter.post("/login", async (req, res) => {
         token: foundUser.generateJWT(),
         user: {
           email: foundUser.email,
-          name: foundUser.name,
-          id: foundUser._id,
+          firstName: foundUser.firstName,
+          _id: foundUser._id,
           role: foundUser.role,
+          phone: foundUser.phone,
         },
       });
     })

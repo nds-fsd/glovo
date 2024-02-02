@@ -27,6 +27,7 @@ function UserLoginModal({
     try {
       const response = await handleLoginSubmit(data, setLocalUser);
       if (response == 200) {
+        console.log(user);
         setLogged(true);
       } else {
         setLogged(false);

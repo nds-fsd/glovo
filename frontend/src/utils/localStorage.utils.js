@@ -4,7 +4,6 @@ export const getStorageObject = (key) => {
   if (key === "token") {
     const token = localStorage.getItem("token");
     if (token) {
-      console.log("este es el token en userCrud " + token);
       return jwtDecode(token);
     }
   } else {

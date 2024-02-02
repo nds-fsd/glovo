@@ -1,26 +1,26 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useForm } from "react-hook-form";
 import Modal from "react-modal";
 import styles from "./styles.module.css";
 import Switch from "../PerfilUsuario/Switch.jsx";
 import { motion } from "framer-motion";
-import { getStorageObject, getUserSession } from '../../utils/localStorage.utils.js';
-import { deleteStorageObject } from "../../utils/localStorage.utils.js";
-import { handleProfileUpdateSubmit } from '../../utils/Usercrud.js';
+import {
+  getStorageObject,
+  getUserSession,
+} from "../../utils/localStorage.utils.js";
+import {
+  deleteStorageObject,
+  setStorageObject,
+} from "../../utils/localStorage.utils.js";
+import { handleProfileUpdateSubmit } from "../../utils/Usercrud.js";
+import { UserContext } from "../../contexts/UserContext.js";
 
 Modal.setAppElement("#root");
 
 function PerfilUsuario({ modalState, changeModalState, setLogged }) {
-  console.log("esto son los ", modalState);
   const { id } = getUserSession();
-  const [user, setUser] = useState({
-    _id: id,
-    firstname: "",
-    lastname: "",
-    email: "",
-    phone: "",
-    receivePromotions: false,
-  });
+
+  const { user, setLocalUser } = useContext(UserContext);
 
   const [isEditing, setIsEditing] = useState(false);
   const [editingField, setEditingField] = useState(null);
@@ -28,74 +28,71 @@ function PerfilUsuario({ modalState, changeModalState, setLogged }) {
   const { register, handleSubmit, setValue, reset } = useForm();
 
   const [userInfo, setUserInfo] = useState("");
+
   useEffect(() => {
     const userDataFromToken = getStorageObject("token");
+    const userData = getStorageObject("user");
+
     if (userDataFromToken !== null) {
-      setUserInfo((prevUserInfo) => ({
-        ...prevUserInfo,
-        ...userDataFromToken,
-      }));
+      setLocalUser(userData);
+      setUserInfo(userData);
     }
   }, []);
 
-  useEffect(() => {
-    if (user._id) {
-      setValue("firstname", user.firstname);
-      setValue("lastname", user.lastname);
-      setValue("email", user.email);
-      setValue("phone", user.phone);
-      setValue("receivePromotions", user.receivePromotions);
-    }
-  }, [user, setValue]); // Añadidas dependencias
-
   const handleEditClick = (field) => {
-    console.log("Editando campo:", field);
     setIsEditing(true);
     setEditingField(field);
   };
 
   const handleSaveClick = async () => {
-   
     try {
       // Verificar si el ID del usuario está definido
       if (!user._id) {
         console.error("ID del usuario no está definido");
         return;
       }
-  
+
       // Obtener el token JWT del local storage
       const token = getStorageObject("token");
       if (!token) {
         console.error("No se encontró el token de autenticación");
         return;
       }
-  
+
       // Preparar los datos para la actualización
       const updateData = { [editingField]: userInfo[editingField] };
-      
-      console.log("Este es el usuario desde el handleSaveClick " + user._id);
+
       // Enviar la actualización al backend y obtener la respuesta
-      const updatedUser = await handleProfileUpdateSubmit(editingField, updateData, user._id, token);
-     
+      const updatedUser = await handleProfileUpdateSubmit(
+        editingField,
+        updateData,
+        user._id,
+        token
+      );
+
       // Verificar si la respuesta del backend es válida
-     
+
       if (updatedUser) {
         // Actualizar user con los cambios
-       
-        setUser({ ...user, ...updateData });
+
+        setLocalUser(updatedUser.updatedUser);
+        console.log(updatedUser.updatedUser);
+        deleteStorageObject("user");
+        setStorageObject("user", updatedUser.updatedUser);
       } else {
         throw new Error("No se recibieron datos actualizados del usuario.");
       }
-  
+
       // Confirmación en la consola
-      console.log("Usuario actualizado:", updatedUser);
-  
+
       // Salir del modo de edición
       setIsEditing(false);
       setEditingField(null);
-  
     } catch (error) {
-      console.error('Hubo un error al actualizar la información del usuario:', error);
+      console.error(
+        "Hubo un error al actualizar la información del usuario:",
+        error
+      );
     }
   };
 
@@ -105,18 +102,11 @@ function PerfilUsuario({ modalState, changeModalState, setLogged }) {
   };
 
   const handleChange = (e) => {
+    console.log(e);
     setUserInfo((prevUserInfo) => ({
       ...prevUserInfo,
       [editingField]: e.target.value,
     }));
-  };
-  
-
-  const fieldTitles = {
-    firstname: "Tu Nombre",
-    lastname: "Tu Apellido",
-    email: "Tu Email",
-    phone: "Tu Teléfono",
   };
 
   //const [userProfileModalOpen, setUserProfileModalOpen] = useState(false);
@@ -125,11 +115,7 @@ function PerfilUsuario({ modalState, changeModalState, setLogged }) {
     if (isEditing && editingField === field) {
       return (
         <div>
-          <input
-            type="text"
-            value={userInfo[field]}
-            onChange={handleChange}
-          />
+          <input type="text" value={userInfo[field]} onChange={handleChange} />
           <button onClick={handleSaveClick}>Guardar</button>
         </div>
       );
@@ -137,14 +123,18 @@ function PerfilUsuario({ modalState, changeModalState, setLogged }) {
       return (
         <span>
           {userInfo[field]}
-          <button className={styles.editButton} onClick={() => handleEditClick(field)}>Editar</button>
+          <button
+            className={styles.editButton}
+            onClick={() => handleEditClick(field)}
+          >
+            Editar
+          </button>
         </span>
       );
     }
   };
 
   const handleFormSubmit = (formData) => {
-    console.log("Formulario enviado con:", formData);
     setIsUserProfileEditModal(false);
   };
 
@@ -168,7 +158,9 @@ function PerfilUsuario({ modalState, changeModalState, setLogged }) {
         className={styles.profile}
       >
         <div className={styles.flecha}></div>
-        <h2 className={styles.profileHeader}>¡Hola, {userInfo.firstName}!</h2>
+        {user && (
+          <h2 className={styles.profileHeader}>¡Hola, {user.firstName}!</h2>
+        )}
         <button
           className={styles.logoutButton}
           onClick={() => closeUserSession()}
@@ -178,43 +170,25 @@ function PerfilUsuario({ modalState, changeModalState, setLogged }) {
         <div className={styles.separadorHeader}></div>
         <div className={styles.userInfoContainer}>
           <div className={styles.campoP}>
-            <b>Nombre:</b> {renderEditableField('firstName')}
-            <br />
-            {user.firstname}
-          </div>
-        </div>
-
-        <div className={styles.userInfoContainer}>
-          <div className={styles.campoP}>
-            <b>Email:</b> {renderEditableField('email')}
+            <b>Nombre:</b> {renderEditableField("firstName")}
             <br />
           </div>
         </div>
         <div className={styles.userInfoContainer}>
           <div className={styles.campoP}>
-            <b>Teléfono:</b>
-            {isEditing && editingField === 'phone'
-              ? renderEditableField('phone')
-              : (
-                <>
-                  {user.phone || "añade tu número aquí 📱"}
-                  <button
-                    className={styles.editButton}
-                    onClick={() => handleEditClick('phone')}
-                  >
-                    Editar
-                  </button>
-                </>
-              )
-            }
+            <b>Email:</b> {renderEditableField("email")}
+            <br />
           </div>
         </div>
-
         <div className={styles.userInfoContainer}>
           <div className={styles.campoP}>
-            <b>Contraseña: </b>{" "}
-            {"•••••••••"}
-            {renderEditableField('Password')}
+            <b>Teléfono:</b> {renderEditableField("phone")}
+          </div>
+        </div>
+        <div className={styles.userInfoContainer}>
+          <div className={styles.campoP}>
+            <b>Contraseña: </b> {"•••••••••"}
+            {renderEditableField("Password")}
           </div>
         </div>
         <div className={styles.separador}></div>
@@ -238,20 +212,21 @@ function PerfilUsuario({ modalState, changeModalState, setLogged }) {
             </p>
           </div>
         </div>
-
         <div className={styles.userSection}>
           <p>Recibir ofertas especiales y promociones:</p>
           <Switch
-            isOn={user.receivePromotions}
             handleToggle={() =>
-              setUser({ ...user, receivePromotions: !user.receivePromotions })
+              setLocalUser({
+                ...user,
+                receivePromotions: !user.receivePromotions,
+              })
             }
           />
         </div>
         <div className={styles.separador}></div>
         <div className={styles.userSection}>
           <p>Código promocional:</p>
-          {renderEditableField('Codigo')}
+          {renderEditableField("Codigo")}
         </div>
         <p className={styles.campoP}></p>
       </motion.div>

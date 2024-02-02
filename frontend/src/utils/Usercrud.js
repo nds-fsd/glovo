@@ -21,6 +21,7 @@ export const handleInitialRegistrationSubmit = async (
     const response = await axios.post(`${API_BASE_URL}/register`, data);
     setStorageObject("token", response.data.token);
     setStorageObject("user", response.data.user);
+
     setLocalUser(response.data.user);
     closeModal();
   } catch (error) {
@@ -31,11 +32,9 @@ export const handleInitialRegistrationSubmit = async (
 export const handleLoginSubmit = async (data, setLocalUser, closeModal) => {
   try {
     const response = await axios.post("http://localhost:3001/login", data);
-    console.log("repuesta del Backend ", response);
-    console.log(response);
     setStorageObject("token", response.data.token);
     setStorageObject("user", response.data.user);
-    setLocalUser(response.data);
+    setLocalUser(response.data.user);
     return response.status;
   } catch (error) {
     console.error("Error en el Login:", error);
