@@ -145,6 +145,7 @@ authRouter.post("/login", async (req, res) => {
           _id: foundUser._id,
           role: foundUser.role,
           phone: foundUser.phone,
+          address: foundUser.address,
         },
       });
     })

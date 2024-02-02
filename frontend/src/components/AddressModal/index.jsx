@@ -9,12 +9,18 @@ import AutoCompleteAddressInput from "../AutoCompleteAddressInput";
 export default function AddressModal({
   addressModalIsOpen,
   closeAddressModal,
+  handleSaveClickAddress,
+  changeModalState,
 }) {
   const { register, handleSubmit, setValue: setFormValue } = useForm();
   const [coordinates, setCoordinates] = useState("");
 
   const onSubmit = (data) => {
     console.log("data", data);
+    const formattedAddress = `${data.address}. ${data.number}, ${data.extra}. ${data.cp}.`;
+    handleSaveClickAddress(formattedAddress);
+    changeModalState();
+    closeAddressModal();
   };
 
   return (

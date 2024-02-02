@@ -78,6 +78,7 @@ export default function NavBar({ location }) {
           modalState={isPerfilUsuarioModalOpen}
           changeModalState={handleUserModal}
           setLogged={setLogged}
+          setIsPerfilUsuarioModalOpen={setIsPerfilUsuarioModalOpen}
         />
       </>
     );

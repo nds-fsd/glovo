@@ -12,6 +12,7 @@ import styles from "../PurchaseConfirmationModal/styles.module.css";
 import { BounceLoader } from "react-spinners";
 import { CartContext } from "../../contexts/CartContext";
 import useOnclickOutside from "react-cool-onclickoutside";
+import { UserContext } from "../../contexts/UserContext";
 
 Modal.setAppElement("#root");
 
@@ -29,6 +30,7 @@ export default function PurchaseConfirmationModal({
   const [confirmationAnimation, setConfirmationAnimation] = useState(false);
   const { order, setOrder } = useContext(OrderContext);
   let { shoppingList, setShoppingList } = useContext(CartContext);
+  let { user } = useContext(UserContext);
 
   const handleConfirmButton = () => {
     setConfirmationAnimation(true);
@@ -146,7 +148,7 @@ export default function PurchaseConfirmationModal({
                           onClick={openAddressModal}
                           className={styles.modifiableItem}
                         >
-                          {location ? { location } : "Agregar dirección"}
+                          {(user && user.address) || "Agregar dirección"}
                         </b>
                       </p>
                       <p className={styles.deliveryInfoElement}>

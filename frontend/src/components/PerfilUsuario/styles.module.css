@@ -6,7 +6,8 @@ body {
 
 .profile {
   max-width: 300px; /* Ancho máximo para la sección del perfil */
-  height: fit-content;
+  /* height: 70vh; */
+  max-height: fit-content;
   padding: 10px;
 
   background-color: #ffffff;
@@ -15,8 +16,8 @@ body {
   margin-top: 50px;
   overflow: auto;
   position: fixed;
-  right: 3%;
-  top: 10%;
+  right: calc(10% - 20px);
+  top: 68px;
   display: flex;
   flex-direction: column;
   overflow: visible;
@@ -129,6 +130,10 @@ body {
   gap: 5px;
   transition: 0.2s;
   align-items: center;
+  overflow: hidden;
+  text-wrap: nowrap;
+  text-overflow: ellipsis;
+  max-width: 300px;
 }
 
 .userProfileBold {
