@@ -19,8 +19,8 @@ app.use(authRoutes);
 connectDB().then(() => console.log("Connected to database!"));
 
 const port = process.env.PORT || 3001;
-const server = app.listen(3001, () => {
-  if (process.env.NODE_ENV !== "test") {
-    console.log("Server is up and running ⚡");
-  }
+
+const server = app.listen(port, () => {
+  console.log("Server is up and running ⚡");
+
 });
