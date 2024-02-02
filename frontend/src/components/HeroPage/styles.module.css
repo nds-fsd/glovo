@@ -147,6 +147,7 @@ button.useCurrentLocationButton:active {
   white-space: nowrap;
   font-size: 0.6rem;
   color: var(--secondary-color);
+  font-family: "quicksand";
 }
 
 .wavySvg {
