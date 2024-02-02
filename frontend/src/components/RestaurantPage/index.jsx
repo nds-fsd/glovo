@@ -17,58 +17,15 @@ export default function RestaurantPage({}) {
   const [restaurante, setRestaurante] = useState();
   const [productos, setProductos] = useState([]);
   const [fix, setFix] = useState(true);
-  const params = useParams();
-  const navigate = useNavigate();
-
-  function setFixedCart() {
-    const dynamicScrollY = calculateDynamicScrollY();
-    if (window.scrollY <= dynamicScrollY - 229) {
-      setFix(true);
-    } else {
-      setFix(false);
-    }
-  }
-
-  function calculateDynamicScrollY() {
-    return document.getElementById("cartContainer").offsetHeight;
-  }
-
-  window.addEventListener("scroll", setFixedCart);
-
-  const handleNavigateToVistaCompra = () => {
-    navigate("../vistaCompra");
-  };
+  const [isLoadingProducts, setIsLoadingProducts] = useState(true);
+  const [totalPrice, setTotalPrice] = useState(0);
 
   const { shoppingList, setShoppingList } = useContext(CartContext);
 
-  let [totalPrice, setTotalPrice] = useState(0);
+  const params = useParams();
+  const navigate = useNavigate();
 
-  const [isLoadingProducts, setIsLoadingProducts] = useState(true);
-
-  const calculatePrice = () => {
-    let fullPrice = 0;
-
-    shoppingList.forEach((e) => {
-      if (productos.find((i) => i._id === e.id)) {
-        const productPrice = productos.find((i) => i._id === e.id).precio;
-        const partialPrice = productPrice * e.ammount;
-        fullPrice += partialPrice;
-      }
-    });
-
-    if (restaurante && restaurante.transporte === "FREE") {
-      setTotalPrice(Math.floor(fullPrice * 100) / 100);
-    } else {
-      restaurante &&
-        setTotalPrice(
-          Math.floor(
-            (fullPrice += parseFloat(
-              restaurante.transporte.replace("€", "").replace(",", ".")
-            )) * 100
-          ) / 100
-        );
-    }
-  };
+  window.addEventListener("scroll", setFixedCart);
 
   useEffect(() => {
     if (!isLoadingProducts) {
@@ -104,6 +61,44 @@ export default function RestaurantPage({}) {
     obtenerProductosDelRestaurante();
     obtenerRestaurante();
   }, [params.restaurantId]);
+
+  function setFixedCart() {
+    const dynamicScrollY = calculateDynamicScrollY();
+    if (window.scrollY <= dynamicScrollY - 229) {
+      setFix(true);
+    } else {
+      setFix(false);
+    }
+  }
+
+  function calculateDynamicScrollY() {
+    return document.getElementById("cartContainer").offsetHeight;
+  }
+
+  const calculatePrice = () => {
+    let fullPrice = 0;
+
+    shoppingList.forEach((e) => {
+      if (productos.find((i) => i._id === e.id)) {
+        const productPrice = productos.find((i) => i._id === e.id).precio;
+        const partialPrice = productPrice * e.ammount;
+        fullPrice += partialPrice;
+      }
+    });
+
+    if (restaurante && restaurante.transporte === "FREE") {
+      setTotalPrice(Math.floor(fullPrice * 100) / 100);
+    } else {
+      restaurante &&
+        setTotalPrice(
+          Math.floor(
+            (fullPrice += parseFloat(
+              restaurante.transporte.replace("€", "").replace(",", ".")
+            )) * 100
+          ) / 100
+        );
+    }
+  };
 
   {
     return (

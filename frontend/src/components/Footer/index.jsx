@@ -1,23 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "../Footer/styles.module.css";
 import footerWaveSvg from "../../assets/images/footer-wave-desktop.svg";
 import logoImg from "../../assets/icons/logo.svg";
 import { useParams, useNavigate } from "react-router-dom";
-
-
-
+import Formulario from "../formularios/formularios";
 
 export default function Footer() {
-
-
   const params = useParams();
   const navigate = useNavigate();
+  const [formulariosIsOpen, setFormulariosIsOpen] = useState(false);
 
-  const handleNavigateToFormularios = () => {
-    navigate('../formularios'); 
+  const openFormularios = () => {
+    document.body.scrollTop = 0; // For Safari
+    document.documentElement.scrollTop = 0;
+    setFormulariosIsOpen(true);
   };
-
-
 
   return (
     <div className={styles.viewport}>
@@ -32,7 +29,12 @@ export default function Footer() {
               <div className={styles.verticalLinks}>
                 <h4>Colabora con Gloton</h4>
                 <a href="">Carreras</a>
-                <a onClick={handleNavigateToFormularios} href="">Gloton para socios</a>
+                <p
+                  className={styles.formularioButton}
+                  onClick={openFormularios}
+                >
+                  Gloton para socios
+                </p>
                 <a href="">Repartidores</a>
                 <a href="">Gloton Business</a>
               </div>
@@ -58,16 +60,13 @@ export default function Footer() {
                 <a href="">CUMPLIMIENTO</a>
               </div>
             </div>
-            <aside className={styles.languageSelectorContainer}>
-              <select name="languageSelector" id="">
-                <option value="1">Español</option>
-                <option value="2">English</option>
-                <option value="3">Swahili</option>
-              </select>
-            </aside>
           </div>
         </div>
       </footer>
+      <Formulario
+        formulariosIsOpen={formulariosIsOpen}
+        setFormulariosIsOpen={setFormulariosIsOpen}
+      />
     </div>
   );
 }

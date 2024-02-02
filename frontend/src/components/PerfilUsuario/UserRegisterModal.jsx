@@ -5,7 +5,7 @@ import { RxPerson } from "react-icons/rx";
 import { handleInitialRegistrationSubmit } from "../../utils/Usercrud";
 import styles from "../PerfilUsuario/styles.module.css";
 import { motion, AnimatePresence, easeOut } from "framer-motion";
-import UserLoginModal from "./UserLoginModal";
+import useOnclickOutside from "react-cool-onclickoutside";
 
 function UserRegisterModal({
   setLogged,
@@ -16,18 +16,21 @@ function UserRegisterModal({
 }) {
   const { register, handleSubmit } = useForm();
   const [localUser, setLocalUser] = useState(null);
+  const ref = useOnclickOutside(() => {
+    setIsUserRegisterModalOpen(false);
+  });
 
   const onSubmit = async (data) => {
     try {
       await handleInitialRegistrationSubmit(data, setLocalUser, () => {
-        if (typeof closeModal === 'function') {
+        if (typeof closeModal === "function") {
           closeModal(); // Cerrar el modal solo si closeModal es una función
         }
-        if (typeof changeModalState === 'function') {
+        if (typeof changeModalState === "function") {
           changeModalState(); // Cambiar el estado del modal solo si changeModalState es una función
         }
         setLogged(true);
-      }); 
+      });
     } catch (error) {
       console.error("Error en el registro inicial:", error);
     }
@@ -49,9 +52,11 @@ function UserRegisterModal({
       <motion.form
         initial={{ translateY: 100 }}
         animate={{ translateY: 0 }}
+        exit={{ translateY: -100 }}
         transition={{ ease: "easeOut", duration: 0.2 }}
         onSubmit={handleSubmit(onSubmit)}
         className={styles.registerForm}
+        ref={ref}
       >
         <h2 className={styles.hola}>¡Hola!</h2>
         <p className={styles.registerP}>Introduce tus datos:</p>
@@ -94,11 +99,13 @@ function UserRegisterModal({
         <p className={styles.loginLink}>
           ¿Ya tienes cuenta?{" "}
           <span
+            className={styles.loginSpan}
             onClick={() => {
               setLoginModalOpen(true);
               setIsUserRegisterModalOpen(false);
             }}
           >
+            {" "}
             Accede
           </span>
         </p>
