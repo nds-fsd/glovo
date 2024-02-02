@@ -201,8 +201,7 @@ function PerfilUsuario({ modalState, changeModalState, setLogged }) {
         </div>
         <div className={styles.userInfoContainer}>
           <div className={styles.campoP}>
-            <b className={styles.userProfileBold}>Contraseña: </b> {"•••••••••"}
-            {renderEditableField("Password")}
+            <b className={styles.userProfileBold}>Contraseña: </b> •••••••••
           </div>
         </div>
         <div className={styles.separador}></div>
