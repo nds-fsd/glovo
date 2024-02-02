@@ -15,6 +15,7 @@ import {
 import { handleProfileUpdateSubmit } from "../../utils/Usercrud.js";
 import { UserContext } from "../../contexts/UserContext.js";
 import pencilIcon from "../../assets/icons/pencil-svgrepo-com.svg";
+import checkIcon from "../../assets/icons/checkmark-svgrepo-com.svg";
 
 Modal.setAppElement("#root");
 
@@ -115,19 +116,28 @@ function PerfilUsuario({ modalState, changeModalState, setLogged }) {
   const renderEditableField = (field) => {
     if (isEditing && editingField === field) {
       return (
-        <div>
-          <input type="text" value={userInfo[field]} onChange={handleChange} />
-          <button onClick={handleSaveClick}>Guardar</button>
-        </div>
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          className={styles.userInfoModDiv}
+        >
+          <input
+            className={styles.userInfoModInput}
+            type="text"
+            value={userInfo[field]}
+            onChange={handleChange}
+          />
+          <button className={styles.saveUserMod} onClick={handleSaveClick}>
+            <img className={styles.checkIcon} src={checkIcon} alt="" />
+          </button>
+        </motion.div>
       );
     } else {
       return (
-        <div className={styles.userInfoContainer}>
-          <p className={styles.campoP} onClick={() => handleEditClick(field)}>
-            {userInfo[field]}
-            <img className={styles.pencilIcon} src={pencilIcon} alt="" />
-          </p>
-        </div>
+        <p className={styles.campoP2} onClick={() => handleEditClick(field)}>
+          {userInfo[field]}
+          <img className={styles.pencilIcon} src={pencilIcon} alt="" />
+        </p>
       );
     }
   };
@@ -171,24 +181,27 @@ function PerfilUsuario({ modalState, changeModalState, setLogged }) {
         <div className={styles.separadorHeader}></div>
         <div className={styles.userInfoContainer}>
           <div className={styles.campoP}>
-            <b>Nombre:</b> {renderEditableField("firstName")}
+            <b className={styles.userProfileBold}>Nombre:</b>{" "}
+            {renderEditableField("firstName")}
             <br />
           </div>
         </div>
         <div className={styles.userInfoContainer}>
           <div className={styles.campoP}>
-            <b>Email:</b> {renderEditableField("email")}
+            <b className={styles.userProfileBold}>Email:</b>{" "}
+            {renderEditableField("email")}
             <br />
           </div>
         </div>
         <div className={styles.userInfoContainer}>
-          <div className={styles.campoP}>
-            <b>Teléfono:</b> {renderEditableField("phone")}
-          </div>
+          <p className={styles.campoP}>
+            <b className={styles.userProfileBold}>Teléfono:</b>{" "}
+            {renderEditableField("phone")}
+          </p>
         </div>
         <div className={styles.userInfoContainer}>
           <div className={styles.campoP}>
-            <b>Contraseña: </b> {"•••••••••"}
+            <b className={styles.userProfileBold}>Contraseña: </b> {"•••••••••"}
             {renderEditableField("Password")}
           </div>
         </div>
@@ -196,7 +209,7 @@ function PerfilUsuario({ modalState, changeModalState, setLogged }) {
         <div className={styles.preferenceContainer}>
           <div className={styles.preferenceTextContainer}>
             <div className={styles.campoP}>
-              <b>Gestionar preferencias</b>
+              <b className={styles.userProfileBold}>Gestionar preferencias</b>
             </div>
             <p className={styles.managePreferences}>
               Usamos los datos de clientes para mejorar la experiencia de
@@ -214,7 +227,7 @@ function PerfilUsuario({ modalState, changeModalState, setLogged }) {
           </div>
         </div>
         <div className={styles.userSection}>
-          <p>Recibir ofertas especiales y promociones:</p>
+          <p className={styles.campoP}>Recibir ofertas especiales:</p>
           <Switch
             handleToggle={() =>
               setLocalUser({
