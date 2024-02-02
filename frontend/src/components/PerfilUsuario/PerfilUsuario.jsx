@@ -14,6 +14,7 @@ import {
 } from "../../utils/localStorage.utils.js";
 import { handleProfileUpdateSubmit } from "../../utils/Usercrud.js";
 import { UserContext } from "../../contexts/UserContext.js";
+import pencilIcon from "../../assets/icons/pencil-svgrepo-com.svg";
 
 Modal.setAppElement("#root");
 
@@ -121,15 +122,12 @@ function PerfilUsuario({ modalState, changeModalState, setLogged }) {
       );
     } else {
       return (
-        <span>
-          {userInfo[field]}
-          <button
-            className={styles.editButton}
-            onClick={() => handleEditClick(field)}
-          >
-            Editar
-          </button>
-        </span>
+        <>
+          <span onClick={() => handleEditClick(field)}>
+            {userInfo[field]}
+            <img className={styles.pencilIcon} src={pencilIcon} alt="" />
+          </span>
+        </>
       );
     }
   };
@@ -150,6 +148,7 @@ function PerfilUsuario({ modalState, changeModalState, setLogged }) {
       onRequestClose={() => changeModalState(false)}
       className={styles.modalContent}
       overlayClassName={styles.modalOverlay}
+      parentSelector={() => document.querySelector("#root")}
     >
       <motion.div
         initial={{ opacity: 0, translateY: 50 }}
@@ -159,7 +158,9 @@ function PerfilUsuario({ modalState, changeModalState, setLogged }) {
       >
         <div className={styles.flecha}></div>
         {user && (
-          <h2 className={styles.profileHeader}>¡Hola, {user.firstName}!</h2>
+          <h2 className={styles.profileHeader}>
+            ¡Hola, {user.firstName.substring(0, user.firstName.indexOf(" "))}!
+          </h2>
         )}
         <button
           className={styles.logoutButton}

@@ -166,24 +166,42 @@ body {
 }
 
 /* Estilo para el botón de logout */
+
 .logoutButton {
-  background: none;
-  border: none;
-  color: var(--secondary-color);
-  cursor: pointer;
-  font-weight: bold !important;
-  margin-left: auto;
-  margin-bottom: 20px;
-  box-shadow: none;
+  position: absolute;
+  top: 2%;
+  right: 28px;
+  padding: 22px;
+  font-size: 0.6rem;
+  font-family: "quicksand";
+  background-color: var(--secondary-color);
+  color: white;
+  font-weight: 600;
 }
 
-.logoutButtonContainer {
-  display: flex;
-  justify-content: flex-end;
-  padding-right: 20px;
-  margin-top: 25px;
-  padding-bottom: 25px;
-  box-shadow: none;
+.pencilIcon {
+  height: 15px;
+}
+
+.logoutButton:hover {
+  background-color: white;
+  scale: 1.02;
+  color: var(--secondary-color);
+  box-shadow: 0 0 16px 0px var(--secondary-color);
+  animation: PulsingShadow 2s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes PulsingShadow {
+  from {
+    box-shadow: 0 -1px 16px 0px var(--secondary-color);
+  }
+  50% {
+    box-shadow: 0 1px 13px 2px var(--secondary-color);
+  }
+  to {
+    box-shadow: 0 -1px 16px 0px var(--secondary-color);
+  }
 }
 
 div[class^="ReactModal__Content"]::-webkit-scrollbar {
@@ -373,14 +391,6 @@ div[class^="_profile_"]::-webkit-scrollbar {
   justify-content: center;
   -webkit-backdrop-filter: blur(3px);
   backdrop-filter: blur(3px);
-}
-.logoutButton {
-  position: absolute;
-  top: 31px;
-  right: 28px;
-
-  padding: 23px;
-  font-size: 0.7rem;
 }
 
 .loginSpan {

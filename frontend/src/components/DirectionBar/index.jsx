@@ -28,8 +28,6 @@ export default function DirectionBar({ setLocation }) {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  console.log("eeeeeeeeeeeeeeeeeeeeeeeeeeeee" + user);
-
   const {
     ready,
     value,
