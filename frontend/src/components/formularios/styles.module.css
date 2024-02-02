@@ -159,7 +159,7 @@ label {
 
 .bottomContainer {
   margin-top: 10px;
-  background-color: rgba(245, 233, 141, 0.548);
+  background-color: #eeeeee;
   border-radius: 20px;
   padding: 10px;
   display: flex;

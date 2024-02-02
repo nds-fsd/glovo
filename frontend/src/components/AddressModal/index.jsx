@@ -41,7 +41,13 @@ export default function AddressModal({
             transition={{ ease: "easeOut", duration: 0.2 }}
             className={styles.mainContainer}
           >
-            <button onClick={closeAddressModal} className={styles.closeButton}>
+            <button
+              onClick={() => {
+                closeAddressModal();
+                setCoordinates("");
+              }}
+              className={styles.closeButton}
+            >
               X
             </button>
             <div className={styles.topText}>
