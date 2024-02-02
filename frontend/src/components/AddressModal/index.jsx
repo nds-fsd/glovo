@@ -21,6 +21,7 @@ export default function AddressModal({
     handleSaveClickAddress(formattedAddress);
     changeModalState();
     closeAddressModal();
+    setCoordinates("");
   };
 
   return (
