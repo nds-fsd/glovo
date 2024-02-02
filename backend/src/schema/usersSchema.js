@@ -9,6 +9,8 @@ const userSchema = new Schema({
   firstName: { type: String, required: true },
   email: { type: String },
   password: String,
+  phone: { type: String },
+  address: { type: String },
   role: { type: String, enum: ["USER", "RESTAURANT"] },
 });
 

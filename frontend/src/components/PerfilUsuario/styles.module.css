@@ -6,7 +6,8 @@ body {
 
 .profile {
   max-width: 300px; /* Ancho máximo para la sección del perfil */
-  height: fit-content;
+  /* height: 70vh; */
+  max-height: fit-content;
   padding: 10px;
 
   background-color: #ffffff;
@@ -15,15 +16,56 @@ body {
   margin-top: 50px;
   overflow: auto;
   position: fixed;
-  right: 3%;
-  top: 10%;
+  right: calc(10% - 20px);
+  top: 68px;
   display: flex;
   flex-direction: column;
   overflow: visible;
 }
 
+.userInfoModInput {
+  padding: 0 0px;
+  font-size: 0.8rem;
+
+  display: flex;
+  background-color: transparent;
+  margin: 0;
+}
+
+.saveUserMod:hover {
+  background-color: rgb(132, 200, 31);
+}
+
+.saveUserMod {
+  height: 100%;
+  width: 9%;
+  background-color: var(--secondary-color);
+  color: white;
+  margin: 0;
+}
+
+.checkIcon {
+  height: 60%;
+}
+
+.userInfoModDiv {
+  display: flex;
+  height: 18px;
+  background-color: var(--secondary-color-lighter);
+  width: 224px;
+  border-radius: 50px;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+}
+
 .userInfoContainer {
   display: flex;
+  margin: 5px;
+  gap: 20px;
+  align-items: center;
+  height: fit-content;
 }
 
 .personIcon .passwordIcon .emailIcon {
@@ -75,14 +117,27 @@ body {
 .campoP {
   color: #706c6c;
   text-align: justify;
-  padding: 10px;
+  display: flex;
+  gap: 5px;
+  transition: 0.2s;
+  align-items: center;
 }
 
-.input {
-  border: none;
-  font-size: 17px;
-  margin-left: 20px;
-  margin-top: 75px;
+.campoP2 {
+  color: #706c6c;
+  text-align: justify;
+  display: flex;
+  gap: 5px;
+  transition: 0.2s;
+  align-items: center;
+  overflow: hidden;
+  text-wrap: nowrap;
+  text-overflow: ellipsis;
+  max-width: 300px;
+}
+
+.userProfileBold {
+  font-size: 0.8rem;
 }
 
 .separador {
@@ -98,9 +153,10 @@ body {
   display: flex;
   align-items: center;
 
-  color: #706c6c !important;
-  text-align: left;
+  color: #706c6c;
+
   padding: 10px;
+  font-weight: 0.8rem;
 }
 
 .userSection label {
@@ -143,16 +199,18 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  margin: 5px;
 }
 
 .preferenceTextContainer {
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
 }
 
 .managePreferences {
-  font-size: 13px;
-  padding: 7px 10px;
+  font-size: 0.8rem;
+  padding: 7px 0px;
   color: #9b9b9bff;
   text-align: left;
 }
@@ -166,24 +224,57 @@ body {
 }
 
 /* Estilo para el botón de logout */
+
 .logoutButton {
-  background: none;
-  border: none;
-  color: var(--secondary-color);
-  cursor: pointer;
-  font-weight: bold !important;
-  margin-left: auto;
-  margin-bottom: 20px;
-  box-shadow: none;
+  position: absolute;
+  top: 32px;
+  right: 28px;
+  padding: 22px;
+  font-size: 0.6rem;
+  font-family: "quicksand";
+  background-color: var(--secondary-color);
+  color: white;
+  font-weight: 600;
 }
 
-.logoutButtonContainer {
-  display: flex;
-  justify-content: flex-end;
-  padding-right: 20px;
-  margin-top: 25px;
-  padding-bottom: 25px;
-  box-shadow: none;
+.pencilIcon {
+  height: 15px;
+  opacity: 0;
+  transition: opacity 0.2s, transform 0.4s;
+  background-color: var(--primary-color);
+  border-radius: 30px;
+  padding: 2px;
+}
+
+.campoP2:hover > .pencilIcon {
+  opacity: 1;
+  transform: rotate(30deg);
+}
+
+.campoP2:hover {
+  color: var(--secondary-color);
+  cursor: pointer;
+}
+
+.logoutButton:hover {
+  background-color: white;
+  scale: 1.02;
+  color: var(--secondary-color);
+  box-shadow: 0 0 16px 0px var(--secondary-color);
+  animation: PulsingShadow 2s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes PulsingShadow {
+  from {
+    box-shadow: 0 -1px 16px 0px var(--secondary-color);
+  }
+  50% {
+    box-shadow: 0 1px 13px 2px var(--secondary-color);
+  }
+  to {
+    box-shadow: 0 -1px 16px 0px var(--secondary-color);
+  }
 }
 
 div[class^="ReactModal__Content"]::-webkit-scrollbar {
@@ -211,10 +302,6 @@ div[class^="_profile_"]::-webkit-scrollbar {
   z-index: 999;
   overflow: auto;
   outline: none;
-
-  background-color: #00000034;
-  -webkit-backdrop-filter: blur(3px);
-  backdrop-filter: blur(3px);
 }
 
 .registerForm {
@@ -242,7 +329,7 @@ div[class^="_profile_"]::-webkit-scrollbar {
   display: flex;
   flex-direction: column;
   border-radius: 15px;
-  margin: 20px 0;
+  margin: 10px 0;
   gap: 10px;
 }
 
@@ -292,13 +379,31 @@ div[class^="_profile_"]::-webkit-scrollbar {
   width: 100%;
   background-color: var(--secondary-color);
   color: white;
-  font-weight: bold;
+  font-weight: 500;
   font-size: 15px;
   padding: 0 20px;
+  font-family: "quicksand";
 }
 
 .guardarCambios:hover {
-  background-color: var(--primary-color);
+  background-color: white;
+  scale: 1.02;
+  color: var(--secondary-color);
+  box-shadow: 0 0 16px 0px var(--secondary-color);
+  animation: PulsingShadow 2s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes PulsingShadow {
+  from {
+    box-shadow: 0 -1px 16px 0px var(--secondary-color);
+  }
+  50% {
+    box-shadow: 0 1px 13px 2px var(--secondary-color);
+  }
+  to {
+    box-shadow: 0 -1px 16px 0px var(--secondary-color);
+  }
 }
 /* switch */
 
@@ -313,7 +418,7 @@ div[class^="_profile_"]::-webkit-scrollbar {
   align-items: center;
   justify-content: space-between;
   cursor: pointer;
-  width: 50px; /* Width of the switch */
+  width: 45px; /* Width of the switch */
   height: 25px; /* Height of the switch */
   background: grey;
   border-radius: 100px;
@@ -325,9 +430,9 @@ div[class^="_profile_"]::-webkit-scrollbar {
   content: "";
   position: absolute;
   top: 1px;
-  left: 1px;
-  width: 23px; /* Width of the slider */
-  height: 23px; /* Height of the slider */
+  left: 2px;
+  width: 13px; /* Width of the slider */
+  height: 13px; /* Height of the slider */
   border-radius: 45px;
   transition: 0.2s;
   background: #fff;
@@ -360,11 +465,25 @@ div[class^="_profile_"]::-webkit-scrollbar {
   -webkit-backdrop-filter: blur(3px);
   backdrop-filter: blur(3px);
 }
-.logoutButton {
-  position: absolute;
-  top: 31px;
-  right: 28px;
 
-  padding: 23px;
-  font-size: 0.7rem;
+.loginSpan {
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s;
+  padding: 0 5px;
+  margin-left: 10px;
+
+  border-radius: 20px;
+}
+
+.loginSpan:hover {
+  background-color: var(--secondary-color);
+  scale: 1.02;
+  color: white;
+}
+
+.loginLink {
+  display: flex;
+  text-wrap: nowrap;
+  align-items: center;
 }

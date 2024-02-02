@@ -1,37 +1,36 @@
-import React from "react";
-import { set, useForm } from "react-hook-form";
+import React, { useState } from "react";
+import { useForm } from "react-hook-form";
 import { MdOutlineEmail, MdOutlinePassword } from "react-icons/md";
 import { RxPerson } from "react-icons/rx";
-import { handleInitialRegistrationSubmit } from "../PerfilUsuario/Usercrud";
+import { handleInitialRegistrationSubmit } from "../../utils/Usercrud";
 import styles from "../PerfilUsuario/styles.module.css";
 import { motion, AnimatePresence, easeOut } from "framer-motion";
-
-//const doRegister = (data) => {
-// api.post('/auth/register', data)
-// .then((response) => {
-// console.log(response);
-// if (response?.data.token) {
-//    setUserSession(response.data);
-//      forceUpdate();
-//    }
-
-//  });
-//};
+import useOnclickOutside from "react-cool-onclickoutside";
 
 function UserRegisterModal({
   setLogged,
-  setUser,
   closeModal,
   changeModalState,
+  setLoginModalOpen,
+  setIsUserRegisterModalOpen,
 }) {
   const { register, handleSubmit } = useForm();
+  const [localUser, setLocalUser] = useState(null);
+  const ref = useOnclickOutside(() => {
+    setIsUserRegisterModalOpen(false);
+  });
 
   const onSubmit = async (data) => {
-    setLogged(true);
-    console.log(data);
     try {
-      await handleInitialRegistrationSubmit(data, setUser, closeModal);
-      changeModalState();
+      await handleInitialRegistrationSubmit(data, setLocalUser, () => {
+        if (typeof closeModal === "function") {
+          closeModal(); // Cerrar el modal solo si closeModal es una función
+        }
+        if (typeof changeModalState === "function") {
+          changeModalState(); // Cambiar el estado del modal solo si changeModalState es una función
+        }
+        setLogged(true);
+      });
     } catch (error) {
       console.error("Error en el registro inicial:", error);
     }
@@ -53,9 +52,11 @@ function UserRegisterModal({
       <motion.form
         initial={{ translateY: 100 }}
         animate={{ translateY: 0 }}
+        exit={{ translateY: -100 }}
         transition={{ ease: "easeOut", duration: 0.2 }}
         onSubmit={handleSubmit(onSubmit)}
         className={styles.registerForm}
+        ref={ref}
       >
         <h2 className={styles.hola}>¡Hola!</h2>
         <p className={styles.registerP}>Introduce tus datos:</p>
@@ -95,6 +96,19 @@ function UserRegisterModal({
         <button className={styles.guardarCambios} type="submit">
           Registrar
         </button>
+        <p className={styles.loginLink}>
+          ¿Ya tienes cuenta?{" "}
+          <span
+            className={styles.loginSpan}
+            onClick={() => {
+              setLoginModalOpen(true);
+              setIsUserRegisterModalOpen(false);
+            }}
+          >
+            {" "}
+            Accede
+          </span>
+        </p>
       </motion.form>
     </motion.div>
   );

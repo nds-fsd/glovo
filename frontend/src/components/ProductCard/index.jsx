@@ -8,6 +8,7 @@ export default function ProductCard({
   setShoppingList,
   shoppingList,
   producto,
+  restaurante,
 }) {
   const addToCart = () => {
     if (shoppingList.find((e) => e.id === producto._id)) {
@@ -16,8 +17,10 @@ export default function ProductCard({
       updatedShoppingList[ProductIndex].ammount += 1;
       setShoppingList(updatedShoppingList);
     } else {
-      setShoppingList([...shoppingList, { id: producto._id, ammount: 1 }]);
-      console.log("Producto agregado a la lista de compras");
+      setShoppingList([
+        ...shoppingList,
+        { shop: restaurante._id, id: producto._id, ammount: 1 },
+      ]);
     }
   };
 
@@ -27,7 +30,7 @@ export default function ProductCard({
         <img className={styles.productImg} src={productImg} alt="" />
         <div className={styles.textContainer}>
           <h5>{productName}</h5>
-          <p>{productDescription}</p>
+          <p className={styles.description}>{productDescription}</p>
         </div>
       </div>
       <div className={styles.bottomContainer}>

@@ -1,3 +1,4 @@
+// const { app } = require("./server");
 const express = require("express");
 const { connectDB } = require("./mongo/connection");
 const cors = require("cors");
@@ -18,6 +19,8 @@ app.use(authRoutes);
 connectDB().then(() => console.log("Connected to database!"));
 
 const port = process.env.PORT || 3001;
+
 const server = app.listen(port, () => {
   console.log("Server is up and running ⚡");
+
 });

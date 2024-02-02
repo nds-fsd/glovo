@@ -18,38 +18,58 @@
   z-index: 9999;
 }
 
-.logoContainer {
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: left;
-  width: 27%;
-  padding-left: 5%;
-  cursor: pointer;
-}
-
 .searchBarContainer {
   display: flex;
   align-items: center;
   justify-content: center;
   height: 100%;
-  width: 30%;
+  width: 30vw;
+  position: absolute;
 }
 
 .rightContainer {
+  position: absolute;
   display: flex;
   gap: 50px;
   align-items: center;
   justify-content: space-evenly;
-  width: 30%;
-  padding-right: 5%;
+  width: fit-content;
+
+  right: 10%;
 }
 
 .logo {
-  height: 40px;
-  filter: contrast(0.1) sepia(1) brightness(1.67) saturate(99)
-    hue-rotate(176deg) brightness(1.4);
+  height: 45px;
+  filter: contrast(0.1) sepia(1) brightness(1) saturate(99) hue-rotate(179deg)
+    brightness(1.25);
   flex-grow: 0.5;
+  cursor: pointer;
+  transform: translateY(-10px);
+  transition: 0.2s;
+  position: absolute;
+  left: 10%;
+  top: 31%;
+}
+
+.logoUnlogged {
+  height: 45px;
+  filter: contrast(0.1) sepia(1) brightness(1) saturate(99) hue-rotate(179deg)
+    brightness(1.25);
+  flex-grow: 0.5;
+  cursor: pointer;
+  transform: translateY(-10px);
+  transition: 0.2s;
+
+  left: 10%;
+  top: 25%;
+}
+
+.logo:hover {
+  scale: 1.1;
+}
+
+.logo:active {
+  scale: 0.9;
 }
 
 p {
@@ -101,6 +121,15 @@ button:active {
   align-items: center;
   justify-content: center;
   gap: 3px;
+  white-space: nowrap;
+  width: 3vw;
+  max-width: 400px;
+  text-overflow: ellipsis;
+  display: none;
+}
+
+.locationContainer > p {
+  text-overflow: ellipsis;
 }
 
 .locationIcon {
@@ -108,6 +137,7 @@ button:active {
 }
 
 .getStartedButton {
+  font-family: "quicksand";
   color: white;
   height: fit-content;
   width: fit-content;
@@ -137,5 +167,33 @@ button:active {
 }
 
 .getStartedButton:hover {
-  background-color: rgb(8, 199, 164);
+  background-color: white;
+  scale: 1.05;
+  color: var(--secondary-color);
+  box-shadow: 0 0 30px 0px var(--secondary-color);
+  animation: PulsingShadow 2s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes PulsingShadow {
+  from {
+    box-shadow: 0 0 30px 0px var(--secondary-color);
+  }
+  50% {
+    box-shadow: 0 5px 20px 0px var(--secondary-color);
+  }
+  to {
+    box-shadow: 0 0 30px 0px var(--secondary-color);
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .logo {
+    display: none;
+  }
+
+  .searchBarContainer {
+    width: 60vw;
+    left: 5%;
+  }
 }

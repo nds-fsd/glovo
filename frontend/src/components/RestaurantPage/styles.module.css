@@ -117,3 +117,15 @@ h2 {
   flex-wrap: wrap;
   gap: 15px 0;
 }
+
+@media only screen and (max-width: 700px) {
+  .productGrid {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 15px 0;
+    flex-direction: column;
+  }
+}

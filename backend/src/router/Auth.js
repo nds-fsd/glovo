@@ -27,6 +27,7 @@ authRouter.post("/register", (req, res) => {
         email: data.email,
         password: data.password,
         firstName: data.firstName,
+        phone: data.phone,
         role: "USER",
       });
 
@@ -38,8 +39,8 @@ authRouter.post("/register", (req, res) => {
             token: createdUser.generateJWT(),
             user: {
               email: createdUser.email,
-              name: createdUser.name,
-              id: createdUser._id,
+              firstName: createdUser.firstName,
+              _id: createdUser._id,
               role: createdUser.role,
             },
           });
@@ -140,9 +141,11 @@ authRouter.post("/login", async (req, res) => {
         token: foundUser.generateJWT(),
         user: {
           email: foundUser.email,
-          name: foundUser.name,
-          id: foundUser._id,
+          firstName: foundUser.firstName,
+          _id: foundUser._id,
           role: foundUser.role,
+          phone: foundUser.phone,
+          address: foundUser.address,
         },
       });
     })
