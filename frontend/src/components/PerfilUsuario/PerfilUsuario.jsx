@@ -145,7 +145,7 @@ function PerfilUsuario({
     } else {
       return (
         <p className={styles.campoP2} onClick={() => handleEditClick(field)}>
-          {userInfo[field]}
+          {userInfo[field] || "Agrega tu teléfono"}
           <img className={styles.pencilIcon} src={pencilIcon} alt="" />
         </p>
       );
@@ -231,7 +231,9 @@ function PerfilUsuario({
             {user && (
               <h2 className={styles.profileHeader}>
                 ¡Hola,{" "}
-                {user.firstName.substring(0, user.firstName.indexOf(" "))}!
+                {user &&
+                  user.firstName.substring(0, user.firstName.indexOf(" "))}
+                !
               </h2>
             )}
             <button
@@ -271,7 +273,7 @@ function PerfilUsuario({
                     changeModalState();
                   }}
                 >
-                  {user && user.address}
+                  {(user && user.address) || "Agrega tu dirección"}
                 </p>
                 <img className={styles.pencilIcon} src={pencilIcon} alt="" />
               </p>
