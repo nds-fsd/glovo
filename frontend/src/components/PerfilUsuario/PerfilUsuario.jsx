@@ -122,12 +122,12 @@ function PerfilUsuario({ modalState, changeModalState, setLogged }) {
       );
     } else {
       return (
-        <>
-          <span onClick={() => handleEditClick(field)}>
+        <div className={styles.userInfoContainer}>
+          <p className={styles.campoP} onClick={() => handleEditClick(field)}>
             {userInfo[field]}
             <img className={styles.pencilIcon} src={pencilIcon} alt="" />
-          </span>
-        </>
+          </p>
+        </div>
       );
     }
   };
