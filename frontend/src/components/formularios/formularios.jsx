@@ -16,6 +16,7 @@ export const Formulario = () => {
     setValue,
   } = useForm();
 
+  const navigate = useNavigate();
   const incluirCodigo = watch("incluirCodigo");
   const [restaurant, setRestaurant] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -31,24 +32,23 @@ export const Formulario = () => {
         },
       });
       console.log(response.data);
+      navigate("../RestaurantConfirmationPage");
       setIsDone(true);
     } catch (error) {
       if (error.response) {
-        // La respuesta fue hecha por el servidor con un código de estado fuera del rango 2xx
         console.error("Error data:", error.response.data);
         console.error("Error status:", error.response.status);
         setSubmitError("Error from server: " + error.response.data.message);
       } else if (error.request) {
-        // La solicitud fue hecha pero no hubo respuesta
         console.error("No response:", error.request);
         setSubmitError("No response from server");
       } else {
-        // Algo ocurrió al configurar la solicitud que disparó un error
         console.error("Error:", error.message);
         setSubmitError("Error: " + error.message);
       }
+    } finally {
+      setIsSubmitting(false);
     }
-    setIsSubmitting(false);
   };
   return (
     <div className={styles.formContainer}>

@@ -51,6 +51,7 @@ export default function PurchaseConfirmationModal({
 
   const [cardModalIsOpen, setCardModalIsOpen] = useState(false);
   const [addressModalIsOpen, setAddressModalIsOpen] = useState(false);
+
   const [confirmationAnimation, setConfirmationAnimation] = useState(false);
 
   const openCardModal = () => {

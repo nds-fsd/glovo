@@ -55,18 +55,18 @@ export default function RestaurantPage({}) {
       }
     });
 
-    if (restaurante && restaurante.transporte === "FREE") {
-      setTotalPrice(Math.floor(fullPrice * 100) / 100);
-    } else {
-      restaurante &&
-        setTotalPrice(
-          Math.floor(
-            (fullPrice += parseFloat(
-              restaurante.transporte.replace("€", "").replace(",", ".")
-            )) * 100
-          ) / 100
-        );
-    }
+    // if (restaurante && restaurante.transporte === "FREE") {
+    //   setTotalPrice(Math.floor(fullPrice * 100) / 100);
+    // } else {
+    //   restaurante &&
+    //     setTotalPrice(
+    //       Math.floor(
+    //         (fullPrice += parseFloat(
+    //           restaurante.transporte.replace("€", "").replace(",", ".")
+    //         )) * 100
+    //       ) / 100
+    //     );
+    // }
   };
 
   useEffect(() => {
