@@ -154,7 +154,7 @@ export const Formulario = () => {
             <input
               type="text"
               placeholder="Codigo Promocional"
-              {...register("codigo", {
+              {...register("discountCode", {
                 //! validate : promoCode debemos añadir en futuro ...
               })}
             />
