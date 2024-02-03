@@ -41,6 +41,14 @@ export default function ShoppingCart({
     setShoppingList(updatedShoppingList);
   };
 
+  const deleteCartItem = (e) => {
+    const productIndex = shoppingList.findIndex((o) => o.id === e.id);
+    const updatedShoppingList = [...shoppingList];
+    updatedShoppingList.splice(productIndex, 1);
+
+    setShoppingList(updatedShoppingList);
+  };
+
   return (
     <div className={styles.shoppingCartContainer}>
       <section className={fix ? styles.shoppingCart : styles.shoppingCartFixed}>
@@ -80,7 +88,7 @@ export default function ShoppingCart({
                         }}
                         className={styles.quantityButton}
                       >
-                        -
+                        <span className={styles.buttonContentMinus}>-</span>
                       </button>
                       <p className={styles.quantityNumber}>{e.ammount}</p>
                       <button
@@ -89,13 +97,19 @@ export default function ShoppingCart({
                         }}
                         className={styles.quantityButton}
                       >
-                        +
+                        <span className={styles.buttonContentPlus}>+</span>
                       </button>
                     </div>
                     <p className={styles.shoppingListItem}>
                       {producto.nombre + " "}
                     </p>
                     <b>{producto.precio + "€"}</b>
+                    <button
+                      onClick={() => deleteCartItem(e)}
+                      className={styles.deleteCartItemButton}
+                    >
+                      x
+                    </button>
                   </motion.div>
                 );
               }
