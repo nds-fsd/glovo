@@ -33,12 +33,16 @@ export default function PurchaseConfirmationModal({
   let { user } = useContext(UserContext);
 
   const handleConfirmButton = () => {
-    setConfirmationAnimation(true);
-    createOrder();
-    setTimeout(() => {
-      setShoppingList([]);
-      navigate("/confirmation");
-    }, 3000);
+    if (user.address || user.creditCard) {
+      setConfirmationAnimation(true);
+      createOrder();
+      setTimeout(() => {
+        setShoppingList([]);
+        navigate("/confirmation");
+      }, 3000);
+    } else {
+      alert("Error");
+    }
   };
 
   const createOrder = () => {
@@ -158,7 +162,10 @@ export default function PurchaseConfirmationModal({
                           onClick={openCardModal}
                           className={styles.modifiableItem}
                         >
-                          {creditCard ? { creditCard } : "Agregar tarjeta"}
+                          {user && user.creditCard
+                            ? "•••• •••• •••• " +
+                              user.creditCard.number.slice(-4)
+                            : "Agregar tarjeta"}
                         </b>
                       </p>
                     </div>

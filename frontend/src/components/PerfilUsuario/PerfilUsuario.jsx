@@ -333,9 +333,9 @@ function PerfilUsuario({
                     creditCardInfo();
                   }}
                 >
-                  {(user &&
-                    "•••• •••• •••• " + user.creditCard.number.slice(-4)) ||
-                    "Agrega tu tarjeta de crédito"}
+                  {user && user.creditCard
+                    ? "•••• •••• •••• " + user.creditCard.number.slice(-4)
+                    : "Agrega tu tarjeta"}
                 </p>
                 <img className={styles.pencilIcon} src={pencilIcon} alt="" />
               </p>
