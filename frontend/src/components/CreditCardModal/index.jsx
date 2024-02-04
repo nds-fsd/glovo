@@ -7,7 +7,11 @@ import React, { useState } from "react";
 
 Modal.setAppElement("#root");
 
-export default function CreditCardModal({ cardModalIsOpen, closeCardModal }) {
+export default function CreditCardModal({
+  cardModalIsOpen,
+  closeCardModal,
+  handleSaveClickCard,
+}) {
   const [state, setState] = useState({
     number: "",
     expiry: "",
@@ -54,7 +58,7 @@ export default function CreditCardModal({ cardModalIsOpen, closeCardModal }) {
   const { register, handleSubmit } = useForm();
 
   const onSubmit = (data) => {
-    console.log("data", data);
+    handleSaveClickCard(data);
   };
 
   return (

@@ -143,10 +143,12 @@ button.useCurrentLocationButton:active {
 }
 
 .useCurrentLocationText {
-  text-wrap: nowrap !important;
+  text-wrap: nowrap;
   white-space: nowrap;
   font-size: 0.6rem;
   color: var(--secondary-color);
+  font-family: "quicksand";
+  font-weight: 600;
 }
 
 .wavySvg {

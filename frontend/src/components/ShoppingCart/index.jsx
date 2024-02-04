@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import PurchaseConfirmationModal from "../PurchaseConfirmationModal";
 import { CartContext } from "../../contexts/CartContext";
 import { useContext } from "react";
-
+import crossIcon from "../../assets/icons/cross-circle-svgrepo-com.svg";
 import { useState } from "react";
 
 export default function ShoppingCart({
@@ -108,7 +108,11 @@ export default function ShoppingCart({
                       onClick={() => deleteCartItem(e)}
                       className={styles.deleteCartItemButton}
                     >
-                      x
+                      <img
+                        className={styles.crossIcon}
+                        src={crossIcon}
+                        alt=""
+                      />
                     </button>
                   </motion.div>
                 );

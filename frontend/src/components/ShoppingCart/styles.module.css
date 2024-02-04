@@ -67,6 +67,12 @@
   display: none;
 }
 
+.crossIcon {
+  height: 15px;
+  width: 15px;
+  transform: translate(3px);
+}
+
 .shoppingListItem {
   height: fit-content;
   color: black;
@@ -98,12 +104,11 @@
   justify-content: center;
   gap: 5px;
   background-color: white;
-
   height: 15px;
   border-radius: 50px;
-
   width: fit-content;
   height: fit-content;
+  box-shadow: 0 0 2px 0 var(--secondary-color);
 }
 
 .quantityButton {
@@ -232,7 +237,7 @@ b {
   align-items: center;
   justify-content: center;
   gap: 4px;
-  background-color: var(--primary-color-light);
+  background-color: var(--secondary-color-lighter);
   padding: 1px 5px;
   border-radius: 50px;
 }
