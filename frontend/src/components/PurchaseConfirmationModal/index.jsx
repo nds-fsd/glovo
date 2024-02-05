@@ -14,7 +14,7 @@ import { CartContext } from "../../contexts/CartContext";
 import useOnclickOutside from "react-cool-onclickoutside";
 import { UserContext } from "../../contexts/UserContext";
 import ErrorModal from "../ErrorModal";
-import { postOrder } from "../../utils/Usercrud";
+import { postOrder } from "../../utils/api";
 
 Modal.setAppElement("#root");
 
@@ -31,7 +31,6 @@ export default function PurchaseConfirmationModal({
   const [cardModalIsOpen, setCardModalIsOpen] = useState(false);
   const [addressModalIsOpen, setAddressModalIsOpen] = useState(false);
   const [confirmationAnimation, setConfirmationAnimation] = useState(false);
-  const { order, setOrder } = useContext(OrderContext);
   const [optionalAddress, setOptionalAddress] = useState();
   const [optionalCreditCard, setOptionalCreditCard] = useState();
   const [errorModalOpen, setErrorModalOpen] = useState(true);
@@ -49,7 +48,6 @@ export default function PurchaseConfirmationModal({
       } else {
         console.log("Error en tus credenciales");
         setShoppingList([]);
-        setOrder({});
       }
     } catch (error) {
       console.error("Error en el registro inicial:", error);
@@ -61,13 +59,11 @@ export default function PurchaseConfirmationModal({
       (user.address || optionalAddress) &&
       (user.creditCard || optionalCreditCard)
     ) {
-      // setConfirmationAnimation(true);
       postCreatedOrder(createOrder(restaurante, user));
-
-      // setTimeout(() => {
-
-      //   navigate("/confirmation");
-      // }, 3000);
+      setConfirmationAnimation(true);
+      setTimeout(() => {
+        navigate("/confirmation");
+      }, 3000);
     } else {
       setError("Añada la direccion o el método de pago");
       setIsErrorModalOpen(true);
@@ -79,7 +75,6 @@ export default function PurchaseConfirmationModal({
 
   const createOrder = (restaurante, user) => {
     const productList = [];
-
     shoppingList.forEach((e) => {
       const producto = productos.find((item) => item._id === e.id);
       if (producto) {
@@ -96,7 +91,6 @@ export default function PurchaseConfirmationModal({
       restaurante_id: restaurante._id,
     };
     return orderObject;
-    // setOrder(orderObject);
   };
 
   const openCardModal = () => {

@@ -14,6 +14,14 @@ export const api = axios.create({
   },
 });
 
+export const postOrder = async (data) => {
+  try {
+    await axios.post(`${BASE_URL}/orders`, data);
+  } catch (error) {
+    console.error("Error al crear tu pedido:", error);
+  }
+};
+
 api.interceptors.request.use((config) => {
   const token = getUserToken();
   config.headers.Authorization = token ? `Bearer ${token}` : "";

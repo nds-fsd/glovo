@@ -11,6 +11,6 @@ router.get(
   "/restaurantes/:restauranteId/orders",
   orderController.getOrdersByRestaurantId
 );
-router.get("/users/:userId/orders", orderController.getOrdersByRestaurantId);
+router.get("/users/:userId/orders", orderController.getOrdersByUserId);
 
 module.exports = router;
