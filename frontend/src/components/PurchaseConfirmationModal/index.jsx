@@ -13,6 +13,7 @@ import { BounceLoader } from "react-spinners";
 import { CartContext } from "../../contexts/CartContext";
 import useOnclickOutside from "react-cool-onclickoutside";
 import { UserContext } from "../../contexts/UserContext";
+import ErrorModal from "../ErrorModal";
 
 Modal.setAppElement("#root");
 
@@ -29,11 +30,19 @@ export default function PurchaseConfirmationModal({
   const [addressModalIsOpen, setAddressModalIsOpen] = useState(false);
   const [confirmationAnimation, setConfirmationAnimation] = useState(false);
   const { order, setOrder } = useContext(OrderContext);
+  const [optionalAddress, setOptionalAddress] = useState();
+  const [optionalCreditCard, setOptionalCreditCard] = useState();
+  const [errorModalOpen, setErrorModalOpen] = useState(true);
+  const [isErrorModalOpen, setIsErrorModalOpen] = useState(false);
+  const [error, setError] = useState();
   let { shoppingList, setShoppingList } = useContext(CartContext);
   let { user } = useContext(UserContext);
 
   const handleConfirmButton = () => {
-    if (user.address || user.creditCard) {
+    if (
+      (user.address || optionalAddress) &&
+      (user.creditCard || optionalCreditCard)
+    ) {
       setConfirmationAnimation(true);
       createOrder();
       setTimeout(() => {
@@ -41,7 +50,11 @@ export default function PurchaseConfirmationModal({
         navigate("/confirmation");
       }, 3000);
     } else {
-      alert("Error");
+      setError("Añada la direccion o el método de pago");
+      setIsErrorModalOpen(true);
+      setTimeout(() => {
+        setIsErrorModalOpen(false);
+      }, 3000);
     }
   };
 
@@ -152,7 +165,9 @@ export default function PurchaseConfirmationModal({
                           onClick={openAddressModal}
                           className={styles.modifiableItem}
                         >
-                          {(user && user.address) || "Agregar dirección"}
+                          {optionalAddress ||
+                            (user && user.address) ||
+                            "Agregar dirección"}
                         </b>
                       </p>
                       <p className={styles.deliveryInfoElement}>
@@ -162,7 +177,10 @@ export default function PurchaseConfirmationModal({
                           onClick={openCardModal}
                           className={styles.modifiableItem}
                         >
-                          {user && user.creditCard
+                          {optionalCreditCard
+                            ? "•••• •••• •••• " +
+                              optionalCreditCard.number.slice(-4)
+                            : user && user.creditCard
                             ? "•••• •••• •••• " +
                               user.creditCard.number.slice(-4)
                             : "Agregar tarjeta"}
@@ -181,10 +199,12 @@ export default function PurchaseConfirmationModal({
             <AddressModal
               addressModalIsOpen={addressModalIsOpen}
               closeAddressModal={closeAddressModal}
+              handleSaveClickAddress={setOptionalAddress}
             />
             <CreditCardModal
               cardModalIsOpen={cardModalIsOpen}
               closeCardModal={closeCardModal}
+              handleSaveClickCard={setOptionalCreditCard}
             />
             {confirmationAnimation && (
               <motion.div
@@ -262,6 +282,7 @@ export default function PurchaseConfirmationModal({
               </motion.div>
             )}
           </motion.div>
+          <ErrorModal isErrorModalOpen={isErrorModalOpen} error={error} />
         </Modal>
       )}
     </AnimatePresence>
