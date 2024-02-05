@@ -17,7 +17,7 @@ export const Formulario = () => {
   } = useForm();
 
   const navigate = useNavigate();
-  const incluirCodigo = watch("incluirCodigo");
+  const discountCode = watch("discountCode");
   const [restaurant, setRestaurant] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState("");
@@ -32,7 +32,7 @@ export const Formulario = () => {
         },
       });
       console.log(response.data);
-      navigate("../RestaurantConfirmationPage");
+      navigate("../DashBoard");
       setIsDone(true);
     } catch (error) {
       if (error.response) {
@@ -149,7 +149,7 @@ export const Formulario = () => {
           <input type="checkbox" {...register("incluirCodigo")} />
           <label>¿Tienes un código promocional?</label>
         </div>
-        {incluirCodigo && (
+        {discountCode && (
           <div className={styles.aplicar}>
             <input
               type="text"

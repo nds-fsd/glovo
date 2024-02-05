@@ -11,7 +11,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { getUserToken, getUserSession } from "./utils/localStorage.utils";
 import { CartContext } from "./contexts/CartContext";
 import { OrderContext } from "./contexts/OrderContext";
-
+import DashBoard from "./components/DashBoard/dashBoard";
 import ConfirmationPage from "./components/ConfirmationPage";
 import { UserContext } from "./contexts/UserContext";
 
@@ -21,8 +21,7 @@ function App() {
   const [forceUpdate, setForceUpdate] = useState(false);
   const [location, setLocation] = useState("");
   const [user, setLocalUser] = useState(null);
-
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  // const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
     const session = getUserSession();
@@ -62,6 +61,7 @@ function App() {
                   element={<ConfirmationPage />}
                 ></Route>
                 <Route path="/formularios" element={<Formulario />} />
+                <Route path="/dashBoard" element={<DashBoard />} />
               </Routes>
 
               <Footer />
