@@ -14,6 +14,7 @@ import { CartContext } from "../../contexts/CartContext";
 import useOnclickOutside from "react-cool-onclickoutside";
 import { UserContext } from "../../contexts/UserContext";
 import ErrorModal from "../ErrorModal";
+import { postOrder } from "../../utils/Usercrud";
 
 Modal.setAppElement("#root");
 
@@ -25,6 +26,7 @@ export default function PurchaseConfirmationModal({
   location,
   creditCard,
   transportPrice,
+  restaurante,
 }) {
   const [cardModalIsOpen, setCardModalIsOpen] = useState(false);
   const [addressModalIsOpen, setAddressModalIsOpen] = useState(false);
@@ -38,17 +40,34 @@ export default function PurchaseConfirmationModal({
   let { shoppingList, setShoppingList } = useContext(CartContext);
   let { user } = useContext(UserContext);
 
+  const postCreatedOrder = async (data) => {
+    try {
+      console.log(data);
+      const response = await postOrder(data);
+      if (response == 200) {
+        console.log("verygud");
+      } else {
+        console.log("Error en tus credenciales");
+        setShoppingList([]);
+        setOrder({});
+      }
+    } catch (error) {
+      console.error("Error en el registro inicial:", error);
+    }
+  };
+
   const handleConfirmButton = () => {
     if (
       (user.address || optionalAddress) &&
       (user.creditCard || optionalCreditCard)
     ) {
-      setConfirmationAnimation(true);
-      createOrder();
-      setTimeout(() => {
-        setShoppingList([]);
-        navigate("/confirmation");
-      }, 3000);
+      // setConfirmationAnimation(true);
+      postCreatedOrder(createOrder(restaurante, user));
+
+      // setTimeout(() => {
+
+      //   navigate("/confirmation");
+      // }, 3000);
     } else {
       setError("Añada la direccion o el método de pago");
       setIsErrorModalOpen(true);
@@ -58,21 +77,26 @@ export default function PurchaseConfirmationModal({
     }
   };
 
-  const createOrder = () => {
-    const orderArray = [];
+  const createOrder = (restaurante, user) => {
+    const productList = [];
 
     shoppingList.forEach((e) => {
       const producto = productos.find((item) => item._id === e.id);
       if (producto) {
-        orderArray.push({
+        productList.push({
           producto: producto,
           ammount: e.ammount,
-          totalPrice: totalPrice,
         });
       }
     });
-
-    setOrder(orderArray);
+    productList.push({ transportPrice: transportPrice });
+    const orderObject = {
+      productList: productList,
+      user_id: user._id,
+      restaurante_id: restaurante._id,
+    };
+    return orderObject;
+    // setOrder(orderObject);
   };
 
   const openCardModal = () => {

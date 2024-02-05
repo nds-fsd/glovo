@@ -29,6 +29,14 @@ export const handleInitialRegistrationSubmit = async (
   }
 };
 
+export const postOrder = async (data) => {
+  try {
+    await axios.post(`${API_BASE_URL}/orders`, data);
+  } catch (error) {
+    console.error("Error en el registro inicial:", error);
+  }
+};
+
 export const handleLoginSubmit = async (data, setLocalUser, closeModal) => {
   try {
     const response = await axios.post("http://localhost:3001/login", data);
@@ -41,6 +49,7 @@ export const handleLoginSubmit = async (data, setLocalUser, closeModal) => {
     return error.response.status;
   }
 };
+
 export const handleProfileUpdateSubmit = async (
   editingField,
   data,

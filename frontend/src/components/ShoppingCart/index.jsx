@@ -141,6 +141,7 @@ export default function ShoppingCart({
         closeModal={closeModal}
         totalPrice={totalPrice}
         transportPrice={restaurante.transporte}
+        restaurante={restaurante}
       />
     </div>
   );
