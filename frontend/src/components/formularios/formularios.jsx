@@ -5,15 +5,23 @@ import { emailValidator, phoneValidator, validateCity } from "./validators";
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { api } from "../../utils/api";
+import Modal from "react-modal";
+import useOnclickOutside from "react-cool-onclickoutside";
 
-export const Formulario = () => {
+export const Formulario = ({ formulariosIsOpen, setFormulariosIsOpen }) => {
   const params = useParams();
   const {
     register,
     formState: { errors },
     watch,
     handleSubmit,
+  const {
+    register,
+    formState: { errors },
+    watch,
+    handleSubmit,
     setValue,
+  } = useForm();
   } = useForm();
 
   const navigate = useNavigate();
@@ -49,148 +57,187 @@ export const Formulario = () => {
     } finally {
       setIsSubmitting(false);
     }
+  
   };
+  
   return (
-    <div className={styles.formContainer}>
-      <h2>Empieza a vender con Gloton</h2>
-      <p>
-        Registrarse en Gloton nunca ha sido tan fácil. Hazte Partner ahora.{" "}
-        {watch("")}
-      </p>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div>
-          <label></label>
-          <select className={styles.options} {...register("country")}>
-            <option value="ES">🇪🇸 España</option>
-            <option value="GEO">🇬🇪 Georgia</option>
-            <option value="FR">🇫🇷 Francia</option>
-            <option value="VE">🇻🇪 Venezuela</option>
-          </select>
+    <Modal
+      parentSelector={() => document.querySelector("#root")}
+      className={styles.modalContent}
+      overlayClassName={styles.modalOverlay}
+      isOpen={formulariosIsOpen}
+    >
+      <div className={styles.everything}>
+        <div ref={ref} className={styles.formContainer}>
+          <h2>Empieza a vender con Gloton</h2>
+          <p>
+            Registrarse en Gloton nunca ha sido tan fácil. Hazte Partner ahora.{" "}
+            {watch("")}
+          </p>
+          <form className={styles.formObject} onSubmit={handleSubmit(onSubmit)}>
+            <div>
+              <label></label>
+              <select className={styles.options} {...register("country")}>
+                <option className={styles.individualOption} value="ES">
+                  🇪🇸 España
+                </option>
+                <option className={styles.individualOption} value="GEO">
+                  🇬🇪 Georgia
+                </option>
+                <option className={styles.individualOption} value="FR">
+                  🇫🇷 Francia
+                </option>
+                <option className={styles.individualOption} value="VE">
+                  🇻🇪 Venezuela
+                </option>
+              </select>
+            </div>
+            <div>
+              <label className={styles.ciudad}></label>
+              <input
+                type="text"
+                placeholder="Ciudad"
+                {...register("city", {
+                  validate: validateCity,
+                })}
+              />
+              {errors["ciudad"] && <p>{errors["city"].message}</p>}
+            </div>
+            <div>
+              <label className={styles.negocio}></label>
+              <input
+                type="text"
+                placeholder="Nombre del negocio"
+                {...register("brandName")}
+              />
+            </div>
+            <div className={styles.nombreApellidos}>
+              <div>
+                <label className={styles.nombre}></label>
+                <input
+                  type="text"
+                  placeholder="Nombre"
+                  {...register("firstName")}
+                />
+              </div>
+              <div>
+                <label className={styles.apellidos}></label>
+                <input
+                  type="text"
+                  placeholder="Apellidos"
+                  {...register("lastName")}
+                />
+              </div>
+            </div>
+            <div>
+              <label className={styles.mail}></label>
+              <input
+                type="email"
+                placeholder="Email"
+                {...register("email", { validate: mailValidator })}
+              />
+              {errors["email"] && <p>{errors["email"].message}</p>}
+            </div>
+            <div>
+              <label className={styles.telefono}></label>
+              <input
+                type="password"
+                placeholder="Contraseña"
+                {...register("password")}
+              />
+            </div>
+            <div>
+              <label className={styles.telefono}></label>
+              <input
+                type="text"
+                placeholder="Teléfono"
+                {...register("phone", {
+                  validate: phoneValidator,
+                })}
+              />
+              {errors["phone"] && <p>{errors["phone"].message}</p>}
+            </div>
+            <label></label>
+            <select
+              className={styles.options}
+              {...register("category")}
+            >
+              <option
+                className={styles.individualOption}
+                value="category"
+              >
+                Tipo de establecimiento
+              </option>
+              <option className={styles.individualOption} value="restaurante">
+                Restaurante (cafeteria, brunch y panaderia, helados, zumos y
+                smoothies...)
+              </option>
+              <option className={styles.individualOption} value="farmacia">
+                Farmacia
+              </option>
+              <option className={styles.individualOption} value="tienda">
+                Tienda (regalos, belleza, electronica, tienda de mascotas...)
+              </option>
+              <option className={styles.individualOption} value="lofisteria">
+                Floristeria
+              </option>
+            </select>
+            <div className={styles.bottomContainer}>
+              <div className={styles.codigo}>
+                <input type="checkbox" {...register("discountCode")} />
+                <label className={styles.bottomLabels}>
+                  ¿Tienes un código promocional?
+                </label>
+              </div>
+              {incluirCodigo && (
+                <div className={styles.aplicar}>
+                  <input
+                    className={styles.codigoPromocionalInput}
+                    type="text"
+                    placeholder="Codigo Promocional"
+                    {...register("discountCode", {
+                      //! validate : promoCode debemos añadir en futuro ...
+                    })}
+                  />
+                  <button className={styles.aplicarbtn}>Aplicar</button>
+                </div>
+              )}
+              <div className={styles.whatsapp}>
+                <input type="checkbox" {...register("whatsapp")} />
+                <label className={styles.bottomLabels}>
+                  Acepto recibir actualizaciones de Gloton a través de WhatsApp
+                  o plataformas similares
+                </label>
+              </div>
+              <div className={styles.privacidad}>
+                <input
+                  type="checkbox"
+                  {...register("privacy", {
+                    required: "Debe aceptar la política de privacidad",
+                  })}
+                />
+                <label className={styles.bottomLabels}>
+                  Acepto la politica de privacidad
+                </label>
+                {errors.privacidad && <p>{errors.privacidad.message}</p>}
+              </div>
+            </div>
+            <div className={styles.submit}>
+              <button
+                id={styles.miInputId}
+                type="submit"
+                disabled={isSubmitting}
+              >
+                Registrarse
+              </button>
+            </div>
+          </form>
         </div>
-        <div>
-          <label className={styles.ciudad}></label>
-          <input
-            type="text"
-            placeholder="Ciudad"
-            {...register("city", {
-              validate: validateCity,
-            })}
-          />
-          {errors["ciudad"] && <p>{errors["city"].message}</p>}
-        </div>
-        <div>
-          <label className={styles.negocio}></label>
-          <input
-            type="text"
-            placeholder="Nombre del negocio"
-            {...register("brandName")}
-          />
-        </div>
-        <div className={styles.nombreApellidos}>
-          <div>
-            <label className={styles.nombre}></label>
-            <input
-              type="text"
-              placeholder="Nombre"
-              {...register("firstName")}
-            />
-          </div>
-          <div>
-            <label className={styles.apellidos}></label>
-            <input
-              type="text"
-              placeholder="Apellidos"
-              {...register("lastName")}
-            />
-          </div>
-        </div>
-        <div>
-          <label className={styles.email}></label>
-          <input
-            type="email"
-            placeholder="Email"
-            {...register("email", { validate: emailValidator })}
-          />
-          {errors["email"] && <p>{errors["email"].message}</p>}
-        </div>
-        <div>
-          <label className={styles.telefono}></label>
-          <input
-            type="password"
-            placeholder="Password"
-            {...register("password")}
-          />
-        </div>
-        <div>
-          <label className={styles.telefono}></label>
-          <input
-            type="text"
-            placeholder="Telefono"
-            {...register("phone", {
-              validate: phoneValidator,
-            })}
-          />
-          {errors["phone"] && <p>{errors["phone"].message}</p>}
-        </div>
-        <label></label>
-        <select className={styles.options} {...register("category")}>
-          <option value="category">Tipo de establecimiento</option>
-          <option value="restaurante">
-            Restaurante (cafeteria, brunch y panaderia, helados, zumos y
-            smoothies...)
-          </option>
-          <option value="farmacia">Farmacia</option>
-          <option value="tienda">
-            Tienda (regalos, belleza, electronica, tienda de mascotas...)
-          </option>
-          <option value="lofisteria">Floristeria</option>
-        </select>
-        <div className={styles.codigo}>
-          <input type="checkbox" {...register("incluirCodigo")} />
-          <label>¿Tienes un código promocional?</label>
-        </div>
-        {discountCode && (
-          <div className={styles.aplicar}>
-            <input
-              type="text"
-              placeholder="Codigo Promocional"
-              {...register("discountCode", {
-                //! validate : promoCode debemos añadir en futuro ...
-              })}
-            />
-            <button className={styles.aplicarbtn}>Aplicar</button>
-          </div>
-        )}
-        <div className={styles.whatsapp}>
-          <input type="checkbox" {...register("whatsapp")} />
-          <label>
-            Acepto recibir actualizaciones de Gloton a tarves de WhatsApp o
-            plataformas similares
-          </label>
-        </div>
-        <div className={styles.privacidad}>
-          <input
-            type="checkbox"
-            {...register("privacy", {
-              required: "Debe aceptar la política de privacidad",
-            })}
-          />
-          <label>Acepto la politica de privacidad</label>
-          {errors.privacidad && <p>{errors.privacidad.message}</p>}
-        </div>
-        <div className={styles.submit}>
-          <button
-            className={styles.submitbtn}
-            id={styles.miInputId}
-            type="submit"
-            disabled={isSubmitting}
-          >
-            Registrarse
-          </button>
-        </div>
-      </form>
-    </div>
+      </div>
+    </Modal>
   );
-};
+
+
+
 
 export default Formulario;

@@ -93,7 +93,7 @@ input::placeholder {
 .inputContainer {
   display: flex;
 
-  width: 80%;
+  width: 90%;
 }
 
 .agregarTarjeta {
@@ -105,12 +105,34 @@ input::placeholder {
   font-size: 15px;
   padding: 0 20px;
   margin-top: 10px;
+  font-family: "quicksand";
+  transition: 0.2s;
+}
+
+.agregarTarjeta:hover {
+  background-color: white;
+  scale: 1.02;
+  color: var(--secondary-color);
+  box-shadow: 0 0 16px 0px var(--secondary-color);
+  animation: PulsingShadow 2s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes PulsingShadow {
+  from {
+    box-shadow: 0 -1px 16px 0px var(--secondary-color);
+  }
+  50% {
+    box-shadow: 0 1px 13px 2px var(--secondary-color);
+  }
+  to {
+    box-shadow: 0 -1px 16px 0px var(--secondary-color);
+  }
 }
 
 .topText {
   display: flex;
   flex-direction: column;
-  gap: 10px;
 }
 
 .closeButton {
@@ -152,4 +174,24 @@ input::placeholder {
   font-weight: bold;
   font-size: 15px;
   padding: 0 20px;
+  font-family: "quicksand";
+}
+
+.confirmButton:hover {
+  background-color: white;
+  scale: 1.02;
+  color: var(--secondary-color);
+  box-shadow: 0 0 16px 0px var(--secondary-color);
+}
+
+.mapContainer {
+  height: 200px;
+  width: 90%;
+  border-radius: 20px;
+  overflow: hidden;
+  margin: 0 5px;
+}
+
+.formElement {
+  width: 100%;
 }

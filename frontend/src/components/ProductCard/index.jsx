@@ -30,7 +30,7 @@ export default function ProductCard({
         <img className={styles.productImg} src={productImg} alt="" />
         <div className={styles.textContainer}>
           <h5>{productName}</h5>
-          <p>{productDescription}</p>
+          <p className={styles.description}>{productDescription}</p>
         </div>
       </div>
       <div className={styles.bottomContainer}>

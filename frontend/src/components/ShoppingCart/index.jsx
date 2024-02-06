@@ -122,6 +122,7 @@ export default function ShoppingCart({
         productos={productos}
         closeModal={closeModal}
         totalPrice={totalPrice}
+        transportPrice={restaurante.transporte}
       />
     </div>
   );

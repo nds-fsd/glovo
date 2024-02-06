@@ -17,7 +17,6 @@ export default function RestaurantGrid() {
         console.error("Error al obtener los datos de los restaurantes:", error);
       }
     };
-
     obtenerRestaurantes();
   }, []);
 
