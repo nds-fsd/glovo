@@ -6,6 +6,7 @@
   /* background-color: brown; */
   background-color: rgb(188, 219, 219);
   height: 620px;
+  margin-top: 80px;
 }
 .box1 {
   display: grid;

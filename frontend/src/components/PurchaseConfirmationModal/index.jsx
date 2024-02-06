@@ -58,14 +58,6 @@ export default function PurchaseConfirmationModal({
     setOrder(orderArray);
   };
 
-<<<<<<< HEAD
-  const [cardModalIsOpen, setCardModalIsOpen] = useState(false);
-  const [addressModalIsOpen, setAddressModalIsOpen] = useState(false);
-
-  const [confirmationAnimation, setConfirmationAnimation] = useState(false);
-
-=======
->>>>>>> Sprint-4
   const openCardModal = () => {
     setCardModalIsOpen(true);
   };

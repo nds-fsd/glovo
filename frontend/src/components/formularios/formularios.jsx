@@ -15,14 +15,12 @@ export const Formulario = ({ formulariosIsOpen, setFormulariosIsOpen }) => {
     formState: { errors },
     watch,
     handleSubmit,
-  const {
-    register,
-    formState: { errors },
-    watch,
-    handleSubmit,
     setValue,
   } = useForm();
-  } = useForm();
+
+  const ref = useOnclickOutside(() => {
+    setFormulariosIsOpen(false);
+  });
 
   const navigate = useNavigate();
   const discountCode = watch("discountCode");
@@ -57,9 +55,8 @@ export const Formulario = ({ formulariosIsOpen, setFormulariosIsOpen }) => {
     } finally {
       setIsSubmitting(false);
     }
-  
   };
-  
+
   return (
     <Modal
       parentSelector={() => document.querySelector("#root")}
@@ -134,7 +131,7 @@ export const Formulario = ({ formulariosIsOpen, setFormulariosIsOpen }) => {
               <input
                 type="email"
                 placeholder="Email"
-                {...register("email", { validate: mailValidator })}
+                {...register("email", { validate: emailValidator })}
               />
               {errors["email"] && <p>{errors["email"].message}</p>}
             </div>
@@ -158,14 +155,8 @@ export const Formulario = ({ formulariosIsOpen, setFormulariosIsOpen }) => {
               {errors["phone"] && <p>{errors["phone"].message}</p>}
             </div>
             <label></label>
-            <select
-              className={styles.options}
-              {...register("category")}
-            >
-              <option
-                className={styles.individualOption}
-                value="category"
-              >
+            <select className={styles.options} {...register("category")}>
+              <option className={styles.individualOption} value="category">
                 Tipo de establecimiento
               </option>
               <option className={styles.individualOption} value="restaurante">
@@ -189,7 +180,7 @@ export const Formulario = ({ formulariosIsOpen, setFormulariosIsOpen }) => {
                   ¿Tienes un código promocional?
                 </label>
               </div>
-              {incluirCodigo && (
+              {discountCode && (
                 <div className={styles.aplicar}>
                   <input
                     className={styles.codigoPromocionalInput}
@@ -236,8 +227,6 @@ export const Formulario = ({ formulariosIsOpen, setFormulariosIsOpen }) => {
       </div>
     </Modal>
   );
-
-
-
+};
 
 export default Formulario;
