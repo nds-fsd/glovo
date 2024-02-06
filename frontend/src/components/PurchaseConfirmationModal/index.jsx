@@ -4,14 +4,12 @@ import Modal from "react-modal";
 import flagIcon from "../../assets/icons/flag-svgrepo-com.svg";
 import walletIcon from "../../assets/icons/credit-card-svgrepo-com.svg";
 import { AnimatePresence, motion } from "framer-motion";
-import { useNavigate } from "react-router";
 import "react-credit-cards-2/dist/es/styles-compiled.css";
 import AddressModal from "../AddressModal";
 import CreditCardModal from "../CreditCardModal";
 import styles from "../PurchaseConfirmationModal/styles.module.css";
 import { BounceLoader } from "react-spinners";
 import { CartContext } from "../../contexts/CartContext";
-import useOnclickOutside from "react-cool-onclickoutside";
 import { UserContext } from "../../contexts/UserContext";
 import ErrorModal from "../ErrorModal";
 import { postOrder } from "../../utils/api";
@@ -19,8 +17,8 @@ import { postOrder } from "../../utils/api";
 Modal.setAppElement("#root");
 
 export default function PurchaseConfirmationModal({
-  closeModal,
-  modalIsOpen,
+  setPurchaseConfirmationModalIsOpen,
+  purchaseConfirmationModalIsOpen,
   productos,
   totalPrice,
   location,
@@ -109,14 +107,23 @@ export default function PurchaseConfirmationModal({
     setAddressModalIsOpen(false);
   };
 
-  const navigate = useNavigate();
-
   return (
     <AnimatePresence>
-      {modalIsOpen && (
+      <ErrorModal isErrorModalOpen={isErrorModalOpen} error={error} />
+      <AddressModal
+        addressModalIsOpen={addressModalIsOpen}
+        closeAddressModal={closeAddressModal}
+        handleSaveClickAddress={setOptionalAddress}
+      />
+      <CreditCardModal
+        cardModalIsOpen={cardModalIsOpen}
+        closeCardModal={closeCardModal}
+        handleSaveClickCard={setOptionalCreditCard}
+      />
+      {purchaseConfirmationModalIsOpen && (
         <Modal
           className={styles.modalContent}
-          isOpen={modalIsOpen}
+          isOpen={purchaseConfirmationModalIsOpen}
           overlayClassName={styles.modalOverlay}
           parentSelector={() => document.querySelector("#root")}
         >
@@ -138,7 +145,10 @@ export default function PurchaseConfirmationModal({
                     transition={{ ease: "easeOut", duration: 0.2 }}
                     className={styles.mainContainer}
                   >
-                    <button onClick={closeModal} className={styles.closeButton}>
+                    <button
+                      onClick={() => setPurchaseConfirmationModalIsOpen(false)}
+                      className={styles.closeButton}
+                    >
                       X
                     </button>
                     <h2>Buen provecho!</h2>
@@ -214,16 +224,6 @@ export default function PurchaseConfirmationModal({
                   </motion.div>
                 )}
             </AnimatePresence>
-            <AddressModal
-              addressModalIsOpen={addressModalIsOpen}
-              closeAddressModal={closeAddressModal}
-              handleSaveClickAddress={setOptionalAddress}
-            />
-            <CreditCardModal
-              cardModalIsOpen={cardModalIsOpen}
-              closeCardModal={closeCardModal}
-              handleSaveClickCard={setOptionalCreditCard}
-            />
             {confirmationAnimation && (
               <motion.div
                 initial={{ opacity: 0, scale: 0 }}
@@ -300,7 +300,6 @@ export default function PurchaseConfirmationModal({
               </motion.div>
             )}
           </motion.div>
-          <ErrorModal isErrorModalOpen={isErrorModalOpen} error={error} />
         </Modal>
       )}
     </AnimatePresence>

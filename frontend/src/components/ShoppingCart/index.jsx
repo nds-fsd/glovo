@@ -16,15 +16,8 @@ export default function ShoppingCart({
   setShoppingList,
   fix,
 }) {
-  let [modalIsOpen, setIsOpen] = useState(false);
-
-  const openModal = () => {
-    setIsOpen(true);
-  };
-
-  const closeModal = () => {
-    setIsOpen(false);
-  };
+  const [purchaseConfirmationModalIsOpen, setPurchaseConfirmationModalIsOpen] =
+    useState(false);
 
   const ammountHandler = (e, operation) => {
     const ProductIndex = shoppingList.findIndex((o) => o.id === e.id);
@@ -122,12 +115,14 @@ export default function ShoppingCart({
             <div className={styles.transportContainer}>
               <img className={styles.scooterIcon} src={scooterIcon} alt="" />
               <p>
-                {" "}
                 Tasas de tranporte
-                <b> {restaurante.transporte}</b>{" "}
+                <b> {restaurante.transporte}</b>
               </p>
             </div>
-            <button onClick={openModal} className={styles.buyButton}>
+            <button
+              onClick={() => setPurchaseConfirmationModalIsOpen(true)}
+              className={styles.buyButton}
+            >
               Comprar por {totalPrice}€
             </button>
           </div>
@@ -136,9 +131,9 @@ export default function ShoppingCart({
 
       <PurchaseConfirmationModal
         shoppingList={shoppingList}
-        modalIsOpen={modalIsOpen}
+        purchaseConfirmationModalIsOpen={purchaseConfirmationModalIsOpen}
         productos={productos}
-        closeModal={closeModal}
+        setPurchaseConfirmationModalIsOpen={setPurchaseConfirmationModalIsOpen}
         totalPrice={totalPrice}
         transportPrice={restaurante.transporte}
         restaurante={restaurante}

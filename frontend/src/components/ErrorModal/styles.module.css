@@ -23,10 +23,9 @@
 
 .mainContainer {
   margin-top: 150px;
-  height: 100px;
+  height: 10px;
   width: fit-content;
   background-color: white;
-  z-index: 9999999999;
   position: relative;
   height: fit-content;
   width: 300px;
@@ -36,13 +35,13 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 20px;
+  padding: 15px;
   gap: 5px;
   box-shadow: 0 0 30px rgba(0, 0, 0, 0.267);
 }
 
 .crossIcon {
-  height: 40px;
+  height: 20px;
   position: absolute;
   left: 20px;
   z-index: 99999999999;
@@ -50,5 +49,6 @@
 }
 
 .errorText {
-  margin-left: 60px;
+  margin-left: 25px;
+  font-weight: 400;
 }
