@@ -41,7 +41,8 @@ export default function PurchaseConfirmationModal({
     try {
       console.log(data);
       const response = await postOrder(data);
-      if (response == 200) {
+      console.log(response);
+      if (response.status === 201) {
         console.log("verygud");
       } else {
         console.log("Error en tus credenciales");
@@ -87,6 +88,8 @@ export default function PurchaseConfirmationModal({
       productList: productList,
       user_id: user._id,
       restaurante_id: restaurante._id,
+      address: optionalAddress || user.address,
+      billing: optionalCreditCard || user.creditCard,
     };
     return orderObject;
   };

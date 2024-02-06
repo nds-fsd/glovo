@@ -16,9 +16,11 @@ export const api = axios.create({
 
 export const postOrder = async (data) => {
   try {
-    await axios.post(`${BASE_URL}/orders`, data);
+    const response = await axios.post(`${BASE_URL}/orders`, data);
+    return response;
   } catch (error) {
     console.error("Error al crear tu pedido:", error);
+    throw error;
   }
 };
 

@@ -2,6 +2,8 @@ const mongoose = require("mongoose");
 
 const orderSchema = new mongoose.Schema({
   productList: Array,
+  address: String,
+  billing: Object,
   restaurante: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Restaurante",

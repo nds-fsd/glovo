@@ -1,6 +1,6 @@
 const Order = require("../schema/OrderSchema");
 
-// Get all products from MongoD B
+// Get all orders from MongoDB
 
 exports.getOrders = async (req, res) => {
   try {
@@ -11,7 +11,7 @@ exports.getOrders = async (req, res) => {
   }
 };
 
-// Get a specific product by ID from MongoDB
+// Get a specific order by ID from MongoDB
 
 exports.getOrderById = async (req, res) => {
   const orderId = req.params.id;
@@ -27,49 +27,45 @@ exports.getOrderById = async (req, res) => {
   }
 };
 
-// Create a new product and save it to MongoDB
+// Create a new order and save it to MongoDB
 
 exports.createOrder = async (req, res) => {
   const data = req.body;
-  console.log(req.body);
-  // * Make sure request has the email
-  if (!data) {
-    return res.status(400).json({ error: { register: "Email not recieved" } });
-  }
-  console.log(data);
-  const newOrder = new Order({
-    productList: data.productList,
-    user: data.user_id,
-    restaurante: data.restaurante_id,
-  });
 
-  newOrder
-    .save()
-    .then((createdOrder) => {
-      console.log("exito");
+  if (!data.billing) {
+    return res.status(400).json({ error: "Billing information not received" });
+  } else {
+    try {
+      const newOrder = new Order({
+        productList: data.productList,
+        user: data.user_id,
+        restaurante: data.restaurante_id,
+        billing: data.billing,
+        address: data.address,
+      });
+
+      const createdOrder = await newOrder.save();
+
       return res.status(201).json({
         order: {
           _id: createdOrder._id,
           productList: createdOrder.productList,
           user: createdOrder.user_id,
           restaurante: createdOrder.restaurante_id,
+          billing: createdOrder.billing,
+          address: createdOrder.address,
         },
       });
-    })
-    .catch((err) => {
+    } catch (err) {
       return res.status(500).json({
-        error: {
-          message: "Error creating new User :(",
-          details: err.message,
-        },
+        error: "Error creating new Order",
+        details: err.message,
       });
-    })
-    .catch((err) => {
-      return res.status(500).json({ error: err.message });
-    });
+    }
+  }
 };
 
-// Update product and save it to MongoDB
+// Update order and save it to MongoDB
 
 exports.updateOrder = async (req, res) => {
   const orderId = req.params.id;
