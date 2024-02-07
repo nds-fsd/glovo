@@ -119,7 +119,7 @@ export default function RestaurantPage({}) {
               <div className={styles.headerBackgroundContainer}>
                 <img
                   className={styles.headerBackgroundImg}
-                  src={restaurante.imagen}
+                  src={restaurante.img}
                   alt=""
                 />
               </div>

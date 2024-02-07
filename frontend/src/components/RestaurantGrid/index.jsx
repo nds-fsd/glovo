@@ -30,12 +30,12 @@ export default function RestaurantGrid() {
                 key={e._id}
                 restaurantCardImg={restaurantImg}
                 restaurantCategory={e.categoria}
-                restaurantName={e.nombre}
+                restaurantName={e.brandName}
                 opinionCount={e.votos}
                 likeRatio={e.puntuacion}
                 shipping={e.transporte}
                 id={e._id}
-                img={e.imagen}
+                img={e.img}
                 transporte={e.transporte}
                 offer={e.oferta}
               />

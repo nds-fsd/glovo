@@ -13,6 +13,7 @@ import { CartContext } from "../../contexts/CartContext";
 import { UserContext } from "../../contexts/UserContext";
 import ErrorModal from "../ErrorModal";
 import { postOrder } from "../../utils/api";
+import { useNavigate } from "react-router";
 
 Modal.setAppElement("#root");
 
@@ -36,6 +37,9 @@ export default function PurchaseConfirmationModal({
   const [error, setError] = useState();
   let { shoppingList, setShoppingList } = useContext(CartContext);
   let { user } = useContext(UserContext);
+  let { order, setOrder } = useContext(OrderContext);
+
+  const navigate = useNavigate();
 
   const postCreatedOrder = async (data) => {
     try {
@@ -44,6 +48,7 @@ export default function PurchaseConfirmationModal({
       console.log(response);
       if (response.status === 201) {
         console.log("verygud");
+        setOrder(response.data.order);
       } else {
         console.log("Error en tus credenciales");
         setShoppingList([]);
@@ -59,6 +64,7 @@ export default function PurchaseConfirmationModal({
       (user.creditCard || optionalCreditCard)
     ) {
       postCreatedOrder(createOrder(restaurante, user));
+
       setConfirmationAnimation(true);
       setTimeout(() => {
         navigate("/confirmation");

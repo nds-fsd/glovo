@@ -1,5 +1,19 @@
 const Order = require("../schema/OrderSchema");
 
+function createDate() {
+  const now = new Date(); // Definimos 'now' dentro de la función
+  const day = now.getDate().toString().padStart(2, "0");
+  const month = (now.getMonth() + 1).toString().padStart(2, "0"); // Los meses comienzan en 0
+  const year = now.getFullYear();
+  const hours = now.getHours().toString().padStart(2, "0");
+  const minutes = now.getMinutes().toString().padStart(2, "0");
+  const seconds = now.getSeconds().toString().padStart(2, "0");
+
+  const formattedDate = `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
+
+  return formattedDate;
+}
+
 // Get all orders from MongoDB
 
 exports.getOrders = async (req, res) => {
@@ -42,6 +56,7 @@ exports.createOrder = async (req, res) => {
         restaurante: data.restaurante_id,
         billing: data.billing,
         address: data.address,
+        date: createDate(),
       });
 
       const createdOrder = await newOrder.save();
@@ -54,6 +69,7 @@ exports.createOrder = async (req, res) => {
           restaurante: createdOrder.restaurante_id,
           billing: createdOrder.billing,
           address: createdOrder.address,
+          date: createdOrder.date,
         },
       });
     } catch (err) {

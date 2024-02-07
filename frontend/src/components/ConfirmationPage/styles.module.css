@@ -1,8 +1,28 @@
 .viewport {
   height: fit-content;
-  width: 100vw;
-  padding-top: 100px;
+  width: 100%;
   padding-bottom: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.mainContainer {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 50px;
+  height: fit-content;
+  padding: 0;
+}
+
+.extraInfo {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  gap: 50px;
 }
 
 .confirmationHeader {
@@ -14,15 +34,17 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  padding-top: 150px;
   gap: 30px;
+  width: 100%;
 }
 
 .individualItemContainer {
-  background-color: rgba(245, 233, 141, 0.277);
+  background-color: rgba(255, 242, 142, 0.342);
   padding: 10px;
   border-radius: 25px;
   width: 300px;
-  height: 50px;
+  height: 20px;
   border: 2px solid transparent;
   display: flex;
   flex-direction: column;
@@ -31,7 +53,6 @@
   text-wrap: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
-  box-shadow: 0 0 40px 0px rgba(0, 0, 0, 0.188);
   transition-property: border;
   transition: 0.3s;
 }
@@ -58,7 +79,7 @@
 .listContainer {
   padding-top: 20px;
   display: flex;
-  width: 100%;
+
   align-items: center;
   justify-content: center;
 }

@@ -2,6 +2,8 @@ import styles from "../SearchBar/styles.module.css";
 import searchIcon from "../../assets/icons/search-svgrepo-com.svg";
 
 export default function SearchBar() {
+  // Encuentra el elemento input
+
   return (
     <div className={styles.searchBar}>
       <div className={styles.inputContainer}>

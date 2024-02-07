@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const orderSchema = new mongoose.Schema({
   productList: Array,
   address: String,
+  date: String,
   billing: Object,
   restaurante: {
     type: mongoose.Schema.Types.ObjectId,
