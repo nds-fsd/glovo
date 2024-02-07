@@ -1,18 +1,18 @@
 const bcrypt = require("bcryptjs");
 const User = require("../schema/usersSchema");
-const { encryptValue } = require("../utils");
 
 exports.createUser = async (req, res) => {
   console.log("Datos recibidos:", req.body);
   try {
-    if (!req.body.password) {
+    const { password, firstname, created_date, email, phone } = req.body;
+    if (!password) {
       return res.status(400).json({ error: "La contraseña no está definida" });
     }
 
-    const encryptedPassword = await encryptValue(req.body.password);
+    const encryptedPassword = await bcrypt.hash(password, 10);
     const newUser = await User.create({
       firstname,
-      password,
+      encrypted_password: encryptedPassword, // Asegúrate de usar el nombre correcto del campo según tu esquema
       created_date,
       email,
       phone,
@@ -49,9 +49,7 @@ exports.updateUser = async (req, res) => {
   const updates = req.body;
 
   try {
-    const updatedUser = await User.findByIdAndUpdate(userId, updates, {
-      new: true,
-    });
+    const updatedUser = await User.findByIdAndUpdate(userId, updates, { new: true });
 
     if (updatedUser) {
       res.json({
@@ -87,10 +85,7 @@ exports.changePassword = async (req, res) => {
       return res.status(404).json({ error: "Usuario no encontrado" });
     }
 
-    const isMatch = await bcrypt.compare(
-      currentPassword,
-      user.encrypted_password
-    );
+    const isMatch = await bcrypt.compare(currentPassword, user.encrypted_password);
     if (!isMatch) {
       return res.status(400).json({ error: "Contraseña actual incorrecta" });
     }
@@ -108,20 +103,17 @@ exports.loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    // Buscar al usuario por correo electrónico
     const user = await User.findOne({ email });
     if (!user) {
       return res.status(401).json({ error: "Credenciales incorrectas" });
     }
 
-    // Comparar la contraseña proporcionada con la almacenada
-    const isMatch = await user.comparePassword(password);
+    const isMatch = await bcrypt.compare(password, user.encrypted_password);
     if (!isMatch) {
       return res.status(401).json({ error: "Credenciales incorrectas" });
     }
 
-    // Generar un token JWT
-    const token = user.generateJWT();
+    const token = user.generateJWT(); // Asegúrate de que este método esté correctamente implementado en tu esquema de usuario
     res.json({ message: "Login exitoso", token });
   } catch (err) {
     res.status(500).json({ error: "Error interno del servidor" });
