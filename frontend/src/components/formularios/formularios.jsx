@@ -5,10 +5,15 @@ import { emailValidator, phoneValidator, validateCity } from "./validators";
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { api } from "../../utils/api";
+<<<<<<< HEAD
 import Modal from "react-modal";
 import useOnclickOutside from "react-cool-onclickoutside";
 
 export const Formulario = ({ formulariosIsOpen, setFormulariosIsOpen }) => {
+=======
+
+export const Formulario = () => {
+>>>>>>> d2a910d (commit de Formularios)
   const params = useParams();
   const {
     register,
@@ -42,10 +47,15 @@ export const Formulario = ({ formulariosIsOpen, setFormulariosIsOpen }) => {
       setIsDone(true);
     } catch (error) {
       if (error.response) {
+<<<<<<< HEAD
+=======
+        // La respuesta fue hecha por el servidor con un código de estado fuera del rango 2xx
+>>>>>>> d2a910d (commit de Formularios)
         console.error("Error data:", error.response.data);
         console.error("Error status:", error.response.status);
         setSubmitError("Error from server: " + error.response.data.message);
       } else if (error.request) {
+<<<<<<< HEAD
         console.error("No response:", error.request);
         setSubmitError("No response from server");
       } else {
@@ -54,9 +64,18 @@ export const Formulario = ({ formulariosIsOpen, setFormulariosIsOpen }) => {
       }
     } finally {
       setIsSubmitting(false);
+=======
+        // La solicitud fue hecha pero no hubo respuesta
+        console.error("No response:", error.request);
+        setSubmitError("No response from server");
+      } else {
+        // Algo ocurrió al configurar la solicitud que disparó un error
+        console.error("Error:", error.message);
+        setSubmitError("Error: " + error.message);
+      }
+>>>>>>> d2a910d (commit de Formularios)
     }
   };
-
   return (
     <Modal
       parentSelector={() => document.querySelector("#root")}
