@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { OrderContext } from "../../contexts/OrderContext";
 import Modal from "react-modal";
 import flagIcon from "../../assets/icons/flag-svgrepo-com.svg";
@@ -37,9 +37,18 @@ export default function PurchaseConfirmationModal({
   const [error, setError] = useState();
   let { shoppingList, setShoppingList } = useContext(CartContext);
   let { user } = useContext(UserContext);
-  let { order, setOrder } = useContext(OrderContext);
+  let [order, setOrder] = useState(OrderContext);
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (order && order._id) {
+      setConfirmationAnimation(true);
+      setTimeout(() => {
+        navigate("/confirmation/" + order._id);
+      }, 3000);
+    }
+  }, [order]);
 
   const postCreatedOrder = async (data) => {
     try {
@@ -47,7 +56,6 @@ export default function PurchaseConfirmationModal({
       const response = await postOrder(data);
       console.log(response);
       if (response.status === 201) {
-        console.log("verygud");
         setOrder(response.data.order);
       } else {
         console.log("Error en tus credenciales");
@@ -58,17 +66,16 @@ export default function PurchaseConfirmationModal({
     }
   };
 
-  const handleConfirmButton = () => {
+  const handleConfirmButton = async () => {
     if (
       (user.address || optionalAddress) &&
       (user.creditCard || optionalCreditCard)
     ) {
-      postCreatedOrder(createOrder(restaurante, user));
-
-      setConfirmationAnimation(true);
-      setTimeout(() => {
-        navigate("/confirmation");
-      }, 3000);
+      try {
+        await postCreatedOrder(createOrder(restaurante, user));
+      } catch (error) {
+        console.error("Error al crear el pedido:", error);
+      }
     } else {
       setError("Añada la direccion o el método de pago");
       setIsErrorModalOpen(true);
@@ -93,7 +100,7 @@ export default function PurchaseConfirmationModal({
     const orderObject = {
       productList: productList,
       user_id: user._id,
-      restaurante_id: restaurante._id,
+      restaurante_id: productList[0].producto.restaurante,
       address: optionalAddress || user.address,
       billing: optionalCreditCard || user.creditCard,
     };

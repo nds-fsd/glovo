@@ -114,3 +114,16 @@
   overflow: hidden;
   box-shadow: 0 0 20px 7px rgba(0, 0, 0, 0.106);
 }
+
+.restaurantIcon {
+  height: 70px;
+  width: 70px;
+  border-radius: 25px;
+}
+.restaurantInfo {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  align-items: center;
+  justify-content: center;
+}
