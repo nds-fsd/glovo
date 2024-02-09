@@ -7,7 +7,7 @@ import { useParams } from "react-router";
 
 const DashBoard = () => {
   const [setProducts] = useState([]);
-  // const [restaurantProducts, setRestaurantProducts] = useState([]);
+  const [restaurantProducts, setRestaurantProducts] = useState([]);
   const [newProduct, setNewProduct] = useState("");
   const [restaurante, setRestaurante] = useState([]);
 
@@ -18,45 +18,45 @@ const DashBoard = () => {
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
   };
-  // const products = [
-  //   {
-  //     id: 1,
-  //     name: "Producto 1",
-  //   },
-  //   {
-  //     id: 2,
-  //     name: "Producto 2",
-  //   },
-  // ];
+  const products = [
+    {
+      id: 1,
+      name: "Producto 1",
+    },
+    {
+      id: 2,
+      name: "Producto 2",
+    },
+  ];
 
-  // // Filtrar productos basados en el término de búsqueda
-  // const filteredProducts = products.filter((product) =>
-  //   product.name.toLowerCase().includes(searchTerm.toLowerCase())
-  // );
+  // Filtrar productos basados en el término de búsqueda
+  const filteredProducts = products.filter((product) =>
+    product.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
-  // const filteredRestaurantProducts = restaurantProducts.filter((product) =>
-  //   product.name.toLowerCase().includes(searchTerm.toLowerCase())
-  // );
-  // const settings = {
-  //   dots: true,
-  //   infinite: true,
-  //   speed: 500,
-  //   slidesToShow: 3,
-  //   slidesToScroll: 1,
-  // };
+  const filteredRestaurantProducts = restaurantProducts.filter((product) =>
+    product.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 3,
+    slidesToScroll: 1,
+  };
   useEffect(() => {
     // Fetch restaurant data from an API
-    // fetch("/restaurantes/:id")
-    //   .then((response) => {
-    //     if (!response.ok) {
-    //       throw new Error("Network response was not ok");
-    //     }
-    //     return response.json();
-    //   })
-    //   .then((data) => setRestaurant(data))
-    //   .catch((error) =>
-    //     console.error("Error fetching restaurant data:", error)
-    //   );
+    fetch("/restaurantes/:id")
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
+      })
+      .then((data) => setRestaurant(data))
+      .catch((error) =>
+        console.error("Error fetching restaurant data:", error)
+      );
   }, []); // Empty dependency array means this runs once on component mount
 
   useEffect(() => {
@@ -110,7 +110,7 @@ const DashBoard = () => {
           value={searchTerm}
           onChange={handleSearchChange}
         />
-        {/* {filteredRestaurantProducts.length > 0 ? (
+        {filteredRestaurantProducts.length > 0 ? (
           <ul>
             {filteredRestaurantProducts.map((product) => (
               <li key={product.id}>{product.name}</li>
@@ -118,8 +118,8 @@ const DashBoard = () => {
           </ul>
         ) : (
           <p className={styles.p}></p>
-        )} */}
-        {/* <Slider className={styles.slider} {...settings}>
+        )}
+        <Slider className={styles.slider} {...settings}>
           {products.map((product) => (
             <div key={product.id}>
               <img src={product.img} alt={product.name} />
@@ -127,7 +127,7 @@ const DashBoard = () => {
               Otros detalles del producto
             </div>
           ))}
-        </Slider> */}
+        </Slider>
         <div className={styles.modifyBtn}>
           <button className={styles.add}>Añadir</button>
           <button className={styles.delete}>Borrar</button>
