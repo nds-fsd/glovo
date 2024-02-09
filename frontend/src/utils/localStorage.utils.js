@@ -44,3 +44,22 @@ export const setUserSession = (sessionData) => {
 export const removeSession = () => {
   deleteStorageObject("user-session");
 };
+
+export const isSessionActive = () => {
+  const token = getUserToken(); 
+  if (!token) return false; 
+
+  try {
+    const decodedToken = jwtDecode(token);
+    const currentTime = Date.now() / 1000; 
+    if (decodedToken.exp < currentTime) {
+     
+      removeSession(); 
+      return false;
+    }
+    return true; 
+  } catch (error) {
+    console.error("Error decoding token:", error);
+    return false; 
+  }
+};

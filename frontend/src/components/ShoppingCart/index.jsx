@@ -16,10 +16,16 @@ export default function ShoppingCart({
   setShoppingList,
   fix,
 }) {
-  let [modalIsOpen, setIsOpen] = useState(false);
-
+  
+  const [modalIsOpen, setIsOpen] = useState(false);
   const openModal = () => {
-    setIsOpen(true);
+    const token = localStorage.getItem("token");
+    if (!token) {
+  
+      window.dispatchEvent(new CustomEvent("open-login-modal"));
+    } else {
+      setIsOpen(true);
+    }
   };
 
   const closeModal = () => {
@@ -41,6 +47,7 @@ export default function ShoppingCart({
     setShoppingList(updatedShoppingList);
   };
 
+  
   return (
     <div className={styles.shoppingCartContainer}>
       <section className={fix ? styles.shoppingCart : styles.shoppingCartFixed}>

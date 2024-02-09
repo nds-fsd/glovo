@@ -218,6 +218,7 @@ function PerfilUsuario({
     
     try {
       // Llama a handlePasswordChangeSubmit con los datos del formulario y el usuario actual
+      console.log(data);
       await handlePasswordChangeSubmit(data, user, () => setIsChangePasswordModalOpen(false));
       // mostrar un mensaje de éxito
     } catch (error) {

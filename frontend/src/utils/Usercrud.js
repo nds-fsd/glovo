@@ -1,6 +1,8 @@
 import axios from "axios";
 import { setUserSession, setStorageObject } from "./localStorage.utils";
 import { getStorageObject } from "./localStorage.utils";
+// import { api } from "./api";
+
 
 const API_BASE_URL = "http://localhost:3001";
 
@@ -11,6 +13,8 @@ const api = axios.create({
     "Content-Type": "application/json",
   },
 });
+
+
 
 export const handleInitialRegistrationSubmit = async (
   data,
@@ -72,15 +76,20 @@ export const handleProfileUpdateSubmit = async (
 };
 
 export const handlePasswordChangeSubmit = async (data, user, closeModal) => {
-  const { currentPassword, newPassword, confirmPassword } = data;
-  if (newPassword !== confirmPassword) {
-    alert("Las nuevas contraseñas no coinciden.");
+  const { currentPassword, newPassword, confirmNewPassword } = data;
+  console.log(newPassword, confirmNewPassword);
+  if (newPassword !== confirmNewPassword) {
+    alert("confirmPassword nuevas contraseñas no coinciden!!!!.");
     return;
   }
   try {
-    await axios.patch(`${API_BASE_URL}/users/change-password/${user._id}`, {
+    await api.patch(`${API_BASE_URL}/users/change-password/${user._id}`, {
       currentPassword,
       newPassword,
+    }, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     });
     alert("Contraseña actualizada con éxito");
     closeModal();
