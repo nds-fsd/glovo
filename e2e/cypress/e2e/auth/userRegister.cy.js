@@ -1,4 +1,4 @@
-describe("Login Flow", () => {
+describe("User Register", () => {
   beforeEach(() => {
     cy.visit("http://localhost:3003");
   });
