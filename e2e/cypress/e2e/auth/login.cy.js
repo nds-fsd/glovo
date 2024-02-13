@@ -11,12 +11,25 @@ describe("Login Flow", () => {
     cy.contains("Iniciar Sesión").click();
     cy.get('input[placeholder="Cuál es tu dirección?"]').type("nuclio");
     cy.get("ul > li").first().click();
-    cy.get("._restaurantGrid_1be8d_15", { timeout: 10000 })
-      .should("be.visible")
-      .find("._mainContainer_17otr_1")
-      .first()
-      .click();
-    // cy.get('button[class="button._addToCart_1e8zj_50"]').first().click();
+    cy.get("#grid")
+      .should("exist")
+      .and("be.visible")
+      .then(() => {
+        cy.get("#grid")
+          .children()
+          .first()
+          .should("exist")
+          .and("be.visible")
+          .click();
+      });
+    // cy.get("#grid").children().first().click();
+    // .then((firstChild) => [cy.get(firstChild.click())]);
+    // cy.get("._restaurantGrid_1be8d_15", { timeout: 10000 })
+    //   .should("be.visible")
+    //   .find("._mainContainer_17otr_1")
+    //   .first()
+    //   .click();
+    // // cy.get('button[class="button._addToCart_1e8zj_50"]').first().click();
   });
 });
 

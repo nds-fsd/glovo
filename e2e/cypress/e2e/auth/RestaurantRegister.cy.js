@@ -12,5 +12,6 @@ describe("Restaurante Register", () => {
     cy.get('input[placeholder="Email"]').type("testrestaurante@cypress.com");
     cy.get('input[placeholder="Contraseña"]').type("Cypress123");
     cy.get('input[placeholder="Teléfono"]').type("123456789");
+    cy.get("#privacy").check();
   });
 });
