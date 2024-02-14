@@ -3,7 +3,8 @@
   "private": true,
   "workspaces": [
     "backend",
-    "frontend"
+    "frontend",
+    "e2e"
   ],
   "scripts": {
     "start:frontend": "dotenv -- turbo run dev --scope='frontend'",
@@ -12,6 +13,7 @@
     "test": "cross-env NODE_ENV=test jest --testTimeout=10000 --detectOpenHandles --coverage"
   },
   "devDependencies": {
+    "cypress": "^13.6.4",
     "dotenv-cli": "^7.0.0",
     "supertest": "^6.3.4",
     "turbo": "^1.10.16"
@@ -34,7 +36,6 @@
     "react-modal": "^3.16.1",
     "react-responsive-modal": "^6.4.2",
     "react-router": "^6.21.0",
-
     "react-spinners": "^0.13.8",
     "supertest": "^6.3.4",
     "use-places-autocomplete": "^4.0.1"
