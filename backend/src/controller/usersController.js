@@ -9,10 +9,9 @@ exports.createUser = async (req, res) => {
     }
 
     // Encriptar la contraseña antes de guardarla en la base de datos
-    const encryptedPassword = await bcrypt.hash(password, 10);
     const newUser = await User.create({
-      firstName: firstname, 
-      password: encryptedPassword, // Usar 'password' para coincidir con el esquema
+      firstName: firstname,
+      password, // Usar 'password' para coincidir con el esquema
       created_date,
       email,
       phone,
@@ -94,7 +93,7 @@ exports.changePassword = async (req, res) => {
       console.log("esta es la contraseña antes de ser cambiada " + user.password);
       // Actualizar la contraseña con la nueva contraseña hasheada
       // const hashedNewPassword = await bcrypt.hash(newPassword, 10);
-      user.password = await bcrypt.hash(newPassword, 10); 
+      user.password = newPassword;
       await user.save(); // Guarda el usuario con la contraseña actualizada
       console.log("esta es la contraseña actualizada " + user.password);
       res.json({ message: "La contraseña ha sido actualizada con éxito" });
