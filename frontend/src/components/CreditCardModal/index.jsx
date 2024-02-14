@@ -5,7 +5,10 @@ import Cards from "react-credit-cards-2";
 import { AnimatePresence, motion } from "framer-motion";
 import React, { useState } from "react";
 
+
 Modal.setAppElement("#root");
+
+
 
 export default function CreditCardModal({ cardModalIsOpen, closeCardModal }) {
   const [state, setState] = useState({

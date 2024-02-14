@@ -1,8 +1,8 @@
-// const { app } = require("./server");
 const express = require("express");
 const { connectDB } = require("./mongo/connection");
 const cors = require("cors");
 const app = express();
+const orderRouter = require('./router/UserRoutes');
 
 const restauranteRoutes = require("../src/router/restauranteRoutes");
 const productRoutes = require("./router/productRoutes");
@@ -15,6 +15,7 @@ app.use(restauranteRoutes);
 app.use(productRoutes);
 app.use("/users", userRoutes);
 app.use(authRoutes);
+app.use('/orders', orderRouter);
 
 connectDB().then(() => console.log("Connected to database!"));
 
