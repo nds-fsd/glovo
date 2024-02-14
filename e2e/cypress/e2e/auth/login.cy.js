@@ -22,17 +22,23 @@ describe("Login Flow", () => {
           .and("be.visible")
           .click();
       });
-    // cy.get("#grid").children().first().click();
-    // .then((firstChild) => [cy.get(firstChild.click())]);
-    // cy.get("._restaurantGrid_1be8d_15", { timeout: 10000 })
-    //   .should("be.visible")
-    //   .find("._mainContainer_17otr_1")
-    //   .first()
-    //   .click();
-    // // cy.get('button[class="button._addToCart_1e8zj_50"]').first().click();
+    cy.contains("+").click();
+    cy.contains("Comprar por").click();
+    cy.contains("Agregar dirección").click();
+    cy.get('input[placeholder="Dirección"]').type("nuclio");
+    cy.get("ul > li").first().click();
+    cy.get('input[placeholder="Número"]').type("123");
+    // cy.get('input[placeholder="Piso"]').type("1");
+    // cy.contains("Agregar dirección").click();
+    cy.contains("X").click();
+    cy.contains("Agregar tarjeta").click();
+    cy.get('input[placeholder="Nombre"]').type("cypress test");
+    cy.get('input[placeholder="Número de la tarjeta"]').type(
+      "4567763653563876"
+    );
+    cy.get('input[placeholder="Validez (MM/AA)"]').type("1230");
+    cy.get('input[placeholder="CVC"]').type("123");
+    cy.contains("X").click({ force: true });
+    cy.contains("Confirmar pedido por").click();
   });
 });
-
-// it("Hacer un pedido", () => {
-//   cy.get('input[placeholder="Cuál es tu dirección?"]').type("nuclio");
-// });
