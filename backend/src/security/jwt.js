@@ -2,8 +2,6 @@ const jwt = require('jsonwebtoken');
 const jwtSecret = process.env.JWT_SECRET;
 
 const jwtMiddleware = (req, res, next) => {
-    // Recogemos el header "Authorization". Sabemos que viene en formato "Bearer XXXXX...",
-    // así que nos quedamos solo con el token y obviamos "Bearer "s
     console.log(req.headers)
     const authHeader = req.headers.authorization;
     console.log("Token" , authHeader)
