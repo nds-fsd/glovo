@@ -305,8 +305,8 @@ function PerfilUsuario({
             <div className={styles.userInfoContainer}>
   <div className={styles.campoP}>
     <b className={styles.userProfileBold}>Contraseña: </b> •••••••••
-    <button onClick={() => setIsChangePasswordModalOpen(true)} className={styles.changePasswordButton}>
-      Cambiar contraseña
+    <button onClick={() => setIsChangePasswordModalOpen(true)}>
+                <img className={styles.pencilIcon} src={pencilIcon} alt="" />
     </button>
   </div>
 </div>
