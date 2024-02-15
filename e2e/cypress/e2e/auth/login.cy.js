@@ -29,8 +29,8 @@ describe("Login Flow", () => {
     cy.get("ul > li").first().click();
     cy.get('input[placeholder="Número"]').type("123");
     // cy.get('input[placeholder="Piso"]').type("1");
-    // cy.contains("Agregar dirección").click();
-    cy.contains("X").click();
+    cy.contains("Agregar dirección").click();
+    // cy.contains("X").click();
     cy.contains("Agregar tarjeta").click();
     cy.get('input[placeholder="Nombre"]').type("cypress test");
     cy.get('input[placeholder="Número de la tarjeta"]').type(
@@ -38,7 +38,7 @@ describe("Login Flow", () => {
     );
     cy.get('input[placeholder="Validez (MM/AA)"]').type("1230");
     cy.get('input[placeholder="CVC"]').type("123");
-    cy.contains("X").click({ force: true });
+    cy.contains("Agregar tarjeta").click({ force: true });
     cy.contains("Confirmar pedido por").click();
   });
 });
