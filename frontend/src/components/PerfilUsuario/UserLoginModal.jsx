@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { MdOutlineEmail, MdOutlinePassword } from "react-icons/md";
 import { AnimatePresence, motion } from "framer-motion";
@@ -7,6 +7,7 @@ import Modal from "react-modal";
 import { handleLoginSubmit } from "../../utils/Usercrud";
 import { UserContext } from "../../contexts/UserContext";
 import useOnclickOutside from "react-cool-onclickoutside";
+
 
 function UserLoginModal({
   setLogged,
@@ -21,13 +22,13 @@ function UserLoginModal({
   const ref = useOnclickOutside(() => {
     setLoginModalOpen(false);
   });
-
   const [error, setError] = useState(null);
   const onSubmit = async (data) => {
     try {
       const response = await handleLoginSubmit(data, setLocalUser);
       if (response == 200) {
         console.log(user);
+        console.log(restaurant);
         setLogged(true);
       } else {
         setLogged(false);
@@ -37,6 +38,16 @@ function UserLoginModal({
       console.error("Error en el registro inicial:", error);
     }
   };
+
+  useEffect(() => {
+    const handleOpenLoginModal = () => setLoginModalOpen(true);
+    
+    window.addEventListener("open-login-modal", handleOpenLoginModal);
+  
+    return () => {
+      window.removeEventListener("open-login-modal", handleOpenLoginModal);
+    };
+  }, []);
 
   return (
     <AnimatePresence>

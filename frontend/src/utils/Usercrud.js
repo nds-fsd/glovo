@@ -1,6 +1,9 @@
 import axios from "axios";
 import { setUserSession, setStorageObject } from "./localStorage.utils";
 import { getStorageObject } from "./localStorage.utils";
+import { getUserToken } from './localStorage.utils';
+
+
 
 const API_BASE_URL = "http://localhost:3001";
 
@@ -12,13 +15,15 @@ const api = axios.create({
   },
 });
 
+
+
 export const handleInitialRegistrationSubmit = async (
   data,
   setLocalUser,
   closeModal
 ) => {
   try {
-    const response = await axios.post(`${API_BASE_URL}/register`, data);
+    const response = await api.post(`${API_BASE_URL}/register`, data);
     setStorageObject("token", response.data.token);
     setStorageObject("user", response.data.user);
 
@@ -31,7 +36,7 @@ export const handleInitialRegistrationSubmit = async (
 
 export const handleLoginSubmit = async (data, setLocalUser, closeModal) => {
   try {
-    const response = await axios.post("http://localhost:3001/login", data);
+    const response = await api.post("http://localhost:3001/login", data);
     setStorageObject("token", response.data.token);
     setStorageObject("user", response.data.user);
     setLocalUser(response.data.user);
@@ -55,40 +60,60 @@ export const handleProfileUpdateSubmit = async (
   let token = localStorage.getItem("token");
   token = JSON.parse(token);
   console.log("TOKEN", token);
-  try {
-    const response = await api.patch(`/users/${userId}`, data, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+}
 
-    const updatedUser = response.data;
-    return updatedUser;
-    console.log("Datos del usuario actualizados", updatedUser);
-    // setLocalUser(updatedUser); // Actualizar el estado local
-  } catch (error) {
-    console.error("Error al actualizar el perfil:", error);
-    throw error;
-  }
-};
 
 export const handlePasswordChangeSubmit = async (data, user, closeModal) => {
-  const { currentPassword, newPassword, confirmPassword } = data;
-  if (newPassword !== confirmPassword) {
-    alert("Las nuevas contraseñas no coinciden.");
-    return;
-  }
+  const { currentPassword, newPassword } = data;
+  let token = localStorage.getItem("token");
+  token = JSON.parse(token);
+  console.log("Token antes de enviar la solicitud: ", token);
+
   try {
-    await axios.patch(`${API_BASE_URL}/users/change-password/${user._id}`, {
+    const response = await axios.patch(`${API_BASE_URL}/users/change-password/${user._id}`, {
       currentPassword,
-      newPassword,
+      newPassword
+    }, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      }
     });
+
+    console.log("Respuesta de cambio de contraseña desde frontend: ", response.data);
     alert("Contraseña actualizada con éxito");
     closeModal();
   } catch (error) {
-    console.error("Error al cambiar la contraseña:", error);
+    console.error("Error al cambiar la contraseña: ", error.response ? error.response.data : error);
   }
 };
+
+// export const handlePasswordChangeSubmit = async (data, user, closeModal) => {
+//   const { currentPassword, newPassword } = data; 
+
+ 
+//   let token = localStorage.getItem("token");
+//   token = JSON.parse(token);
+//   console.log("Token antes de enviar la solicitud: ", token);
+
+//   try {
+//     const response = await api.patch(`${API_BASE_URL}/users/change-password/${user._id}`, {
+//       currentPassword,
+//       newPassword
+//     }, {
+//       headers: {
+//         'Content-Type': 'application/json',
+//         'Authorization': `Bearer ${token}`
+//       }
+//     });
+//     console.log("Respuesta de cambio de contraseña desde frontend: " + data);
+//     alert("Contraseña actualizada con éxito");
+//     closeModal();
+//   } catch (error) {
+//     console.error("Error al cambiar la contraseña: ", error.response ? error.response.data : error);
+//   }
+// };
+
 
 export const handleDelete = async (user, setUser, setIsModalOpen) => {
   const confirmDelete = window.confirm(
@@ -96,7 +121,7 @@ export const handleDelete = async (user, setUser, setIsModalOpen) => {
   );
   if (confirmDelete) {
     try {
-      await axios.delete(`${API_BASE_URL}/users/${user._id}`);
+      await api.delete(`${API_BASE_URL}/users/${user._id}`);
       alert("Cuenta eliminada con éxito.");
       setUser({});
       setIsModalOpen(false);

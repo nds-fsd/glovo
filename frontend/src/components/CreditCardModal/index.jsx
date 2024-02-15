@@ -5,7 +5,9 @@ import Cards from "react-credit-cards-2";
 import { AnimatePresence, motion } from "framer-motion";
 import React, { useState } from "react";
 
+
 Modal.setAppElement("#root");
+
 
 export default function CreditCardModal({
   cardModalIsOpen,
@@ -13,6 +15,7 @@ export default function CreditCardModal({
   handleSaveClickCard,
   optional,
 }) {
+
   const [state, setState] = useState({
     number: "",
     expiry: "",
@@ -79,7 +82,11 @@ export default function CreditCardModal({
             transition={{ ease: "easeOut", duration: 0.2 }}
             className={styles.mainContainer}
           >
-            <button onClick={closeCardModal} className={styles.closeButton}>
+            <button
+              onClick={closeCardModal}
+              id={close}
+              className={styles.closeButton}
+            >
               X
             </button>
             <div className={styles.topText}>

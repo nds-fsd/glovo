@@ -12,6 +12,7 @@ export default function RestaurantGrid() {
       try {
         const response = await api.get("/restaurantes");
         setRestaurantes(response.data);
+        console.log(response.data);
       } catch (error) {
         console.error("Error al obtener los datos de los restaurantes:", error);
       }
@@ -22,7 +23,7 @@ export default function RestaurantGrid() {
   return (
     <div className={styles.mainContainer}>
       <h2>Restaurantes recomendados</h2>
-      <div className={styles.restaurantGrid}>
+      <div id="grid" className={styles.restaurantGrid}>
         {restaurantes &&
           restaurantes.map((e) => {
             return (

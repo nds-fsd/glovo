@@ -16,8 +16,26 @@ export default function ShoppingCart({
   setShoppingList,
   fix,
 }) {
+
   const [purchaseConfirmationModalIsOpen, setPurchaseConfirmationModalIsOpen] =
     useState(false);
+
+  
+  //const [modalIsOpen, setIsOpen] = useState(false);
+  //const openModal = () => {
+    //const token = localStorage.getItem("token");
+    //if (!token) {
+  
+      //window.dispatchEvent(new CustomEvent("open-login-modal"));
+    //} else {
+      //setIsOpen(true);
+    //}
+  //};
+
+  //const closeModal = () => {
+    //setIsOpen(false);
+  //};
+
 
   const ammountHandler = (e, operation) => {
     const ProductIndex = shoppingList.findIndex((o) => o.id === e.id);
@@ -34,6 +52,7 @@ export default function ShoppingCart({
     setShoppingList(updatedShoppingList);
   };
 
+
   const deleteCartItem = (e) => {
     const productIndex = shoppingList.findIndex((o) => o.id === e.id);
     const updatedShoppingList = [...shoppingList];
@@ -41,6 +60,7 @@ export default function ShoppingCart({
 
     setShoppingList(updatedShoppingList);
   };
+
 
   return (
     <div className={styles.shoppingCartContainer}>

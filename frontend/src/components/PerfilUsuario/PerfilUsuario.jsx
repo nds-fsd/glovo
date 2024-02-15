@@ -19,6 +19,10 @@ import checkIcon from "../../assets/icons/checkmark-svgrepo-com.svg";
 import AddressModal from "../AddressModal";
 import useOnclickOutside from "react-cool-onclickoutside";
 import CreditCardModal from "../CreditCardModal/index.jsx";
+import ChangePasswordModal from '../ChangePasswordModal';
+import { handlePasswordChangeSubmit } from "../../utils/Usercrud.js";
+
+
 
 Modal.setAppElement("#root");
 
@@ -36,11 +40,15 @@ function PerfilUsuario({
   const [editingField, setEditingField] = useState(null);
   const [addressModalIsOpen, setAddressModalIsOpen] = useState(false);
   const [cardModalIsOpen, setCardModalIsOpen] = useState(false);
-  const [isChangingPassword, setIsChangingPassword] = useState(false);
+  const [isChangePasswordModalOpen, setIsChangePasswordModalOpen] = useState(false);
+  // const [isChangingPassword, setIsChangingPassword] = useState(false);
+
   const { register, handleSubmit, setValue, reset } = useForm();
   const [userInfo, setUserInfo] = useState("");
   const ref = useOnclickOutside(() => {
     setIsPerfilUsuarioModalOpen(false);
+  
+
   });
 
   useEffect(() => {
@@ -247,6 +255,24 @@ function PerfilUsuario({
     setLogged(false);
   };
 
+  const handlePasswordChange = async (data) => {
+    const user = getUserSession();
+    if (!user) {
+      console.error("Usuario no encontrado");
+      return;
+    }
+    
+    try {
+  
+      await handlePasswordChangeSubmit(data, user, () => setIsChangePasswordModalOpen(false));
+      // mostrar un mensaje de éxito
+    } catch (error) {
+      // Maneja errores aquí, como mostrar un mensaje de error
+      console.error("Error al cambiar la contraseña:", error);
+    }
+  };
+  
+
   return (
     <>
       <Modal
@@ -274,7 +300,7 @@ function PerfilUsuario({
             <div className={styles.flecha}></div>
             {user && (
               <h2 className={styles.profileHeader}>
-                ¡Hola,{" "}
+                ¡ Hola{" "}
                 {user &&
                   user.firstName.substring(0, user.firstName.indexOf(" "))}
                 !
@@ -323,6 +349,7 @@ function PerfilUsuario({
               </p>
             </div>
             <div className={styles.userInfoContainer}>
+
               <p className={styles.campoP}>
                 <b className={styles.userProfileBold}>Tarjeta de crédito:</b>{" "}
                 <p
@@ -341,10 +368,16 @@ function PerfilUsuario({
               </p>
             </div>
             <div className={styles.userInfoContainer}>
-              <div className={styles.campoP}>
-                <b className={styles.userProfileBold}>Contraseña: </b> •••••••••
-              </div>
             </div>
+
+  <div className={styles.campoP}>
+    <b className={styles.userProfileBold}>Contraseña: </b> •••••••••
+    <button onClick={() => setIsChangePasswordModalOpen(true)}>
+                <img className={styles.pencilIcon} src={pencilIcon} alt="" />
+    </button>
+  </div>
+</div>
+
             <div className={styles.separador}></div>
             <div className={styles.preferenceContainer}>
               <div className={styles.preferenceTextContainer}>
@@ -397,10 +430,17 @@ function PerfilUsuario({
         changeModalState={changeModalState}
       />
 
+
       <CreditCardModal
         cardModalIsOpen={cardModalIsOpen}
         closeCardModal={() => setCardModalIsOpen(false)}
         handleSaveClickCard={handleSaveClickCard}
+
+      <ChangePasswordModal
+        isChangePasswordModalOpen={isChangePasswordModalOpen}
+        closeChangePasswordModal={() => setIsChangePasswordModalOpen(false)}
+        handleSubmitChangePassword={handlePasswordChange} // Asegúrate de que tu modal acepte y use esta prop
+
       />
     </>
   );
