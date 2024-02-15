@@ -1,9 +1,10 @@
 import styles from "./styles.module.css";
 import axios from "axios";
 import { useForm, useWatch } from "react-hook-form";
-import { mailValidator, phoneValidator, validateCity } from "./validators";
+import { emailValidator, phoneValidator, validateCity } from "./validators";
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { api } from "../../utils/api";
 import Modal from "react-modal";
 import useOnclickOutside from "react-cool-onclickoutside";
 
@@ -17,32 +18,45 @@ export const Formulario = ({ formulariosIsOpen, setFormulariosIsOpen }) => {
     setValue,
   } = useForm();
 
-  const incluirCodigo = watch("incluirCodigo");
-  const [partner, setPartner] = useState({});
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitError, setSubmitError] = useState("");
   const ref = useOnclickOutside(() => {
     setFormulariosIsOpen(false);
   });
+
+  const navigate = useNavigate();
+  const discountCode = watch("discountCode");
+  const [restaurant, setRestaurant] = useState({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState("");
 
   const onSubmit = async (data) => {
     console.log(data);
     setIsSubmitting(true);
     try {
-      const response = await axios.post(
-        "http://localhost:3003/create-partner",
-        data
-      );
+      const response = await api.post("/restaurantes", data, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
       console.log(response.data);
-      console.log("cambios");
+      navigate("../DashBoard");
       setIsDone(true);
     } catch (error) {
-      setSubmitError("Failed to create partner. Please try again.");
-      console.error("Error creating partner:", error);
+      if (error.response) {
+        console.error("Error data:", error.response.data);
+        console.error("Error status:", error.response.status);
+        setSubmitError("Error from server: " + error.response.data.message);
+      } else if (error.request) {
+        console.error("No response:", error.request);
+        setSubmitError("No response from server");
+      } else {
+        console.error("Error:", error.message);
+        setSubmitError("Error: " + error.message);
+      }
+    } finally {
+      setIsSubmitting(false);
+      setFormulariosIsOpen(false);
     }
-    setIsSubmitting(false);
   };
-
   return (
     <Modal
       parentSelector={() => document.querySelector("#root")}
@@ -60,7 +74,7 @@ export const Formulario = ({ formulariosIsOpen, setFormulariosIsOpen }) => {
           <form className={styles.formObject} onSubmit={handleSubmit(onSubmit)}>
             <div>
               <label></label>
-              <select className={styles.options} {...register("pais")}>
+              <select className={styles.options} {...register("country")}>
                 <option className={styles.individualOption} value="ES">
                   🇪🇸 España
                 </option>
@@ -80,11 +94,11 @@ export const Formulario = ({ formulariosIsOpen, setFormulariosIsOpen }) => {
               <input
                 type="text"
                 placeholder="Ciudad"
-                {...register("ciudad", {
+                {...register("city", {
                   validate: validateCity,
                 })}
               />
-              {errors["ciudad"] && <p>{errors["ciudad"].message}</p>}
+              {errors["ciudad"] && <p>{errors["city"].message}</p>}
             </div>
             <div>
               <label className={styles.negocio}></label>
@@ -100,7 +114,7 @@ export const Formulario = ({ formulariosIsOpen, setFormulariosIsOpen }) => {
                 <input
                   type="text"
                   placeholder="Nombre"
-                  {...register("nombre")}
+                  {...register("firstName")}
                 />
               </div>
               <div>
@@ -108,7 +122,7 @@ export const Formulario = ({ formulariosIsOpen, setFormulariosIsOpen }) => {
                 <input
                   type="text"
                   placeholder="Apellidos"
-                  {...register("apellidos")}
+                  {...register("lastName")}
                 />
               </div>
             </div>
@@ -117,9 +131,9 @@ export const Formulario = ({ formulariosIsOpen, setFormulariosIsOpen }) => {
               <input
                 type="email"
                 placeholder="Email"
-                {...register("e-mail", { validate: mailValidator })}
+                {...register("email", { validate: emailValidator })}
               />
-              {errors["e-mail"] && <p>{errors["e-mail"].message}</p>}
+              {errors["email"] && <p>{errors["email"].message}</p>}
             </div>
             <div>
               <label className={styles.telefono}></label>
@@ -134,21 +148,15 @@ export const Formulario = ({ formulariosIsOpen, setFormulariosIsOpen }) => {
               <input
                 type="text"
                 placeholder="Teléfono"
-                {...register("telefono", {
+                {...register("phone", {
                   validate: phoneValidator,
                 })}
               />
-              {errors["telefono"] && <p>{errors["telefono"].message}</p>}
+              {errors["phone"] && <p>{errors["phone"].message}</p>}
             </div>
             <label></label>
-            <select
-              className={styles.options}
-              {...register("Tipo de establecimiento")}
-            >
-              <option
-                className={styles.individualOption}
-                value="Tipo de establecimiento"
-              >
+            <select className={styles.options} {...register("category")}>
+              <option className={styles.individualOption} value="category">
                 Tipo de establecimiento
               </option>
               <option className={styles.individualOption} value="restaurante">
@@ -167,18 +175,18 @@ export const Formulario = ({ formulariosIsOpen, setFormulariosIsOpen }) => {
             </select>
             <div className={styles.bottomContainer}>
               <div className={styles.codigo}>
-                <input type="checkbox" {...register("incluirCodigo")} />
+                <input type="checkbox" {...register("discountCode")} />
                 <label className={styles.bottomLabels}>
                   ¿Tienes un código promocional?
                 </label>
               </div>
-              {incluirCodigo && (
+              {discountCode && (
                 <div className={styles.aplicar}>
                   <input
                     className={styles.codigoPromocionalInput}
                     type="text"
                     placeholder="Codigo Promocional"
-                    {...register("codigo", {
+                    {...register("discountCode", {
                       //! validate : promoCode debemos añadir en futuro ...
                     })}
                   />
@@ -196,7 +204,7 @@ export const Formulario = ({ formulariosIsOpen, setFormulariosIsOpen }) => {
                 <input
                   id="privacy"
                   type="checkbox"
-                  {...register("privacidad", {
+                  {...register("privacy", {
                     required: "Debe aceptar la política de privacidad",
                   })}
                 />
