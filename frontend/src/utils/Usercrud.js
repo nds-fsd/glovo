@@ -1,9 +1,7 @@
 import axios from "axios";
 import { setUserSession, setStorageObject } from "./localStorage.utils";
 import { getStorageObject } from "./localStorage.utils";
-import { getUserToken } from './localStorage.utils';
-
-
+import { getUserToken } from "./localStorage.utils";
 
 const API_BASE_URL = "http://localhost:3001";
 
@@ -14,8 +12,6 @@ const api = axios.create({
     "Content-Type": "application/json",
   },
 });
-
-
 
 export const handleInitialRegistrationSubmit = async (
   data,
@@ -60,8 +56,19 @@ export const handleProfileUpdateSubmit = async (
   let token = localStorage.getItem("token");
   token = JSON.parse(token);
   console.log("TOKEN", token);
-}
-
+  try {
+    const response = await api.patch(`/users/${userId}`, data, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const updatedUser = response.data;
+    return updatedUser;
+  } catch (error) {
+    console.error("Error al actualizar el perfil:", error);
+    throw error;
+  }
+};
 
 export const handlePasswordChangeSubmit = async (data, user, closeModal) => {
   const { currentPassword, newPassword } = data;
@@ -70,28 +77,37 @@ export const handlePasswordChangeSubmit = async (data, user, closeModal) => {
   console.log("Token antes de enviar la solicitud: ", token);
 
   try {
-    const response = await axios.patch(`${API_BASE_URL}/users/change-password/${user._id}`, {
-      currentPassword,
-      newPassword
-    }, {
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
+    const response = await axios.patch(
+      `${API_BASE_URL}/users/change-password/${user._id}`,
+      {
+        currentPassword,
+        newPassword,
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
       }
-    });
+    );
 
-    console.log("Respuesta de cambio de contraseña desde frontend: ", response.data);
+    console.log(
+      "Respuesta de cambio de contraseña desde frontend: ",
+      response.data
+    );
     alert("Contraseña actualizada con éxito");
     closeModal();
   } catch (error) {
-    console.error("Error al cambiar la contraseña: ", error.response ? error.response.data : error);
+    console.error(
+      "Error al cambiar la contraseña: ",
+      error.response ? error.response.data : error
+    );
   }
 };
 
 // export const handlePasswordChangeSubmit = async (data, user, closeModal) => {
-//   const { currentPassword, newPassword } = data; 
+//   const { currentPassword, newPassword } = data;
 
- 
 //   let token = localStorage.getItem("token");
 //   token = JSON.parse(token);
 //   console.log("Token antes de enviar la solicitud: ", token);
@@ -113,7 +129,6 @@ export const handlePasswordChangeSubmit = async (data, user, closeModal) => {
 //     console.error("Error al cambiar la contraseña: ", error.response ? error.response.data : error);
 //   }
 // };
-
 
 export const handleDelete = async (user, setUser, setIsModalOpen) => {
   const confirmDelete = window.confirm(

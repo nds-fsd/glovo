@@ -5,7 +5,7 @@ import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import { useParams } from "react-router";
 import { api } from "../../utils/api";
-import MenuModal from "./menuModal";
+
 import ProductCard from "../ProductCard";
 import productExampleImg from "../../assets/images/productexampleimg.avif";
 

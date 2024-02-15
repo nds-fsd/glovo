@@ -27,11 +27,11 @@ export default function RestaurantPage({}) {
 
   window.addEventListener("scroll", setFixedCart);
 
-  // useEffect(() => {
-  //   if (!isLoadingProducts) {
-  //     calculatePrice();
-  //   }
-  // }, [shoppingList, isLoadingProducts]);
+  useEffect(() => {
+    if (!isLoadingProducts) {
+      calculatePrice();
+    }
+  }, [shoppingList, isLoadingProducts]);
 
   useEffect(() => {
     const obtenerRestaurante = async () => {
@@ -72,7 +72,6 @@ export default function RestaurantPage({}) {
   }
 
   function calculateDynamicScrollY() {
-
     const cartContainer = document.getElementById("cartContainer");
     if (cartContainer) {
       return cartContainer.offsetHeight;

@@ -8,7 +8,6 @@ import { handleLoginSubmit } from "../../utils/Usercrud";
 import { UserContext } from "../../contexts/UserContext";
 import useOnclickOutside from "react-cool-onclickoutside";
 
-
 function UserLoginModal({
   setLogged,
   setUser,
@@ -27,8 +26,6 @@ function UserLoginModal({
     try {
       const response = await handleLoginSubmit(data, setLocalUser);
       if (response == 200) {
-        console.log(user);
-        console.log(restaurant);
         setLogged(true);
       } else {
         setLogged(false);
@@ -41,9 +38,9 @@ function UserLoginModal({
 
   useEffect(() => {
     const handleOpenLoginModal = () => setLoginModalOpen(true);
-    
+
     window.addEventListener("open-login-modal", handleOpenLoginModal);
-  
+
     return () => {
       window.removeEventListener("open-login-modal", handleOpenLoginModal);
     };

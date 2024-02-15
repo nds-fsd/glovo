@@ -19,10 +19,8 @@ import checkIcon from "../../assets/icons/checkmark-svgrepo-com.svg";
 import AddressModal from "../AddressModal";
 import useOnclickOutside from "react-cool-onclickoutside";
 import CreditCardModal from "../CreditCardModal/index.jsx";
-import ChangePasswordModal from '../ChangePasswordModal';
+import ChangePasswordModal from "../ChangePasswordModal";
 import { handlePasswordChangeSubmit } from "../../utils/Usercrud.js";
-
-
 
 Modal.setAppElement("#root");
 
@@ -40,15 +38,14 @@ function PerfilUsuario({
   const [editingField, setEditingField] = useState(null);
   const [addressModalIsOpen, setAddressModalIsOpen] = useState(false);
   const [cardModalIsOpen, setCardModalIsOpen] = useState(false);
-  const [isChangePasswordModalOpen, setIsChangePasswordModalOpen] = useState(false);
+  const [isChangePasswordModalOpen, setIsChangePasswordModalOpen] =
+    useState(false);
   // const [isChangingPassword, setIsChangingPassword] = useState(false);
 
   const { register, handleSubmit, setValue, reset } = useForm();
   const [userInfo, setUserInfo] = useState("");
   const ref = useOnclickOutside(() => {
     setIsPerfilUsuarioModalOpen(false);
-  
-
   });
 
   useEffect(() => {
@@ -83,6 +80,7 @@ function PerfilUsuario({
 
       // Preparar los datos para la actualización
       const updateData = { [editingField]: userInfo[editingField] };
+      console.log(updateData);
 
       // Enviar la actualización al backend y obtener la respuesta
       const updatedUser = await handleProfileUpdateSubmit(
@@ -102,6 +100,7 @@ function PerfilUsuario({
         deleteStorageObject("user");
         setStorageObject("user", updatedUser.updatedUser);
       } else {
+        console.log(updatedUser);
         throw new Error("No se recibieron datos actualizados del usuario.");
       }
 
@@ -229,7 +228,6 @@ function PerfilUsuario({
 
       if (updatedUser) {
         setLocalUser(updatedUser.updatedUser);
-
         deleteStorageObject("user");
         setStorageObject("user", updatedUser.updatedUser);
       } else {
@@ -261,17 +259,17 @@ function PerfilUsuario({
       console.error("Usuario no encontrado");
       return;
     }
-    
+
     try {
-  
-      await handlePasswordChangeSubmit(data, user, () => setIsChangePasswordModalOpen(false));
+      await handlePasswordChangeSubmit(data, user, () =>
+        setIsChangePasswordModalOpen(false)
+      );
       // mostrar un mensaje de éxito
     } catch (error) {
       // Maneja errores aquí, como mostrar un mensaje de error
       console.error("Error al cambiar la contraseña:", error);
     }
   };
-  
 
   return (
     <>
@@ -349,7 +347,6 @@ function PerfilUsuario({
               </p>
             </div>
             <div className={styles.userInfoContainer}>
-
               <p className={styles.campoP}>
                 <b className={styles.userProfileBold}>Tarjeta de crédito:</b>{" "}
                 <p
@@ -367,16 +364,14 @@ function PerfilUsuario({
                 <img className={styles.pencilIcon} src={pencilIcon} alt="" />
               </p>
             </div>
-            <div className={styles.userInfoContainer}>
-            </div>
+            <div className={styles.userInfoContainer}></div>
 
-  <div className={styles.campoP}>
-    <b className={styles.userProfileBold}>Contraseña: </b> •••••••••
-    <button onClick={() => setIsChangePasswordModalOpen(true)}>
+            <div className={styles.campoP}>
+              <b className={styles.userProfileBold}>Contraseña: </b> •••••••••
+              <button onClick={() => setIsChangePasswordModalOpen(true)}>
                 <img className={styles.pencilIcon} src={pencilIcon} alt="" />
-    </button>
-  </div>
-</div>
+              </button>
+            </div>
 
             <div className={styles.separador}></div>
             <div className={styles.preferenceContainer}>
@@ -430,17 +425,16 @@ function PerfilUsuario({
         changeModalState={changeModalState}
       />
 
-
       <CreditCardModal
         cardModalIsOpen={cardModalIsOpen}
         closeCardModal={() => setCardModalIsOpen(false)}
         handleSaveClickCard={handleSaveClickCard}
+      />
 
       <ChangePasswordModal
         isChangePasswordModalOpen={isChangePasswordModalOpen}
         closeChangePasswordModal={() => setIsChangePasswordModalOpen(false)}
         handleSubmitChangePassword={handlePasswordChange} // Asegúrate de que tu modal acepte y use esta prop
-
       />
     </>
   );
