@@ -23,7 +23,7 @@ export default function RestaurantGrid() {
   return (
     <div className={styles.mainContainer}>
       <h2>Restaurantes recomendados</h2>
-      <div className={styles.restaurantGrid}>
+      <div id="grid" className={styles.restaurantGrid}>
         {restaurantes &&
           restaurantes.map((e) => {
             return (

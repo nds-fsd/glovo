@@ -72,7 +72,11 @@ export default function RestaurantPage({}) {
   }
 
   function calculateDynamicScrollY() {
-    return document.getElementById("cartContainer").offsetHeight;
+    const cartContainer = document.getElementById("cartContainer");
+    if (cartContainer) {
+      return cartContainer.offsetHeight;
+    }
+    return 0;
   }
 
   const calculatePrice = () => {

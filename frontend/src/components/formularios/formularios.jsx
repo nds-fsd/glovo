@@ -202,6 +202,7 @@ export const Formulario = ({ formulariosIsOpen, setFormulariosIsOpen }) => {
               </div>
               <div className={styles.privacidad}>
                 <input
+                  id="privacy"
                   type="checkbox"
                   {...register("privacy", {
                     required: "Debe aceptar la política de privacidad",

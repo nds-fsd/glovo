@@ -15,8 +15,10 @@ export const api = axios.create({
 });
 
 api.interceptors.request.use((config) => {
-  const token = getUserToken();
-  config.headers.Authorization = token ? `Bearer ${token}` : "";
+
+  const token = localStorage.getItem("token");
+  config.headers.Authorization = token ? `Bearer ${token}` : '';
+
   return config;
 });
 
