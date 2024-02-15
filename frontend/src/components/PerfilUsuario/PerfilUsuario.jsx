@@ -230,7 +230,7 @@ function PerfilUsuario({
             <div className={styles.flecha}></div>
             {user && (
               <h2 className={styles.profileHeader}>
-                ¡Hola,{" "}
+                ¡ Hola{" "}
                 {user &&
                   user.firstName.substring(0, user.firstName.indexOf(" "))}
                 !

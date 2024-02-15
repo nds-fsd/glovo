@@ -21,13 +21,13 @@ function UserLoginModal({
   const ref = useOnclickOutside(() => {
     setLoginModalOpen(false);
   });
-
   const [error, setError] = useState(null);
   const onSubmit = async (data) => {
     try {
       const response = await handleLoginSubmit(data, setLocalUser);
       if (response == 200) {
         console.log(user);
+        console.log(restaurant);
         setLogged(true);
       } else {
         setLogged(false);

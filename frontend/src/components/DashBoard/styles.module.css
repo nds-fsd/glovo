@@ -3,7 +3,6 @@
   grid-template-columns: 25% 75%;
   padding: 20px;
   gap: 20px;
-  /* background-color: brown; */
   background-color: rgb(188, 219, 219);
   height: 620px;
   margin-top: 80px;
@@ -13,6 +12,9 @@
   grid-template-rows: repeat(12, 1fr);
   background-color: rgb(171, 180, 180);
   border-radius: 5px;
+  grid-column: 1 / 2;
+  grid-row: 1 / 2;
+  height: 620px;
 }
 .input {
   grid-column: 3 / 4;
@@ -66,13 +68,9 @@
   backdrop-filter: blur(5px);
   border-radius: 5px;
 }
-p {
+.pSegundo {
   color: white;
   grid-row: 7 / 8;
-}
-h2 {
-  color: rgb(118, 122, 126);
-  grid-row: 2 / 3;
 }
 .buttons {
   display: flex;
@@ -109,4 +107,42 @@ h2 {
   color: white;
   padding: 3px;
   margin: 5px;
+}
+.yourBrand {
+  margin: 15px;
+  padding: 15px;
+}
+.firstName {
+  background-color: rgba(0, 0, 0, 0.227);
+  color: white;
+}
+.lastName {
+  background-color: rgb(0, 0, 0, 0.227);
+  color: white;
+}
+.brandName {
+  background-color: rgb(0, 0, 0, 0.227);
+  color: white;
+}
+.city {
+  background-color: rgb(0, 0, 0, 0.227);
+  color: white;
+}
+.email {
+  background-color: rgb(0, 0, 0, 0.227);
+  color: white;
+}
+.category {
+  background-color: rgb(0, 0, 0, 0.227);
+  color: white;
+}
+.phone {
+  background-color: rgb(0, 0, 0, 0.227);
+  color: white;
+}
+.productName {
+  background-color: red;
+}
+.yourBrand {
+  color: #09827e;
 }

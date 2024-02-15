@@ -54,6 +54,7 @@ export const Formulario = ({ formulariosIsOpen, setFormulariosIsOpen }) => {
       }
     } finally {
       setIsSubmitting(false);
+      setFormulariosIsOpen(false);
     }
   };
   return (
