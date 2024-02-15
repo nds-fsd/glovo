@@ -45,6 +45,7 @@ export default function PurchaseConfirmationModal({
     if (order && order._id) {
       setConfirmationAnimation(true);
       setTimeout(() => {
+        setShoppingList([]);
         navigate("/confirmation/" + order._id);
       }, 3000);
     }
@@ -58,11 +59,10 @@ export default function PurchaseConfirmationModal({
       if (response.status === 201) {
         setOrder(response.data.order);
       } else {
-        console.log("Error en tus credenciales");
-        setShoppingList([]);
+        console.log("Error en al crear tu pedido");
       }
     } catch (error) {
-      console.error("Error en el registro inicial:", error);
+      console.error("Error al crear tu pedido:", error);
     }
   };
 
@@ -97,6 +97,7 @@ export default function PurchaseConfirmationModal({
       }
     });
     productList.push({ transportPrice: transportPrice });
+    productList.push({ totalPrice: totalPrice });
     const orderObject = {
       productList: productList,
       user_id: user._id,
@@ -130,11 +131,13 @@ export default function PurchaseConfirmationModal({
         addressModalIsOpen={addressModalIsOpen}
         closeAddressModal={closeAddressModal}
         handleSaveClickAddress={setOptionalAddress}
+        optional={true}
       />
       <CreditCardModal
         cardModalIsOpen={cardModalIsOpen}
         closeCardModal={closeCardModal}
         handleSaveClickCard={setOptionalCreditCard}
+        optional={true}
       />
       {purchaseConfirmationModalIsOpen && (
         <Modal

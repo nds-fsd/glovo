@@ -529,15 +529,14 @@ div[class^="_profile_"]::-webkit-scrollbar {
   margin-top: 50px;
 
   position: fixed;
-  right: calc(10% - 20px);
+  right: calc(10% - 50px);
   top: 68px;
   gap: 10px;
 
   overflow: auto;
 
   height: fit-content;
-  max-height: 80vh;
-
+  max-height: 83%;
   justify-content: center;
 }
 

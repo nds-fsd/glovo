@@ -70,7 +70,7 @@ export default function ConfirmationPage() {
                 <h2>Detalle del pedido</h2>
               </div>
               {order &&
-                order.productList.slice(0, -1).map((e) => {
+                order.productList.slice(0, -2).map((e) => {
                   return (
                     <li key={e.producto._id}>
                       <div className={styles.individualItemContainer}>
@@ -84,10 +84,16 @@ export default function ConfirmationPage() {
                 })}
               <div className={styles.individualItemContainer}>
                 <p>
-                  Tasas de transporte <b>FREE</b>
+                  Tasas de transporte{" "}
+                  <b>
+                    {order && order.productList.slice(-2)[0].transportPrice}
+                  </b>
                 </p>
               </div>
-              <div className={styles.transportFees}>Precio total {}€</div>
+              <div className={styles.transportFees}>
+                Precio total{" "}
+                {order && order.productList.slice(-1)[0].totalPrice}€
+              </div>
             </ul>
           </div>
           <div className={styles.extraInfo}>

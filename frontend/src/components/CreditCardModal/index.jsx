@@ -11,6 +11,7 @@ export default function CreditCardModal({
   cardModalIsOpen,
   closeCardModal,
   handleSaveClickCard,
+  optional,
 }) {
   const [state, setState] = useState({
     number: "",
@@ -59,6 +60,7 @@ export default function CreditCardModal({
 
   const onSubmit = (data) => {
     handleSaveClickCard(data);
+    closeCardModal();
   };
 
   return (
@@ -159,6 +161,7 @@ export default function CreditCardModal({
                 </button>
               </form>
             </div>
+            {optional && <p>Esta tarjeta se utilizará sólo para este pedido</p>}
           </motion.div>
         </Modal>
       )}

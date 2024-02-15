@@ -15,7 +15,6 @@ export default function ShoppingCart({
   restaurante,
   setShoppingList,
   fix,
-  calculatePrice,
 }) {
   const [purchaseConfirmationModalIsOpen, setPurchaseConfirmationModalIsOpen] =
     useState(false);
@@ -34,8 +33,6 @@ export default function ShoppingCart({
     }
     setShoppingList(updatedShoppingList);
   };
-
-  console.log(shoppingList);
 
   const deleteCartItem = (e) => {
     const productIndex = shoppingList.findIndex((o) => o.id === e.id);

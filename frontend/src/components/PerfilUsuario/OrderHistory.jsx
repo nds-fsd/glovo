@@ -11,11 +11,7 @@ import { useNavigate, useParams } from "react-router";
 
 Modal.setAppElement("#root");
 
-function OrderHistory({
-  historyModalIsOpen,
-  setHistoryModalIsOpen,
-  changeModalState,
-}) {
+function OrderHistory({ historyModalIsOpen, setHistoryModalIsOpen }) {
   const { user, setLocalUser } = useContext(UserContext);
   const { shoppingList, setShoppingList } = useContext(CartContext);
   const [orders, setOrders] = useState([]);
@@ -29,7 +25,6 @@ function OrderHistory({
       try {
         const response = await api.get("/restaurantes");
         setRestaurants(response.data);
-        console.log(response.data);
       } catch (error) {
         console.error("Error al obtener los datos de los restaurantes:", error);
       }
@@ -40,8 +35,6 @@ function OrderHistory({
   useEffect(() => {
     const getOrders = async () => {
       let token = localStorage.getItem("token");
-      console.log(`Bearer ${token}`);
-      user && console.log(user._id);
 
       try {
         const response = await axios.get(
@@ -54,7 +47,6 @@ function OrderHistory({
           }
         );
 
-        console.log("Respuesta de la API:", response);
         setOrders(response.data);
       } catch (error) {
         console.error("Error al obtener los pedidos:", error);
@@ -135,7 +127,7 @@ function OrderHistory({
                         />
 
                         <div>
-                          <p>{e.productList.length} productos</p>
+                          <p>{e.productList.length - 2} productos</p>
                           <p>{e.date.split(" ")[0]}</p>
                         </div>
                       </div>
