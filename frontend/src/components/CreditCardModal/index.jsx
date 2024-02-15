@@ -9,8 +9,13 @@ import React, { useState } from "react";
 Modal.setAppElement("#root");
 
 
+export default function CreditCardModal({
+  cardModalIsOpen,
+  closeCardModal,
+  handleSaveClickCard,
+  optional,
+}) {
 
-export default function CreditCardModal({ cardModalIsOpen, closeCardModal }) {
   const [state, setState] = useState({
     number: "",
     expiry: "",
@@ -57,7 +62,8 @@ export default function CreditCardModal({ cardModalIsOpen, closeCardModal }) {
   const { register, handleSubmit } = useForm();
 
   const onSubmit = (data) => {
-    console.log("data", data);
+    handleSaveClickCard(data);
+    closeCardModal();
   };
 
   return (
@@ -162,6 +168,7 @@ export default function CreditCardModal({ cardModalIsOpen, closeCardModal }) {
                 </button>
               </form>
             </div>
+            {optional && <p>Esta tarjeta se utilizará sólo para este pedido</p>}
           </motion.div>
         </Modal>
       )}

@@ -1,67 +1,139 @@
-// orderController.js
-const Order = require('../schema/orderSchema');
 
-// Crear un nuevo pedido
-exports.createOrder = async (req, res) => {
-    try {
-        const { userId, items, totalPrice, status } = req.body;
-        const newOrder = await Order.create({
-            userId,
-            items,
-            totalPrice,
-            status
-        });
-        res.status(201).json(newOrder);
-    } catch (err) {
-        res.status(500).json({ message: "Error al crear el pedido", error: err.message });
-    }
+const Order = require("../schema/OrderSchema");
+
+function createDate() {
+  const now = new Date(); // Definimos 'now' dentro de la función
+  const day = now.getDate().toString().padStart(2, "0");
+  const month = (now.getMonth() + 1).toString().padStart(2, "0"); // Los meses comienzan en 0
+  const year = now.getFullYear();
+  const hours = now.getHours().toString().padStart(2, "0");
+  const minutes = now.getMinutes().toString().padStart(2, "0");
+  const seconds = now.getSeconds().toString().padStart(2, "0");
+
+  const formattedDate = `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
+
+  return formattedDate;
+}
+
+// Get all orders from MongoDB
+
+exports.getOrders = async (req, res) => {
+  try {
+    const orders = await Order.find();
+    res.json(orders);
+  } catch (error) {
+    res.status(500).json({ error: "Internal Server Error 💩" });
+  }
 };
 
-// Obtener todos los pedidos
-exports.getAllOrders = async (req, res) => {
-    try {
-        const orders = await Order.find();
-        res.status(200).json(orders);
-    } catch (err) {
-        res.status(500).json({ message: "Error al obtener los pedidos", error: err.message });
-    }
-};
+// Get a specific order by ID from MongoDB
 
-// Obtener un pedido específico por su ID
 exports.getOrderById = async (req, res) => {
-    try {
-        const order = await Order.findById(req.params.id);
-        if (!order) {
-            return res.status(404).json({ message: "Pedido no encontrado" });
-        }
-        res.json(order);
-    } catch (err) {
-        res.status(500).json({ message: "Error al obtener el pedido", error: err.message });
+  const orderId = req.params.id;
+  try {
+    const order = await Order.findById(orderId);
+    if (order) {
+      res.json(order);
+    } else {
+      res.status(404).json({ error: "Order not found" });
     }
+  } catch (error) {
+    res.status(500).json({ error: "Internal Server Error" });
+  }
 };
 
-// Actualizar un pedido
+// Create a new order and save it to MongoDB
+
+exports.createOrder = async (req, res) => {
+  const data = req.body;
+
+  if (!data.billing) {
+    return res.status(400).json({ error: "Billing information not received" });
+  } else {
+    try {
+      const newOrder = new Order({
+        productList: data.productList,
+        user: data.user_id,
+        restaurante: data.restaurante_id,
+        billing: data.billing,
+        address: data.address,
+        date: createDate(),
+      });
+
+      const createdOrder = await newOrder.save();
+
+      return res.status(201).json({
+        order: {
+          _id: createdOrder._id,
+          productList: createdOrder.productList,
+          user: createdOrder.user_id,
+          restaurante: createdOrder.restaurante_id,
+          billing: createdOrder.billing,
+          address: createdOrder.address,
+          date: createdOrder.date,
+        },
+      });
+    } catch (err) {
+      return res.status(500).json({
+        error: "Error creating new Order",
+        details: err.message,
+      });
+    }
+  }
+};
+
+// Update order and save it to MongoDB
+
 exports.updateOrder = async (req, res) => {
-    try {
-        const updatedOrder = await Order.findByIdAndUpdate(req.params.id, req.body, { new: true });
-        if (!updatedOrder) {
-            return res.status(404).json({ message: "Pedido no encontrado" });
-        }
-        res.json({ message: "Pedido actualizado correctamente", updatedOrder });
-    } catch (err) {
-        res.status(500).json({ message: "Error al actualizar el pedido", error: err.message });
+  const orderId = req.params.id;
+  const update = req.body;
+  try {
+    const updatedOrder = await Order.findByIdAndUpdate(orderId, update, {
+      new: true,
+    });
+    if (updatedOrder) {
+      res.json({ message: "Order Updated Succsessfully", updatedOrder });
+    } else {
+      res.status(404).json({ error: "Order not found" });
     }
+  } catch (error) {
+    res.status(500).json({ error: "Internal Server Error" });
+  }
 };
 
-// Eliminar un pedido
+// Delete order and save it to MongoDB
+
 exports.deleteOrder = async (req, res) => {
-    try {
-        const order = await Order.findByIdAndDelete(req.params.id);
-        if (!order) {
-            return res.status(404).json({ message: "Pedido no encontrado" });
-        }
-        res.json({ message: "Pedido eliminado correctamente" });
-    } catch (err) {
-        res.status(500).json({ message: "Error al eliminar el pedido", error: err.message });
+  const orderId = req.params.id;
+  try {
+    const deletedOrder = await Order.findByIdAndDelete(orderId);
+    if (deletedOrder) {
+      res.json({ message: "order deleted successfully", deletedOrder });
+    } else {
+      res.status(500).json({ error: "Order not found" });
     }
+  } catch (error) {
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};
+
+exports.getOrdersByRestaurantId = async (req, res) => {
+  const restauranteId = req.params.restauranteId;
+  try {
+    const orders = await Order.find({ restaurante: restauranteId });
+    res.json(orders);
+  } catch (error) {
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};
+
+exports.getOrdersByUserId = async (req, res) => {
+  const userId = req.params.userId;
+  try {
+    const orders = await Order.find({ user: userId });
+    res.json(orders);
+  } catch (error) {
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+
 };

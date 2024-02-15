@@ -58,7 +58,7 @@ function App() {
                   element={<RestaurantPage />}
                 ></Route>
                 <Route
-                  path="/confirmation"
+                  path="/confirmation/:orderId"
                   element={<ConfirmationPage />}
                 ></Route>
                 <Route path="/formularios" element={<Formulario />} />

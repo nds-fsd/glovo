@@ -1,6 +1,6 @@
 .shoppingCart {
-  width: 230px;
-  height: 400px;
+  width: 250px;
+  height: 450px;
   box-shadow: 0 0 50px 7px rgba(0, 0, 0, 0.123);
   border-radius: 10px;
   z-index: 999;
@@ -9,13 +9,12 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-around;
-  overflow: hidden;
+  padding-top: 10px;
 }
 
 .shoppingCartFixed {
-  width: 230px;
-  height: 400px;
+  width: 250px;
+  height: 450px;
   box-shadow: 0 0 50px 7px rgba(0, 0, 0, 0.123);
   border-radius: 10px;
   z-index: 999;
@@ -24,16 +23,18 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-around;
+
   align-self: flex-end;
   overflow: hidden;
 }
 
 .shoppingCartContainer {
-  width: 270px;
+  width: 300px;
   display: flex;
   align-items: flex-start;
-  justify-content: center;
+  justify-content: flex-start;
+  padding-left: 15px;
+  overflow: visible;
 }
 
 .shoppingCart > p {
@@ -49,36 +50,54 @@
 }
 
 .shoppingCartBackground {
-  width: 80%;
+  width: 95%;
+  margin: 50px;
 }
 
 .shoppingListContainer {
-  height: 80%;
+  height: 70%;
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: flex-start;
   flex-direction: column;
   padding: 0;
+  overflow: visible;
+}
+
+.shoppingListContainer::-webkit-scrollbar {
+  display: none;
+}
+
+.crossIcon {
+  height: 15px;
+  width: 15px;
+  transform: translate(3px);
 }
 
 .shoppingListItem {
   height: fit-content;
   color: black;
-  width: 45%;
+  width: 48%;
+
   white-space: nowrap;
-  overflow: hidden;
+  text-wrap: nowrap;
   text-overflow: ellipsis;
   text-align: left;
+  font-weight: 400;
+  font-size: 0.75rem;
 }
 
 .cartItemContainer {
-  padding: 5px 0;
+  padding: 8px 8px;
   display: flex;
   align-items: center;
-  gap: 10px;
-  background-color: var(--secondary-color-lighter);
-  width: 100%;
+  justify-content: space-between;
+  background-color: rgb(241, 249, 248);
+  width: calc(100% - 16px);
+  border-bottom: 1px solid rgb(179, 196, 198);
+  overflow: visible;
+  position: relative;
 }
 
 .ammountContainer {
@@ -86,26 +105,79 @@
   align-items: center;
   justify-content: center;
   gap: 5px;
-  background-color: var(--secondary-color-light);
+  background-color: rgb(204, 224, 214);
   height: 15px;
   border-radius: 50px;
-  margin: 5px;
-  width: 20%;
+  width: fit-content;
+  height: fit-content;
 }
 
 .quantityButton {
-  height: 15px;
-  width: 15px;
+  font-family: "quicksand";
+  height: 18px;
+  width: 18px;
   background-color: var(--secondary-color);
   color: white;
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
   box-shadow: 0 0 0 0;
+  font-size: 1.1rem;
+  font-weight: 700;
+  padding: 0;
+  position: relative;
 }
 
 .quantityNumber {
-  font-size: 0.7rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--secondary-color);
+  width: 10px;
+  overflow: visible;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.buttonContentPlus {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  color: white;
+  box-shadow: 0 0 0 0;
+  font-size: 1.1rem;
+  font-weight: 700;
+  bottom: -15%;
+}
+
+.buttonContentMinus {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  color: white;
+  box-shadow: 0 0 0 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+  bottom: 15.5%;
+}
+.deleteCartItemButton {
+  position: absolute;
+  right: 0px;
+  height: 30px;
+
+  background-color: white;
+  color: gray;
+  opacity: 0;
+  transition-delay: 0.5s;
+  z-index: -2;
+  border-radius: 0 20px 20px 0;
+  width: 30px;
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 10px;
+}
+
+.cartItemContainer:hover > .deleteCartItemButton {
+  opacity: 1;
+  transform: translate(25px);
+  transition-delay: 0s;
 }
 
 .quantityButton:hover {
@@ -166,7 +238,7 @@ b {
   align-items: center;
   justify-content: center;
   gap: 4px;
-  background-color: var(--primary-color-light);
+  background-color: var(--secondary-color-lighter);
   padding: 1px 5px;
   border-radius: 50px;
 }
@@ -178,8 +250,10 @@ b {
 
 .shoppingCart > h2 {
   color: var(--secondary-color);
+  padding: 10px;
 }
 
 .shoppingCartFixed > h2 {
   color: var(--secondary-color);
+  padding: 10px;
 }

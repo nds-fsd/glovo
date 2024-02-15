@@ -46,6 +46,7 @@ export const handleLoginSubmit = async (data, setLocalUser, closeModal) => {
     return error.response.status;
   }
 };
+
 export const handleProfileUpdateSubmit = async (
   editingField,
   data,

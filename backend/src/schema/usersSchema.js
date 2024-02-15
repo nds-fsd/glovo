@@ -11,6 +11,7 @@ const userSchema = new Schema({
   password: String,
   phone: { type: String },
   address: { type: String },
+  creditCard: { type: Object },
   role: { type: String, enum: ["USER", "RESTAURANT"] },
 });
 

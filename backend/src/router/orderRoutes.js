@@ -1,17 +1,18 @@
-const express = require('express');
-const orderController = require('../controller/orderController');
-const { jwtMiddleware } = require('../security/jwt');
 
-const orderRouter = express.Router();
+const express = require("express");
+const router = express.Router();
+const orderController = require("../controller/orderController");
 
-// Aplica jwtMiddleware a todas las rutas de este router para asegurar que sean privadas
-orderRouter.use(jwtMiddleware);
+router.get("/orders", orderController.getOrders);
+router.get("/orders/:id", orderController.getOrderById);
+router.post("/orders", orderController.createOrder);
+router.patch("/orders/:id", orderController.updateOrder);
+router.delete("/orders/:id", orderController.deleteOrder);
+router.get(
+  "/restaurantes/:restauranteId/orders",
+  orderController.getOrdersByRestaurantId
+);
+router.get("/users/:userId/orders", orderController.getOrdersByUserId);
 
+module.exports = router;
 
-orderRouter.post('/', orderController.createOrder); // Crear un nuevo pedido
-orderRouter.get('/', orderController.getAllOrders); // Obtener todos los pedidos
-orderRouter.get('/:id', orderController.getOrderById); // Obtener un pedido por su ID
-orderRouter.patch('/:id', orderController.updateOrder); // Actualizar un pedido existente
-orderRouter.delete('/:id', orderController.deleteOrder); // Eliminar un pedido
-
-module.exports = orderRouter;

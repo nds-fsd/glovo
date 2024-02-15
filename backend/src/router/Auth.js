@@ -146,6 +146,7 @@ authRouter.post("/login", async (req, res) => {
           role: foundUser.role,
           phone: foundUser.phone,
           address: foundUser.address,
+          creditCard: foundUser.creditCard,
         },
       });
     })

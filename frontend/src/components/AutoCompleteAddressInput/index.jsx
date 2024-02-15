@@ -91,6 +91,7 @@ const AutoCompleteAdrressInput = ({
         value={value}
         onChange={handleInput}
         disabled={!ready}
+        required
       />
       {/* We can use the "status" to decide whether we should display the dropdown or not */}
       <AnimatePresence>
