@@ -172,6 +172,7 @@ export default function RestaurantPage({}) {
                 restaurante={restaurante}
                 isLoadingProducts={isLoadingProducts}
                 fix={fix}
+                calculatePrice={calculatePrice}
               />
             </main>
           </div>

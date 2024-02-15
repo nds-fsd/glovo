@@ -60,13 +60,12 @@ export default function ConfirmationPage() {
         <header className={styles.confirmationHeader}>
           <div className={styles.h1Container}>
             <h1>Tu pedido ha sido confirmado </h1>{" "}
-            <img className={styles.thumbsUpImg} src={ThumbsUpImg} alt="" />
           </div>
         </header>
         <img className={styles.wavySvg} src={wavySvg} alt="" />
         <main className={styles.mainContainer}>
           <div className={styles.listContainer}>
-            <ul className={styles.itemList}>
+            <ul className={`${styles.orderList} ${styles.itemList} `}>
               <div>
                 <h2>Detalle del pedido</h2>
               </div>

@@ -129,7 +129,7 @@ exports.getOrdersByRestaurantId = async (req, res) => {
 exports.getOrdersByUserId = async (req, res) => {
   const userId = req.params.userId;
   try {
-    const orders = await Order.find({ order: order._Id });
+    const orders = await Order.find({ user: userId });
     res.json(orders);
   } catch (error) {
     res.status(500).json({ error: "Internal Server Error" });

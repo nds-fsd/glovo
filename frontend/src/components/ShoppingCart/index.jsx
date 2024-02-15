@@ -4,7 +4,7 @@ import scooterIcon from "../../assets/icons/scooter-svgrepo-com (1).svg";
 import { motion, AnimatePresence } from "framer-motion";
 import PurchaseConfirmationModal from "../PurchaseConfirmationModal";
 import { CartContext } from "../../contexts/CartContext";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import crossIcon from "../../assets/icons/cross-circle-svgrepo-com.svg";
 import { useState } from "react";
 
@@ -15,6 +15,7 @@ export default function ShoppingCart({
   restaurante,
   setShoppingList,
   fix,
+  calculatePrice,
 }) {
   const [purchaseConfirmationModalIsOpen, setPurchaseConfirmationModalIsOpen] =
     useState(false);
@@ -33,6 +34,8 @@ export default function ShoppingCart({
     }
     setShoppingList(updatedShoppingList);
   };
+
+  console.log(shoppingList);
 
   const deleteCartItem = (e) => {
     const productIndex = shoppingList.findIndex((o) => o.id === e.id);

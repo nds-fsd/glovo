@@ -11,6 +11,7 @@ import { useNavigate } from "react-router-dom";
 import UserLoginModal from "../PerfilUsuario/UserLoginModal";
 import Formulario from "../formularios/formularios";
 import { AnimatePresence, motion } from "framer-motion";
+import OrderHistory from "../PerfilUsuario/OrderHistory";
 
 export default function NavBar({ location }) {
   const [logged, setLogged] = useState(false);
@@ -19,6 +20,7 @@ export default function NavBar({ location }) {
     useState(false);
   const [isUserRegisterModalOpen, setIsUserRegisterModalOpen] = useState(false);
   const [loginModalOpen, setLoginModalOpen] = useState(false);
+  const [historyModalIsOpen, setHistoryModalIsOpen] = useState(false);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -67,7 +69,11 @@ export default function NavBar({ location }) {
               <button onClick={handleUserModal}>
                 <img className={styles.userIcon} src={userIcon} alt="" />
               </button>
-              <button>
+              <button
+                onClick={() => {
+                  setHistoryModalIsOpen(true);
+                }}
+              >
                 <img className={styles.listIcon} src={listIcon} alt="" />
               </button>
             </div>
@@ -75,6 +81,15 @@ export default function NavBar({ location }) {
         </motion.nav>
 
         <PerfilUsuario
+          modalState={isPerfilUsuarioModalOpen}
+          changeModalState={handleUserModal}
+          setLogged={setLogged}
+          setIsPerfilUsuarioModalOpen={setIsPerfilUsuarioModalOpen}
+        />
+
+        <OrderHistory
+          historyModalIsOpen={historyModalIsOpen}
+          setHistoryModalIsOpen={setHistoryModalIsOpen}
           modalState={isPerfilUsuarioModalOpen}
           changeModalState={handleUserModal}
           setLogged={setLogged}
