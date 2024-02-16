@@ -40,71 +40,64 @@ function ChangePasswordModal({
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className={styles.modalContainer}
+            className={styles.mainContainer}
           >
             <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
               <h2>Cambiar contraseña</h2>
               {/* Contraseña actual */}
-              <div className={styles.formGroup}>
-                <label htmlFor="currentPassword">Contraseña actual</label>
-                <input
-                  type="password"
-                  {...register("currentPassword", {
-                    required: "Este campo es requerido",
-                  })}
-                  id="currentPassword"
-                />
-                {errors.currentPassword && (
-                  <p>{errors.currentPassword.message}</p>
-                )}
-              </div>
-              {/* Nueva contraseña */}
-              <div className={styles.formGroup}>
-                <label htmlFor="newPassword">Nueva contraseña</label>
-                <input
-                  type="password"
-                  {...register("newPassword", {
-                    required: "Este campo es requerido",
-                    minLength: {
-                      value: 6,
-                      message: "La contraseña debe tener al menos 6 caracteres",
-                    },
-                  })}
-                  id="newPassword"
-                />
-                {errors.newPassword && <p>{errors.newPassword.message}</p>}
-              </div>
-              {/* Repetir nueva contraseña */}
-              <div className={styles.formGroup}>
-                <label htmlFor="confirmNewPassword">
-                  Repetir nueva contraseña
-                </label>
-                <input
-                  type="password"
-                  {...register("confirmNewPassword", {
-                    validate: (value) =>
-                      value === getValues("newPassword") ||
-                      "Las contraseñas no coinciden",
-                  })}
-                  id="confirmNewPassword"
-                />
-                {errors.confirmNewPassword && (
-                  <p>{errors.confirmNewPassword.message}</p>
-                )}
+              <div className={styles.inputContainer}>
+                <div className={styles.formGroup}>
+                  <input
+                    placeholder="Contraseña actual"
+                    type="password"
+                    {...register("currentPassword", {
+                      required: "Este campo es requerido",
+                    })}
+                    id="currentPassword"
+                  />
+                  {errors.currentPassword && (
+                    <p>{errors.currentPassword.message}</p>
+                  )}
+                </div>
+                {/* Nueva contraseña */}
+                <div className={styles.formGroup}>
+                  <input
+                    placeholder="Nueva contraseña"
+                    type="password"
+                    {...register("newPassword", {
+                      required: "Este campo es requerido",
+                      minLength: {
+                        value: 6,
+                        message:
+                          "La contraseña debe tener al menos 6 caracteres",
+                      },
+                    })}
+                    id="newPassword"
+                  />
+                  {errors.newPassword && <p>{errors.newPassword.message}</p>}
+                </div>
+                {/* Repetir nueva contraseña */}
+                <div className={styles.formGroup}>
+                  <input
+                    placeholder="Repetir nueva contraseña"
+                    type="password"
+                    {...register("confirmNewPassword", {
+                      validate: (value) =>
+                        value === getValues("newPassword") ||
+                        "Las contraseñas no coinciden",
+                    })}
+                    id="confirmNewPassword"
+                  />
+                  {errors.confirmNewPassword && (
+                    <p>{errors.confirmNewPassword.message}</p>
+                  )}
+                </div>
               </div>
               {/* Botones del formulario */}
-              <div className={styles.actions}>
-                <button
-                  type="button"
-                  onClick={closeChangePasswordModal}
-                  className={styles.cancelButton}
-                >
-                  Cancelar
-                </button>
-                <button type="submit" className={styles.submitButton}>
-                  Cambiar contraseña
-                </button>
-              </div>
+
+              <button type="submit" className={styles.agregarTarjeta}>
+                Cambiar contraseña
+              </button>
             </form>
           </motion.div>
         </Modal>
