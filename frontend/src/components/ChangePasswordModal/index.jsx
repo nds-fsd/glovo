@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import Modal from "react-modal";
 import { motion, AnimatePresence } from "framer-motion";
 import styles from "./styles.module.css"; // Asegúrate de que el path de importación de tus estilos sea correcto
+import useOnclickOutside from "react-cool-onclickoutside";
 
 function ChangePasswordModal({
   isChangePasswordModalOpen,
@@ -26,6 +27,10 @@ function ChangePasswordModal({
     closeChangePasswordModal();
   };
 
+  const ref = useOnclickOutside(() => {
+    closeChangePasswordModal(false);
+  });
+
   return (
     <AnimatePresence>
       {isChangePasswordModalOpen && (
@@ -41,6 +46,7 @@ function ChangePasswordModal({
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className={styles.mainContainer}
+            ref={ref}
           >
             <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
               <h2>Cambiar contraseña</h2>
