@@ -534,17 +534,27 @@ div[class^="_profile_"]::-webkit-scrollbar {
   gap: 10px;
 
   overflow: auto;
-
+  width: 400px;
   height: fit-content;
-  max-height: 83%;
+  max-height: 70%;
   justify-content: center;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .historyContainer > h2 {
-  margin-bottom: 15px;
+  margin-bottom: 10px;
 }
 
 .historyContainer::-webkit-scrollbar {
   width: 0;
   display: none;
+}
+
+.orderMapContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
 }

@@ -376,14 +376,6 @@ function PerfilUsuario({
                 <img className={styles.pencilIcon} src={pencilIcon} alt="" />
               </p>
             </div>
-
-            {/* <p
-              onClick={() => setIsChangePasswordModalOpen(true)}
-              className={styles.campoP2}
-            >
-              Contraseña: •••••••••
-            </p> */}
-
             <div className={styles.separador}></div>
             <div className={styles.preferenceContainer}>
               <div className={styles.preferenceTextContainer}>

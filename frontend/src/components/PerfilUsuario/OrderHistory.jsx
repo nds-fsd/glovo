@@ -92,6 +92,7 @@ function OrderHistory({ historyModalIsOpen, setHistoryModalIsOpen }) {
           transition={{ duration: 0.2 }}
           className={styles.everything}
         >
+          <div className={styles.flecha}></div>
           <motion.div
             initial={{ opacity: 0, translateY: 50 }}
             animate={{ opacity: 1, translateY: 0 }}
@@ -101,39 +102,41 @@ function OrderHistory({ historyModalIsOpen, setHistoryModalIsOpen }) {
           >
             <h2>Tus pedidos</h2>
 
-            {orders &&
-              orders
-                .slice(0)
-                .reverse()
-                .map((e) => {
-                  return (
-                    <div
-                      onClick={() => repeatOrder(e)}
-                      className={styles.orderContainer}
-                    >
-                      <h5>
-                        {restaurants &&
-                          restaurants.find((r) => r._id == e.restaurante)
-                            .brandName}
-                      </h5>
-                      <div className={styles.imgTextContainer}>
-                        <img
-                          className={styles.restaurantHistoryImg}
-                          src={
-                            restaurants &&
-                            restaurants.find((r) => r._id == e.restaurante).img
-                          }
-                          alt=""
-                        />
-
-                        <div>
-                          <p>{e.productList.length - 2} productos</p>
-                          <p>{e.date.split(" ")[0]}</p>
+            <div className={styles.orderMapContainer}>
+              {orders &&
+                orders
+                  .slice(0)
+                  .reverse()
+                  .map((e) => {
+                    return (
+                      <div
+                        onClick={() => repeatOrder(e)}
+                        className={styles.orderContainer}
+                      >
+                        <h5>
+                          {restaurants &&
+                            restaurants.find((r) => r._id == e.restaurante)
+                              .brandName}
+                        </h5>
+                        <div className={styles.imgTextContainer}>
+                          <img
+                            className={styles.restaurantHistoryImg}
+                            src={
+                              restaurants &&
+                              restaurants.find((r) => r._id == e.restaurante)
+                                .img
+                            }
+                            alt=""
+                          />
+                          <div>
+                            <p>{e.productList.length - 2} productos</p>
+                            <p>{e.date.split(" ")[0]}</p>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  );
-                })}
+                    );
+                  })}
+            </div>
           </motion.div>
         </motion.div>
       </Modal>
