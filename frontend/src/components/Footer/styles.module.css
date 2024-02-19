@@ -107,3 +107,12 @@ option {
 .languageSelectoContainer {
   background-color: transparent;
 }
+
+.businessModal {
+  color: white;
+  font-size: 0.7rem;
+  text-decoration: none;
+  outline: none;
+  cursor: pointer;
+  font-weight: 400;
+}

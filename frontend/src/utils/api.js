@@ -15,9 +15,8 @@ export const api = axios.create({
 });
 
 api.interceptors.request.use((config) => {
-
   const token = localStorage.getItem("token");
-  config.headers.Authorization = token ? `Bearer ${token}` : '';
+  config.headers.Authorization = token ? `Bearer ${token}` : "";
 
   return config;
 });
@@ -58,12 +57,31 @@ export const objectToQueryString = (obj) => {
   return queryString;
 };
 
+// Registarar restaurante
 export const createRestaurant = async (restaurantData) => {
   try {
     const response = await api.post("/restaurantes", restaurantData);
     return response.data;
   } catch (error) {
     console.error(error.response ? error.response.data : error.message);
+    throw error;
+  }
+};
+
+// Iniciar cesion Restaurante
+export const restaurantLogin = async (credentials) => {
+  try {
+    const response = await api.post("/restaurantLogin", credentials);
+    console.log(response);
+
+    // setStorageObject("restaurant-session", response.data)
+    setRestaurantSession({
+      token: response.data.token,
+      restaurant: response.data.user,
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error durante el inicio de sesión:", error);
     throw error;
   }
 };

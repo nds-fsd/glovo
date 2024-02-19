@@ -5,7 +5,6 @@ import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import { useParams } from "react-router";
 import { api } from "../../utils/api";
-import MenuModal from "./menuModal";
 import ProductCard from "../ProductCard";
 import productExampleImg from "../../assets/images/productexampleimg.avif";
 
@@ -15,17 +14,6 @@ const DashBoard = () => {
   const [restaurantProducts, setRestaurantProducts] = useState([]);
   const [restaurantes, setRestaurantes] = useState([]);
   const [products, setProducts] = useState([]);
-  const [isMenuModalOpen, setIsMenuModalOpen] = useState(false);
-
-  // Función para abrir el modal
-  const openMenuModal = () => {
-    setIsMenuModalOpen(true);
-  };
-
-  // Función para cerrar el modal
-  const closeMenuModal = () => {
-    setIsMenuModalOpen(false);
-  };
 
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
@@ -42,11 +30,18 @@ const DashBoard = () => {
     slidesToScroll: 1,
   };
 
+  useEffect(() => {
+    const restaurantById = restaurantes.email === restaurantes.password;
+    if (restaurantById !== null) {
+      return console.log("restauranteById not Found");
+    }
+  });
+
   // Todo Para restaurantes general
   useEffect(() => {
     const getRestaurants = async () => {
       try {
-        const response = await api.get("/restaurantes/");
+        const response = await api.get("/restaurantes");
         setRestaurantes(response.data);
         console.log(response.data);
       } catch (error) {

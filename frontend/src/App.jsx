@@ -14,6 +14,7 @@ import { OrderContext } from "./contexts/OrderContext";
 import DashBoard from "./components/DashBoard/dashBoard";
 import ConfirmationPage from "./components/ConfirmationPage";
 import { UserContext } from "./contexts/UserContext";
+import { RestaurantContext } from "./contexts/RestaurantContext";
 
 function App() {
   const [shoppingList, setShoppingList] = useState([]);

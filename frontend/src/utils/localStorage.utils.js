@@ -46,20 +46,24 @@ export const removeSession = () => {
 };
 
 export const isSessionActive = () => {
-  const token = getUserToken(); 
-  if (!token) return false; 
+  const token = getUserToken();
+  if (!token) return false;
 
   try {
     const decodedToken = jwtDecode(token);
-    const currentTime = Date.now() / 1000; 
+    const currentTime = Date.now() / 1000;
     if (decodedToken.exp < currentTime) {
-     
-      removeSession(); 
+      removeSession();
       return false;
     }
-    return true; 
+    return true;
   } catch (error) {
     console.error("Error decoding token:", error);
-    return false; 
+    return false;
   }
+};
+
+//! -----------------------------------------------------
+export const setRestaurantSession = (restaurantSessionData) => {
+  setStorageObject("restaurant-session", JSON.stringify(sessionData));
 };

@@ -54,7 +54,6 @@ exports.getRestauranteById = async (req, res) => {
   const restauranteId = req.params.id;
   try {
     const foundRestaurante = await Restaurante.findById(restauranteId);
-
     if (foundRestaurante) {
       res.json(foundRestaurante);
     } else {
@@ -104,5 +103,27 @@ exports.updateRestaurante = async (req, res) => {
     }
   } catch (err) {
     res.status(500).json({ error: err.message });
+  }
+};
+
+// Todo ni idea lo que estoy haciendo
+
+exports.loginRestaurante = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    const restaurante = await Restaurante.findOne({ email });
+    if (!restaurante) {
+      return res.status(401).json({ error: "Credenciales incorrectas" });
+    }
+
+    const isMatch = restaurante.comparePassword(password);
+    if (!isMatch) {
+      return res.status(401).json({ error: "Credenciales incorrectas" });
+    }
+
+    const token = restaurante.generateJWT();
+    res.json({ message: "Login exitoso", token });
+  } catch (err) {
+    res.status(500).json({ error: "Error interno del servidor" });
   }
 };
