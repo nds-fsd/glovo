@@ -1,7 +1,7 @@
 .searchBar {
   width: 350px;
   height: 40%;
-  background-color: white;
+  background-color: rgba(255, 255, 255, 0.805);
 
   display: flex;
   align-items: center;

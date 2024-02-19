@@ -1,0 +1,148 @@
+.container {
+  display: grid;
+  grid-template-columns: 25% 75%;
+  padding: 20px;
+  gap: 20px;
+  background-color: rgb(188, 219, 219);
+  height: 620px;
+  margin-top: 80px;
+}
+.box1 {
+  display: grid;
+  grid-template-rows: repeat(12, 1fr);
+  background-color: rgb(171, 180, 180);
+  border-radius: 5px;
+  grid-column: 1 / 2;
+  grid-row: 1 / 2;
+  height: 620px;
+}
+.input {
+  grid-column: 3 / 4;
+  grid-row: 1 / 2;
+  height: 30px;
+  width: 150px;
+  color: white;
+}
+.close {
+  grid-column: 6 / 7;
+  grid-row: 1 / 2;
+  height: 30px;
+  width: 60px;
+  border-radius: 20px;
+  background-color: rgba(0, 0, 0, 0);
+  color: white;
+  padding: 3px;
+  margin: 5px;
+}
+.switch {
+  grid-column: 5 / 6;
+  grid-row: 1 / 2;
+  height: 30px;
+  width: 60px;
+  border-radius: 20px;
+  background-color: rgba(0, 0, 0, 0);
+  color: white;
+  padding: 3px;
+  margin: 5px;
+}
+.h2 {
+  grid-column: 3 / 4;
+}
+.p {
+  grid-column: 3 / 4;
+  grid-row: 2 / 3;
+  color: white;
+}
+.divFondoPantalla {
+  background-image: url("../../assets/images/burger.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 90vh;
+  width: 97%;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(8, 1fr);
+  padding: 10px;
+  height: 600px;
+  backdrop-filter: blur(5px);
+  border-radius: 5px;
+}
+.pSegundo {
+  color: white;
+  grid-row: 7 / 8;
+}
+.buttons {
+  display: flex;
+  justify-content: flex-end;
+  grid-column: 6 / 7;
+}
+.modifyBtn {
+  display: flex;
+  justify-content: flex-end;
+  grid-row: 8 / 9;
+  grid-column: 3 / 5;
+}
+
+.slider {
+  grid-column: 2 / 6;
+  grid-row: 7 / 8;
+}
+
+.add {
+  height: 30px;
+  width: 120px;
+  border-radius: 20px;
+  background-color: rgba(0, 0, 0, 0);
+  color: white;
+  padding: 3px;
+  margin: 5px;
+}
+
+.delete {
+  height: 30px;
+  width: 120px;
+  border-radius: 20px;
+  background-color: rgba(0, 0, 0, 0);
+  color: white;
+  padding: 3px;
+  margin: 5px;
+}
+.yourBrand {
+  margin: 15px;
+  padding: 15px;
+}
+.firstName {
+  background-color: rgba(0, 0, 0, 0.227);
+  color: white;
+}
+.lastName {
+  background-color: rgb(0, 0, 0, 0.227);
+  color: white;
+}
+.brandName {
+  background-color: rgb(0, 0, 0, 0.227);
+  color: white;
+}
+.city {
+  background-color: rgb(0, 0, 0, 0.227);
+  color: white;
+}
+.email {
+  background-color: rgb(0, 0, 0, 0.227);
+  color: white;
+}
+.category {
+  background-color: rgb(0, 0, 0, 0.227);
+  color: white;
+}
+.phone {
+  background-color: rgb(0, 0, 0, 0.227);
+  color: white;
+}
+.productName {
+  background-color: red;
+}
+.yourBrand {
+  color: #09827e;
+}

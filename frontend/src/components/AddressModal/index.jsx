@@ -11,15 +11,14 @@ export default function AddressModal({
   closeAddressModal,
   handleSaveClickAddress,
   changeModalState,
+  optional,
 }) {
   const { register, handleSubmit, setValue: setFormValue } = useForm();
   const [coordinates, setCoordinates] = useState("");
 
   const onSubmit = (data) => {
-    console.log("data", data);
     const formattedAddress = `${data.address}. ${data.number}, ${data.extra}. ${data.cp}.`;
     handleSaveClickAddress(formattedAddress);
-    changeModalState();
     closeAddressModal();
     setCoordinates("");
   };
@@ -80,11 +79,16 @@ export default function AddressModal({
                   setCoordinates={setCoordinates}
                   coordinates={coordinates}
                 />
-                <button type="submit" className={styles.agregarTarjeta}>
-                  Agregar dirección
-                </button>
+                {coordinates && (
+                  <button type="submit" className={styles.agregarTarjeta}>
+                    Agregar dirección
+                  </button>
+                )}
               </form>
             </div>
+            {optional && (
+              <p>Esta direccion se utilizará sólo para este pedido</p>
+            )}
           </motion.div>
         </Modal>
       )}

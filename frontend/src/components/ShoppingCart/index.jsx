@@ -4,8 +4,8 @@ import scooterIcon from "../../assets/icons/scooter-svgrepo-com (1).svg";
 import { motion, AnimatePresence } from "framer-motion";
 import PurchaseConfirmationModal from "../PurchaseConfirmationModal";
 import { CartContext } from "../../contexts/CartContext";
-import { useContext } from "react";
-
+import { useContext, useEffect } from "react";
+import crossIcon from "../../assets/icons/cross-circle-svgrepo-com.svg";
 import { useState } from "react";
 
 export default function ShoppingCart({
@@ -16,15 +16,26 @@ export default function ShoppingCart({
   setShoppingList,
   fix,
 }) {
-  let [modalIsOpen, setIsOpen] = useState(false);
 
-  const openModal = () => {
-    setIsOpen(true);
-  };
+  const [purchaseConfirmationModalIsOpen, setPurchaseConfirmationModalIsOpen] =
+    useState(false);
 
-  const closeModal = () => {
-    setIsOpen(false);
-  };
+  
+  //const [modalIsOpen, setIsOpen] = useState(false);
+  //const openModal = () => {
+    //const token = localStorage.getItem("token");
+    //if (!token) {
+  
+      //window.dispatchEvent(new CustomEvent("open-login-modal"));
+    //} else {
+      //setIsOpen(true);
+    //}
+  //};
+
+  //const closeModal = () => {
+    //setIsOpen(false);
+  //};
+
 
   const ammountHandler = (e, operation) => {
     const ProductIndex = shoppingList.findIndex((o) => o.id === e.id);
@@ -40,6 +51,16 @@ export default function ShoppingCart({
     }
     setShoppingList(updatedShoppingList);
   };
+
+
+  const deleteCartItem = (e) => {
+    const productIndex = shoppingList.findIndex((o) => o.id === e.id);
+    const updatedShoppingList = [...shoppingList];
+    updatedShoppingList.splice(productIndex, 1);
+
+    setShoppingList(updatedShoppingList);
+  };
+
 
   return (
     <div className={styles.shoppingCartContainer}>
@@ -80,7 +101,7 @@ export default function ShoppingCart({
                         }}
                         className={styles.quantityButton}
                       >
-                        -
+                        <span className={styles.buttonContentMinus}>-</span>
                       </button>
                       <p className={styles.quantityNumber}>{e.ammount}</p>
                       <button
@@ -89,13 +110,23 @@ export default function ShoppingCart({
                         }}
                         className={styles.quantityButton}
                       >
-                        +
+                        <span className={styles.buttonContentPlus}>+</span>
                       </button>
                     </div>
                     <p className={styles.shoppingListItem}>
                       {producto.nombre + " "}
                     </p>
                     <b>{producto.precio + "€"}</b>
+                    <button
+                      onClick={() => deleteCartItem(e)}
+                      className={styles.deleteCartItemButton}
+                    >
+                      <img
+                        className={styles.crossIcon}
+                        src={crossIcon}
+                        alt=""
+                      />
+                    </button>
                   </motion.div>
                 );
               }
@@ -104,12 +135,14 @@ export default function ShoppingCart({
             <div className={styles.transportContainer}>
               <img className={styles.scooterIcon} src={scooterIcon} alt="" />
               <p>
-                {" "}
                 Tasas de tranporte
-                <b> {restaurante.transporte}</b>{" "}
+                <b> {restaurante.transporte}</b>
               </p>
             </div>
-            <button onClick={openModal} className={styles.buyButton}>
+            <button
+              onClick={() => setPurchaseConfirmationModalIsOpen(true)}
+              className={styles.buyButton}
+            >
               Comprar por {totalPrice}€
             </button>
           </div>
@@ -118,11 +151,12 @@ export default function ShoppingCart({
 
       <PurchaseConfirmationModal
         shoppingList={shoppingList}
-        modalIsOpen={modalIsOpen}
+        purchaseConfirmationModalIsOpen={purchaseConfirmationModalIsOpen}
         productos={productos}
-        closeModal={closeModal}
+        setPurchaseConfirmationModalIsOpen={setPurchaseConfirmationModalIsOpen}
         totalPrice={totalPrice}
         transportPrice={restaurante.transporte}
+        restaurante={restaurante}
       />
     </div>
   );

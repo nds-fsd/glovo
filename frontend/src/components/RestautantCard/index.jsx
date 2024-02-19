@@ -5,6 +5,7 @@ import likeIcon from "../../assets/icons/like-svgrepo-com.svg";
 import { useNavigate, useParams } from "react-router-dom";
 
 export default function RestaurantCard({
+  restaurantCity,
   restaurantName,
   restaurantCategory,
   restaurantCardImg,

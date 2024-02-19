@@ -1,6 +1,6 @@
 .mainContainer {
   width: 100%;
-  height: fit-content;
+  height: calc(fit-content + 600px);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -8,7 +8,7 @@
   justify-items: center;
   margin: 0;
   padding: 0;
-  gap: 30px;
+  gap: 10px;
   overflow: hidden;
 }
 
@@ -21,6 +21,7 @@
   justify-content: space-around;
   gap: 30px;
   max-width: 1000px;
+  padding: 40px;
 }
 
 .mainContainer > h2 {

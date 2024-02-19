@@ -64,7 +64,7 @@ export default function RestaurantPage({}) {
 
   function setFixedCart() {
     const dynamicScrollY = calculateDynamicScrollY();
-    if (window.scrollY <= dynamicScrollY - 229) {
+    if (window.scrollY <= dynamicScrollY - 280) {
       setFix(true);
     } else {
       setFix(false);
@@ -72,7 +72,11 @@ export default function RestaurantPage({}) {
   }
 
   function calculateDynamicScrollY() {
-    return document.getElementById("cartContainer").offsetHeight;
+    const cartContainer = document.getElementById("cartContainer");
+    if (cartContainer) {
+      return cartContainer.offsetHeight;
+    }
+    return 0;
   }
 
   const calculatePrice = () => {
@@ -116,7 +120,7 @@ export default function RestaurantPage({}) {
               <div className={styles.headerBackgroundContainer}>
                 <img
                   className={styles.headerBackgroundImg}
-                  src={restaurante.imagen}
+                  src={restaurante.img}
                   alt=""
                 />
               </div>
@@ -124,7 +128,7 @@ export default function RestaurantPage({}) {
             <main>
               <div className={styles.mainRestaurantContent}>
                 <section className={styles.restaurantHeader}>
-                  <h1>{restaurante.nombre}</h1>
+                  <h1>{restaurante.brandName}</h1>
                   <div className={styles.description}>
                     <RestaurantStats
                       iconSrc={likeIcon}
@@ -169,6 +173,7 @@ export default function RestaurantPage({}) {
                 restaurante={restaurante}
                 isLoadingProducts={isLoadingProducts}
                 fix={fix}
+                calculatePrice={calculatePrice}
               />
             </main>
           </div>
