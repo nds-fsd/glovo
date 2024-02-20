@@ -14,6 +14,7 @@ import { OrderContext } from "./contexts/OrderContext";
 import DashBoard from "./components/DashBoard/dashBoard";
 import ConfirmationPage from "./components/ConfirmationPage";
 import { UserContext } from "./contexts/UserContext";
+import LandbotChat from "./components/LandbotChat";
 
 function App() {
   const [shoppingList, setShoppingList] = useState([]);
@@ -64,7 +65,7 @@ function App() {
                 <Route path="/formularios" element={<Formulario />} />
                 <Route path="/dashBoard" element={<DashBoard />} />
               </Routes>
-
+              <LandbotChat />
               <Footer />
             </BrowserRouter>
           </CartContext.Provider>
