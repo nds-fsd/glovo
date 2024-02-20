@@ -8,16 +8,27 @@ exports.createUser = async (req, res) => {
       return res.status(400).json({ error: "La contraseña no está definida" });
     }
 
-    // Encriptar la contraseña antes de guardarla en la base de datos
+    
     const newUser = await User.create({
       firstName: firstname,
-      password, // Usar 'password' para coincidir con el esquema
+      password,
       created_date,
       email,
       phone,
     });
 
-    res.status(201).json(newUser);
+    const createdUser = await newUser.save()
+    if (createdUser) {
+      const user = { email: "josegarcia1006@gmail.com", name: createdUser.name };
+      await sendWelcomeEmail(user);
+      return res.statys(201).json({
+        message: "Tu usuario ha sido creado con éxito",
+        user: createdUser
+      })
+    } else {
+      res.status(400).send()
+    }
+
   } catch (err) {
     console.error("Error al crear usuario:", err);
     res.status(500).json({ error: err.message });
