@@ -5,9 +5,9 @@ import { AnimatePresence, motion } from "framer-motion";
 import styles from "../PerfilUsuario/styles.module.css";
 import Modal from "react-modal";
 import { handleLoginSubmit } from "../../utils/Usercrud";
-import { RestaurantContext } from "../../contexts/RestaurantContext";
+// import { RestaurantContext } from "../../contexts/RestaurantContext";
 import useOnclickOutside from "react-cool-onclickoutside";
-import { setRestaurantSession } from "../../utils/localStorage.utils";
+// import { setRestaurantSession } from "../../utils/localStorage.utils";
 
 export function BusinessModal({ businessModalIsOpen, setBusinessModalIsOpen }) {
   const { register, handleSubmit } = useForm();
