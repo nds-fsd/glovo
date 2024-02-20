@@ -106,23 +106,26 @@ function OrderHistory({ historyModalIsOpen, setHistoryModalIsOpen }) {
                 .slice(0)
                 .reverse()
                 .map((e) => {
+                  const restauranteEncontrado = restaurants.find(
+                    (r) => r._id === e.restaurante
+                  );
+                  if (!restauranteEncontrado) {
+                    console.warn(
+                      `Restaurante con ID ${e.restaurante} no encontrado.`
+                    );
+                    return null;
+                  }
+
                   return (
                     <div
                       onClick={() => repeatOrder(e)}
                       className={styles.orderContainer}
                     >
-                      <h5>
-                        {restaurants &&
-                          restaurants.find((r) => r._id == e.restaurante)
-                            .brandName}
-                      </h5>
+                      <h5>{restauranteEncontrado.brandName}</h5>
                       <div className={styles.imgTextContainer}>
                         <img
                           className={styles.restaurantHistoryImg}
-                          src={
-                            restaurants &&
-                            restaurants.find((r) => r._id == e.restaurante).img
-                          }
+                          src={restauranteEncontrado.img}
                           alt=""
                         />
 
