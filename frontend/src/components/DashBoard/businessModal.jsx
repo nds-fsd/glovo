@@ -15,6 +15,7 @@ export function BusinessModal({ businessModalIsOpen, setBusinessModalIsOpen }) {
   const [password, setPassword] = useState("");
 
   //   const { restaurant, setRestaurantSession } = useContext(RestaurantContext);
+  //* Lo que sea
 
   const ref = useOnclickOutside(() => {
     setBusinessModalIsOpen(false);
