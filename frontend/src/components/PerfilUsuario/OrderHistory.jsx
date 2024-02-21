@@ -126,7 +126,6 @@ function OrderHistory({ historyModalIsOpen, setHistoryModalIsOpen }) {
                               restaurants.find((r) => r._id == e.restaurante)
                                 .img
                             }
-                            alt=""
                           />
                           <div>
                             <p>{e.productList.length - 2} productos</p>
