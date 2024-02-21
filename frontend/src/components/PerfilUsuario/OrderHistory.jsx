@@ -102,40 +102,42 @@ function OrderHistory({ historyModalIsOpen, setHistoryModalIsOpen }) {
           >
             <h2>Tus pedidos</h2>
 
-            <div className={styles.orderMapContainer}>
-              {orders &&
-                orders
-                  .slice(0)
-                  .reverse()
-                  .map((e) => {
-                    return (
-                      <div
-                        onClick={() => repeatOrder(e)}
-                        className={styles.orderContainer}
-                      >
-                        <h5>
-                          {restaurants &&
-                            restaurants.find((r) => r._id == e.restaurante)
-                              .brandName}
-                        </h5>
-                        <div className={styles.imgTextContainer}>
-                          <img
-                            className={styles.restaurantHistoryImg}
-                            src={
-                              restaurants &&
-                              restaurants.find((r) => r._id == e.restaurante)
-                                .img
-                            }
-                          />
-                          <div>
-                            <p>{e.productList.length - 2} productos</p>
-                            <p>{e.date.split(" ")[0]}</p>
-                          </div>
+            {orders &&
+              orders
+                .slice(0)
+                .reverse()
+                .map((e) => {
+                  const restauranteEncontrado = restaurants.find(
+                    (r) => r._id === e.restaurante
+                  );
+                  if (!restauranteEncontrado) {
+                    console.warn(
+                      `Restaurante con ID ${e.restaurante} no encontrado.`
+                    );
+                    return null;
+                  }
+
+                  return (
+                    <div
+                      onClick={() => repeatOrder(e)}
+                      className={styles.orderContainer}
+                    >
+                      <h5>{restauranteEncontrado.brandName}</h5>
+                      <div className={styles.imgTextContainer}>
+                        <img
+                          className={styles.restaurantHistoryImg}
+                          src={restauranteEncontrado.img}
+                          alt=""
+                        />
+
+                        <div>
+                          <p>{e.productList.length - 2} productos</p>
+                          <p>{e.date.split(" ")[0]}</p>
                         </div>
                       </div>
-                    );
-                  })}
-            </div>
+                    </div>
+                  );
+                })}
           </motion.div>
         </motion.div>
       </Modal>
