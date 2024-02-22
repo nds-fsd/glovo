@@ -25,10 +25,8 @@ export const postOrder = async (data) => {
 };
 
 api.interceptors.request.use((config) => {
-
-
   const token = localStorage.getItem("token");
-  config.headers.Authorization = token ? `Bearer ${token}` : '';
+  config.headers.Authorization = token ? `Bearer ${token}` : "";
 
   return config;
 });
@@ -69,6 +67,7 @@ export const objectToQueryString = (obj) => {
   return queryString;
 };
 
+// *-------------------------- Creando New Restaurant ---------------------------
 export const createRestaurant = async (restaurantData) => {
   try {
     const response = await api.post("/restaurantes", restaurantData);

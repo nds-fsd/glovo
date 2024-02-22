@@ -30,7 +30,7 @@ function PerfilUsuario({
   setLogged,
   setIsPerfilUsuarioModalOpen,
 }) {
-  const { id } = getUserSession();
+  const { id } = getUserSession("");
 
   const { user, setLocalUser } = useContext(UserContext);
 

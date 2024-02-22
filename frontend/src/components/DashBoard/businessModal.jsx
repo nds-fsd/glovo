@@ -4,34 +4,42 @@ import { MdOutlineEmail, MdOutlinePassword } from "react-icons/md";
 import { AnimatePresence, motion } from "framer-motion";
 import styles from "../PerfilUsuario/styles.module.css";
 import Modal from "react-modal";
-import { handleLoginSubmit } from "../../utils/Usercrud";
-// import { RestaurantContext } from "../../contexts/RestaurantContext";
+import { handleRestaurantLoginSubmit } from "../../utils/Usercrud";
+import { RestaurantContext } from "../../contexts/RestaurantContext";
 import useOnclickOutside from "react-cool-onclickoutside";
-// import { setRestaurantSession } from "../../utils/localStorage.utils";
+import {
+  setRestaurantSession,
+  getRestaurantData,
+} from "../../utils/localStorage.utils";
 
 export function BusinessModal({ businessModalIsOpen, setBusinessModalIsOpen }) {
   const { register, handleSubmit } = useForm();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
-  //   const { restaurant, setRestaurantSession } = useContext(RestaurantContext);
-
+  const { restaurant, setRestaurant } = useContext(RestaurantContext);
+  const [error, setError] = useState(null);
   const ref = useOnclickOutside(() => {
     setBusinessModalIsOpen(false);
   });
-  const [error, setError] = useState(null);
+
   const onSubmit = async (data) => {
     try {
-      const response = await handleLoginSubmit(data, setRestaurantSession);
-      if (response == 200) {
-        console.log(restaurant);
-        setLogged(true);
+      const loginResponse = await handleRestaurantLoginSubmit(data);
+      if (loginResponse.status === 200) {
+        const restaurantData = await getRestaurantData(
+          loginResponse.data.token
+        );
+        if (restaurantData) {
+          setRestaurant(restaurantData);
+          setBusinessModalIsOpen(false);
+          setRestaurantSession(restaurantData);
+        } else {
+          setError("No hay un restaurante registrado para este usuario.");
+        }
       } else {
-        setLogged(false);
-        setError("Error en tus credenciales");
+        setError("Error en tus credenciales.");
       }
     } catch (error) {
       console.error("Error en el registro inicial:", error);
+      setError("Error al procesar la solicitud.");
     }
   };
 
@@ -71,9 +79,7 @@ export function BusinessModal({ businessModalIsOpen, setBusinessModalIsOpen }) {
                     className={styles.firstInput}
                     {...register("email")}
                     type="email"
-                    value={email}
                     placeholder="Email"
-                    onChange={(e) => setEmail(e.target.value)}
                     required
                   />
                 </div>
@@ -83,9 +89,7 @@ export function BusinessModal({ businessModalIsOpen, setBusinessModalIsOpen }) {
                     className={styles.firstInput}
                     {...register("password")}
                     type="password"
-                    value={password}
                     placeholder="Contraseña"
-                    onChange={(e) => setPassword(e.target.value)}
                     required
                   />
                 </div>
