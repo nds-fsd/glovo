@@ -36,7 +36,7 @@ export const handleLoginSubmit = async (data, setLocalUser, closeModal) => {
     setStorageObject("token", response.data.token);
     setStorageObject("user", response.data.user);
     setLocalUser(response.data.user);
-    return response.status;
+    return response;
   } catch (error) {
     console.error("Error en el Login:", error);
     return error.response.status;
@@ -143,5 +143,26 @@ export const handleDelete = async (user, setUser, setIsModalOpen) => {
     } catch (error) {
       console.error("Error al eliminar la cuenta:", error);
     }
+  }
+};
+
+// todo-------------------------Restaurant----------------------
+export const handleRestaurantLoginSubmit = async (
+  data,
+  setLocalRestaurant,
+  closeModal
+) => {
+  try {
+    const response = await api.get("http://localhost:3001/restaurantes", data);
+    console.log(data);
+    console.log(response);
+    console.log(response.data);
+    setStorageObject("token", response.data.token);
+    setStorageObject("restaurantes", response.data.restaurant);
+    setLocalRestaurant(response.data.restaurant);
+    return response.status;
+  } catch (error) {
+    console.error("Error en el Login:", error);
+    return error.response.status;
   }
 };

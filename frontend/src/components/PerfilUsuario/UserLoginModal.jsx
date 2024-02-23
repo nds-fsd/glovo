@@ -1,4 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
+import { useNavigate } from "react-router";
 import { useForm } from "react-hook-form";
 import { MdOutlineEmail, MdOutlinePassword } from "react-icons/md";
 import { AnimatePresence, motion } from "framer-motion";
@@ -18,6 +19,7 @@ function UserLoginModal({
 }) {
   const { register, handleSubmit } = useForm();
   const { user, setLocalUser } = useContext(UserContext);
+  const navigate = useNavigate();
   const ref = useOnclickOutside(() => {
     setLoginModalOpen(false);
   });
@@ -25,7 +27,10 @@ function UserLoginModal({
   const onSubmit = async (data) => {
     try {
       const response = await handleLoginSubmit(data, setLocalUser);
-      if (response == 200) {
+      if (response.status == 200 && response.data.user.role === "RESTAURANT") {
+        setLogged(true);
+        navigate("../DashBoard");
+      } else if (response.status == 200 && response.data.user.role === "USER") {
         setLogged(true);
       } else {
         setLogged(false);

@@ -8,6 +8,8 @@ const authRouter = express.Router();
 authRouter.post("/register", (req, res) => {
   const email = req.body.email;
   const data = req.body;
+  // const { email, firstName, password, phone, role } = req.body;
+
   console.log(req.body);
   // * Make sure request has the email
   if (!email) {
@@ -28,7 +30,8 @@ authRouter.post("/register", (req, res) => {
         password: data.password,
         firstName: data.firstName,
         phone: data.phone,
-        role: "USER",
+        role: data.role,
+        // role: "USER", // esto es problematico esto fuera.
       });
 
       newUser
@@ -114,6 +117,7 @@ authRouter.post("/register-restaurant", (req, res) => {
 });
 
 authRouter.post("/login", async (req, res) => {
+  console.log(req.body);
   const { email, password } = req.body;
   // * Validate, email and password were provided in the request
   if (!email || !password) {

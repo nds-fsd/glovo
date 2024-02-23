@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
+import { UserContext } from "../../contexts/UserContext";
 import styles from "./styles.module.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -16,6 +17,7 @@ const DashBoard = () => {
   const [restaurantes, setRestaurantes] = useState([]);
   const [products, setProducts] = useState([]);
   const [isMenuModalOpen, setIsMenuModalOpen] = useState(false);
+  // const { user } = useContext(UserContext);
 
   // Función para abrir el modal
   const openMenuModal = () => {
@@ -46,7 +48,8 @@ const DashBoard = () => {
   useEffect(() => {
     const getRestaurants = async () => {
       try {
-        const response = await api.get("/restaurantes/");
+        // const response = await api.get(`/restaurantes/${user._id}`);
+        const response = await api.get(`/restaurantes/`);
         setRestaurantes(response.data);
         console.log(response.data);
       } catch (error) {

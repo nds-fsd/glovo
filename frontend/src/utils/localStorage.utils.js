@@ -46,20 +46,86 @@ export const removeSession = () => {
 };
 
 export const isSessionActive = () => {
-  const token = getUserToken(); 
-  if (!token) return false; 
+  const token = getUserToken();
+  if (!token) return false;
 
   try {
     const decodedToken = jwtDecode(token);
-    const currentTime = Date.now() / 1000; 
+    const currentTime = Date.now() / 1000;
     if (decodedToken.exp < currentTime) {
-     
-      removeSession(); 
+      removeSession();
       return false;
     }
-    return true; 
+    return true;
   } catch (error) {
     console.error("Error decoding token:", error);
-    return false; 
+    return false;
+  }
+};
+
+//! -----------------------definir Restaurante----------------------
+
+// export const getRestaurantData = (token) => {
+
+// };
+
+export const getRestaurantData = (key) => {
+  if (key === "token") {
+    const token = localStorage.getItem("token");
+    if (token) {
+      return jwtDecode(token);
+    }
+  } else {
+    const item = localStorage.getItem(key);
+    if (item) return JSON.parse(item);
+  }
+  return null;
+};
+
+// export const getRestaurantSession = () => {
+//   const session = getStorageObject("restaurant");
+//   if (session) {
+//     return session;
+//   }
+//   return null;
+// };
+
+// export const setRestaurantSession = (key, value) => {
+//   localStorage.setItem(key, JSON.stringify(value));
+// };
+// todo----------------------here---------------------
+export const getRestaurantToken = () => {
+  const session = getStorageObject("restaurant-session");
+  return session?.token || null;
+};
+
+export const getRestaurantSession = () => {
+  const session = getStorageObject("restaurant");
+  return session || null;
+};
+
+export const setRestaurantSession = (sessionData) => {
+  setStorageObject("restaurant-session", sessionData);
+};
+
+export const removeRestaurantSession = () => {
+  deleteStorageObject("restaurant-session");
+};
+
+export const isRestaurantSessionActive = () => {
+  const token = getRestaurantToken();
+  if (!token) return false;
+
+  try {
+    const decodedToken = jwtDecode(token);
+    const currentTime = Date.now() / 1000;
+    if (decodedToken.exp < currentTime) {
+      removeRestaurantSession();
+      return false;
+    }
+    return true;
+  } catch (error) {
+    console.error("Error decoding token:", error);
+    return false;
   }
 };

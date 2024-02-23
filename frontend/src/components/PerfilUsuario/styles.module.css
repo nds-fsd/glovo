@@ -551,6 +551,11 @@ div[class^="_profile_"]::-webkit-scrollbar {
   display: none;
 }
 
+.owner {
+  display: grid;
+  grid-template-columns: 1fr 15fr;
+  align-items: center;
+  
 .orderMapContainer {
   display: flex;
   flex-wrap: wrap;

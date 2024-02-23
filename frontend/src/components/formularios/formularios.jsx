@@ -2,14 +2,17 @@ import styles from "./styles.module.css";
 import axios from "axios";
 import { useForm, useWatch } from "react-hook-form";
 import { emailValidator, phoneValidator, validateCity } from "./validators";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { api } from "../../utils/api";
 import Modal from "react-modal";
 import useOnclickOutside from "react-cool-onclickoutside";
+import { UserContext } from "../../contexts/UserContext";
 
 export const Formulario = ({ formulariosIsOpen, setFormulariosIsOpen }) => {
   const params = useParams();
+
+  const { user } = useContext(UserContext);
   const {
     register,
     formState: { errors },
@@ -29,10 +32,10 @@ export const Formulario = ({ formulariosIsOpen, setFormulariosIsOpen }) => {
   const [submitError, setSubmitError] = useState("");
 
   const onSubmit = async (data) => {
-    console.log(data);
+    console.log("Restaurant Data Form", data); //comprobar si aparece role : USER o RESTAURANT
     setIsSubmitting(true);
     try {
-      const response = await api.post("/restaurantes", data, {
+      const response = await api.post(`/restaurantes/${user._id}`, data, {
         headers: {
           "Content-Type": "application/json",
         },
