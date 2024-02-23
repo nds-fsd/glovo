@@ -13,18 +13,14 @@ const api = axios.create({
   },
 });
 
-export const handleInitialRegistrationSubmit = async (
-  data,
-  setLocalUser,
-  closeModal
-) => {
+export const handleInitialRegistrationSubmit = async (data, setLocalUser) => {
   try {
     const response = await api.post(`${API_BASE_URL}/register`, data);
     setStorageObject("token", response.data.token);
     setStorageObject("user", response.data.user);
-
+    console.log(response.data);
     setLocalUser(response.data.user);
-    closeModal();
+    return response.data;
   } catch (error) {
     console.error("Error en el registro inicial:", error);
   }

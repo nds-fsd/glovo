@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { MdOutlineEmail, MdOutlinePassword } from "react-icons/md";
 import { RxPerson } from "react-icons/rx";
@@ -6,6 +6,7 @@ import { handleInitialRegistrationSubmit } from "../../utils/Usercrud";
 import styles from "../PerfilUsuario/styles.module.css";
 import { motion, AnimatePresence, easeOut } from "framer-motion";
 import useOnclickOutside from "react-cool-onclickoutside";
+import { useNavigate } from "react-router";
 
 function UserRegisterModal({
   setLogged,
@@ -13,7 +14,9 @@ function UserRegisterModal({
   changeModalState,
   setLoginModalOpen,
   setIsUserRegisterModalOpen,
+  openFormulariosModal,
 }) {
+  const navigate = useNavigate();
   const { register, handleSubmit, setValue } = useForm();
   const [isChecked, setIsChecked] = useState(false);
   const [localUser, setLocalUser] = useState(null);
@@ -27,17 +30,21 @@ function UserRegisterModal({
     } else {
       data.role = data.role.toUpperCase();
     }
-    console.log(data);
     try {
-      await handleInitialRegistrationSubmit(data, setLocalUser, () => {
-        if (typeof closeModal === "function") {
-          closeModal(); // Cerrar el modal solo si closeModal es una función
-        }
-        if (typeof changeModalState === "function") {
-          changeModalState(); // Cambiar el estado del modal solo si changeModalState es una función
-        }
-        setLogged(true);
-      });
+      const responseData = await handleInitialRegistrationSubmit(
+        data,
+        setLocalUser
+      );
+      if (responseData.user.role === "RESTAURANT") {
+        openFormulariosModal();
+      }
+      if (typeof closeModal === "function") {
+        closeModal(); // Cerrar el modal solo si closeModal es una función
+      }
+      if (typeof changeModalState === "function") {
+        changeModalState(); // Cambiar el estado del modal solo si changeModalState es una función
+      }
+      setLogged(true);
     } catch (error) {
       console.error("Error en el registro inicial:", error);
     }

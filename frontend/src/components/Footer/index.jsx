@@ -3,20 +3,12 @@ import styles from "../Footer/styles.module.css";
 import footerWaveSvg from "../../assets/images/footer-wave-desktop.svg";
 import logoImg from "../../assets/icons/logo.svg";
 import { useParams, useNavigate } from "react-router-dom";
-import Formulario from "../formularios/formularios";
 import BusinessModal from "../DashBoard/businessModal";
 
 export default function Footer() {
   const params = useParams();
   const navigate = useNavigate();
-  const [formulariosIsOpen, setFormulariosIsOpen] = useState(false);
   const [businessModalIsOpen, setBusinessModalIsOpen] = useState(false);
-
-  const openFormularios = () => {
-    document.body.scrollTop = 0; // For Safari
-    document.documentElement.scrollTop = 0;
-    setFormulariosIsOpen(true);
-  };
 
   const openBusinessModal = () => {
     document.body.scrollTop = 0; // For Safari
@@ -37,12 +29,7 @@ export default function Footer() {
               <div className={styles.verticalLinks}>
                 <h4>Colabora con Gloton</h4>
                 <a href="">Carreras</a>
-                <p
-                  className={styles.formularioButton}
-                  onClick={openFormularios}
-                >
-                  Gloton para socios
-                </p>
+                <p className={styles.formularioButton}>Gloton para socios</p>
                 <a href="">Repartidores</a>
                 <p className={styles.businessModal} onClick={openBusinessModal}>
                   Gloton Business
@@ -73,10 +60,6 @@ export default function Footer() {
           </div>
         </div>
       </footer>
-      <Formulario
-        formulariosIsOpen={formulariosIsOpen}
-        setFormulariosIsOpen={setFormulariosIsOpen}
-      />
       <BusinessModal
         businessModalIsOpen={businessModalIsOpen}
         setBusinessModalIsOpen={setBusinessModalIsOpen}

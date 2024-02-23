@@ -54,7 +54,7 @@ function OrderHistory({ historyModalIsOpen, setHistoryModalIsOpen }) {
       }
     };
     getOrders();
-  }, [user, orders]);
+  }, [user]);
 
   const ref = useOnclickOutside(() => {
     setHistoryModalIsOpen(false);

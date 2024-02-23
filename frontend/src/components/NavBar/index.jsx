@@ -21,6 +21,14 @@ export default function NavBar({ location }) {
   const [isUserRegisterModalOpen, setIsUserRegisterModalOpen] = useState(false);
   const [loginModalOpen, setLoginModalOpen] = useState(false);
   const [historyModalIsOpen, setHistoryModalIsOpen] = useState(false);
+  const [formulariosIsOpen, setFormulariosIsOpen] = useState(false);
+
+  const openFormularios = () => {
+    console.log("me llamo");
+    document.body.scrollTop = 0; // For Safari
+    document.documentElement.scrollTop = 0;
+    setFormulariosIsOpen(true);
+  };
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -130,6 +138,7 @@ export default function NavBar({ location }) {
               changeModalState={handleRegisterModal}
               setLogged={setLogged}
               setLoginModalOpen={setLoginModalOpen}
+              openFormulariosModal={openFormularios}
               setIsUserRegisterModalOpen={setIsUserRegisterModalOpen}
             />
           )}
@@ -142,6 +151,10 @@ export default function NavBar({ location }) {
             setLoginModalOpen={setLoginModalOpen}
           />
         </AnimatePresence>
+        <Formulario
+          formulariosIsOpen={formulariosIsOpen}
+          setFormulariosIsOpen={setFormulariosIsOpen}
+        />
       </>
     );
   }
