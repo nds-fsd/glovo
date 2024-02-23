@@ -8,7 +8,6 @@ const jwtMiddleware = (req, res, next) => {
 
   if (authHeader) {
     const token = authHeader.split(" ")[1];
-
     jwt.verify(token, jwtSecret, (error, payload) => {
       if (error) {
         return res.status(403).json({ message: "Invalid token" });
