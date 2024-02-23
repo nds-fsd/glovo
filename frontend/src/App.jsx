@@ -46,7 +46,6 @@ function App() {
             <CartContext.Provider value={{ shoppingList, setShoppingList }}>
               <BrowserRouter>
                 <NavBar location={location} />
-
                 <Routes>
                   <Route
                     path="/"

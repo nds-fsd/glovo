@@ -36,7 +36,7 @@ export const handleLoginSubmit = async (data, setLocalUser, closeModal) => {
     setStorageObject("token", response.data.token);
     setStorageObject("user", response.data.user);
     setLocalUser(response.data.user);
-    return response.status;
+    return response;
   } catch (error) {
     console.error("Error en el Login:", error);
     return error.response.status;

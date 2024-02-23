@@ -548,3 +548,9 @@ div[class^="_profile_"]::-webkit-scrollbar {
   width: 0;
   display: none;
 }
+
+.owner {
+  display: grid;
+  grid-template-columns: 1fr 15fr;
+  align-items: center;
+}
