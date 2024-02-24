@@ -1,28 +1,42 @@
 .container {
-  display: grid;
-  grid-template-columns: 25% 75%;
+  display: flex;
   padding: 20px;
   gap: 20px;
-  background-color: rgb(188, 219, 219);
-  height: 620px;
-  margin-top: 80px;
+  height: fit-content;
+  margin-top: 100px;
 }
-.box1 {
-  display: grid;
-  grid-template-rows: repeat(12, 1fr);
-  background-color: rgb(171, 180, 180);
-  border-radius: 5px;
-  grid-column: 1 / 2;
-  grid-row: 1 / 2;
-  height: 620px;
-}
-.input {
-  grid-column: 3 / 4;
-  grid-row: 1 / 2;
-  height: 30px;
-  width: 150px;
+
+.addButton {
+  border-radius: 50%;
+  height: 40px;
+  width: 40px;
+  background-color: var(--secondary-color);
+  font-size: 1.5rem;
   color: white;
 }
+
+.box1 {
+  display: flex;
+  flex-direction: column;
+  border-radius: 15px;
+  height: fit-content;
+  padding-bottom: 30px;
+  width: 250px;
+  box-shadow: 0 0 50px 7px rgba(0, 0, 0, 0.123);
+  align-items: center;
+  /* position: fixed; */
+  background-color: white;
+}
+
+.input {
+  height: 30px;
+  width: 300px;
+  color: black;
+  background-color: white;
+  padding: 20px;
+  margin: 10px;
+}
+
 .close {
   grid-column: 6 / 7;
   grid-row: 1 / 2;
@@ -34,6 +48,7 @@
   padding: 3px;
   margin: 5px;
 }
+
 .switch {
   grid-column: 5 / 6;
   grid-row: 1 / 2;
@@ -45,38 +60,44 @@
   padding: 3px;
   margin: 5px;
 }
+
 .h2 {
   grid-column: 3 / 4;
 }
+
 .p {
   grid-column: 3 / 4;
   grid-row: 2 / 3;
   color: white;
 }
+
 .divFondoPantalla {
-  background-image: url("../../assets/images/burger.jpg");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+  background-color: var(--primary-color);
   height: 90vh;
-  width: 97%;
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  grid-template-rows: repeat(8, 1fr);
-  padding: 10px;
-  height: 600px;
-  backdrop-filter: blur(5px);
-  border-radius: 5px;
+  width: 85%;
+  display: flex;
+  padding: 20px 10px;
+  height: fit-content;
+  box-shadow: 0 0 50px 7px rgba(0, 0, 0, 0.123);
+  border-radius: 10px 50px 10px 10px;
+  margin: 0;
+  gap: 20px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
 }
+
 .pSegundo {
   color: white;
   grid-row: 7 / 8;
 }
+
 .buttons {
   display: flex;
-  justify-content: flex-end;
-  grid-column: 6 / 7;
+  justify-content: center;
+  align-items: center;
 }
+
 .modifyBtn {
   display: flex;
   justify-content: flex-end;
@@ -87,6 +108,17 @@
 .slider {
   grid-column: 2 / 6;
   grid-row: 7 / 8;
+}
+
+.carrouselContainer {
+  height: fit-content;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 10px;
+  align-items: flex-start;
+  gap: 10px;
+  justify-content: center;
 }
 
 .add {
@@ -108,41 +140,24 @@
   padding: 3px;
   margin: 5px;
 }
+
 .yourBrand {
-  margin: 15px;
+  margin: px;
   padding: 15px;
+  font-size: 1.3rem;
 }
-.firstName {
-  background-color: rgba(0, 0, 0, 0.227);
+
+.leftBoxItem {
+  background-color: var(--secondary-color);
   color: white;
+  width: 90%;
+  font-size: 0.8rem;
 }
-.lastName {
-  background-color: rgb(0, 0, 0, 0.227);
-  color: white;
-}
-.brandName {
-  background-color: rgb(0, 0, 0, 0.227);
-  color: white;
-}
-.city {
-  background-color: rgb(0, 0, 0, 0.227);
-  color: white;
-}
-.email {
-  background-color: rgb(0, 0, 0, 0.227);
-  color: white;
-}
-.category {
-  background-color: rgb(0, 0, 0, 0.227);
-  color: white;
-}
-.phone {
-  background-color: rgb(0, 0, 0, 0.227);
-  color: white;
-}
+
 .productName {
   background-color: red;
 }
+
 .yourBrand {
   color: #09827e;
 }

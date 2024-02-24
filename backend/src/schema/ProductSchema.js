@@ -9,7 +9,7 @@ const productSchema = new mongoose.Schema({
   ingredientes: String,
   restaurant: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Restaurante",
+    ref: "Restaurant",
   },
 });
 
