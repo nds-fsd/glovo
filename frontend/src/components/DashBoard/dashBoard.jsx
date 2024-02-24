@@ -9,6 +9,7 @@ import DashProductCard from "./dashProductCard.jsx";
 import ProductCard from "../ProductCard";
 import productExampleImg from "../../assets/images/productexampleimg.avif";
 import ProductModal from "./menuModal.jsx";
+import ModifyProductModal from "./modifyModal.jsx";
 
 const DashBoard = () => {
   const params = useParams();
@@ -47,8 +48,6 @@ const DashBoard = () => {
     obtenerProductosDelRestaurante();
     obtenerRestaurante();
   }, [params.restaurantId]);
-
-  // Función para abrir el modal
 
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
@@ -93,6 +92,7 @@ const DashBoard = () => {
                       productDescription={e.descripcion}
                       productPrice={`${e.precio}€`}
                       productImg={productExampleImg}
+                      producto={e}
                     />{" "}
                   </>
                 );

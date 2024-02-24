@@ -9,13 +9,14 @@ import { createProduct } from "../../utils/api";
 
 import useOnclickOutside from "react-cool-onclickoutside";
 
-export default function ProductModal({
-  isMenuModalOpen,
-  setIsMenuModalOpen,
+export default function ModifyProductModal({
+  isModifyModalOpen,
+  setIsModifyModalOpen,
   restaurante,
+  producto,
 }) {
   const ref = useOnclickOutside(() => {
-    setIsMenuModalOpen(false);
+    setIsModifyModalOpen(false);
   });
   const { register, handleSubmit } = useForm();
   const onSubmit = async (data) => {
@@ -27,16 +28,16 @@ export default function ProductModal({
       categoria: data.category,
       disponibilidad: true,
       ingredientes: data.ingredients,
-      restaurante: restaurante._id,
     };
     console.log(reqData);
     createProduct(reqData);
     form;
     setIsMenuModalOpen(false);
   };
+
   return (
     <Modal
-      isOpen={isMenuModalOpen}
+      isOpen={isModifyModalOpen}
       parentSelector={() => document.querySelector("#root")}
       className={styles.modalContent}
       overlayClassName={styles.modalOverlay}
@@ -59,7 +60,7 @@ export default function ProductModal({
           className={styles.registerForm}
           ref={ref}
         >
-          <h2 className={styles.hola}>Nuevo producto</h2>
+          <h2 className={styles.hola}>Modifica tu producto</h2>
           <div className={styles.inputContainer}>
             <div className={styles.inputPictureContainer}>
               <input
@@ -67,6 +68,7 @@ export default function ProductModal({
                 {...register("name")}
                 type="name"
                 placeholder="Nombre del producto"
+                defaultValue={producto.nombre}
                 required
               />
             </div>
@@ -76,6 +78,7 @@ export default function ProductModal({
                 {...register("description")}
                 type="descripccion"
                 placeholder="Descripción"
+                defaultValue={producto.descripcion}
                 required
               />
             </div>
@@ -85,6 +88,7 @@ export default function ProductModal({
                 {...register("category")}
                 type="category"
                 placeholder="Categoría"
+                defaultValue={producto.categoria}
                 required
               />
             </div>
@@ -95,6 +99,7 @@ export default function ProductModal({
                 {...register("ingredients")}
                 type="ingredients"
                 placeholder="Ingredientes"
+                defaultValue={producto.ingredientes}
                 required
               />
             </div>
@@ -104,12 +109,13 @@ export default function ProductModal({
                 {...register("price")}
                 type="price"
                 placeholder="Precio"
+                defaultValue={producto.precio}
                 required
               />
             </div>
           </div>
           <button className={styles.guardarCambios} type="submit">
-            Agregar producto
+            Guardar cambios
           </button>
         </motion.form>
       </motion.div>

@@ -72,7 +72,7 @@
 }
 
 .divFondoPantalla {
-  background-color: var(--primary-color);
+  background-color: rgb(255, 255, 255);
   height: 90vh;
   width: 85%;
   display: flex;
