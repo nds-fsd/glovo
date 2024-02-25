@@ -61,6 +61,20 @@ exports.getRestaurantes = async (req, res) => {
 exports.getRestauranteById = async (req, res) => {
   const restauranteId = req.params.id;
   try {
+    const foundRestaurante = await Restaurante.findById(restauranteId);
+    if (foundRestaurante) {
+      res.json(foundRestaurante);
+    } else {
+      res.status(404).json({ error: "Restaurante not found" });
+    }
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+exports.getRestauranteByOwnerId = async (req, res) => {
+  const userId = req.params.id;
+  try {
     const foundRestaurante = await Restaurante.findById(restauranteId).populate(
       "owner"
     );

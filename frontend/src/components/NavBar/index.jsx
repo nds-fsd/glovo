@@ -14,7 +14,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import OrderHistory from "../PerfilUsuario/OrderHistory";
 
 export default function NavBar({ location }) {
-  const [logged, setLogged] = useState(false);
+  const [logged, setLogged] = useState(true);
   const navigate = useNavigate();
   const [isPerfilUsuarioModalOpen, setIsPerfilUsuarioModalOpen] =
     useState(false);

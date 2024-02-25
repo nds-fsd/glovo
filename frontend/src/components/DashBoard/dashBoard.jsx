@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import styles from "./styles.module.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -10,6 +10,7 @@ import ProductCard from "../ProductCard";
 import productExampleImg from "../../assets/images/productexampleimg.avif";
 import ProductModal from "./menuModal.jsx";
 import ModifyProductModal from "./modifyModal.jsx";
+import { UserContext } from "../../contexts/UserContext";
 
 const DashBoard = () => {
   const params = useParams();
@@ -20,10 +21,12 @@ const DashBoard = () => {
   const [products, setProducts] = useState([]);
   const [isMenuModalOpen, setIsMenuModalOpen] = useState(false);
 
+  const { user } = useContext(UserContext);
+
   useEffect(() => {
     const obtenerRestaurante = async () => {
       try {
-        const response = await api.get("/restaurantes/" + params.restaurantId);
+        const response = await api.get(`/restaurantes/${user._id}`);
         setRestaurante(response.data);
       } catch (error) {
         console.error("Error al obtener los datos de los productos:", error);
