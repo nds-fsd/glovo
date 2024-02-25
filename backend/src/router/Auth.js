@@ -2,6 +2,7 @@ const express = require("express");
 const jwt = require("jsonwebtoken");
 const User = require("../schema/usersSchema");
 const jwtSecret = process.env.JWT_SECRET;
+const {sendWelcomeEmail} = require("../service/index");
 
 const authRouter = express.Router();
 
@@ -9,12 +10,12 @@ authRouter.post("/register", (req, res) => {
   const email = req.body.email;
   const data = req.body;
   console.log(req.body);
-  // * Make sure request has the email
+  
   if (!email) {
     return res.status(400).json({ error: { register: "Email not recieved" } });
   }
   User.findOne({ email: email })
-    // * If the user is found, return an error because there is already a user registered
+  
     .then((user) => {
       console.log("found user", user);
       if (user) {
@@ -30,11 +31,13 @@ authRouter.post("/register", (req, res) => {
         phone: data.phone,
         role: "USER",
       });
-
+  
       newUser
         .save()
         .then((createdUser) => {
           console.log("exito");
+          const user = {email : "josegarcia1006@gmail.com", name: createdUser.firstName };
+          sendWelcomeEmail(user)
           return res.status(201).json({
             token: createdUser.generateJWT(),
             user: {

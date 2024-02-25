@@ -1,5 +1,6 @@
 const bcrypt = require("bcryptjs");
 const User = require("../schema/usersSchema");
+const {sendWelcomeEmail} = require("../service/index");
 
 exports.createUser = async (req, res) => {
   try {
@@ -18,16 +19,18 @@ exports.createUser = async (req, res) => {
     });
 
     const createdUser = await newUser.save()
-    if (createdUser) {
-      const user = { email: "josegarcia1006@gmail.com", name: createdUser.name };
-      await sendWelcomeEmail(user);
-      return res.statys(201).json({
-        message: "Tu usuario ha sido creado con éxito",
-        user: createdUser
-      })
-    } else {
-      res.status(400).send()
-    }
+  
+    // if (createdUser) {
+    //   const user = { email: "josegarcia1006@gmail.com", name: createdUser.name };
+    //   // ahora continuo que esta el boss. xD 
+    //   await sendWelcomeEmail(user);
+    //   return res.statys(201).json({
+    //     message: "Tu usuario ha sido creado con éxito",
+    //     user: createdUser
+    //   })
+    // } else {
+    //   res.status(400).send()
+    // }
 
   } catch (err) {
     console.error("Error al crear usuario:", err);

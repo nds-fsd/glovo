@@ -7,7 +7,8 @@
   "license": "ISC",
   "scripts": {
     "dev": "node --watch src/index.js",
-    "start": "nodemon src/index.js"
+    "start": "nodemon src/index.js",
+    "uploadimage": "node src/uploadimage.js"
   },
   "devDependencies": {
     "nodemon": "^2.0.22"
