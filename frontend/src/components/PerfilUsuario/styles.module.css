@@ -564,3 +564,8 @@ div[class^="_profile_"]::-webkit-scrollbar {
   align-items: center;
   justify-content: center;
 }
+
+.availability {
+  display: flex;
+  align-items: center;
+}

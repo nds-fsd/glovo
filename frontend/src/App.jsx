@@ -64,7 +64,10 @@ function App() {
                     element={<ConfirmationPage />}
                   ></Route>
                   <Route path="/formularios" element={<Formulario />} />
-                  <Route path="/dashBoard" element={<DashBoard />} />
+                  <Route
+                    path="/dashBoard/:restaurantId"
+                    element={<DashBoard />}
+                  />
                 </Routes>
                 <LandbotChat />
                 <Footer />
