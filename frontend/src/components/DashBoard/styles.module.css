@@ -32,9 +32,13 @@
   height: 30px;
   width: 300px;
   color: black;
-  background-color: white;
+  background-color: var(--primary-color);
   padding: 20px;
   margin: 10px;
+}
+
+.input::placeholder {
+  color: white;
 }
 
 .close {
