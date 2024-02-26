@@ -38,7 +38,7 @@ export default function NavBar({ location }) {
   };
 
   if (logged === true) {
-    console.log("logged true");
+    
 
     return (
       <>
@@ -98,7 +98,7 @@ export default function NavBar({ location }) {
       </>
     );
   } else {
-    console.log("logged false");
+  
     return (
       <>
         <motion.nav

@@ -79,7 +79,7 @@ function PerfilUsuario({
 
    
       const updateData = { [editingField]: userInfo[editingField] };
-      console.log(updateData);
+     
 
  
       const updatedUser = await handleProfileUpdateSubmit(
@@ -94,11 +94,11 @@ function PerfilUsuario({
        
 
         setLocalUser(updatedUser.updatedUser);
-        console.log(updatedUser.updatedUser);
+     
         deleteStorageObject("user");
         setStorageObject("user", updatedUser.updatedUser);
       } else {
-        console.log(updatedUser);
+       
         throw new Error("No se recibieron datos actualizados del usuario.");
       }
 
@@ -118,7 +118,7 @@ function PerfilUsuario({
   };
 
   const handleChange = (e) => {
-    console.log(e);
+
     setUserInfo((prevUserInfo) => ({
       ...prevUserInfo,
       [editingField]: e.target.value,
@@ -198,7 +198,7 @@ function PerfilUsuario({
   };
 
   const handleSaveClickCard = async (cardObject) => {
-    console.log(cardObject);
+   
     try {
  
       if (!user._id) {
