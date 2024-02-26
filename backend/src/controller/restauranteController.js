@@ -11,7 +11,6 @@ exports.createRestaurante = async (req, res) => {
     }
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
     if (!emailRegex.test(email)) {
-      console.log = "comprobar mail";
       res.status(400).json({ message: "Provide a valid email address." });
       return;
     }

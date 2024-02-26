@@ -19,12 +19,8 @@ exports.connectDB = async () => {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
-    // await mongoose.connect(dbUrl);
-
-    // const mongo = mongoose.connection;
-    // mongo.on("error", (error) => console.error(error));
   } catch (e) {
-    console.log(e);
+   
   }
 };
 
@@ -35,6 +31,5 @@ exports.disconnectDB = async () => {
       await mongodb.stop();
     }
   } catch (err) {
-    console.log(err);
   }
 };

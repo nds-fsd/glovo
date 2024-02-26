@@ -8,8 +8,6 @@ const mailgun = new Mailgun(formData);
 const mg = mailgun.client({username: 'api', key: process.env.MAILGUN_API_KEY});
 
 const sendWelcomeEmail = async (user) => {
-    console.log("El usuario es : ", user)
-    console.log("entro en el sendWelcomeEmail");
     const DOMAIN = process.env.MAILGUN_DOMAIN;
     const emailData = {
         from:'Glotón <mailgun@sandbox4c0bfce653f44017bd3898600362f788.mailgun.org>',
@@ -21,10 +19,8 @@ const sendWelcomeEmail = async (user) => {
     const template = Handlebars.compile(testEmailTemplate);
     emailData.html= template({user});
     await mg.messages.create(DOMAIN,emailData);
-    console.log("Correo enviado con éxito");
+
     } catch (error) {
-        console.log("Error al enviar mail")
-        console.error(error)
     }
 }
 

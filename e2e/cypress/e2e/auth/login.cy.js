@@ -28,9 +28,9 @@ describe("Login Flow", () => {
     cy.get('input[placeholder="Dirección"]').type("nuclio");
     cy.get("ul > li").first().click();
     cy.get('input[placeholder="Número"]').type("123");
-    // cy.get('input[placeholder="Piso"]').type("1");
+
     cy.contains("Agregar dirección").click();
-    // cy.contains("X").click();
+ 
     cy.contains("Agregar tarjeta").click();
     cy.get('input[placeholder="Nombre"]').type("cypress test");
     cy.get('input[placeholder="Número de la tarjeta"]').type(

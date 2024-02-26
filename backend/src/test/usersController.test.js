@@ -7,7 +7,6 @@ const User = require("../schema/usersSchema");
 describe("User Controller Tests", () => {
   beforeAll(async () => {
     const connectionError = await connectDB();
-    if (connectionError) console.log(connectionError);
   });
 
   afterAll(async () => {

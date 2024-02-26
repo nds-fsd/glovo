@@ -2,9 +2,9 @@
 const Order = require("../schema/OrderSchema");
 
 function createDate() {
-  const now = new Date(); // Definimos 'now' dentro de la función
+  const now = new Date();
   const day = now.getDate().toString().padStart(2, "0");
-  const month = (now.getMonth() + 1).toString().padStart(2, "0"); // Los meses comienzan en 0
+  const month = (now.getMonth() + 1).toString().padStart(2, "0");
   const year = now.getFullYear();
   const hours = now.getHours().toString().padStart(2, "0");
   const minutes = now.getMinutes().toString().padStart(2, "0");
@@ -15,7 +15,6 @@ function createDate() {
   return formattedDate;
 }
 
-// Get all orders from MongoDB
 
 exports.getOrders = async (req, res) => {
   try {
@@ -26,7 +25,7 @@ exports.getOrders = async (req, res) => {
   }
 };
 
-// Get a specific order by ID from MongoDB
+
 
 exports.getOrderById = async (req, res) => {
   const orderId = req.params.id;
@@ -42,7 +41,7 @@ exports.getOrderById = async (req, res) => {
   }
 };
 
-// Create a new order and save it to MongoDB
+
 
 exports.createOrder = async (req, res) => {
   const data = req.body;
@@ -82,7 +81,6 @@ exports.createOrder = async (req, res) => {
   }
 };
 
-// Update order and save it to MongoDB
 
 exports.updateOrder = async (req, res) => {
   const orderId = req.params.id;
@@ -100,8 +98,6 @@ exports.updateOrder = async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
-
-// Delete order and save it to MongoDB
 
 exports.deleteOrder = async (req, res) => {
   const orderId = req.params.id;

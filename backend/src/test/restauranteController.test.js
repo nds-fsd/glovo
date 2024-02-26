@@ -6,8 +6,7 @@ const fakeRequest = supertest(app);
 describe("Restaurante Controller Tests", () => {
   beforeAll(async () => {
     const connectionError = await connectDB();
-    if (!connectionError) console.log("🏢 Connected to database!");
-    else console.log(connectionError);
+  
   });
 
   afterAll(async () => {
