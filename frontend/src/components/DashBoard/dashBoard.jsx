@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import styles from "./styles.module.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -10,6 +10,7 @@ import ProductCard from "../ProductCard";
 import productExampleImg from "../../assets/images/productexampleimg.avif";
 import ProductModal from "./menuModal.jsx";
 import ModifyProductModal from "./modifyModal.jsx";
+import { UserContext } from "../../contexts/UserContext";
 
 const DashBoard = () => {
   const params = useParams();
@@ -20,23 +21,28 @@ const DashBoard = () => {
   const [products, setProducts] = useState([]);
   const [isMenuModalOpen, setIsMenuModalOpen] = useState(false);
 
+  const { user } = useContext(UserContext);
+
   useEffect(() => {
     const obtenerRestaurante = async () => {
       try {
-        const response = await api.get("/restaurantes/" + params.restaurantId);
-        setRestaurante(response.data);
+        const response = await api.get(`/restaurantes/${user._id}`);
+        setRestaurante(response.data[0]);
+        console.log(response.data);
       } catch (error) {
         console.error("Error al obtener los datos de los productos:", error);
       }
     };
+    obtenerRestaurante();
+  }, [user]);
 
+  useEffect(() => {
     const obtenerProductosDelRestaurante = async () => {
       try {
         const response = await api.get(
-          "/restaurantes/" + params.restaurantId + "/products"
+          "/restaurantes/" + restaurante._id + "/products"
         );
         setProductos(response.data);
-        setIsLoadingProducts(false);
       } catch (error) {
         console.error(
           "Error al obtener los datos de los productos del restaurante:",
@@ -46,15 +52,14 @@ const DashBoard = () => {
     };
 
     obtenerProductosDelRestaurante();
-    obtenerRestaurante();
-  }, [params.restaurantId]);
+  }, [restaurante]);
 
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
   };
 
-  // const filteredRestaurantProducts = restaurantProducts.filter((products) =>
-  //   products.name.toLowerCase().includes(searchTerm.toLowerCase())
+  // const filteredRestaurantProducts = restaurantProducts.filter((productos) =>
+  //   productos.name.toLowerCase().includes(searchTerm.toLowerCase())
   // );
 
   return (

@@ -104,16 +104,6 @@ function UserRegisterModal({
           Registrar
         </button>
 
-        <div className={styles.owner}>
-          <input
-            type="checkbox"
-            name="role"
-            {...register("role")}
-            value="restaurant"
-          />
-          <label className={styles.bottomOwner}>Eres un restaurante ?</label>
-        </div>
-
         <p className={styles.loginLink}>
           ¿Ya tienes cuenta?{" "}
           <span
