@@ -3,8 +3,6 @@ import shoppingCartBackground from "../../assets/images/astronaut-grey-scale.svg
 import scooterIcon from "../../assets/icons/scooter-svgrepo-com (1).svg";
 import { motion, AnimatePresence } from "framer-motion";
 import PurchaseConfirmationModal from "../PurchaseConfirmationModal";
-import { CartContext } from "../../contexts/CartContext";
-import { useContext, useEffect } from "react";
 import crossIcon from "../../assets/icons/cross-circle-svgrepo-com.svg";
 import { useState } from "react";
 
@@ -24,10 +22,10 @@ export default function ShoppingCart({
     const openModal = () => {
       const token = localStorage.getItem("token");
       if (!token) {
-        // Si no hay token, se dispara el evento para abrir el modal de login
+    
         window.dispatchEvent(new CustomEvent("open-login-modal"));
       } else {
-        // Si hay token, se abre el modal de confirmación de compra
+     
         setPurchaseConfirmationModalIsOpen(true);
       }
     };

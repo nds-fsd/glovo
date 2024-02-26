@@ -93,7 +93,6 @@ const AutoCompleteAdrressInput = ({
         disabled={!ready}
         required
       />
-      {/* We can use the "status" to decide whether we should display the dropdown or not */}
       <AnimatePresence>
         {status === "OK" && (
           <motion.ul

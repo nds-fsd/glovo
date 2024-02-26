@@ -1,5 +1,4 @@
 import styles from "../RestaurantPage/styles.module.css";
-import RestaurantImg from "../../assets/images/95a18827bb983bf2ce6c1318b069f2b68be5b7fe30bde4975319731008e90dec.jpg";
 import likeIcon from "../../assets/icons/like-svgrepo-com.svg";
 import scooterIcon from "../../assets/icons/scooter-svgrepo-com (1).svg";
 import stopwatchIcon from "../../assets/icons/stopwatch-svgrepo-com.svg";

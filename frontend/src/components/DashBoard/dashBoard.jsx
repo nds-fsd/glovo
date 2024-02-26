@@ -17,12 +17,12 @@ const DashBoard = () => {
   const [products, setProducts] = useState([]);
   const [isMenuModalOpen, setIsMenuModalOpen] = useState(false);
 
-  // Función para abrir el modal
+
   const openMenuModal = () => {
     setIsMenuModalOpen(true);
   };
 
-  // Función para cerrar el modal
+
   const closeMenuModal = () => {
     setIsMenuModalOpen(false);
   };
@@ -42,13 +42,13 @@ const DashBoard = () => {
     slidesToScroll: 1,
   };
 
-  // Todo Para restaurantes general
+
   useEffect(() => {
     const getRestaurants = async () => {
       try {
         const response = await api.get("/restaurantes/");
         setRestaurantes(response.data);
-        console.log(response.data);
+    
       } catch (error) {
         console.error("Error al obtener los datos de los restaurantes:", error);
       }
@@ -61,7 +61,7 @@ const DashBoard = () => {
       try {
         const productsResponse = await api.get("/products");
         setProducts(productsResponse.data);
-        console.log(productsResponse.data);
+     
       } catch (error) {
         console.error("Error al obtener los datos de los restaurantes:", error);
       }
@@ -143,24 +143,12 @@ const DashBoard = () => {
           {products.map((e) => {
             return (
               <ProductCard
-                // className={styles.productCard}
-                // productos={products}
-                // key={e._id}
-                // productName={e.nombre}
-                // productDescription={e.descripcion}
-                // productPrice={`${e.precio}€`}
                 productImg={productExampleImg}
               />
             );
           })}
         </Slider>
-        {/* <div className={styles.modifyBtn}>
-          <button className={styles.add} onClick={openMenuModal}>
-            Añadir
-          </button>
-          {isMenuModalOpen && <MenuModal onClose={closeMenuModal} />}
-          <button className={styles.delete}>Borrar</button>
-        </div> */}
+   
       </div>
     </div>
   );

@@ -2,7 +2,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import Modal from "react-modal";
 import { motion, AnimatePresence } from "framer-motion";
-import styles from "./styles.module.css"; // Asegúrate de que el path de importación de tus estilos sea correcto
+import styles from "./styles.module.css";
 
 function ChangePasswordModal({
   isChangePasswordModalOpen,
@@ -44,7 +44,6 @@ function ChangePasswordModal({
           >
             <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
               <h2>Cambiar contraseña</h2>
-              {/* Contraseña actual */}
               <div className={styles.formGroup}>
                 <label htmlFor="currentPassword">Contraseña actual</label>
                 <input
@@ -58,7 +57,6 @@ function ChangePasswordModal({
                   <p>{errors.currentPassword.message}</p>
                 )}
               </div>
-              {/* Nueva contraseña */}
               <div className={styles.formGroup}>
                 <label htmlFor="newPassword">Nueva contraseña</label>
                 <input
@@ -74,7 +72,6 @@ function ChangePasswordModal({
                 />
                 {errors.newPassword && <p>{errors.newPassword.message}</p>}
               </div>
-              {/* Repetir nueva contraseña */}
               <div className={styles.formGroup}>
                 <label htmlFor="confirmNewPassword">
                   Repetir nueva contraseña
@@ -92,7 +89,6 @@ function ChangePasswordModal({
                   <p>{errors.confirmNewPassword.message}</p>
                 )}
               </div>
-              {/* Botones del formulario */}
               <div className={styles.actions}>
                 <button
                   type="button"

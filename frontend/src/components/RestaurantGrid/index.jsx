@@ -12,7 +12,6 @@ export default function RestaurantGrid() {
       try {
         const response = await api.get("/restaurantes");
         setRestaurantes(response.data);
-        console.log(response.data);
       } catch (error) {
         console.error("Error al obtener los datos de los restaurantes:", error);
       }

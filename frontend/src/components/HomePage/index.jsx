@@ -2,7 +2,7 @@ import styles from "../HomePage/styles.module.css";
 import BorderImg from "../../assets/images/curve-main--mobile.svg";
 import React from "react";
 import RestaurantGrid from "../RestaurantGrid";
-import NavBar from "../NavBar";
+
 import { motion, AnimatePresence } from "framer-motion";
 import { useContext } from "react";
 import { UserContext } from "../../contexts/UserContext";

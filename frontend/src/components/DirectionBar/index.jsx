@@ -59,7 +59,7 @@ export default function DirectionBar({ setLocation }) {
         .then((res) => res.json())
         .then((data) => {
           const addressComponents = data.results[0].address_components;
-          console.log(addressComponents[1].short_name);
+      
 
           const formattedAdress =
             addressComponents[1].short_name +
@@ -70,7 +70,6 @@ export default function DirectionBar({ setLocation }) {
             ", " +
             addressComponents[5].long_name;
 
-          console.log(formattedAdress);
 
           setValue(formattedAdress);
         });
@@ -151,11 +150,6 @@ export default function DirectionBar({ setLocation }) {
                   />
                 </div>
                 <motion.p
-                  // key="button1"
-                  // initial={{ width: 0 }}
-                  // animate={{ width: "110px" }}
-                  // exit={{ width: 0 }}
-                  // transition={{ ease: "easeOut", duration: 0.3 }}
                   className={styles.useCurrentLocationText}
                 >
                   Usar la ubicación actual

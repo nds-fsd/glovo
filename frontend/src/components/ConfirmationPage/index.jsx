@@ -1,7 +1,4 @@
 import styles from "../ConfirmationPage/styles.module.css";
-import { useContext } from "react";
-import { OrderContext } from "../../contexts/OrderContext";
-import ThumbsUpImg from "../../assets/images/thumb-up-svgrepo-com.svg";
 import wavySvg from "../../assets/images/curve-main--mobile.svg";
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
@@ -19,7 +16,6 @@ export default function ConfirmationPage() {
       try {
         const response = await api.get("/orders/" + params.orderId);
         setOrder(response.data);
-        console.log(response.data);
       } catch (error) {
         console.error("Error al obtener los datos del pedido:", error);
       }

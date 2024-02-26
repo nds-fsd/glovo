@@ -30,14 +30,12 @@ export default function CreditCardModal({
 
     switch (name) {
       case "number":
-        // Formatear el número de tarjeta con espacios cada 4 dígitos
         formattedValue = value
           .replace(/\s+/g, "")
           .replace(/(\d{4})/g, "$1 ")
           .trim();
         break;
       case "expiry":
-        // Aceptar solo números y limitar la longitud a 4 caracteres (sin contar el /)
         const cleaned = value.replace(/\D/g, "").slice(0, 4);
         formattedValue =
           cleaned.length >= 3
@@ -45,11 +43,9 @@ export default function CreditCardModal({
             : cleaned;
         break;
       case "cvc":
-        // Asegurarse de que CVC solo tenga dígitos y hasta 3 caracteres
         formattedValue = value.replace(/\D/g, "").slice(0, 3);
         break;
       default:
-        // No se aplica formateo especial para otros campos
         formattedValue = value;
     }
 
@@ -112,7 +108,7 @@ export default function CreditCardModal({
                 <input
                   {...register("name")}
                   required
-                  type="text" // Cambiado a text para ser consistente
+                  type="text"
                   name="name"
                   placeholder="Nombre"
                   value={state.name}

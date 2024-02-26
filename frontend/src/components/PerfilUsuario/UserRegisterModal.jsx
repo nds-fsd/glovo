@@ -24,10 +24,10 @@ function UserRegisterModal({
     try {
       await handleInitialRegistrationSubmit(data, setLocalUser, () => {
         if (typeof closeModal === "function") {
-          closeModal(); // Cerrar el modal solo si closeModal es una función
+          closeModal(); 
         }
         if (typeof changeModalState === "function") {
-          changeModalState(); // Cambiar el estado del modal solo si changeModalState es una función
+          changeModalState(); 
         }
         setLogged(true);
       });

@@ -1,5 +1,4 @@
 import styles from "./styles.module.css";
-import axios from "axios";
 import { useForm, useWatch } from "react-hook-form";
 import { emailValidator, phoneValidator, validateCity } from "./validators";
 import React, { useEffect, useState } from "react";
@@ -29,7 +28,6 @@ export const Formulario = ({ formulariosIsOpen, setFormulariosIsOpen }) => {
   const [submitError, setSubmitError] = useState("");
 
   const onSubmit = async (data) => {
-    console.log(data);
     setIsSubmitting(true);
     try {
       const response = await api.post("/restaurantes", data, {
@@ -37,7 +35,7 @@ export const Formulario = ({ formulariosIsOpen, setFormulariosIsOpen }) => {
           "Content-Type": "application/json",
         },
       });
-      console.log(response.data);
+  
       navigate("../DashBoard");
       setIsDone(true);
     } catch (error) {
@@ -187,7 +185,6 @@ export const Formulario = ({ formulariosIsOpen, setFormulariosIsOpen }) => {
                     type="text"
                     placeholder="Codigo Promocional"
                     {...register("discountCode", {
-                      //! validate : promoCode debemos añadir en futuro ...
                     })}
                   />
                   <button className={styles.aplicarbtn}>Aplicar</button>
