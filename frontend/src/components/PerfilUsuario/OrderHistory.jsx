@@ -33,9 +33,9 @@ function OrderHistory({ historyModalIsOpen, setHistoryModalIsOpen }) {
   }, []);
 
   useEffect(() => {
+    if (!user) return;
     const getOrders = async () => {
       let token = localStorage.getItem("token");
-
       try {
         const response = await axios.get(
           `http://localhost:3001/users/${user._id}/orders`,
@@ -46,7 +46,6 @@ function OrderHistory({ historyModalIsOpen, setHistoryModalIsOpen }) {
             },
           }
         );
-
         setOrders(response.data);
       } catch (error) {
         console.error("Error al obtener los pedidos:", error);
@@ -119,6 +118,7 @@ function OrderHistory({ historyModalIsOpen, setHistoryModalIsOpen }) {
 
                   return (
                     <div
+                      key={e._id}
                       onClick={() => repeatOrder(e)}
                       className={styles.orderContainer}
                     >
