@@ -2,6 +2,7 @@ const express = require("express");
 const jwt = require("jsonwebtoken");
 const User = require("../schema/usersSchema");
 const jwtSecret = process.env.JWT_SECRET;
+const { sendWelcomeEmail } = require("../service/index");
 
 const authRouter = express.Router();
 
@@ -38,6 +39,11 @@ authRouter.post("/register", (req, res) => {
         .save()
         .then((createdUser) => {
           console.log("exito");
+          const user = {
+            email: "josegarcia1006@gmail.com",
+            name: createdUser.firstName,
+          };
+          sendWelcomeEmail(user);
           return res.status(201).json({
             token: createdUser.generateJWT(),
             user: {
