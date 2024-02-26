@@ -27,7 +27,8 @@ const DashBoard = () => {
     const obtenerRestaurante = async () => {
       try {
         const response = await api.get(`/restaurantes/${user._id}`);
-        setRestaurante(response.data);
+        setRestaurante(response.data[0]);
+        console.log(response.data);
       } catch (error) {
         console.error("Error al obtener los datos de los productos:", error);
       }
@@ -39,6 +40,7 @@ const DashBoard = () => {
           "/restaurantes/" + params.restaurantId + "/products"
         );
         setProductos(response.data);
+
         setIsLoadingProducts(false);
       } catch (error) {
         console.error(
@@ -47,10 +49,9 @@ const DashBoard = () => {
         );
       }
     };
-
-    obtenerProductosDelRestaurante();
     obtenerRestaurante();
-  }, [params.restaurantId]);
+    obtenerProductosDelRestaurante();
+  }, [user]);
 
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);

@@ -13,9 +13,8 @@ import { handleInitialRegistrationSubmit } from "../../utils/Usercrud";
 export const Formulario = ({ formulariosIsOpen, setFormulariosIsOpen }) => {
   const params = useParams();
 
-  const [localUser, setLocalUser] = useState("");
+  const { user, setLocalUser } = useContext(UserContext);
 
-  const { user } = useContext(UserContext);
   const {
     register,
     formState: { errors },
@@ -50,7 +49,7 @@ export const Formulario = ({ formulariosIsOpen, setFormulariosIsOpen }) => {
       if (typeof changeModalState === "function") {
         changeModalState();
       }
-      setLogged(true);
+      // setLogged(true);
     })
       .then(async () => {
         try {

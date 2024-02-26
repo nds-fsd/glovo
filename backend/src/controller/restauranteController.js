@@ -61,11 +61,13 @@ exports.getRestaurantes = async (req, res) => {
 exports.getRestauranteById = async (req, res) => {
   const restauranteId = req.params.id;
   try {
-    const foundRestaurante = await Restaurante.findById(restauranteId);
+    const foundRestaurante = await Restaurante.findById(restauranteId).populate(
+      "owner"
+    );
     if (foundRestaurante) {
       res.json(foundRestaurante);
     } else {
-      res.status(404).json({ error: "Restaurante not found" });
+      res.status(404).json({ error: "Restaurante no encontrado" });
     }
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -73,16 +75,10 @@ exports.getRestauranteById = async (req, res) => {
 };
 
 exports.getRestauranteByOwnerId = async (req, res) => {
-  const userId = req.params.id;
+  const ownerId = req.params.idUser;
   try {
-    const foundRestaurante = await Restaurante.findById(restauranteId).populate(
-      "owner"
-    );
-    if (foundRestaurante) {
-      res.json(foundRestaurante);
-    } else {
-      res.status(404).json({ error: "Restaurante not found" });
-    }
+    const restaurantes = await Restaurante.find({ owner: ownerId });
+    res.json(restaurantes);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
