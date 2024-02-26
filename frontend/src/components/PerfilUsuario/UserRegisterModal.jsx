@@ -25,7 +25,7 @@ function UserRegisterModal({
     if (data.role === false) {
       data.role = "USER";
     } else {
-      data.role = data.role.toUpperCase();
+      data.role;
     }
     console.log(data);
     try {
