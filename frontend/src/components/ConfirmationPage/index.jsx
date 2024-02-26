@@ -38,6 +38,7 @@ export default function ConfirmationPage() {
   }, []);
 
   useEffect(() => {
+    if (!order) return;
     const obtenerRestaurante = async () => {
       try {
         const response = await api.get("/restaurant/" + order.restaurante);
