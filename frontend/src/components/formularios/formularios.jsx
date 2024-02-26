@@ -32,7 +32,6 @@ export const Formulario = ({ formulariosIsOpen, setFormulariosIsOpen }) => {
   const [restaurant, setRestaurant] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState("");
-
   const onSubmit = async (data) => {
     const userData = {
       firstName: data.firstName,
@@ -42,48 +41,42 @@ export const Formulario = ({ formulariosIsOpen, setFormulariosIsOpen }) => {
       phone: data.phone,
     };
 
-    handleInitialRegistrationSubmit(userData, setLocalUser, () => {
-      if (typeof closeModal === "function") {
-        closeModal();
-      }
-      if (typeof changeModalState === "function") {
-        changeModalState();
-      }
-      // setLogged(true);
-    })
-      .then(async () => {
-        try {
-          const response = await api.post(`/restaurantes/${user._id}`, data, {
-            headers: {
-              "Content-Type": "application/json",
-            },
-          });
-          console.log("Restaurant Data Form", data);
-          console.log(response.data);
-
-          navigate("../dashboard");
-        } catch (error) {
-          // Manejo de errores
-          console.error("Error:", error);
-          if (error.response) {
-            console.error("Error data:", error.response.data);
-            console.error("Error status:", error.response.status);
-            setSubmitError("Error from server: " + error.response.data.message);
-          } else if (error.request) {
-            console.error("No response:", error.request);
-            setSubmitError("No response from server");
-          } else {
-            setSubmitError("Error: " + error.message);
-          }
-        } finally {
-          setIsSubmitting(false);
-          setFormulariosIsOpen(false);
+    handleInitialRegistrationSubmit(
+      userData,
+      (newUser) => {
+        setLocalUser(newUser);
+        postRestaurantData(newUser._id, data);
+      },
+      () => {
+        if (typeof closeModal === "function") {
+          closeModal();
         }
-      })
-      .catch((error) => {
-        // Manejo de errores de handleInitialRegistrationSubmit
-        console.error("Error en el registro inicial:", error);
+        if (typeof changeModalState === "function") {
+          changeModalState();
+        }
+      }
+    ).catch((error) => {
+      console.error("Error en el registro inicial:", error);
+    });
+  };
+
+  const postRestaurantData = async (userId, data) => {
+    try {
+      const response = await api.post(`/restaurantes/${userId}`, data, {
+        headers: {
+          "Content-Type": "application/json",
+        },
       });
+      console.log("Restaurant Data Form", data);
+      console.log(response.data);
+
+      navigate("../dashboard");
+    } catch (error) {
+      console.error("Error:", error);
+    } finally {
+      setIsSubmitting(false);
+      setFormulariosIsOpen(false);
+    }
   };
 
   return (

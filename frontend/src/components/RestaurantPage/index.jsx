@@ -36,7 +36,7 @@ export default function RestaurantPage({}) {
   useEffect(() => {
     const obtenerRestaurante = async () => {
       try {
-        const response = await api.get("/restaurantes/" + params.restaurantId);
+        const response = await api.get("/restaurant/" + params.restaurantId);
         setRestaurante(response.data);
       } catch (error) {
         console.error("Error al obtener los datos de los productos:", error);

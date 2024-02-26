@@ -33,15 +33,16 @@ const DashBoard = () => {
         console.error("Error al obtener los datos de los productos:", error);
       }
     };
+    obtenerRestaurante();
+  }, [user]);
 
+  useEffect(() => {
     const obtenerProductosDelRestaurante = async () => {
       try {
         const response = await api.get(
-          "/restaurantes/" + params.restaurantId + "/products"
+          "/restaurantes/" + restaurante._id + "/products"
         );
         setProductos(response.data);
-
-        setIsLoadingProducts(false);
       } catch (error) {
         console.error(
           "Error al obtener los datos de los productos del restaurante:",
@@ -49,9 +50,9 @@ const DashBoard = () => {
         );
       }
     };
-    obtenerRestaurante();
+
     obtenerProductosDelRestaurante();
-  }, [user]);
+  }, [restaurante]);
 
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);

@@ -10,7 +10,7 @@ router.get(
 );
 router.get("/restaurantes", restauranteController.getRestaurantes);
 
-router.get("/restaurantes/:id", restauranteController.getRestauranteById);
+router.get("/restaurant/:id", restauranteController.getRestauranteById);
 router.delete("/restaurantes/:id", restauranteController.deleteRestaurante);
 router.patch("/restaurantes/:id", restauranteController.updateRestaurante);
 

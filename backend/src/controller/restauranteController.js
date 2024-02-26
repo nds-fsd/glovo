@@ -61,9 +61,7 @@ exports.getRestaurantes = async (req, res) => {
 exports.getRestauranteById = async (req, res) => {
   const restauranteId = req.params.id;
   try {
-    const foundRestaurante = await Restaurante.findById(restauranteId).populate(
-      "owner"
-    );
+    const foundRestaurante = await Restaurante.findById(restauranteId);
     if (foundRestaurante) {
       res.json(foundRestaurante);
     } else {

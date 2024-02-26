@@ -40,7 +40,7 @@ export default function ConfirmationPage() {
   useEffect(() => {
     const obtenerRestaurante = async () => {
       try {
-        const response = await api.get("/restaurantes/" + order.restaurante);
+        const response = await api.get("/restaurant/" + order.restaurante);
         setRestaurant(response.data);
       } catch (error) {
         console.error("Error al obtener los datos de los productos:", error);
