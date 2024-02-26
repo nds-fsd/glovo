@@ -58,8 +58,8 @@ const DashBoard = () => {
     setSearchTerm(event.target.value);
   };
 
-  // const filteredRestaurantProducts = restaurantProducts.filter((products) =>
-  //   products.name.toLowerCase().includes(searchTerm.toLowerCase())
+  // const filteredRestaurantProducts = restaurantProducts.filter((productos) =>
+  //   productos.name.toLowerCase().includes(searchTerm.toLowerCase())
   // );
 
   return (

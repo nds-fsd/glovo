@@ -5,7 +5,7 @@ import { MdOutlineEmail, MdOutlinePassword } from "react-icons/md";
 import { AnimatePresence, motion } from "framer-motion";
 import styles from "../PerfilUsuario/styles.module.css";
 import Modal from "react-modal";
-import { createProduct } from "../../utils/api";
+import { modifyProduct } from "../../utils/api";
 
 import useOnclickOutside from "react-cool-onclickoutside";
 
@@ -30,9 +30,7 @@ export default function ModifyProductModal({
       ingredientes: data.ingredients,
     };
     console.log(reqData);
-    createProduct(reqData);
-    form;
-    setIsMenuModalOpen(false);
+    modifyProduct(reqData, producto._id);
   };
 
   return (

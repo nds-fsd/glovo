@@ -7,9 +7,9 @@ const productSchema = new mongoose.Schema({
   categoria: String,
   disponibilidad: Boolean,
   ingredientes: String,
-  restaurant: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Restaurant",
+  restaurante: {
+    type: String,
+    ref: "Restaurante",
   },
 });
 
