@@ -6,6 +6,8 @@ import { AnimatePresence, motion } from "framer-motion";
 import styles from "../PerfilUsuario/styles.module.css";
 import Modal from "react-modal";
 import { createProduct } from "../../utils/api";
+import { FileUploader } from "react-drag-drop-files";
+import exampleImg from "../../assets/icons/image-picture-svgrepo-com.svg";
 
 import useOnclickOutside from "react-cool-onclickoutside";
 
@@ -14,12 +16,37 @@ export default function ProductModal({
   setIsMenuModalOpen,
   restaurante,
 }) {
+  const [file, setFile] = useState();
+  const [image, setImage] = useState();
   const ref = useOnclickOutside(() => {
     setIsMenuModalOpen(false);
   });
+
+  const fileUploaderStyles = (
+    <div className={styles.fileUpload}>
+      <p>Arrastra o haz click</p>
+      <div>
+        <img className={styles.previewImg} src={image || exampleImg} alt="" />
+      </div>
+    </div>
+  );
+
+  useEffect(() => {
+    if (!file) return;
+    const viewHandler = () => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        setImage(reader.result);
+      };
+    };
+
+    viewHandler();
+  }, [file]);
+
   const { register, handleSubmit } = useForm();
   const onSubmit = async (data) => {
-    console.log(data, data.name);
+    setIsMenuModalOpen(false);
     const reqData = {
       nombre: data.name,
       descripcion: data.description,
@@ -29,10 +56,7 @@ export default function ProductModal({
       ingredientes: data.ingredients,
       restaurante: restaurante._id,
     };
-    console.log(reqData);
     createProduct(reqData);
-    form;
-    setIsMenuModalOpen(false);
   };
   return (
     <Modal
@@ -60,6 +84,7 @@ export default function ProductModal({
           ref={ref}
         >
           <h2 className={styles.hola}>Nuevo producto</h2>
+
           <div className={styles.inputContainer}>
             <div className={styles.inputPictureContainer}>
               <input
@@ -107,6 +132,28 @@ export default function ProductModal({
                 required
               />
             </div>
+            <div className={styles.inputPictureContainer}>
+              <input
+                className={styles.firstInput}
+                {...register("img")}
+                type="price"
+                placeholder="Imagen"
+                required
+              />
+            </div>
+            <FileUploader
+              multiple={false}
+              type={["jpeg", "png", "gif", "jpg"]}
+              name="file"
+              handleChange={(file) => {
+                setFile(file);
+              }}
+              children={fileUploaderStyles}
+              dropMessageStyle={{
+                backgroundColor: "var(--secondary-color)",
+                borderRadius: "20px",
+              }}
+            />
           </div>
           <button className={styles.guardarCambios} type="submit">
             Agregar producto

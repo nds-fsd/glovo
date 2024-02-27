@@ -101,43 +101,48 @@ function OrderHistory({ historyModalIsOpen, setHistoryModalIsOpen }) {
           >
             <h2>Tus pedidos</h2>
 
-            {orders &&
-              orders
-                .slice(0)
-                .reverse()
-                .map((e) => {
-                  const restauranteEncontrado = restaurants.find(
-                    (r) => r._id === e.restaurante
-                  );
-                  if (!restauranteEncontrado) {
-                    console.warn(
-                      `Restaurante con ID ${e.restaurante} no encontrado.`
+            <div className={styles.orderListContainer}>
+              {orders.length !== 0 ? (
+                orders
+                  .slice(0)
+                  .reverse()
+                  .map((e) => {
+                    const restauranteEncontrado = restaurants.find(
+                      (r) => r._id === e.restaurante
                     );
-                    return null;
-                  }
-
-                  return (
-                    <div
-                      key={e._id}
-                      onClick={() => repeatOrder(e)}
-                      className={styles.orderContainer}
-                    >
-                      <h5>{restauranteEncontrado.brandName}</h5>
-                      <div className={styles.imgTextContainer}>
-                        <img
-                          className={styles.restaurantHistoryImg}
-                          src={restauranteEncontrado.img}
-                          alt=""
-                        />
-
-                        <div>
-                          <p>{e.productList.length - 2} productos</p>
-                          <p>{e.date.split(" ")[0]}</p>
+                    if (!restauranteEncontrado) {
+                      console.warn(
+                        `Restaurante con ID ${e.restaurante} no encontrado.`
+                      );
+                      return null;
+                    }
+                    return (
+                      <div
+                        key={e._id}
+                        onClick={() => repeatOrder(e)}
+                        className={styles.orderContainer}
+                      >
+                        <h5>{restauranteEncontrado.brandName}</h5>
+                        <div className={styles.imgTextContainer}>
+                          <img
+                            className={styles.restaurantHistoryImg}
+                            src={restauranteEncontrado.img}
+                            alt=""
+                          />
+                          <div>
+                            <p>{e.productList.length - 2} productos</p>
+                            <p>{e.date.split(" ")[0]}</p>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  );
-                })}
+                    );
+                  })
+              ) : (
+                <div className={styles.containerSinPedidos}>
+                  <h3>Tus pedidos aparecerán aquí</h3>
+                </div>
+              )}
+            </div>
           </motion.div>
         </motion.div>
       </Modal>

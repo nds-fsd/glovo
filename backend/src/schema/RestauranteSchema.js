@@ -13,6 +13,8 @@ const restauranteSchema = new mongoose.Schema({
   whatsapp: Boolean,
   privacy: Boolean,
   discountCode: Boolean,
+  transporte: String,
+  oferta: String,
   img: {
     type: String,
     default:

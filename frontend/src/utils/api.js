@@ -107,3 +107,16 @@ export const deleteProduct = async (productId) => {
     throw error;
   }
 };
+
+export const modifyRestaurant = async (productData, restaurantId) => {
+  try {
+    const response = await api.patch(
+      `/restaurantes/${restaurantId}`,
+      productData
+    );
+    return response.data;
+  } catch (error) {
+    console.error(error.response ? error.response.data : error.message);
+    throw error;
+  }
+};

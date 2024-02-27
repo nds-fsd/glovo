@@ -28,6 +28,7 @@ function PerfilUsuario({
   modalState,
   changeModalState,
   setLogged,
+
   setIsPerfilUsuarioModalOpen,
 }) {
   const { id } = getUserSession();

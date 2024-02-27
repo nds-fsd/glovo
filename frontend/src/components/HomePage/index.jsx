@@ -6,9 +6,25 @@ import NavBar from "../NavBar";
 import { motion, AnimatePresence } from "framer-motion";
 import { useContext } from "react";
 import { UserContext } from "../../contexts/UserContext";
-
-export default function HomePage({ location }) {
+import { react, useState, useEffect } from "react";
+import { api } from "../../utils/api";
+export default function HomePage({ location, searchTerm }) {
   const { user, setLocalUser } = useContext(UserContext);
+
+  const [restaurantes, setRestaurantes] = useState([]);
+
+  useEffect(() => {
+    const obtenerRestaurantes = async () => {
+      try {
+        const response = await api.get("/restaurantes");
+        setRestaurantes(response.data);
+        console.log(response.data);
+      } catch (error) {
+        console.error("Error al obtener los datos de los restaurantes:", error);
+      }
+    };
+    obtenerRestaurantes();
+  }, []);
   return (
     <motion.div
       initial={{ opacity: 0, translateY: -50 }}
@@ -25,7 +41,28 @@ export default function HomePage({ location }) {
           </p>
         </div>
         <img className={styles.borderImg} src={BorderImg} alt="" />
-        <RestaurantGrid />
+        {searchTerm ? (
+          <RestaurantGrid
+            restaurantes={restaurantes.filter((restaurante) =>
+              restaurante.brandName
+                .toLowerCase()
+                .includes(searchTerm.toLowerCase())
+            )}
+            gridName={`Tu búsqueda: ${searchTerm}`}
+          />
+        ) : (
+          <>
+            {" "}
+            <RestaurantGrid
+              restaurantes={restaurantes.slice(0, 8)}
+              gridName={"Restaurantes recomendados"}
+            />
+            <RestaurantGrid
+              restaurantes={restaurantes.slice(8)}
+              gridName={"Otros restaurantes"}
+            />{" "}
+          </>
+        )}
       </div>
     </motion.div>
   );

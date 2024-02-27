@@ -15,8 +15,13 @@ import OrderHistory from "../PerfilUsuario/OrderHistory";
 import { UserContext } from "../../contexts/UserContext";
 import shopIcon from "../../assets/icons/shop-svgrepo-com.svg";
 
-export default function NavBar({ location }) {
-  const [logged, setLogged] = useState(false);
+export default function NavBar({
+  location,
+  logged,
+  setLogged,
+  searchTerm,
+  setSearchTerm,
+}) {
   const navigate = useNavigate();
   const [isPerfilUsuarioModalOpen, setIsPerfilUsuarioModalOpen] =
     useState(false);
@@ -56,7 +61,7 @@ export default function NavBar({ location }) {
             <img className={styles.logo} src={logo} alt="" />
           </div>
           <div className={styles.searchBarContainer}>
-            <SearchBar />
+            <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
           </div>
           <div className={styles.rightContainer}>
             {location && (

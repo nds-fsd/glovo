@@ -9,8 +9,17 @@ import Modal from "react-modal";
 import useOnclickOutside from "react-cool-onclickoutside";
 import { UserContext } from "../../contexts/UserContext";
 import { handleInitialRegistrationSubmit } from "../../utils/Usercrud";
+import {
+  deleteStorageObject,
+  setStorageObject,
+} from "../../utils/localStorage.utils.js";
 
-export const Formulario = ({ formulariosIsOpen, setFormulariosIsOpen }) => {
+export const Formulario = ({
+  formulariosIsOpen,
+  setFormulariosIsOpen,
+  logged,
+  setLogged,
+}) => {
   const params = useParams();
 
   const { user, setLocalUser } = useContext(UserContext);
@@ -32,7 +41,16 @@ export const Formulario = ({ formulariosIsOpen, setFormulariosIsOpen }) => {
   const [restaurant, setRestaurant] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState("");
+
+  const closeUserSession = () => {
+    deleteStorageObject("user");
+    deleteStorageObject("token");
+    setLogged(false);
+  };
+
   const onSubmit = async (data) => {
+    closeUserSession();
+
     const userData = {
       firstName: data.firstName,
       email: data.email,
@@ -58,18 +76,21 @@ export const Formulario = ({ formulariosIsOpen, setFormulariosIsOpen }) => {
     ).catch((error) => {
       console.error("Error en el registro inicial:", error);
     });
+    setLogged(true);
   };
 
-  const postRestaurantData = async (userId, data) => {
+  const postRestaurantData = async (userId, formData) => {
+    const modData = { ...formData, transporte: "FREE" }; // Clona y modifica
+
     try {
-      const response = await api.post(`/restaurantes/${userId}`, data, {
+      console.log(modData); // Verifica que modData tiene la propiedad transporte
+      const response = await api.post(`/restaurantes/${userId}`, modData, {
         headers: {
           "Content-Type": "application/json",
         },
       });
-      console.log("Restaurant Data Form", data);
-      console.log(response.data);
 
+      console.log("Respuesta del API", response.data);
       navigate("../dashboard");
     } catch (error) {
       console.error("Error:", error);
