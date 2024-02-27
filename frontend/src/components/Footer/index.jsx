@@ -6,7 +6,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import Formulario from "../formularios/formularios";
 import BusinessModal from "../DashBoard/businessModal";
 
-export default function Footer() {
+export default function Footer({ logged, setLogged }) {
   const params = useParams();
   const navigate = useNavigate();
   const [formulariosIsOpen, setFormulariosIsOpen] = useState(false);
@@ -76,6 +76,8 @@ export default function Footer() {
       <Formulario
         formulariosIsOpen={formulariosIsOpen}
         setFormulariosIsOpen={setFormulariosIsOpen}
+        logged={logged}
+        setLogged={setLogged}
       />
       <BusinessModal
         businessModalIsOpen={businessModalIsOpen}

@@ -9,8 +9,17 @@ import Modal from "react-modal";
 import useOnclickOutside from "react-cool-onclickoutside";
 import { UserContext } from "../../contexts/UserContext";
 import { handleInitialRegistrationSubmit } from "../../utils/Usercrud";
+import {
+  deleteStorageObject,
+  setStorageObject,
+} from "../../utils/localStorage.utils.js";
 
-export const Formulario = ({ formulariosIsOpen, setFormulariosIsOpen }) => {
+export const Formulario = ({
+  formulariosIsOpen,
+  setFormulariosIsOpen,
+  logged,
+  setLogged,
+}) => {
   const params = useParams();
 
   const { user, setLocalUser } = useContext(UserContext);
@@ -67,6 +76,7 @@ export const Formulario = ({ formulariosIsOpen, setFormulariosIsOpen }) => {
     ).catch((error) => {
       console.error("Error en el registro inicial:", error);
     });
+    setLogged(true);
   };
 
   const postRestaurantData = async (userId, formData) => {

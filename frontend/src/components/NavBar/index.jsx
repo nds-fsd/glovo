@@ -15,8 +15,7 @@ import OrderHistory from "../PerfilUsuario/OrderHistory";
 import { UserContext } from "../../contexts/UserContext";
 import shopIcon from "../../assets/icons/shop-svgrepo-com.svg";
 
-export default function NavBar({ location }) {
-  const [logged, setLogged] = useState(false);
+export default function NavBar({ location, logged, setLogged }) {
   const navigate = useNavigate();
   const [isPerfilUsuarioModalOpen, setIsPerfilUsuarioModalOpen] =
     useState(false);

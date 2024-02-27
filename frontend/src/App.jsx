@@ -24,6 +24,7 @@ function App() {
   const [location, setLocation] = useState("");
   const [restaurants, setrestaurants] = useState("");
   const [user, setLocalUser] = useState(null);
+  const [logged, setLogged] = useState(false);
   // const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
@@ -45,7 +46,11 @@ function App() {
           <OrderContext.Provider value={{ order, setOrder }}>
             <CartContext.Provider value={{ shoppingList, setShoppingList }}>
               <BrowserRouter>
-                <NavBar location={location} />
+                <NavBar
+                  location={location}
+                  logged={logged}
+                  setLogged={setLogged}
+                />
                 <Routes>
                   <Route
                     path="/"
@@ -67,7 +72,7 @@ function App() {
                   <Route path="/dashboard/" element={<DashBoard />} />
                 </Routes>
                 <LandbotChat />
-                <Footer />
+                <Footer logged={logged} setLogged={setLogged} />
               </BrowserRouter>
             </CartContext.Provider>
           </OrderContext.Provider>
