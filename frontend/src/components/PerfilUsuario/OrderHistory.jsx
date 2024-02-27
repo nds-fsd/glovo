@@ -24,6 +24,7 @@ function OrderHistory({ historyModalIsOpen, setHistoryModalIsOpen }) {
     const obtenerRestaurantes = async () => {
       try {
         const response = await api.get("/restaurantes");
+        if (!response) return;
         setRestaurants(response.data);
       } catch (error) {
         console.error("Error al obtener los datos de los restaurantes:", error);

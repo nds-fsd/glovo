@@ -31,8 +31,6 @@ function PerfilUsuario({
 
   setIsPerfilUsuarioModalOpen,
 }) {
-  const { id } = getUserSession();
-
   const { user, setLocalUser } = useContext(UserContext);
 
   const [isEditing, setIsEditing] = useState(false);
