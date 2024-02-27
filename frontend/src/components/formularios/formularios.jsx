@@ -2,14 +2,28 @@ import styles from "./styles.module.css";
 import axios from "axios";
 import { useForm, useWatch } from "react-hook-form";
 import { emailValidator, phoneValidator, validateCity } from "./validators";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { api } from "../../utils/api";
 import Modal from "react-modal";
 import useOnclickOutside from "react-cool-onclickoutside";
+import { UserContext } from "../../contexts/UserContext";
+import { handleInitialRegistrationSubmit } from "../../utils/Usercrud";
+import {
+  deleteStorageObject,
+  setStorageObject,
+} from "../../utils/localStorage.utils.js";
 
-export const Formulario = ({ formulariosIsOpen, setFormulariosIsOpen }) => {
+export const Formulario = ({
+  formulariosIsOpen,
+  setFormulariosIsOpen,
+  logged,
+  setLogged,
+}) => {
   const params = useParams();
+
+  const { user, setLocalUser } = useContext(UserContext);
+
   const {
     register,
     formState: { errors },
@@ -28,35 +42,64 @@ export const Formulario = ({ formulariosIsOpen, setFormulariosIsOpen }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState("");
 
+  const closeUserSession = () => {
+    deleteStorageObject("user");
+    deleteStorageObject("token");
+    setLogged(false);
+  };
+
   const onSubmit = async (data) => {
-    console.log(data);
-    setIsSubmitting(true);
+    closeUserSession();
+
+    const userData = {
+      firstName: data.firstName,
+      email: data.email,
+      password: data.password,
+      role: "RESTAURANT",
+      phone: data.phone,
+    };
+
+    handleInitialRegistrationSubmit(
+      userData,
+      (newUser) => {
+        setLocalUser(newUser);
+        postRestaurantData(newUser._id, data);
+      },
+      () => {
+        if (typeof closeModal === "function") {
+          closeModal();
+        }
+        if (typeof changeModalState === "function") {
+          changeModalState();
+        }
+      }
+    ).catch((error) => {
+      console.error("Error en el registro inicial:", error);
+    });
+    setLogged(true);
+  };
+
+  const postRestaurantData = async (userId, formData) => {
+    const modData = { ...formData, transporte: "FREE" }; // Clona y modifica
+
     try {
-      const response = await api.post("/restaurantes", data, {
+      console.log(modData); // Verifica que modData tiene la propiedad transporte
+      const response = await api.post(`/restaurantes/${userId}`, modData, {
         headers: {
           "Content-Type": "application/json",
         },
       });
-      console.log(response.data);
-      navigate("../DashBoard");
-      setIsDone(true);
+
+      console.log("Respuesta del API", response.data);
+      navigate("../dashboard");
     } catch (error) {
-      if (error.response) {
-        console.error("Error data:", error.response.data);
-        console.error("Error status:", error.response.status);
-        setSubmitError("Error from server: " + error.response.data.message);
-      } else if (error.request) {
-        console.error("No response:", error.request);
-        setSubmitError("No response from server");
-      } else {
-        console.error("Error:", error.message);
-        setSubmitError("Error: " + error.message);
-      }
+      console.error("Error:", error);
     } finally {
       setIsSubmitting(false);
       setFormulariosIsOpen(false);
     }
   };
+
   return (
     <Modal
       parentSelector={() => document.querySelector("#root")}

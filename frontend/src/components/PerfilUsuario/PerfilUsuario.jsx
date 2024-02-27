@@ -28,10 +28,9 @@ function PerfilUsuario({
   modalState,
   changeModalState,
   setLogged,
+
   setIsPerfilUsuarioModalOpen,
 }) {
-  const { id } = getUserSession();
-
   const { user, setLocalUser } = useContext(UserContext);
 
   const [isEditing, setIsEditing] = useState(false);
@@ -364,15 +363,18 @@ function PerfilUsuario({
                 <img className={styles.pencilIcon} src={pencilIcon} alt="" />
               </p>
             </div>
-            <div className={styles.userInfoContainer}></div>
-
-            <div className={styles.campoP}>
-              <b className={styles.userProfileBold}>Contraseña: </b> •••••••••
-              <button onClick={() => setIsChangePasswordModalOpen(true)}>
+            <div className={styles.userInfoContainer}>
+              <p
+                className={styles.campoP2}
+                onClick={() => {
+                  setIsChangePasswordModalOpen(true);
+                  setIsPerfilUsuarioModalOpen(false);
+                }}
+              >
+                <b className={styles.userProfileBold}>Contraseña: •••••••••</b>
                 <img className={styles.pencilIcon} src={pencilIcon} alt="" />
-              </button>
+              </p>
             </div>
-
             <div className={styles.separador}></div>
             <div className={styles.preferenceContainer}>
               <div className={styles.preferenceTextContainer}>

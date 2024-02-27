@@ -27,7 +27,11 @@ export default function ProductCard({
   return (
     <div className={styles.mainContainer}>
       <div className={styles.upperContainer}>
-        <img className={styles.productImg} src={productImg} alt="" />
+        <img
+          className={styles.productImg}
+          src={producto.img || productImg}
+          alt=""
+        />
         <div className={styles.textContainer}>
           <h5>{productName}</h5>
           <p className={styles.description}>{productDescription}</p>

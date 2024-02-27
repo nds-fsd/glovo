@@ -2,17 +2,17 @@ import axios from "axios";
 import { setUserSession, setStorageObject } from "./localStorage.utils";
 import { getStorageObject } from "./localStorage.utils";
 import { getUserToken } from "./localStorage.utils";
+import { useContext } from "react";
 
-const API_BASE_URL = "http://localhost:3001";
+const API_BASE_URL = process.env.REACT_APP_BACKEND_URL;
 
 const api = axios.create({
-  baseURL: "http://localhost:3001",
+  baseURL: API_BASE_URL,
   timeout: 1000,
   headers: {
     "Content-Type": "application/json",
   },
 });
-
 export const handleInitialRegistrationSubmit = async (
   data,
   setLocalUser,
@@ -32,11 +32,11 @@ export const handleInitialRegistrationSubmit = async (
 
 export const handleLoginSubmit = async (data, setLocalUser, closeModal) => {
   try {
-    const response = await api.post("http://localhost:3001/login", data);
+    const response = await api.post("/login", data);
     setStorageObject("token", response.data.token);
     setStorageObject("user", response.data.user);
     setLocalUser(response.data.user);
-    return response.status;
+    return response;
   } catch (error) {
     console.error("Error en el Login:", error);
     return error.response.status;
@@ -143,5 +143,26 @@ export const handleDelete = async (user, setUser, setIsModalOpen) => {
     } catch (error) {
       console.error("Error al eliminar la cuenta:", error);
     }
+  }
+};
+
+// todo-------------------------Restaurant----------------------
+export const handleRestaurantLoginSubmit = async (
+  data,
+  setLocalRestaurant,
+  closeModal
+) => {
+  try {
+    const response = await api.get("/restaurantes", data);
+    console.log(data);
+    console.log(response);
+    console.log(response.data);
+    setStorageObject("token", response.data.token);
+    setStorageObject("restaurantes", response.data.restaurant);
+    setLocalRestaurant(response.data.restaurant);
+    return response.status;
+  } catch (error) {
+    console.error("Error en el Login:", error);
+    return error.response.status;
   }
 };

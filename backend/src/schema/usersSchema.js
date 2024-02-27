@@ -12,7 +12,7 @@ const userSchema = new Schema({
   phone: { type: String },
   address: { type: String },
   creditCard: { type: Object },
-  role: { type: String, enum: ["USER", "RESTAURANT"] },
+  role: { type: String, enum: ["USER", "RESTAURANT"], default: "USER" }, // definis un rol por defecto o teneis que pasarlo obligatoriamente en el post
 });
 
 //esta funcion se ejecuta "antes" de guardar cualquier usuario en Mongo

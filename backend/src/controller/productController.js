@@ -40,6 +40,7 @@ exports.createProduct = async (req, res) => {
       categoria,
       disponibilidad,
       ingredientes,
+      restaurante,
     } = req.body;
     if (
       !nombre ||
@@ -47,7 +48,8 @@ exports.createProduct = async (req, res) => {
       !precio ||
       !categoria ||
       !disponibilidad ||
-      !ingredientes
+      !ingredientes ||
+      !restaurante
     ) {
       return res.status(400).json({ error: "Missing required fields" });
     }

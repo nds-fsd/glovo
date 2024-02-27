@@ -1,9 +1,17 @@
 const Restaurante = require("../schema/RestauranteSchema");
+const User = require("../schema/usersSchema");
 const bcrypt = require("bcryptjs");
 const { encryptValue } = require("../utils");
 
+//Comprobar que el idUser es un usuario con role Restaurante si no not valid
+//Comprobar que no sea nulo
 exports.createRestaurante = async (req, res) => {
+  const idUser = req.params.idUser;
   try {
+    const isUser = await User.findById(idUser);
+    if (isUser.role !== "RESTAURANT") {
+      res.status(404).json({ message: "Not valid" });
+    }
     const { email, password } = req.body;
     if (email === "" || password === "") {
       res.status(400).json({ message: "Provide email, password" });
@@ -11,7 +19,6 @@ exports.createRestaurante = async (req, res) => {
     }
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
     if (!emailRegex.test(email)) {
-      console.log = "comprobar mail";
       res.status(400).json({ message: "Provide a valid email address." });
       return;
     }
@@ -33,6 +40,7 @@ exports.createRestaurante = async (req, res) => {
     const newRestaurante = await Restaurante.create({
       ...req.body,
       password: encryptedPassword,
+      owner: idUser,
     });
 
     res.status(201).json(newRestaurante);
@@ -54,12 +62,21 @@ exports.getRestauranteById = async (req, res) => {
   const restauranteId = req.params.id;
   try {
     const foundRestaurante = await Restaurante.findById(restauranteId);
-
     if (foundRestaurante) {
       res.json(foundRestaurante);
     } else {
-      res.status(404).json({ error: "Restaurante not found" });
+      res.status(404).json({ error: "Restaurante no encontrado" });
     }
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+exports.getRestauranteByOwnerId = async (req, res) => {
+  const ownerId = req.params.idUser;
+  try {
+    const restaurantes = await Restaurante.find({ owner: ownerId });
+    res.json(restaurantes);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }

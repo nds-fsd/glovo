@@ -14,13 +14,20 @@ function UserRegisterModal({
   setLoginModalOpen,
   setIsUserRegisterModalOpen,
 }) {
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, setValue } = useForm();
+  const [isChecked, setIsChecked] = useState(false);
   const [localUser, setLocalUser] = useState(null);
   const ref = useOnclickOutside(() => {
     setIsUserRegisterModalOpen(false);
   });
 
   const onSubmit = async (data) => {
+    if (data.role === false) {
+      data.role = "USER";
+    } else {
+      data.role;
+    }
+    console.log(data);
     try {
       await handleInitialRegistrationSubmit(data, setLocalUser, () => {
         if (typeof closeModal === "function") {
@@ -96,6 +103,7 @@ function UserRegisterModal({
         <button className={styles.guardarCambios} type="submit">
           Registrar
         </button>
+
         <p className={styles.loginLink}>
           ¿Ya tienes cuenta?{" "}
           <span
@@ -115,3 +123,7 @@ function UserRegisterModal({
 }
 
 export default UserRegisterModal;
+
+//TODO: implementar un checkbox para indicar si el usuario que se va a registrar es Restaurante
+// if checked add to submit form pre httpRequest role: "RESTAURANT"
+// if not checked submit normally

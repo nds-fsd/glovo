@@ -25,10 +25,8 @@ export const postOrder = async (data) => {
 };
 
 api.interceptors.request.use((config) => {
-
-
   const token = localStorage.getItem("token");
-  config.headers.Authorization = token ? `Bearer ${token}` : '';
+  config.headers.Authorization = token ? `Bearer ${token}` : "";
 
   return config;
 });
@@ -69,9 +67,53 @@ export const objectToQueryString = (obj) => {
   return queryString;
 };
 
+// *-------------------------- Creando New Restaurant ---------------------------
 export const createRestaurant = async (restaurantData) => {
   try {
     const response = await api.post("/restaurantes", restaurantData);
+    return response.data;
+  } catch (error) {
+    console.error(error.response ? error.response.data : error.message);
+    throw error;
+  }
+};
+
+export const createProduct = async (productData) => {
+  try {
+    const response = await api.post("/products", productData);
+    return response.data;
+  } catch (error) {
+    console.error(error.response ? error.response.data : error.message);
+    throw error;
+  }
+};
+
+export const modifyProduct = async (productData, productId) => {
+  try {
+    const response = await api.patch(`/products/${productId}`, productData);
+    return response.data;
+  } catch (error) {
+    console.error(error.response ? error.response.data : error.message);
+    throw error;
+  }
+};
+
+export const deleteProduct = async (productId) => {
+  try {
+    const response = await api.delete(`/products/${productId}`);
+    return response.data;
+  } catch (error) {
+    console.error(error.response ? error.response.data : error.message);
+    throw error;
+  }
+};
+
+export const modifyRestaurant = async (productData, restaurantId) => {
+  try {
+    const response = await api.patch(
+      `/restaurantes/${restaurantId}`,
+      productData
+    );
     return response.data;
   } catch (error) {
     console.error(error.response ? error.response.data : error.message);

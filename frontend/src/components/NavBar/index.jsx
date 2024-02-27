@@ -12,15 +12,24 @@ import UserLoginModal from "../PerfilUsuario/UserLoginModal";
 import Formulario from "../formularios/formularios";
 import { AnimatePresence, motion } from "framer-motion";
 import OrderHistory from "../PerfilUsuario/OrderHistory";
+import { UserContext } from "../../contexts/UserContext";
+import shopIcon from "../../assets/icons/shop-svgrepo-com.svg";
 
-export default function NavBar({ location }) {
-  const [logged, setLogged] = useState(false);
+export default function NavBar({
+  location,
+  logged,
+  setLogged,
+  searchTerm,
+  setSearchTerm,
+}) {
   const navigate = useNavigate();
   const [isPerfilUsuarioModalOpen, setIsPerfilUsuarioModalOpen] =
     useState(false);
   const [isUserRegisterModalOpen, setIsUserRegisterModalOpen] = useState(false);
   const [loginModalOpen, setLoginModalOpen] = useState(false);
   const [historyModalIsOpen, setHistoryModalIsOpen] = useState(false);
+
+  const { user, setLocalUser } = useContext(UserContext);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -52,7 +61,7 @@ export default function NavBar({ location }) {
             <img className={styles.logo} src={logo} alt="" />
           </div>
           <div className={styles.searchBarContainer}>
-            <SearchBar />
+            <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
           </div>
           <div className={styles.rightContainer}>
             {location && (
@@ -66,9 +75,15 @@ export default function NavBar({ location }) {
               </div>
             )}
             <div className={styles.navBarButtons}>
+              {user && user.role === "RESTAURANT" && (
+                <button onClick={() => navigate("/dashboard")}>
+                  <img className={styles.userIcon} src={shopIcon} alt="" />
+                </button>
+              )}
               <button onClick={handleUserModal}>
                 <img className={styles.userIcon} src={userIcon} alt="" />
               </button>
+
               <button
                 onClick={() => {
                   setHistoryModalIsOpen(true);

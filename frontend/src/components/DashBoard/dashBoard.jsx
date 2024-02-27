@@ -1,168 +1,180 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import styles from "./styles.module.css";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-import Slider from "react-slick";
-import { useParams } from "react-router";
 import { api } from "../../utils/api";
-
-import ProductCard from "../ProductCard";
+import DashProductCard from "./dashProductCard.jsx";
 import productExampleImg from "../../assets/images/productexampleimg.avif";
+import ProductModal from "./menuModal.jsx";
+import { UserContext } from "../../contexts/UserContext";
+import ModifyBusinessModal from "./modifyBusinessModal.jsx";
 
 const DashBoard = () => {
-  const params = useParams();
   const [searchTerm, setSearchTerm] = useState("");
-  const [restaurantProducts, setRestaurantProducts] = useState([]);
-  const [restaurantes, setRestaurantes] = useState([]);
-  const [products, setProducts] = useState([]);
+  const [restaurante, setRestaurante] = useState();
+  const [productos, setProductos] = useState([]);
   const [isMenuModalOpen, setIsMenuModalOpen] = useState(false);
+  const [isBusinessModalOpen, setIsBusinessModalOpen] = useState(false);
 
-  // Función para abrir el modal
-  const openMenuModal = () => {
-    setIsMenuModalOpen(true);
-  };
+  const { user } = useContext(UserContext);
 
-  // Función para cerrar el modal
-  const closeMenuModal = () => {
-    setIsMenuModalOpen(false);
-  };
+  useEffect(() => {
+    if (!user) return;
+    const obtenerRestaurante = async () => {
+      try {
+        const response = await api.get(`/restaurantes/${user._id}`);
+        setRestaurante(response.data[0]);
+      } catch (error) {
+        console.error("Error al obtener los datos de los productos:", error);
+      }
+    };
+    obtenerRestaurante();
+  }, [user]);
+
+  useEffect(() => {
+    if (!restaurante) return;
+    const obtenerProductosDelRestaurante = async () => {
+      try {
+        const response = await api.get(
+          "/restaurantes/" + restaurante._id + "/products"
+        );
+        setProductos(response.data);
+      } catch (error) {
+        console.error(
+          "Error al obtener los datos de los productos del restaurante:",
+          error
+        );
+      }
+    };
+
+    obtenerProductosDelRestaurante();
+  }, [restaurante, productos]);
 
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
   };
 
-  const filteredRestaurantProducts = restaurantProducts.filter((products) =>
-    products.name.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredRestaurantProducts = productos.filter((producto) =>
+    producto.nombre.toLowerCase().includes(searchTerm.toLowerCase())
   );
-  const settings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 3,
-    slidesToScroll: 1,
-  };
-
-  // Todo Para restaurantes general
-  useEffect(() => {
-    const getRestaurants = async () => {
-      try {
-        const response = await api.get("/restaurantes/");
-        setRestaurantes(response.data);
-        console.log(response.data);
-      } catch (error) {
-        console.error("Error al obtener los datos de los restaurantes:", error);
-      }
-    };
-    getRestaurants();
-  }, []);
-
-  useEffect(() => {
-    const getProducts = async () => {
-      try {
-        const productsResponse = await api.get("/products");
-        setProducts(productsResponse.data);
-        console.log(productsResponse.data);
-      } catch (error) {
-        console.error("Error al obtener los datos de los restaurantes:", error);
-      }
-    };
-    getProducts();
-  }, []);
 
   return (
-    <div className={styles.container}>
-      <div className={styles.box1}>
-        {restaurantes &&
-          restaurantes.slice(-1).map((e) => {
-            return (
-              <div>
-                <h1 className={styles.yourBrand}>Tu Negocio</h1>
-                <input
-                  className={styles.firstName}
-                  value={`Nombre: ${e.firstName}`}
-                  readOnly
-                />
-                <input
-                  className={styles.lastName}
-                  value={`Apellido: ${e.lastName}`}
-                  readOnly
-                />
-                <input
-                  className={styles.city}
-                  value={`Ciudad: ${e.city}`}
-                  readOnly
-                />
-                <input
-                  className={styles.category}
-                  value={`Categoria: ${e.category}`}
-                  readOnly
-                />
-                <input
-                  className={styles.brandName}
-                  value={`Restaurante: ${e.brandName}`}
-                  readOnly
-                />
-                <input
-                  className={styles.email}
-                  value={`Mail: ${e.email}`}
-                  readOnly
-                />
-                <input
-                  className={styles.phone}
-                  value={`Telefono: ${e.phone}`}
-                  readOnly
-                />
-              </div>
-            );
-          })}
-      </div>
-
-      <div className={styles.divFondoPantalla}>
-        <div className={styles.buttons}>
-          <button className={styles.switch}>Switch</button>
-          <button className={styles.close}>Close</button>
-        </div>
-        <input
-          className={styles.input}
-          type="text"
-          placeholder="Buscar productos..."
-          value={searchTerm}
-          onChange={handleSearchChange}
-        />
-        {filteredRestaurantProducts.length > 0 ? (
-          <ul>
-            {filteredRestaurantProducts.map((product) => (
-              <li key={product.id}>{product.name}</li>
-            ))}
-          </ul>
-        ) : (
-          <p className={styles.p}></p>
-        )}
-
-        <Slider className={styles.slider} {...settings}>
-          {products.map((e) => {
-            return (
-              <ProductCard
-                // className={styles.productCard}
-                // productos={products}
-                // key={e._id}
-                // productName={e.nombre}
-                // productDescription={e.descripcion}
-                // productPrice={`${e.precio}€`}
-                productImg={productExampleImg}
+    <>
+      {user && user.role === "RESTAURANT" ? (
+        <div className={styles.container}>
+          <div
+            className={styles.box1}
+            onClick={() => setIsBusinessModalOpen(true)}
+          >
+            {restaurante && (
+              <>
+                <h2 className={styles.yourBrand}>Tu Negocio</h2>
+                <div className={styles.businessItemsContainer}>
+                  <div className={styles.businessItemContainer}>
+                    <p>Ciudad</p>
+                    <input
+                      className={styles.leftBoxItem}
+                      defaultValue={restaurante.city}
+                      readOnly
+                    />
+                  </div>
+                  <div className={styles.businessItemContainer}>
+                    <p>Categoría</p>
+                    <input
+                      className={styles.leftBoxItem}
+                      defaultValue={restaurante.category}
+                      readOnly
+                    />
+                  </div>
+                  <div className={styles.businessItemContainer}>
+                    <p>Nombre del restaurante</p>
+                    <input
+                      className={styles.leftBoxItem}
+                      defaultValue={restaurante.brandName}
+                      readOnly
+                    />
+                  </div>
+                  <div className={styles.businessItemContainer}>
+                    <p>Tasas de transporte</p>
+                    <input
+                      className={styles.leftBoxItem}
+                      defaultValue={restaurante.transporte}
+                      readOnly
+                    />
+                  </div>
+                  <div className={styles.businessItemContainer}>
+                    <p>Oferta</p>
+                    <input
+                      className={styles.leftBoxItem}
+                      defaultValue={restaurante.oferta}
+                      readOnly
+                    />
+                  </div>
+                </div>
+              </>
+            )}
+          </div>
+          <div className={styles.divFondoPantalla}>
+            <div className={styles.buttons}>
+              <input
+                className={styles.input}
+                type="text"
+                placeholder="Buscar productos"
+                value={searchTerm}
+                onChange={handleSearchChange}
               />
-            );
-          })}
-        </Slider>
-        {/* <div className={styles.modifyBtn}>
-          <button className={styles.add} onClick={openMenuModal}>
-            Añadir
-          </button>
-          {isMenuModalOpen && <MenuModal onClose={closeMenuModal} />}
-          <button className={styles.delete}>Borrar</button>
-        </div> */}
-      </div>
-    </div>
+              <button
+                onClick={() => {
+                  setIsMenuModalOpen(true);
+                }}
+                className={styles.addButton}
+              >
+                +
+              </button>
+            </div>
+
+            <div className={styles.carrouselContainer}>
+              {productos &&
+                filteredRestaurantProducts.map((e) => {
+                  return (
+                    <div key={e._id}>
+                      <DashProductCard
+                        className={styles.productCard}
+                        productos={productos}
+                        key={e._id}
+                        productName={e.nombre}
+                        productDescription={e.descripcion}
+                        productPrice={`${e.precio}€`}
+                        productImg={productExampleImg}
+                        producto={e}
+                      />{" "}
+                    </div>
+                  );
+                })}
+            </div>
+          </div>
+        </div>
+      ) : (
+        <div className={styles.container}>
+          {" "}
+          <div
+            style={{ height: "90vh", display: "flex", alignItems: "center" }}
+          >
+            <h1>Oops! Aqui no hay nada</h1>
+          </div>
+        </div>
+      )}
+      <ProductModal
+        productos={productos}
+        restaurante={restaurante}
+        isMenuModalOpen={isMenuModalOpen}
+        setIsMenuModalOpen={setIsMenuModalOpen}
+        setProductos={setProductos}
+      />
+      <ModifyBusinessModal
+        restaurante={restaurante}
+        isBusinessModalOpen={isBusinessModalOpen}
+        setIsBusinessModalOpen={setIsBusinessModalOpen}
+      />
+    </>
   );
 };
 

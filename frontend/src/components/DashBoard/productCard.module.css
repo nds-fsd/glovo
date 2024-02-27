@@ -1,0 +1,86 @@
+.mainContainer {
+  position: relative;
+  width: 300px;
+  height: 120px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 0 50px 7px rgba(0, 0, 0, 0.123);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 5px;
+  transition: 0.5s;
+  border: 2px solid transparent;
+}
+
+.upperContainer {
+  display: flex;
+  align-items: center;
+}
+
+h5 {
+  max-height: 20px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+p {
+  font-size: 0.7rem;
+  overflow: hidden;
+}
+
+.description {
+  max-height: 37px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.productImg {
+  width: 70px;
+  height: 60px;
+}
+
+.bottomContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+button.addToCart {
+  width: 25px;
+  height: 25px;
+  border: 0;
+  outline: none;
+  color: var(--secondary-color);
+  background-color: var(--secondary-color-lighter);
+  border-radius: 100%;
+  font-size: 1.6rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 100;
+  transition: 0.2s;
+  box-shadow: 0 0 0 0;
+  border: 2px solid transparent;
+}
+
+.mainContainer:hover {
+  /* transform: scale(1.1); */
+  border: 2px solid var(--secondary-color);
+  cursor: pointer;
+}
+
+button.addToCart:active {
+  transform: scale(0.85);
+}
+
+.deleteIcon {
+  height: 20px;
+  width: 20px;
+  position: absolute;
+  right: 3px;
+  top: 3px;
+}

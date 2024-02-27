@@ -6,7 +6,7 @@ describe("Login Flow", () => {
   it("Login", () => {
     cy.contains("Empieza aquí").click();
     cy.contains("Accede").click();
-    cy.get('input[placeholder="Email"]').first().type("test@cypress.com");
+    cy.get('input[placeholder="Email"]').first().type("test2@cypress.com");
     cy.get('input[placeholder="Contraseña"]').type("Cypress123");
     cy.contains("Iniciar Sesión").click();
     cy.get('input[placeholder="Cuál es tu dirección?"]').type("nuclio");

@@ -15,14 +15,17 @@ import DashBoard from "./components/DashBoard/dashBoard";
 import ConfirmationPage from "./components/ConfirmationPage";
 import { UserContext } from "./contexts/UserContext";
 import LandbotChat from "./components/LandbotChat";
+import { RestaurantContext } from "./contexts/RestaurantContext";
 
 function App() {
   const [shoppingList, setShoppingList] = useState([]);
   const [order, setOrder] = useState([]);
   const [forceUpdate, setForceUpdate] = useState(false);
   const [location, setLocation] = useState("");
-
+  const [restaurants, setrestaurants] = useState("");
   const [user, setLocalUser] = useState(null);
+  const [logged, setLogged] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
   // const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
@@ -39,38 +42,47 @@ function App() {
 
   return (
     <div>
-      <UserContext.Provider value={{ user, setLocalUser }}>
-        <OrderContext.Provider value={{ order, setOrder }}>
-          <CartContext.Provider value={{ shoppingList, setShoppingList }}>
-            <BrowserRouter>
-              <NavBar location={location} />
-
-              <Routes>
-                <Route
-                  path="/"
-                  element={<HeroPage setLocation={setLocation} />}
-                ></Route>
-                <Route
-                  path="/restaurants"
-                  element={<HomePage location={location} />}
-                ></Route>
-                <Route
-                  path="/restaurant/:restaurantId"
-                  element={<RestaurantPage />}
-                ></Route>
-                <Route
-                  path="/confirmation/:orderId"
-                  element={<ConfirmationPage />}
-                ></Route>
-                <Route path="/formularios" element={<Formulario />} />
-                <Route path="/dashBoard" element={<DashBoard />} />
-              </Routes>
-              <LandbotChat />
-              <Footer />
-            </BrowserRouter>
-          </CartContext.Provider>
-        </OrderContext.Provider>
-      </UserContext.Provider>
+      <RestaurantContext.Provider value={{ restaurants, setrestaurants }}>
+        <UserContext.Provider value={{ user, setLocalUser }}>
+          <OrderContext.Provider value={{ order, setOrder }}>
+            <CartContext.Provider value={{ shoppingList, setShoppingList }}>
+              <BrowserRouter>
+                <NavBar
+                  searchTerm={searchTerm}
+                  setSearchTerm={setSearchTerm}
+                  location={location}
+                  logged={logged}
+                  setLogged={setLogged}
+                />
+                <Routes>
+                  <Route
+                    path="/"
+                    element={<HeroPage setLocation={setLocation} />}
+                  ></Route>
+                  <Route
+                    path="/restaurants"
+                    element={
+                      <HomePage searchTerm={searchTerm} location={location} />
+                    }
+                  ></Route>
+                  <Route
+                    path="/restaurant/:restaurantId"
+                    element={<RestaurantPage />}
+                  ></Route>
+                  <Route
+                    path="/confirmation/:orderId"
+                    element={<ConfirmationPage />}
+                  ></Route>
+                  <Route path="/formularios" element={<Formulario />} />
+                  <Route path="/dashboard/" element={<DashBoard />} />
+                </Routes>
+                <LandbotChat />
+                <Footer logged={logged} setLogged={setLogged} />
+              </BrowserRouter>
+            </CartContext.Provider>
+          </OrderContext.Provider>
+        </UserContext.Provider>
+      </RestaurantContext.Provider>
     </div>
   );
 }

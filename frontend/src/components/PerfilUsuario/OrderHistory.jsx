@@ -16,7 +16,7 @@ function OrderHistory({ historyModalIsOpen, setHistoryModalIsOpen }) {
   const { shoppingList, setShoppingList } = useContext(CartContext);
   const [orders, setOrders] = useState([]);
   const [restaurants, setRestaurants] = useState([]);
-
+  const API_BASE_URL = process.env.REACT_APP_BACKEND_URL;
   const navigate = useNavigate();
   const params = useParams();
 
@@ -24,6 +24,7 @@ function OrderHistory({ historyModalIsOpen, setHistoryModalIsOpen }) {
     const obtenerRestaurantes = async () => {
       try {
         const response = await api.get("/restaurantes");
+        if (!response) return;
         setRestaurants(response.data);
       } catch (error) {
         console.error("Error al obtener los datos de los restaurantes:", error);
@@ -33,12 +34,12 @@ function OrderHistory({ historyModalIsOpen, setHistoryModalIsOpen }) {
   }, []);
 
   useEffect(() => {
+    if (!user) return;
     const getOrders = async () => {
       let token = localStorage.getItem("token");
-
       try {
         const response = await axios.get(
-          `http://localhost:3001/users/${user._id}/orders`,
+          `${API_BASE_URL}/users/${user._id}/orders`,
           {
             headers: {
               "Content-Type": "application/json",
@@ -46,7 +47,6 @@ function OrderHistory({ historyModalIsOpen, setHistoryModalIsOpen }) {
             },
           }
         );
-
         setOrders(response.data);
       } catch (error) {
         console.error("Error al obtener los pedidos:", error);
@@ -92,6 +92,7 @@ function OrderHistory({ historyModalIsOpen, setHistoryModalIsOpen }) {
           transition={{ duration: 0.2 }}
           className={styles.everything}
         >
+          <div className={styles.flecha}></div>
           <motion.div
             initial={{ opacity: 0, translateY: 50 }}
             animate={{ opacity: 1, translateY: 0 }}
@@ -101,42 +102,48 @@ function OrderHistory({ historyModalIsOpen, setHistoryModalIsOpen }) {
           >
             <h2>Tus pedidos</h2>
 
-            {orders &&
-              orders
-                .slice(0)
-                .reverse()
-                .map((e) => {
-                  const restauranteEncontrado = restaurants.find(
-                    (r) => r._id === e.restaurante
-                  );
-                  if (!restauranteEncontrado) {
-                    console.warn(
-                      `Restaurante con ID ${e.restaurante} no encontrado.`
+            <div className={styles.orderListContainer}>
+              {orders.length !== 0 ? (
+                orders
+                  .slice(0)
+                  .reverse()
+                  .map((e) => {
+                    const restauranteEncontrado = restaurants.find(
+                      (r) => r._id === e.restaurante
                     );
-                    return null;
-                  }
-
-                  return (
-                    <div
-                      onClick={() => repeatOrder(e)}
-                      className={styles.orderContainer}
-                    >
-                      <h5>{restauranteEncontrado.brandName}</h5>
-                      <div className={styles.imgTextContainer}>
-                        <img
-                          className={styles.restaurantHistoryImg}
-                          src={restauranteEncontrado.img}
-                          alt=""
-                        />
-
-                        <div>
-                          <p>{e.productList.length - 2} productos</p>
-                          <p>{e.date.split(" ")[0]}</p>
+                    if (!restauranteEncontrado) {
+                      console.warn(
+                        `Restaurante con ID ${e.restaurante} no encontrado.`
+                      );
+                      return null;
+                    }
+                    return (
+                      <div
+                        key={e._id}
+                        onClick={() => repeatOrder(e)}
+                        className={styles.orderContainer}
+                      >
+                        <h5>{restauranteEncontrado.brandName}</h5>
+                        <div className={styles.imgTextContainer}>
+                          <img
+                            className={styles.restaurantHistoryImg}
+                            src={restauranteEncontrado.img}
+                            alt=""
+                          />
+                          <div>
+                            <p>{e.productList.length - 2} productos</p>
+                            <p>{e.date.split(" ")[0]}</p>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  );
-                })}
+                    );
+                  })
+              ) : (
+                <div className={styles.containerSinPedidos}>
+                  <h3>Tus pedidos aparecerán aquí</h3>
+                </div>
+              )}
+            </div>
           </motion.div>
         </motion.div>
       </Modal>
