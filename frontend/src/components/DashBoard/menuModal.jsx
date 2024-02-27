@@ -59,6 +59,7 @@ export default function ProductModal({
     };
     createProduct(reqData);
   };
+
   return (
     <Modal
       isOpen={isMenuModalOpen}
