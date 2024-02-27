@@ -72,7 +72,7 @@ const DashBoard = () => {
                     <p>Ciudad</p>
                     <input
                       className={styles.leftBoxItem}
-                      defaultValue={restaurante.city}
+                      value={restaurante.city}
                       readOnly
                     />
                   </div>
@@ -80,23 +80,24 @@ const DashBoard = () => {
                     <p>Categoría</p>
                     <input
                       className={styles.leftBoxItem}
-                      defaultValue={restaurante.category}
+                      value={restaurante.category}
                       readOnly
                     />
                   </div>
                   <div className={styles.businessItemContainer}>
                     <p>Nombre del restaurante</p>
+                    <p></p>
                     <input
                       className={styles.leftBoxItem}
-                      defaultValue={restaurante.brandName}
+                      value={restaurante.brandName}
                       readOnly
-                    />
+                    ></input>
                   </div>
                   <div className={styles.businessItemContainer}>
                     <p>Tasas de transporte</p>
                     <input
                       className={styles.leftBoxItem}
-                      defaultValue={restaurante.transporte}
+                      value={restaurante.transporte}
                       readOnly
                     />
                   </div>
@@ -104,7 +105,7 @@ const DashBoard = () => {
                     <p>Oferta</p>
                     <input
                       className={styles.leftBoxItem}
-                      defaultValue={restaurante.oferta}
+                      value={restaurante.oferta}
                       readOnly
                     />
                   </div>
@@ -173,6 +174,7 @@ const DashBoard = () => {
         restaurante={restaurante}
         isBusinessModalOpen={isBusinessModalOpen}
         setIsBusinessModalOpen={setIsBusinessModalOpen}
+        setRestaurante={setRestaurante}
       />
     </>
   );

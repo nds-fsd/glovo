@@ -14,6 +14,7 @@ export default function ModifyBusinessModal({
   isBusinessModalOpen,
   setIsBusinessModalOpen,
   restaurante,
+  setRestaurante,
 }) {
   const ref = useOnclickOutside(() => {
     setIsBusinessModalOpen(false);
@@ -24,6 +25,11 @@ export default function ModifyBusinessModal({
 
   const onSubmit = async (data) => {
     setIsBusinessModalOpen(false);
+    setRestaurante((prevRestaurante) => ({
+      ...prevRestaurante, // Copia toda la información antigua
+      ...data, // Sobrescribe y añade la nueva información de `data`
+    }));
+    console.log(restaurante);
     modifyRestaurant(data, restaurante._id);
   };
 
