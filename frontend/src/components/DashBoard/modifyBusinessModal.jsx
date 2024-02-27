@@ -6,6 +6,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import styles from "../PerfilUsuario/styles.module.css";
 import Modal from "react-modal";
 import { modifyRestaurant } from "../../utils/api";
+import { FileUploader } from "react-drag-drop-files";
 
 import useOnclickOutside from "react-cool-onclickoutside";
 
@@ -18,6 +19,9 @@ export default function ModifyBusinessModal({
     setIsBusinessModalOpen(false);
   });
   const { register, handleSubmit } = useForm();
+  const [file, setFile] = useState();
+  const [image, setImage] = useState();
+
   const onSubmit = async (data) => {
     setIsBusinessModalOpen(false);
     modifyRestaurant(data, restaurante._id);

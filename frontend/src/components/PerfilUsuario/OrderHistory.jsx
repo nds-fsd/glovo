@@ -102,7 +102,7 @@ function OrderHistory({ historyModalIsOpen, setHistoryModalIsOpen }) {
             <h2>Tus pedidos</h2>
 
             <div className={styles.orderListContainer}>
-              {orders ? (
+              {orders.length !== 0 ? (
                 orders
                   .slice(0)
                   .reverse()
@@ -138,8 +138,8 @@ function OrderHistory({ historyModalIsOpen, setHistoryModalIsOpen }) {
                     );
                   })
               ) : (
-                <div>
-                  <h2>Tus pedidos aparecerán aquí</h2>
+                <div className={styles.containerSinPedidos}>
+                  <h3>Tus pedidos aparecerán aquí</h3>
                 </div>
               )}
             </div>

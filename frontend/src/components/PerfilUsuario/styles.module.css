@@ -541,6 +541,7 @@ div[class^="_profile_"]::-webkit-scrollbar {
   justify-content: center;
   display: flex;
   flex-wrap: wrap;
+  flex-direction: column;
 }
 
 .historyContainer > h2 {
@@ -577,4 +578,26 @@ div[class^="_profile_"]::-webkit-scrollbar {
   gap: 10px;
   align-items: center;
   justify-content: center;
+}
+
+.previewImg {
+  height: 70px;
+  width: 70px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-top: 10px;
+}
+
+.fileUpload {
+  border: 2px solid var(--secondary-color);
+  padding: 10px;
+  border-radius: 20px;
+  width: 88%;
+  cursor: pointer;
+}
+
+.fileUpload > p {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--secondary-color);
 }
