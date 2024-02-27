@@ -16,7 +16,7 @@ function OrderHistory({ historyModalIsOpen, setHistoryModalIsOpen }) {
   const { shoppingList, setShoppingList } = useContext(CartContext);
   const [orders, setOrders] = useState([]);
   const [restaurants, setRestaurants] = useState([]);
-
+  const API_BASE_URL = process.env.REACT_APP_BACKEND_URL;
   const navigate = useNavigate();
   const params = useParams();
 
@@ -39,7 +39,7 @@ function OrderHistory({ historyModalIsOpen, setHistoryModalIsOpen }) {
       let token = localStorage.getItem("token");
       try {
         const response = await axios.get(
-          `http://localhost:3001/users/${user._id}/orders`,
+          `${API_BASE_URL}/users/${user._id}/orders`,
           {
             headers: {
               "Content-Type": "application/json",
