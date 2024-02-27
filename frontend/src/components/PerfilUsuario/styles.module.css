@@ -492,6 +492,7 @@ div[class^="_profile_"]::-webkit-scrollbar {
   height: 50px;
   width: 70px;
   border-radius: 15px;
+  object-fit: cover;
 }
 
 .orderContainer {
@@ -568,4 +569,12 @@ div[class^="_profile_"]::-webkit-scrollbar {
 .availability {
   display: flex;
   align-items: center;
+}
+
+.orderListContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
 }

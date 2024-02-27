@@ -14,6 +14,7 @@ const restauranteSchema = new mongoose.Schema({
   privacy: Boolean,
   discountCode: Boolean,
   transporte: String,
+  oferta: String,
   img: {
     type: String,
     default:

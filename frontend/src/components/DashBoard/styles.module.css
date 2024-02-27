@@ -3,7 +3,11 @@
   padding: 20px;
   gap: 20px;
   height: fit-content;
-  margin-top: 100px;
+  margin-top: 120px;
+  flex-direction: column;
+  margin-bottom: 20px;
+  align-items: center;
+  justify-content: center;
 }
 
 .addButton {
@@ -13,32 +17,77 @@
   background-color: var(--secondary-color);
   font-size: 1.5rem;
   color: white;
+  position: absolute;
+  right: 30px;
+}
+
+.businessItemsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.businessItemContainer > p {
+  font-size: 0.8rem;
+}
+
+.businessItemContainer {
+  border-radius: 25px;
+  padding: 10px;
+  box-shadow: 0 0 50px 7px rgba(0, 0, 0, 0.123);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+
+.leftBoxItem {
+  background-color: var(--secondary-color);
+  color: white;
+  width: 90%;
+  font-size: 0.8rem;
+  font-weight: 600;
 }
 
 .box1 {
   display: flex;
-  flex-direction: column;
-  border-radius: 15px;
+  border-radius: 50px 50px 10px 10px;
   height: fit-content;
   padding-bottom: 30px;
-  width: 250px;
+  width: 85%;
   box-shadow: 0 0 50px 7px rgba(0, 0, 0, 0.123);
   align-items: center;
   /* position: fixed; */
   background-color: white;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 1000px;
+  flex-direction: column;
+  gap: 10px;
+  border: 2px solid transparent;
+  transition: 0.3s;
+}
+
+.box1:hover {
+  cursor: pointer;
+  border: 2px solid var(--secondary-color);
 }
 
 .input {
   height: 30px;
   width: 300px;
+
+  box-shadow: 0 0 50px 7px rgba(0, 0, 0, 0.123);
+  background-color: white;
   color: black;
-  background-color: var(--primary-color);
   padding: 20px;
   margin: 10px;
 }
 
 .input::placeholder {
-  color: white;
+  color: black;
 }
 
 .close {
@@ -77,18 +126,19 @@
 
 .divFondoPantalla {
   background-color: rgb(255, 255, 255);
-  height: 90vh;
+
   width: 85%;
   display: flex;
-  padding: 20px 10px;
+  padding: 20px 0;
   height: fit-content;
   box-shadow: 0 0 50px 7px rgba(0, 0, 0, 0.123);
-  border-radius: 10px 50px 10px 10px;
+  border-radius: 10px 10px 50px 50px;
   margin: 0;
   gap: 20px;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
+  max-width: 1000px;
 }
 
 .pSegundo {
@@ -100,6 +150,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
+  width: 100%;
 }
 
 .modifyBtn {
@@ -149,13 +201,6 @@
   margin: px;
   padding: 15px;
   font-size: 1.3rem;
-}
-
-.leftBoxItem {
-  background-color: var(--secondary-color);
-  color: white;
-  width: 90%;
-  font-size: 0.8rem;
 }
 
 .productName {

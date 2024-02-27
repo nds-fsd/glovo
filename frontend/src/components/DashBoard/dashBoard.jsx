@@ -1,25 +1,21 @@
 import React, { useEffect, useState, useContext } from "react";
 import styles from "./styles.module.css";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-import Slider from "react-slick";
 import { useParams } from "react-router";
 import { api } from "../../utils/api";
 import DashProductCard from "./dashProductCard.jsx";
-import ProductCard from "../ProductCard";
 import productExampleImg from "../../assets/images/productexampleimg.avif";
 import ProductModal from "./menuModal.jsx";
-import ModifyProductModal from "./modifyModal.jsx";
 import { UserContext } from "../../contexts/UserContext";
+import ModifyBusinessModal from "./modifyBusinessModal.jsx";
 
 const DashBoard = () => {
   const params = useParams();
-  const [searchTerm, setSearchTerm] = useState("");
 
+  const [searchTerm, setSearchTerm] = useState("");
   const [restaurante, setRestaurante] = useState();
   const [productos, setProductos] = useState([]);
-
   const [isMenuModalOpen, setIsMenuModalOpen] = useState(false);
+  const [isBusinessModalOpen, setIsBusinessModalOpen] = useState(false);
 
   const { user } = useContext(UserContext);
 
@@ -58,100 +54,127 @@ const DashBoard = () => {
     setSearchTerm(event.target.value);
   };
 
-  // const filteredRestaurantProducts = restaurantProducts.filter((productos) =>
-  //   productos.name.toLowerCase().includes(searchTerm.toLowerCase())
-  // );
+  const filteredRestaurantProducts = productos.filter((producto) =>
+    producto.nombre.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   return (
     <>
-      <div className={styles.container}>
-        <div className={styles.divFondoPantalla}>
-          <div className={styles.buttons}>
-            <input
-              className={styles.input}
-              type="text"
-              placeholder="Buscar productos..."
-              value={searchTerm}
-              onChange={handleSearchChange}
-            />
-            <button
-              onClick={() => {
-                setIsMenuModalOpen(true);
-              }}
-              className={styles.addButton}
-            >
-              +
-            </button>
+      {user && user.role === "RESTAURANT" ? (
+        <div className={styles.container}>
+          <div
+            className={styles.box1}
+            onClick={() => setIsBusinessModalOpen(true)}
+          >
+            {restaurante && (
+              <>
+                <h2 className={styles.yourBrand}>Tu Negocio</h2>
+                <div className={styles.businessItemsContainer}>
+                  <div className={styles.businessItemContainer}>
+                    <p>Ciudad</p>
+                    <input
+                      className={styles.leftBoxItem}
+                      defaultValue={restaurante.city}
+                      readOnly
+                    />
+                  </div>
+                  <div className={styles.businessItemContainer}>
+                    <p>Categoría</p>
+                    <input
+                      className={styles.leftBoxItem}
+                      defaultValue={restaurante.category}
+                      readOnly
+                    />
+                  </div>
+                  <div className={styles.businessItemContainer}>
+                    <p>Nombre del restaurante</p>
+                    <input
+                      className={styles.leftBoxItem}
+                      defaultValue={restaurante.brandName}
+                      readOnly
+                    />
+                  </div>
+                  <div className={styles.businessItemContainer}>
+                    <p>Tasas de transporte</p>
+                    <input
+                      className={styles.leftBoxItem}
+                      defaultValue={restaurante.transporte}
+                      readOnly
+                    />
+                  </div>
+                  <div className={styles.businessItemContainer}>
+                    <p>Oferta</p>
+                    <input
+                      className={styles.leftBoxItem}
+                      defaultValue={restaurante.oferta}
+                      readOnly
+                    />
+                  </div>
+                </div>
+              </>
+            )}
           </div>
+          <div className={styles.divFondoPantalla}>
+            <div className={styles.buttons}>
+              <input
+                className={styles.input}
+                type="text"
+                placeholder="Buscar productos"
+                value={searchTerm}
+                onChange={handleSearchChange}
+              />
+              <button
+                onClick={() => {
+                  setIsMenuModalOpen(true);
+                }}
+                className={styles.addButton}
+              >
+                +
+              </button>
+            </div>
 
-          <div className={styles.carrouselContainer}>
-            {productos &&
-              productos.map((e) => {
-                return (
-                  <>
-                    <DashProductCard
-                      className={styles.productCard}
-                      productos={productos}
-                      key={e._id}
-                      productName={e.nombre}
-                      productDescription={e.descripcion}
-                      productPrice={`${e.precio}€`}
-                      productImg={productExampleImg}
-                      producto={e}
-                    />{" "}
-                  </>
-                );
-              })}
+            <div className={styles.carrouselContainer}>
+              {productos &&
+                filteredRestaurantProducts.map((e) => {
+                  return (
+                    <>
+                      <DashProductCard
+                        className={styles.productCard}
+                        productos={productos}
+                        key={e._id}
+                        productName={e.nombre}
+                        productDescription={e.descripcion}
+                        productPrice={`${e.precio}€`}
+                        productImg={productExampleImg}
+                        producto={e}
+                      />{" "}
+                    </>
+                  );
+                })}
+            </div>
           </div>
         </div>
-        <div className={styles.box1}>
-          {restaurante && (
-            <>
-              <h1 className={styles.yourBrand}>Tu Negocio</h1>
-              <input
-                className={styles.leftBoxItem}
-                defaultValue={`Nombre: ${restaurante.firstName}`}
-              />
-              <input
-                className={styles.leftBoxItem}
-                value={`Apellido: ${restaurante.lastName}`}
-                readOnly
-              />
-              <input
-                className={styles.leftBoxItem}
-                value={`Ciudad: ${restaurante.city}`}
-                readOnly
-              />
-              <input
-                className={styles.leftBoxItem}
-                value={`Categoria: ${restaurante.category}`}
-                readOnly
-              />
-              <input
-                className={styles.leftBoxItem}
-                value={`Restaurante: ${restaurante.brandName}`}
-                readOnly
-              />
-              <input
-                className={styles.leftBoxItem}
-                value={`Mail: ${restaurante.email}`}
-                readOnly
-              />
-              <input
-                className={styles.leftBoxItem}
-                value={`Telefono: ${restaurante.phone}`}
-                readOnly
-              />
-            </>
-          )}
+      ) : (
+        <div className={styles.container}>
+          {" "}
+          <div
+            style={{ height: "90vh", display: "flex", alignItems: "center" }}
+          >
+            <h1>Oops! Aqui no hay nada</h1>
+          </div>
         </div>
-      </div>
+      )}
       <ProductModal
         productos={productos}
         restaurante={restaurante}
         isMenuModalOpen={isMenuModalOpen}
         setIsMenuModalOpen={setIsMenuModalOpen}
         setProductos={setProductos}
+      />
+      <ModifyBusinessModal
+        restaurante={restaurante}
+        isBusinessModalOpen={isBusinessModalOpen}
+        setIsBusinessModalOpen={setIsBusinessModalOpen}
       />
     </>
   );

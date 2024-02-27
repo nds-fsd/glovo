@@ -7,6 +7,7 @@ const productSchema = new mongoose.Schema({
   categoria: String,
   disponibilidad: Boolean,
   ingredientes: String,
+  img: String,
   restaurante: {
     type: String,
     ref: "Restaurante",

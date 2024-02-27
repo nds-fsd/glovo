@@ -106,6 +106,15 @@ export default function ProductModal({
                 required
               />
             </div>
+            <div className={styles.inputPictureContainer}>
+              <input
+                className={styles.firstInput}
+                {...register("img")}
+                type="price"
+                placeholder="Imagen"
+                required
+              />
+            </div>
           </div>
           <button className={styles.guardarCambios} type="submit">
             Agregar producto

@@ -29,6 +29,7 @@ export default function ModifyProductModal({
       categoria: data.category,
       disponibilidad: true,
       ingredientes: data.ingredients,
+      img: data.img,
     };
     console.log(reqData);
     modifyProduct(reqData, producto._id);
@@ -110,6 +111,14 @@ export default function ModifyProductModal({
                 placeholder="Precio"
                 defaultValue={producto.precio}
                 required
+              />
+            </div>
+            <div className={styles.inputPictureContainer}>
+              <input
+                className={styles.firstInput}
+                {...register("img")}
+                type="price"
+                placeholder="Imagen"
               />
             </div>
           </div>
