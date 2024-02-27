@@ -18,7 +18,7 @@ const DashBoard = () => {
 
   const [restaurante, setRestaurante] = useState();
   const [productos, setProductos] = useState([]);
-  const [products, setProducts] = useState([]);
+
   const [isMenuModalOpen, setIsMenuModalOpen] = useState(false);
 
   const { user } = useContext(UserContext);
@@ -52,7 +52,7 @@ const DashBoard = () => {
     };
 
     obtenerProductosDelRestaurante();
-  }, [restaurante]);
+  }, [restaurante, productos]);
 
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
@@ -91,7 +91,7 @@ const DashBoard = () => {
                   <>
                     <DashProductCard
                       className={styles.productCard}
-                      productos={products}
+                      productos={productos}
                       key={e._id}
                       productName={e.nombre}
                       productDescription={e.descripcion}
@@ -110,8 +110,7 @@ const DashBoard = () => {
               <h1 className={styles.yourBrand}>Tu Negocio</h1>
               <input
                 className={styles.leftBoxItem}
-                value={`Nombre: ${restaurante.firstName}`}
-                readOnly
+                defaultValue={`Nombre: ${restaurante.firstName}`}
               />
               <input
                 className={styles.leftBoxItem}
@@ -148,9 +147,11 @@ const DashBoard = () => {
         </div>
       </div>
       <ProductModal
+        productos={productos}
         restaurante={restaurante}
         isMenuModalOpen={isMenuModalOpen}
         setIsMenuModalOpen={setIsMenuModalOpen}
+        setProductos={setProductos}
       />
     </>
   );

@@ -17,8 +17,10 @@ export default function ProductModal({
   const ref = useOnclickOutside(() => {
     setIsMenuModalOpen(false);
   });
+
   const { register, handleSubmit } = useForm();
   const onSubmit = async (data) => {
+    setIsMenuModalOpen(false);
     console.log(data, data.name);
     const reqData = {
       nombre: data.name,
@@ -29,10 +31,7 @@ export default function ProductModal({
       ingredientes: data.ingredients,
       restaurante: restaurante._id,
     };
-    console.log(reqData);
     createProduct(reqData);
-    form;
-    setIsMenuModalOpen(false);
   };
   return (
     <Modal
