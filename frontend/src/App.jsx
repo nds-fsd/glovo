@@ -25,6 +25,7 @@ function App() {
   const [restaurants, setrestaurants] = useState("");
   const [user, setLocalUser] = useState(null);
   const [logged, setLogged] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
   // const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
@@ -47,6 +48,8 @@ function App() {
             <CartContext.Provider value={{ shoppingList, setShoppingList }}>
               <BrowserRouter>
                 <NavBar
+                  searchTerm={searchTerm}
+                  setSearchTerm={setSearchTerm}
                   location={location}
                   logged={logged}
                   setLogged={setLogged}
@@ -58,7 +61,9 @@ function App() {
                   ></Route>
                   <Route
                     path="/restaurants"
-                    element={<HomePage location={location} />}
+                    element={
+                      <HomePage searchTerm={searchTerm} location={location} />
+                    }
                   ></Route>
                   <Route
                     path="/restaurant/:restaurantId"

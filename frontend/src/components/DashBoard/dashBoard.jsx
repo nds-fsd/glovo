@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
 import styles from "./styles.module.css";
-import { useParams } from "react-router";
 import { api } from "../../utils/api";
 import DashProductCard from "./dashProductCard.jsx";
 import productExampleImg from "../../assets/images/productexampleimg.avif";
@@ -9,8 +8,6 @@ import { UserContext } from "../../contexts/UserContext";
 import ModifyBusinessModal from "./modifyBusinessModal.jsx";
 
 const DashBoard = () => {
-  const params = useParams();
-
   const [searchTerm, setSearchTerm] = useState("");
   const [restaurante, setRestaurante] = useState();
   const [productos, setProductos] = useState([]);

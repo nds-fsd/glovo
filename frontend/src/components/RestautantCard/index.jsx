@@ -3,6 +3,7 @@ import styles from "../RestautantCard/styles.module.css";
 import scooterIcon from "../../assets/icons/scooter-svgrepo-com (1).svg";
 import likeIcon from "../../assets/icons/like-svgrepo-com.svg";
 import { useNavigate, useParams } from "react-router-dom";
+import { motion } from "framer-motion";
 
 export default function RestaurantCard({
   restaurantCity,
@@ -20,7 +21,11 @@ export default function RestaurantCard({
   const params = useParams();
 
   return (
-    <div
+    <motion.div
+      initial={{ opacity: 0, translateY: 50 }}
+      animate={{ opacity: 1, translateY: 0 }}
+      transition={{ ease: "easeOut", duration: 0.2 }}
+      layout
       className={styles.mainContainer}
       onClick={() => navigate("/restaurant/" + id)}
     >
@@ -49,6 +54,6 @@ export default function RestaurantCard({
           )}
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }

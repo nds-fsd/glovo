@@ -8,7 +8,7 @@ import { useContext } from "react";
 import { UserContext } from "../../contexts/UserContext";
 import { react, useState, useEffect } from "react";
 import { api } from "../../utils/api";
-export default function HomePage({ location }) {
+export default function HomePage({ location, searchTerm }) {
   const { user, setLocalUser } = useContext(UserContext);
 
   const [restaurantes, setRestaurantes] = useState([]);
@@ -41,14 +41,28 @@ export default function HomePage({ location }) {
           </p>
         </div>
         <img className={styles.borderImg} src={BorderImg} alt="" />
-        <RestaurantGrid
-          restaurantes={restaurantes.slice(0, 8)}
-          gridName={"Restaurantes recomendados"}
-        />
-        <RestaurantGrid
-          restaurantes={restaurantes.slice(8)}
-          gridName={"Otros restaurantes"}
-        />
+        {searchTerm ? (
+          <RestaurantGrid
+            restaurantes={restaurantes.filter((restaurante) =>
+              restaurante.brandName
+                .toLowerCase()
+                .includes(searchTerm.toLowerCase())
+            )}
+            gridName={`Tu búsqueda: ${searchTerm}`}
+          />
+        ) : (
+          <>
+            {" "}
+            <RestaurantGrid
+              restaurantes={restaurantes.slice(0, 8)}
+              gridName={"Restaurantes recomendados"}
+            />
+            <RestaurantGrid
+              restaurantes={restaurantes.slice(8)}
+              gridName={"Otros restaurantes"}
+            />{" "}
+          </>
+        )}
       </div>
     </motion.div>
   );
