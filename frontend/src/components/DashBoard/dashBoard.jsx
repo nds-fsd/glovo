@@ -37,6 +37,7 @@ const DashBoard = () => {
   }, [user]);
 
   useEffect(() => {
+    if (!restaurante) return;
     const obtenerProductosDelRestaurante = async () => {
       try {
         const response = await api.get(
