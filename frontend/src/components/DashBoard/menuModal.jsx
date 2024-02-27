@@ -55,6 +55,7 @@ export default function ProductModal({
       disponibilidad: true,
       ingredientes: data.ingredients,
       restaurante: restaurante._id,
+      img: data.img,
     };
     createProduct(reqData);
   };

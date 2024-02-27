@@ -2,8 +2,6 @@ import styles from "../RestaurantGrid/styles.module.css";
 import restaurantImg from "../../assets/images/b032e09e0a5b36512eeaa65ab6232cb30ef9588fb77bc6dc0c4a1d24e8b892ac.jpg";
 import RestaurantCard from "../RestautantCard";
 
-import { react, useState, useEffect } from "react";
-
 export default function RestaurantGrid({ gridName, restaurantes }) {
   return (
     <div className={styles.mainContainer}>
