@@ -4,16 +4,15 @@ import { getStorageObject } from "./localStorage.utils";
 import { getUserToken } from "./localStorage.utils";
 import { useContext } from "react";
 
-const API_BASE_URL = "http://localhost:3001";
+const API_BASE_URL = process.env.REACT_APP_BACKEND_URL;
 
 const api = axios.create({
-  baseURL: "http://localhost:3001",
+  baseURL: API_BASE_URL,
   timeout: 1000,
   headers: {
     "Content-Type": "application/json",
   },
 });
-
 export const handleInitialRegistrationSubmit = async (
   data,
   setLocalUser,
@@ -33,7 +32,7 @@ export const handleInitialRegistrationSubmit = async (
 
 export const handleLoginSubmit = async (data, setLocalUser, closeModal) => {
   try {
-    const response = await api.post("http://localhost:3001/login", data);
+    const response = await api.post("/login", data);
     setStorageObject("token", response.data.token);
     setStorageObject("user", response.data.user);
     setLocalUser(response.data.user);
@@ -154,7 +153,7 @@ export const handleRestaurantLoginSubmit = async (
   closeModal
 ) => {
   try {
-    const response = await api.get("http://localhost:3001/restaurantes", data);
+    const response = await api.get("/restaurantes", data);
     console.log(data);
     console.log(response);
     console.log(response.data);
