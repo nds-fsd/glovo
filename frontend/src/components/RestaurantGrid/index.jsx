@@ -1,28 +1,13 @@
-import { react, useState, useEffect } from "react";
 import styles from "../RestaurantGrid/styles.module.css";
 import restaurantImg from "../../assets/images/b032e09e0a5b36512eeaa65ab6232cb30ef9588fb77bc6dc0c4a1d24e8b892ac.jpg";
 import RestaurantCard from "../RestautantCard";
-import { api } from "../../utils/api";
 
-export default function RestaurantGrid() {
-  const [restaurantes, setRestaurantes] = useState([]);
+import { react, useState, useEffect } from "react";
 
-  useEffect(() => {
-    const obtenerRestaurantes = async () => {
-      try {
-        const response = await api.get("/restaurantes");
-        setRestaurantes(response.data);
-        console.log(response.data);
-      } catch (error) {
-        console.error("Error al obtener los datos de los restaurantes:", error);
-      }
-    };
-    obtenerRestaurantes();
-  }, []);
-
+export default function RestaurantGrid({ gridName, restaurantes }) {
   return (
     <div className={styles.mainContainer}>
-      <h2>Restaurantes recomendados</h2>
+      <h2>{gridName}</h2>
       <div id="grid" className={styles.restaurantGrid}>
         {restaurantes &&
           restaurantes.map((e) => {

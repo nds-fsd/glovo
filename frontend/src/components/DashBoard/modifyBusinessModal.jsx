@@ -19,8 +19,7 @@ export default function ModifyBusinessModal({
   });
   const { register, handleSubmit } = useForm();
   const onSubmit = async (data) => {
-    // setIsBusinessModalOpen(false);
-    console.log(data);
+    setIsBusinessModalOpen(false);
     modifyRestaurant(data, restaurante._id);
   };
 

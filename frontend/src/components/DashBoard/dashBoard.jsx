@@ -20,11 +20,11 @@ const DashBoard = () => {
   const { user } = useContext(UserContext);
 
   useEffect(() => {
+    if (!user) return;
     const obtenerRestaurante = async () => {
       try {
         const response = await api.get(`/restaurantes/${user._id}`);
         setRestaurante(response.data[0]);
-        console.log(response.data);
       } catch (error) {
         console.error("Error al obtener los datos de los productos:", error);
       }
@@ -33,6 +33,7 @@ const DashBoard = () => {
   }, [user]);
 
   useEffect(() => {
+    if (!restaurante) return;
     const obtenerProductosDelRestaurante = async () => {
       try {
         const response = await api.get(
@@ -137,7 +138,7 @@ const DashBoard = () => {
               {productos &&
                 filteredRestaurantProducts.map((e) => {
                   return (
-                    <>
+                    <div key={e._id}>
                       <DashProductCard
                         className={styles.productCard}
                         productos={productos}
@@ -148,7 +149,7 @@ const DashBoard = () => {
                         productImg={productExampleImg}
                         producto={e}
                       />{" "}
-                    </>
+                    </div>
                   );
                 })}
             </div>

@@ -21,7 +21,6 @@ export default function ProductModal({
   const { register, handleSubmit } = useForm();
   const onSubmit = async (data) => {
     setIsMenuModalOpen(false);
-    console.log(data, data.name);
     const reqData = {
       nombre: data.name,
       descripcion: data.description,
