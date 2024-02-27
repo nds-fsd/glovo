@@ -6,7 +6,6 @@ import {
 } from "../utils/localStorage.utils";
 const BASE_URL = process.env.REACT_APP_BACKEND_URL;
 
-// Configuración de Axios
 export const api = axios.create({
   baseURL: BASE_URL,
   headers: {
@@ -31,12 +30,11 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
-// Función para iniciar sesión
+
 export const login = async (credentials) => {
   try {
     const response = await api.post("/login", credentials);
-    console.log(response);
-    // setStorageObject("user-session", response.data)
+  
     setUserSession({ token: response.data.token, user: response.data.user });
     return response.data;
   } catch (error) {
@@ -45,13 +43,13 @@ export const login = async (credentials) => {
   }
 };
 
-// Función para registrar un nuevo usuario
+
 export const register = async (userData) => {
   try {
     const response = await api.post("/register", userData);
     setStorageObject("token", response.data.token);
     setStorageObject("user", response.data.user);
-    // setUserSession({ token: response.data.token, user: response.data.user });
+    
     return response.data;
   } catch (error) {
     console.error("Error durante el registro:", error);
@@ -67,7 +65,7 @@ export const objectToQueryString = (obj) => {
   return queryString;
 };
 
-// *-------------------------- Creando New Restaurant ---------------------------
+
 export const createRestaurant = async (restaurantData) => {
   try {
     const response = await api.post("/restaurantes", restaurantData);

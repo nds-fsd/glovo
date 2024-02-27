@@ -26,18 +26,18 @@ function App() {
   const [user, setLocalUser] = useState(null);
   const [logged, setLogged] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
-  // const [isAuthenticated, setIsAuthenticated] = useState(false);
+  
 
   useEffect(() => {
     const session = getUserSession();
     if (session && session.token) {
       setIsAuthenticated(true);
-      setUser(session.user); // Opcional, si quieres almacenar los datos del usuario en el estado
+      setUser(session.user); 
     }
   }, []);
 
   const handleLogin = async (credentials) => {
-    // Implementación de inicio de sesión
+    
   };
 
   return (

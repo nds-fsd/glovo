@@ -1,6 +1,6 @@
 const Product = require("../schema/ProductSchema");
 
-// Get all products from MongoD B
+
 
 exports.getProducts = async (req, res) => {
   try {
@@ -11,7 +11,7 @@ exports.getProducts = async (req, res) => {
   }
 };
 
-// Get a specific product by ID from MongoDB
+
 
 exports.getProductById = async (req, res) => {
   const productId = req.params.id;
@@ -27,11 +27,10 @@ exports.getProductById = async (req, res) => {
   }
 };
 
-// Create a new product and save it to MongoDB
+
 
 exports.createProduct = async (req, res) => {
-  console.log("Entro AQUI DENTRO");
-  console.log(req.body);
+ 
   try {
     const {
       nombre,
@@ -60,7 +59,7 @@ exports.createProduct = async (req, res) => {
   }
 };
 
-// Update product and save it to MongoDB
+
 
 exports.updateProduct = async (req, res) => {
   const productId = req.params.id;
@@ -79,7 +78,7 @@ exports.updateProduct = async (req, res) => {
   }
 };
 
-// Delete product and save it to MongoDB
+
 
 exports.deleteProduct = async (req, res) => {
   const productId = req.params.id;

@@ -24,10 +24,10 @@ export default function ShoppingCart({
     const openModal = () => {
       const token = localStorage.getItem("token");
       if (!token) {
-        // Si no hay token, se dispara el evento para abrir el modal de login
+        
         window.dispatchEvent(new CustomEvent("open-login-modal"));
       } else {
-        // Si hay token, se abre el modal de confirmación de compra
+    
         setPurchaseConfirmationModalIsOpen(true);
       }
     };

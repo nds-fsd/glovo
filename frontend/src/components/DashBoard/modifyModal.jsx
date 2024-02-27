@@ -21,7 +21,7 @@ export default function ModifyProductModal({
   const { register, handleSubmit } = useForm();
   const onSubmit = async (data) => {
     setIsModifyModalOpen(false);
-    console.log(data, data.name);
+    
     const reqData = {
       nombre: data.name,
       descripcion: data.description,
@@ -31,7 +31,7 @@ export default function ModifyProductModal({
       ingredientes: data.ingredients,
       img: data.img,
     };
-    console.log(reqData);
+    
     modifyProduct(reqData, producto._id);
   };
 
