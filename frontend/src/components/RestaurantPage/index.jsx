@@ -32,7 +32,7 @@ export default function RestaurantPage({}) {
     if (!isLoadingProducts) {
       calculatePrice();
     }
-  }, [shoppingList, isLoadingProducts]);
+  }, [shoppingList, isLoadingProducts, productos, restaurante]);
 
   useEffect(() => {
     const obtenerRestaurante = async () => {
