@@ -8,7 +8,7 @@ import Modal from "react-modal";
 import { createProduct } from "../../utils/api";
 import { FileUploader } from "react-drag-drop-files";
 import exampleImg from "../../assets/icons/image-picture-svgrepo-com.svg";
-
+import axios from "axios";
 import useOnclickOutside from "react-cool-onclickoutside";
 
 export default function ProductModal({
@@ -44,20 +44,57 @@ export default function ProductModal({
     viewHandler();
   }, [file]);
 
+  const uploadImage = () => {
+    const formData = new FormData();
+    console.log(file);
+    formData.append("file", file);
+    formData.append("upload_preset", "ml_default");
+
+    console.log(formData);
+
+    axios
+      .post("https://api.cloudinary.com/v1_1/dakbfqco5/image/upload", formData)
+      .then((res) => {
+        console.log(res.data.url);
+      })
+      .catch((error) => {
+        console.error("Error uploading image:", error.response);
+      });
+  };
+
   const { register, handleSubmit } = useForm();
   const onSubmit = async (data) => {
     setIsMenuModalOpen(false);
-    const reqData = {
-      nombre: data.name,
-      descripcion: data.description,
-      precio: data.price,
-      categoria: data.category,
-      disponibilidad: true,
-      ingredientes: data.ingredients,
-      restaurante: restaurante._id,
-      img: data.img,
+
+    const uploadImage = () => {
+      const formData = new FormData();
+      console.log(file);
+      formData.append("file", file);
+      formData.append("upload_preset", "ml_default");
+
+      axios
+        .post(
+          "https://api.cloudinary.com/v1_1/dakbfqco5/image/upload",
+          formData
+        )
+        .then((res) => {
+          const reqData = {
+            nombre: data.name,
+            descripcion: data.description,
+            precio: data.price,
+            categoria: data.category,
+            disponibilidad: true,
+            ingredientes: data.ingredients,
+            img: res.data.url,
+            restaurante: restaurante._id,
+          };
+          createProduct(reqData);
+        })
+        .catch((error) => {
+          console.error("Error uploading image:", error.response);
+        });
     };
-    createProduct(reqData);
+    uploadImage();
   };
 
   return (
@@ -140,7 +177,6 @@ export default function ProductModal({
                 {...register("img")}
                 type="price"
                 placeholder="Imagen"
-                required
               />
             </div>
             <FileUploader
