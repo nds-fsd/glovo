@@ -4,10 +4,9 @@ import Modal from "react-modal";
 import Cards from "react-credit-cards-2";
 import { AnimatePresence, motion } from "framer-motion";
 import React, { useState } from "react";
-
+import useOnclickOutside from "react-cool-onclickoutside";
 
 Modal.setAppElement("#root");
-
 
 export default function CreditCardModal({
   cardModalIsOpen,
@@ -15,6 +14,9 @@ export default function CreditCardModal({
   handleSaveClickCard,
   optional,
 }) {
+  const ref = useOnclickOutside(() => {
+    closeCardModal(false);
+  });
 
   const [state, setState] = useState({
     number: "",
@@ -76,99 +78,116 @@ export default function CreditCardModal({
           isOpen={cardModalIsOpen}
         >
           <motion.div
-            initial={{ opacity: 0, translateY: 50 }}
-            animate={{ opacity: 1, translateY: 0 }}
-            exit={{ opacity: 0, translateY: -50 }}
-            transition={{ ease: "easeOut", duration: 0.2 }}
-            className={styles.mainContainer}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className={styles.everything}
+            style={
+              optional && {
+                backdropFilter: "blur(0px)",
+                backgroundColor: "transparent",
+              }
+            }
           >
-            <button
-              onClick={closeCardModal}
-              id={close}
-              className={styles.closeButton}
+            <motion.div
+              initial={{ opacity: 0, translateY: 50 }}
+              animate={{ opacity: 1, translateY: 0 }}
+              exit={{ opacity: 0, translateY: -50 }}
+              transition={{ ease: "easeOut", duration: 0.2 }}
+              className={styles.mainContainer}
+              ref={ref}
             >
-              X
-            </button>
-            <div className={styles.topText}>
-              <h2>Nueva tarjeta</h2>
-              <p>Introduce tus datos</p>
-            </div>
-            <div>
-              <div className={styles.cardImage}>
-                <Cards
-                  number={state.number}
-                  expiry={state.expiry}
-                  cvc={state.cvc}
-                  name={state.name}
-                  focused={state.focus}
-                  placeholders={{ name: "TU NOMBRE AQUÍ" }}
-                  locale={{ valid: "válido hasta" }}
-                />
-              </div>
-              <form
-                onSubmit={handleSubmit(onSubmit)}
-                className={styles.formContainer}
+              <button
+                onClick={closeCardModal}
+                id={close}
+                className={styles.closeButton}
               >
-                <input
-                  {...register("name")}
-                  required
-                  type="text" // Cambiado a text para ser consistente
-                  name="name"
-                  placeholder="Nombre"
-                  value={state.name}
-                  onChange={handleInputChange}
-                  onFocus={handleInputFocus}
-                />
-
-                <input
-                  required
-                  maxLength={19}
-                  minLength={19}
-                  {...register("number")}
-                  type="text"
-                  name="number"
-                  placeholder="Número de la tarjeta"
-                  value={state.number}
-                  onChange={handleInputChange}
-                  onFocus={handleInputFocus}
-                />
-
-                <div className={styles.extraInfoContainer}>
-                  <input
-                    {...register("expiry")}
-                    required
-                    maxLength={5}
-                    minLength={5}
-                    type="text"
-                    name="expiry"
-                    placeholder="Validez (MM/AA)"
-                    value={state.expiry}
-                    onChange={handleInputChange}
-                    onFocus={handleInputFocus}
-                    className={styles.cvcInput}
-                  />
-
-                  <input
-                    {...register("cvc")}
-                    required
-                    maxLength={3}
-                    minLength={3}
-                    type="text"
-                    name="cvc"
-                    placeholder="CVC"
-                    value={state.cvc}
-                    onChange={handleInputChange}
-                    onFocus={handleInputFocus}
-                    className={styles.cvcInput}
+                X
+              </button>
+              <div className={styles.topText}>
+                <h2>Nueva tarjeta</h2>
+                <p>Introduce tus datos</p>
+              </div>
+              <div>
+                <div className={styles.cardImage}>
+                  <Cards
+                    number={state.number}
+                    expiry={state.expiry}
+                    cvc={state.cvc}
+                    name={state.name}
+                    focused={state.focus}
+                    placeholders={{ name: "TU NOMBRE AQUÍ" }}
+                    locale={{ valid: "válido hasta" }}
                   />
                 </div>
+                <form
+                  onSubmit={handleSubmit(onSubmit)}
+                  className={styles.formContainer}
+                >
+                  <input
+                    {...register("name")}
+                    required
+                    type="text" // Cambiado a text para ser consistente
+                    name="name"
+                    placeholder="Nombre"
+                    value={state.name}
+                    onChange={handleInputChange}
+                    onFocus={handleInputFocus}
+                  />
 
-                <button type="submit" className={styles.agregarTarjeta}>
-                  Agregar tarjeta
-                </button>
-              </form>
-            </div>
-            {optional && <p>Esta tarjeta se utilizará sólo para este pedido</p>}
+                  <input
+                    required
+                    maxLength={19}
+                    minLength={19}
+                    {...register("number")}
+                    type="text"
+                    name="number"
+                    placeholder="Número de la tarjeta"
+                    value={state.number}
+                    onChange={handleInputChange}
+                    onFocus={handleInputFocus}
+                  />
+
+                  <div className={styles.extraInfoContainer}>
+                    <input
+                      {...register("expiry")}
+                      required
+                      maxLength={5}
+                      minLength={5}
+                      type="text"
+                      name="expiry"
+                      placeholder="Validez (MM/AA)"
+                      value={state.expiry}
+                      onChange={handleInputChange}
+                      onFocus={handleInputFocus}
+                      className={styles.cvcInput}
+                    />
+
+                    <input
+                      {...register("cvc")}
+                      required
+                      maxLength={3}
+                      minLength={3}
+                      type="text"
+                      name="cvc"
+                      placeholder="CVC"
+                      value={state.cvc}
+                      onChange={handleInputChange}
+                      onFocus={handleInputFocus}
+                      className={styles.cvcInput}
+                    />
+                  </div>
+
+                  <button type="submit" className={styles.agregarTarjeta}>
+                    Agregar tarjeta
+                  </button>
+                </form>
+              </div>
+              {optional && (
+                <p>Esta tarjeta se utilizará sólo para este pedido</p>
+              )}
+            </motion.div>
           </motion.div>
         </Modal>
       )}

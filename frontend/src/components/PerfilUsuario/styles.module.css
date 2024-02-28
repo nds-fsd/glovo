@@ -246,7 +246,7 @@ body {
   padding: 2px;
 }
 
-.campoP2:hover > .pencilIcon {
+.campoP2:hover ~ .pencilIcon {
   opacity: 1;
   transform: rotate(30deg);
 }

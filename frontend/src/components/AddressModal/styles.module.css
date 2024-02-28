@@ -129,6 +129,18 @@ input::placeholder {
     box-shadow: 0 -1px 16px 0px var(--secondary-color);
   }
 }
+.everything {
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+  z-index: 999;
+  background-color: #00000048;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  -webkit-backdrop-filter: blur(3px);
+  backdrop-filter: blur(3px);
+}
 
 .topText {
   display: flex;

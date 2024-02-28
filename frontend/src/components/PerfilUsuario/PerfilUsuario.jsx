@@ -152,10 +152,12 @@ function PerfilUsuario({
       );
     } else {
       return (
-        <p className={styles.campoP2} onClick={() => handleEditClick(field)}>
-          {userInfo[field] || "Agrega tu teléfono"}
+        <>
+          <p className={styles.campoP2} onClick={() => handleEditClick(field)}>
+            {userInfo[field] || "Agrega tu teléfono"}
+          </p>
           <img className={styles.pencilIcon} src={pencilIcon} alt="" />
-        </p>
+        </>
       );
     }
   };
@@ -297,7 +299,7 @@ function PerfilUsuario({
             <div className={styles.flecha}></div>
             {user && (
               <h2 className={styles.profileHeader}>
-                ¡ Hola{" "}
+                ¡Hola{" "}
                 {user &&
                   user.firstName.substring(0, user.firstName.indexOf(" "))}
                 !
@@ -353,7 +355,6 @@ function PerfilUsuario({
                   onClick={() => {
                     setCardModalIsOpen(true);
                     changeModalState();
-                    creditCardInfo();
                   }}
                 >
                   {user && user.creditCard
@@ -372,8 +373,8 @@ function PerfilUsuario({
                 }}
               >
                 <b className={styles.userProfileBold}>Contraseña: •••••••••</b>
-                <img className={styles.pencilIcon} src={pencilIcon} alt="" />
               </p>
+              <img className={styles.pencilIcon} src={pencilIcon} alt="" />
             </div>
             <div className={styles.separador}></div>
             <div className={styles.preferenceContainer}>
@@ -399,23 +400,6 @@ function PerfilUsuario({
                 </p>
               </div>
             </div>
-            <div className={styles.userSection}>
-              <p className={styles.campoP}>Recibir ofertas especiales:</p>
-              <Switch
-                handleToggle={() =>
-                  setLocalUser({
-                    ...user,
-                    receivePromotions: !user.receivePromotions,
-                  })
-                }
-              />
-            </div>
-            <div className={styles.separador}></div>
-            <div className={styles.userSection}>
-              <p>Código promocional:</p>
-              {renderEditableField("Codigo")}
-            </div>
-            <p className={styles.campoP}></p>
           </motion.div>
         </motion.div>
       </Modal>

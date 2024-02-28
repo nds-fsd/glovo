@@ -78,6 +78,19 @@
   outline: none;
 }
 
+.everything {
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+  z-index: 999;
+  background-color: #00000048;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  -webkit-backdrop-filter: blur(3px);
+  backdrop-filter: blur(3px);
+}
+
 input {
   background-color: var(--secondary-color-lighter);
 

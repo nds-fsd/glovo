@@ -133,7 +133,7 @@ const DashBoard = () => {
             </div>
 
             <div className={styles.carrouselContainer}>
-              {productos &&
+              {productos && productos.length !== 0 ? (
                 filteredRestaurantProducts.map((e) => {
                   return (
                     <div key={e._id}>
@@ -149,7 +149,10 @@ const DashBoard = () => {
                       />{" "}
                     </div>
                   );
-                })}
+                })
+              ) : (
+                <h3>Tus productos aparecerán aqui</h3>
+              )}
             </div>
           </div>
         </div>
