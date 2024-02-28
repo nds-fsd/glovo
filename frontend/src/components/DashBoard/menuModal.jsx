@@ -44,57 +44,51 @@ export default function ProductModal({
     viewHandler();
   }, [file]);
 
-  const uploadImage = () => {
-    const formData = new FormData();
-    console.log(file);
-    formData.append("file", file);
-    formData.append("upload_preset", "ml_default");
-
-    console.log(formData);
-
-    axios
-      .post("https://api.cloudinary.com/v1_1/dakbfqco5/image/upload", formData)
-      .then((res) => {
-        console.log(res.data.url);
-      })
-      .catch((error) => {
-        console.error("Error uploading image:", error.response);
-      });
-  };
-
   const { register, handleSubmit } = useForm();
   const onSubmit = async (data) => {
     setIsMenuModalOpen(false);
 
-    const uploadImage = () => {
-      const formData = new FormData();
-      console.log(file);
-      formData.append("file", file);
-      formData.append("upload_preset", "ml_default");
+    if (file) {
+      const uploadImage = () => {
+        const formData = new FormData();
+        formData.append("file", file);
+        formData.append("upload_preset", "ml_default");
 
-      axios
-        .post(
-          "https://api.cloudinary.com/v1_1/dakbfqco5/image/upload",
-          formData
-        )
-        .then((res) => {
-          const reqData = {
-            nombre: data.name,
-            descripcion: data.description,
-            precio: data.price,
-            categoria: data.category,
-            disponibilidad: true,
-            ingredientes: data.ingredients,
-            img: res.data.url,
-            restaurante: restaurante._id,
-          };
-          createProduct(reqData);
-        })
-        .catch((error) => {
-          console.error("Error uploading image:", error.response);
-        });
-    };
-    uploadImage();
+        axios
+          .post(
+            "https://api.cloudinary.com/v1_1/dakbfqco5/image/upload",
+            formData
+          )
+          .then((res) => {
+            const reqData = {
+              nombre: data.name,
+              descripcion: data.description,
+              precio: data.price,
+              categoria: data.category,
+              disponibilidad: true,
+              ingredientes: data.ingredients,
+              img: res.data.url,
+              restaurante: restaurante._id,
+            };
+            createProduct(reqData);
+          })
+          .catch((error) => {
+            console.error("Error uploading image:", error.response);
+          });
+      };
+      uploadImage();
+    } else {
+      const reqData = {
+        nombre: data.name,
+        descripcion: data.description,
+        precio: data.price,
+        categoria: data.category,
+        disponibilidad: true,
+        ingredientes: data.ingredients,
+        restaurante: restaurante._id,
+      };
+      createProduct(reqData);
+    }
   };
 
   return (
@@ -169,14 +163,6 @@ export default function ProductModal({
                 type="price"
                 placeholder="Precio"
                 required
-              />
-            </div>
-            <div className={styles.inputPictureContainer}>
-              <input
-                className={styles.firstInput}
-                {...register("img")}
-                type="price"
-                placeholder="Imagen"
               />
             </div>
             <FileUploader

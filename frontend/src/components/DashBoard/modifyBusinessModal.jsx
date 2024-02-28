@@ -7,7 +7,8 @@ import styles from "../PerfilUsuario/styles.module.css";
 import Modal from "react-modal";
 import { modifyRestaurant } from "../../utils/api";
 import { FileUploader } from "react-drag-drop-files";
-
+import exampleImg from "../../assets/icons/image-picture-svgrepo-com.svg";
+import axios from "axios";
 import useOnclickOutside from "react-cool-onclickoutside";
 
 export default function ModifyBusinessModal({
@@ -23,14 +24,59 @@ export default function ModifyBusinessModal({
   const [file, setFile] = useState();
   const [image, setImage] = useState();
 
+  const fileUploaderStyles = (
+    <div className={styles.fileUpload}>
+      <p>Arrastra o haz click</p>
+      <div>
+        <img className={styles.previewImg} src={image || exampleImg} alt="" />
+      </div>
+    </div>
+  );
+
+  useEffect(() => {
+    if (!file) return;
+    const viewHandler = () => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        setImage(reader.result);
+      };
+    };
+
+    viewHandler();
+  }, [file]);
+
   const onSubmit = async (data) => {
     setIsBusinessModalOpen(false);
     setRestaurante((prevRestaurante) => ({
-      ...prevRestaurante, // Copia toda la información antigua
-      ...data, // Sobrescribe y añade la nueva información de `data`
+      ...prevRestaurante,
+      ...data,
     }));
-    console.log(restaurante);
-    modifyRestaurant(data, restaurante._id);
+
+    if (file) {
+      const uploadImage = () => {
+        const formData = new FormData();
+        formData.append("file", file);
+        formData.append("upload_preset", "ml_default");
+
+        axios
+          .post(
+            "https://api.cloudinary.com/v1_1/dakbfqco5/image/upload",
+            formData
+          )
+          .then((res) => {
+            const newData = data;
+            newData.img = res.data.url;
+            modifyRestaurant(newData, restaurante._id);
+          })
+          .catch((error) => {
+            console.error("Error uploading image:", error.response);
+          });
+      };
+      uploadImage();
+    } else {
+      modifyRestaurant(data, restaurante._id);
+    }
   };
 
   return (
@@ -112,17 +158,22 @@ export default function ModifyBusinessModal({
                   required
                 />
               </div>
-              <div className={styles.inputPictureContainer}>
-                <input
-                  className={styles.firstInput}
-                  {...register("img")}
-                  type="category"
-                  placeholder="Imagen"
-                  defaultValue={restaurante.img}
-                />
-              </div>
+              <FileUploader
+                multiple={false}
+                type={["jpeg", "png", "gif", "jpg"]}
+                name="file"
+                handleChange={(file) => {
+                  setFile(file);
+                }}
+                children={fileUploaderStyles}
+                dropMessageStyle={{
+                  backgroundColor: "var(--secondary-color)",
+                  borderRadius: "20px",
+                }}
+              />
             </div>
           )}
+
           <button className={styles.guardarCambios} type="submit">
             Guardar cambios
           </button>
