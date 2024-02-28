@@ -7,7 +7,7 @@ import { FileUploader } from "react-drag-drop-files";
 import exampleImg from "../../assets/icons/image-picture-svgrepo-com.svg";
 import axios from "axios";
 import { motion } from "framer-motion";
-
+import { BeatLoader } from "react-spinners";
 import useOnclickOutside from "react-cool-onclickoutside";
 
 export default function ModifyProductModal({
@@ -17,6 +17,7 @@ export default function ModifyProductModal({
 }) {
   const [file, setFile] = useState();
   const [image, setImage] = useState();
+  const [isLoading, setIsLoading] = useState(false);
 
   const fileUploaderStyles = (
     <div className={styles.fileUpload}>
@@ -46,7 +47,7 @@ export default function ModifyProductModal({
   const { register, handleSubmit } = useForm();
 
   const onSubmit = async (data) => {
-    setIsModifyModalOpen(false);
+    setIsLoading(true);
 
     if (file) {
       const uploadImage = () => {
@@ -71,6 +72,10 @@ export default function ModifyProductModal({
             };
             modifyProduct(reqData, producto._id);
           })
+          .then(() => {
+            setIsLoading(false);
+            setIsModifyModalOpen(false);
+          })
           .catch((error) => {
             console.error("Error uploading image:", error.response);
           });
@@ -85,6 +90,9 @@ export default function ModifyProductModal({
         disponibilidad: true,
         ingredientes: data.ingredients,
       };
+      modifyProduct(reqData, producto._id);
+      setIsLoading(false);
+      setIsModifyModalOpen(false);
     }
   };
 
@@ -181,7 +189,13 @@ export default function ModifyProductModal({
             />
           </div>
           <button className={styles.guardarCambios} type="submit">
-            Guardar cambios
+            {!isLoading ? (
+              "Guardar cambios"
+            ) : (
+              <div style={{ marginTop: "3px", marginRight: "5px" }}>
+                <BeatLoader color="#ffffff" size={5} />{" "}
+              </div>
+            )}
           </button>
         </motion.form>
       </motion.div>

@@ -98,13 +98,6 @@ export default function CreditCardModal({
               className={styles.mainContainer}
               ref={ref}
             >
-              <button
-                onClick={closeCardModal}
-                id={close}
-                className={styles.closeButton}
-              >
-                X
-              </button>
               <div className={styles.topText}>
                 <h2>Nueva tarjeta</h2>
                 <p>Introduce tus datos</p>
@@ -185,7 +178,9 @@ export default function CreditCardModal({
                 </form>
               </div>
               {optional && (
-                <p>Esta tarjeta se utilizará sólo para este pedido</p>
+                <p style={{ paddingTop: "10px" }}>
+                  Esta tarjeta se utilizará sólo para este pedido
+                </p>
               )}
             </motion.div>
           </motion.div>

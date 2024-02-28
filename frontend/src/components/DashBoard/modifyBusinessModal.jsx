@@ -10,6 +10,7 @@ import { FileUploader } from "react-drag-drop-files";
 import exampleImg from "../../assets/icons/image-picture-svgrepo-com.svg";
 import axios from "axios";
 import useOnclickOutside from "react-cool-onclickoutside";
+import { BeatLoader } from "react-spinners";
 
 export default function ModifyBusinessModal({
   isBusinessModalOpen,
@@ -23,6 +24,7 @@ export default function ModifyBusinessModal({
   const { register, handleSubmit } = useForm();
   const [file, setFile] = useState();
   const [image, setImage] = useState();
+  const [isLoading, setIsLoading] = useState(false);
 
   const fileUploaderStyles = (
     <div className={styles.fileUpload}>
@@ -47,7 +49,7 @@ export default function ModifyBusinessModal({
   }, [file]);
 
   const onSubmit = async (data) => {
-    setIsBusinessModalOpen(false);
+    setIsLoading(true);
     setRestaurante((prevRestaurante) => ({
       ...prevRestaurante,
       ...data,
@@ -68,6 +70,8 @@ export default function ModifyBusinessModal({
             const newData = data;
             newData.img = res.data.url;
             modifyRestaurant(newData, restaurante._id);
+            setIsBusinessModalOpen(false);
+            setIsLoading(false);
           })
           .catch((error) => {
             console.error("Error uploading image:", error.response);
@@ -76,6 +80,8 @@ export default function ModifyBusinessModal({
       uploadImage();
     } else {
       modifyRestaurant(data, restaurante._id);
+      setIsBusinessModalOpen(false);
+      setIsLoading(false);
     }
   };
 
@@ -175,7 +181,13 @@ export default function ModifyBusinessModal({
           )}
 
           <button className={styles.guardarCambios} type="submit">
-            Guardar cambios
+            {!isLoading ? (
+              "Guardar cambios"
+            ) : (
+              <div style={{ marginTop: "3px", marginRight: "5px" }}>
+                <BeatLoader color="#ffffff" size={5} />{" "}
+              </div>
+            )}
           </button>
         </motion.form>
       </motion.div>

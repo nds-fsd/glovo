@@ -1,13 +1,14 @@
 import styles from "../RestaurantGrid/styles.module.css";
 import restaurantImg from "../../assets/images/b032e09e0a5b36512eeaa65ab6232cb30ef9588fb77bc6dc0c4a1d24e8b892ac.jpg";
 import RestaurantCard from "../RestautantCard";
+import { BeatLoader } from "react-spinners";
 
 export default function RestaurantGrid({ gridName, restaurantes }) {
   return (
     <div className={styles.mainContainer}>
       <h2>{gridName}</h2>
       <div id="grid" className={styles.restaurantGrid}>
-        {restaurantes &&
+        {restaurantes && restaurantes.length !== 0 ? (
           restaurantes.map((e) => {
             return (
               <RestaurantCard
@@ -24,7 +25,12 @@ export default function RestaurantGrid({ gridName, restaurantes }) {
                 offer={e.oferta}
               />
             );
-          })}
+          })
+        ) : (
+          <div>
+            <BeatLoader color="#09827e" size={20} />
+          </div>
+        )}
       </div>
     </div>
   );

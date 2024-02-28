@@ -14,6 +14,7 @@ import {
   setStorageObject,
 } from "../../utils/localStorage.utils.js";
 import { motion, AnimatePresence } from "framer-motion";
+import { BeatLoader } from "react-spinners";
 
 export const Formulario = ({
   formulariosIsOpen,
@@ -22,6 +23,7 @@ export const Formulario = ({
   setLogged,
 }) => {
   const params = useParams();
+  const [isLoading, setIsLoading] = useState(false);
 
   const { user, setLocalUser } = useContext(UserContext);
 
@@ -50,6 +52,7 @@ export const Formulario = ({
   };
 
   const onSubmit = async (data) => {
+    setIsLoading();
     closeUserSession();
 
     const userData = {
@@ -97,6 +100,7 @@ export const Formulario = ({
     } finally {
       setIsSubmitting(false);
       setFormulariosIsOpen(false);
+      setIsLoading(false);
       navigate("../dashboard");
     }
   };
@@ -280,7 +284,13 @@ export const Formulario = ({
                   type="submit"
                   disabled={isSubmitting}
                 >
-                  Registrarse
+                  {!isLoading ? (
+                    "Registrarse"
+                  ) : (
+                    <div style={{ marginTop: "3px" }}>
+                      <BeatLoader color="#ffffff" size={5} />{" "}
+                    </div>
+                  )}
                 </button>
               </div>
             </form>

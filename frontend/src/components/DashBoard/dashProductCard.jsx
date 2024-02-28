@@ -16,7 +16,7 @@ export default function DashProductCard({
   const [isModifyModalOpen, setIsModifyModalOpen] = useState(false);
   return (
     <>
-      <div className={styles.mainContainer}>
+      <div key={producto._id} className={styles.mainContainer}>
         <div
           onClick={() => {
             setIsModifyModalOpen(true);

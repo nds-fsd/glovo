@@ -9,9 +9,11 @@ import flagIcon from "../../assets/icons/flag-svgrepo-com.svg";
 import compassIcon from "../../assets/icons/location-svgrepo-com.svg";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { BeatLoader } from "react-spinners";
 
 export default function DirectionBar({ setLocation }) {
   const { register, handleSubmit } = useForm();
+  const [isLocationLoading, setIsLocationLoading] = useState(false);
 
   const navigate = useNavigate();
 
@@ -47,6 +49,7 @@ export default function DirectionBar({ setLocation }) {
   };
 
   const findMyLocation = () => {
+    setIsLocationLoading(true);
     const statusLocation = document.querySelector(".status");
     const success = (position) => {
       const lat = position.coords.latitude;
@@ -58,6 +61,7 @@ export default function DirectionBar({ setLocation }) {
       fetch(geolocationUrl)
         .then((res) => res.json())
         .then((data) => {
+          setIsLocationLoading(false);
           const addressComponents = data.results[0].address_components;
           console.log(addressComponents[1].short_name);
 
@@ -136,46 +140,52 @@ export default function DirectionBar({ setLocation }) {
             className={styles.addressInput}
             placeholder="Cuál es tu dirección?"
           />
-          <AnimatePresence>
-            {windowWidth > 900 && !value ? (
-              <button
-                transition={{ ease: "easeOut", duration: 0.1 }}
-                onClick={findMyLocation}
-                className={styles.useCurrentLocationButton}
-              >
-                <div className={styles.compassIconContainer}>
-                  <img
-                    className={styles.compassIcon}
-                    src={compassIcon}
-                    alt=""
-                  />
-                </div>
-                <motion.p
-                  // key="button1"
-                  // initial={{ width: 0 }}
-                  // animate={{ width: "110px" }}
-                  // exit={{ width: 0 }}
-                  // transition={{ ease: "easeOut", duration: 0.3 }}
-                  className={styles.useCurrentLocationText}
+          {!isLocationLoading ? (
+            <AnimatePresence>
+              {windowWidth > 900 && !value ? (
+                <button
+                  transition={{ ease: "easeOut", duration: 0.1 }}
+                  onClick={findMyLocation}
+                  className={styles.useCurrentLocationButton}
                 >
-                  Usar la ubicación actual
-                </motion.p>
-              </button>
-            ) : (
-              <button
-                onClick={findMyLocation}
-                className={styles.useCurrentLocationButtonSmall}
-              >
-                <div className={styles.compassIconContainer}>
-                  <img
-                    className={styles.compassIcon}
-                    src={compassIcon}
-                    alt=""
-                  />
-                </div>
-              </button>
-            )}
-          </AnimatePresence>
+                  <div className={styles.compassIconContainer}>
+                    <img
+                      className={styles.compassIcon}
+                      src={compassIcon}
+                      alt=""
+                    />
+                  </div>
+                  <motion.p
+                    // key="button1"
+                    // initial={{ width: 0 }}
+                    // animate={{ width: "110px" }}
+                    // exit={{ width: 0 }}
+                    // transition={{ ease: "easeOut", duration: 0.3 }}
+                    className={styles.useCurrentLocationText}
+                  >
+                    Usar la ubicación actual
+                  </motion.p>
+                </button>
+              ) : (
+                <button
+                  onClick={findMyLocation}
+                  className={styles.useCurrentLocationButtonSmall}
+                >
+                  <div className={styles.compassIconContainer}>
+                    <img
+                      className={styles.compassIcon}
+                      src={compassIcon}
+                      alt=""
+                    />
+                  </div>
+                </button>
+              )}
+            </AnimatePresence>
+          ) : (
+            <div style={{ marginRight: "15px", marginTop: "5px" }}>
+              <BeatLoader color="#09827e" size={5} />{" "}
+            </div>
+          )}
         </motion.div>
         {status === "OK" && (
           <ul className={styles.listContainer}>{renderSuggestions()}</ul>

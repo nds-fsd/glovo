@@ -15,6 +15,7 @@ export default function AddressModal({
   optional,
 }) {
   const ref = useOnclickOutside(() => {
+    setCoordinates("");
     closeAddressModal();
   });
   const { register, handleSubmit, setValue: setFormValue } = useForm();
@@ -58,15 +59,6 @@ export default function AddressModal({
               className={styles.mainContainer}
               ref={ref}
             >
-              <button
-                onClick={() => {
-                  closeAddressModal();
-                  setCoordinates("");
-                }}
-                className={styles.closeButton}
-              >
-                X
-              </button>
               <div className={styles.topText}>
                 <h2>Nueva dirección</h2>
                 <p>Introduce tus datos</p>
@@ -105,7 +97,9 @@ export default function AddressModal({
                 </form>
               </div>
               {optional && (
-                <p>Esta direccion se utilizará sólo para este pedido</p>
+                <p style={{ paddingTop: "10px" }}>
+                  Esta direccion se utilizará sólo para este pedido
+                </p>
               )}
             </motion.div>
           </motion.div>

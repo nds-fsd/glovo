@@ -12,6 +12,7 @@ import ShoppingCart from "../ShoppingCart";
 import { useParams, useNavigate } from "react-router-dom";
 import { CartContext } from "../../contexts/CartContext";
 import { motion, AnimatePresence } from "framer-motion";
+import { BeatLoader } from "react-spinners";
 
 export default function RestaurantPage({}) {
   const [restaurante, setRestaurante] = useState();
@@ -146,7 +147,7 @@ export default function RestaurantPage({}) {
                 </section>
                 <img src="" alt="" />
                 <div id="cartContainer" className={styles.productGrid}>
-                  {productos &&
+                  {productos && productos.length !== 0 ? (
                     productos.map((e) => {
                       return (
                         <ProductCard
@@ -162,7 +163,22 @@ export default function RestaurantPage({}) {
                           restaurante={restaurante}
                         />
                       );
-                    })}
+                    })
+                  ) : (
+                    <div
+                      style={{
+                        width: "100%",
+                        height: "188px",
+                        paddingTop: "100px",
+                      }}
+                    >
+                      <BeatLoader
+                        width="fitContent"
+                        color="#09827e"
+                        size={20}
+                      />{" "}
+                    </div>
+                  )}
                 </div>
               </div>
               <ShoppingCart

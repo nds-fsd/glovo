@@ -57,10 +57,12 @@ export default function HomePage({ location, searchTerm }) {
               restaurantes={restaurantes.slice(0, 8)}
               gridName={"Restaurantes recomendados"}
             />
-            <RestaurantGrid
-              restaurantes={restaurantes.slice(8)}
-              gridName={"Otros restaurantes"}
-            />{" "}
+            {restaurantes && restaurantes.length !== 0 && (
+              <RestaurantGrid
+                restaurantes={restaurantes.slice(8)}
+                gridName={"Otros restaurantes"}
+              />
+            )}
           </>
         )}
       </div>

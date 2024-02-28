@@ -8,12 +8,18 @@
   flex-direction: column;
   justify-content: space-between;
   padding: 5px;
-  transition: 0.5s;
+
+  align-items: center;
+  justify-content: center;
+  position: relative;
 }
 
 .upperContainer {
   display: flex;
   align-items: center;
+  width: 90%;
+  gap: 30px;
+  padding: 5px;
 }
 
 h5 {
@@ -29,10 +35,20 @@ p {
   overflow: hidden;
 }
 
+.textContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  max-width: 270;
+  align-items: center;
+  justify-content: center;
+}
+
 .description {
   max-height: 37px;
   overflow: hidden;
   text-overflow: ellipsis;
+  width: 90%;
 }
 
 .productImg {
@@ -45,6 +61,7 @@ p {
   align-items: center;
   justify-content: space-between;
   padding: 10px;
+  width: 83%;
 }
 
 button.addToCart {
@@ -63,6 +80,9 @@ button.addToCart {
   transition: 0.2s;
   box-shadow: 0 0 0 0;
   border: 2px solid transparent;
+  position: absolute;
+  right: 15px;
+  bottom: 15px;
 }
 
 button.addToCart:hover {

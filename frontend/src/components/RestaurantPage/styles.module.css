@@ -130,3 +130,25 @@ h2 {
     flex-direction: column;
   }
 }
+
+@media only screen and (max-width: 500px) {
+  .productGrid {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 15px 0;
+    flex-direction: column;
+  }
+
+  main {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .mainRestaurantContent {
+    width: 90%;
+  }
+}
