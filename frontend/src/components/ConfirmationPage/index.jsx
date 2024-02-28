@@ -19,7 +19,7 @@ export default function ConfirmationPage() {
       try {
         const response = await api.get("/orders/" + params.orderId);
         setOrder(response.data);
-        console.log(response.data);
+       
       } catch (error) {
         console.error("Error al obtener los datos del pedido:", error);
       }

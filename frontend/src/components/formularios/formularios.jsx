@@ -80,17 +80,17 @@ export const Formulario = ({
   };
 
   const postRestaurantData = async (userId, formData) => {
-    const modData = { ...formData, transporte: "FREE" }; // Clona y modifica
+    const modData = { ...formData, transporte: "FREE" }; 
 
     try {
-      console.log(modData); // Verifica que modData tiene la propiedad transporte
+      
       const response = await api.post(`/restaurantes/${userId}`, modData, {
         headers: {
           "Content-Type": "application/json",
         },
       });
 
-      console.log("Respuesta del API", response.data);
+    
       navigate("../dashboard");
     } catch (error) {
       console.error("Error:", error);
@@ -230,7 +230,7 @@ export const Formulario = ({
                     type="text"
                     placeholder="Codigo Promocional"
                     {...register("discountCode", {
-                      //! validate : promoCode debemos añadir en futuro ...
+                     
                     })}
                   />
                   <button className={styles.aplicarbtn}>Aplicar</button>

@@ -53,13 +53,13 @@ export default function PurchaseConfirmationModal({
 
   const postCreatedOrder = async (data) => {
     try {
-      console.log(data);
+     
       const response = await postOrder(data);
-      console.log(response);
+    
       if (response.status === 201) {
         setOrder(response.data.order);
       } else {
-        console.log("Error en al crear tu pedido");
+       
       }
     } catch (error) {
       console.error("Error al crear tu pedido:", error);
