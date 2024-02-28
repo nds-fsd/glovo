@@ -7,7 +7,7 @@ exports.createUser = async (req, res) => {
     if (!password) {
       return res.status(400).json({ error: "La contraseña no está definida" });
     }
-
+  
    
     const newUser = await User.create({
       firstName: firstname,
