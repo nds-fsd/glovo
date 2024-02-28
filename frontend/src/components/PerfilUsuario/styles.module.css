@@ -6,9 +6,8 @@ body {
 
 .profile {
   max-width: 300px; /* Ancho máximo para la sección del perfil */
-  /* height: 70vh; */
   height: fit-content;
-  max-height: 60vh;
+  max-height: 80vh;
   padding: 10px;
 
   background-color: #ffffff;
@@ -535,14 +534,14 @@ div[class^="_profile_"]::-webkit-scrollbar {
   top: 68px;
   gap: 10px;
 
-  overflow: auto;
+  overflow: scroll;
   width: 400px;
   height: fit-content;
-  max-height: 70%;
+  max-height: 73%;
   justify-content: center;
   display: flex;
-  flex-wrap: wrap;
   flex-direction: column;
+  padding-top: 45px;
 }
 
 .historyContainer > h2 {
