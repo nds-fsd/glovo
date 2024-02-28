@@ -31,14 +31,14 @@ function UserRegisterModal({
     } else {
       data.role;
     }
-    console.log(data);
+    
     try {
       await handleInitialRegistrationSubmit(data, setLocalUser, () => {
         if (typeof closeModal === "function") {
-          closeModal(); // Cerrar el modal solo si closeModal es una función
+          closeModal(); 
         }
         if (typeof changeModalState === "function") {
-          changeModalState(); // Cambiar el estado del modal solo si changeModalState es una función
+          changeModalState(); 
         }
         setLogged(true);
         setIsLoading(false);
@@ -134,7 +134,3 @@ function UserRegisterModal({
 }
 
 export default UserRegisterModal;
-
-//TODO: implementar un checkbox para indicar si el usuario que se va a registrar es Restaurante
-// if checked add to submit form pre httpRequest role: "RESTAURANT"
-// if not checked submit normally

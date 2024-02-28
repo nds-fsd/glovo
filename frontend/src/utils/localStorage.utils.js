@@ -63,11 +63,6 @@ export const isSessionActive = () => {
   }
 };
 
-//! -----------------------definir Restaurante----------------------
-
-// export const getRestaurantData = (token) => {
-
-// };
 
 export const getRestaurantData = (key) => {
   if (key === "token") {
@@ -82,18 +77,6 @@ export const getRestaurantData = (key) => {
   return null;
 };
 
-// export const getRestaurantSession = () => {
-//   const session = getStorageObject("restaurant");
-//   if (session) {
-//     return session;
-//   }
-//   return null;
-// };
-
-// export const setRestaurantSession = (key, value) => {
-//   localStorage.setItem(key, JSON.stringify(value));
-// };
-// todo----------------------here---------------------
 export const getRestaurantToken = () => {
   const session = getStorageObject("restaurant-session");
   return session?.token || null;

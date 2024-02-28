@@ -10,7 +10,7 @@ export default function Footer({ logged, setLogged }) {
   const [businessModalIsOpen, setBusinessModalIsOpen] = useState(false);
 
   const openFormularios = () => {
-    document.body.scrollTop = 0; // For Safari
+    document.body.scrollTop = 0;
     document.documentElement.scrollTop = 0;
     setFormulariosIsOpen(true);
   };

@@ -63,7 +63,6 @@ export default function DirectionBar({ setLocation }) {
         .then((data) => {
           setIsLocationLoading(false);
           const addressComponents = data.results[0].address_components;
-          console.log(addressComponents[1].short_name);
 
           const formattedAdress =
             addressComponents[1].short_name +
@@ -73,8 +72,6 @@ export default function DirectionBar({ setLocation }) {
             addressComponents[3].long_name +
             ", " +
             addressComponents[5].long_name;
-
-          console.log(formattedAdress);
 
           setValue(formattedAdress);
         });

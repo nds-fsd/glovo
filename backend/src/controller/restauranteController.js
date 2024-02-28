@@ -3,8 +3,7 @@ const User = require("../schema/usersSchema");
 const bcrypt = require("bcryptjs");
 const { encryptValue } = require("../utils");
 
-//Comprobar que el idUser es un usuario con role Restaurante si no not valid
-//Comprobar que no sea nulo
+
 exports.createRestaurante = async (req, res) => {
   const idUser = req.params.idUser;
   try {

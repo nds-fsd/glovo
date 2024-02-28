@@ -39,7 +39,7 @@ function PerfilUsuario({
   const [cardModalIsOpen, setCardModalIsOpen] = useState(false);
   const [isChangePasswordModalOpen, setIsChangePasswordModalOpen] =
     useState(false);
-  // const [isChangingPassword, setIsChangingPassword] = useState(false);
+  
 
   const { register, handleSubmit, setValue, reset } = useForm();
   const [userInfo, setUserInfo] = useState("");
@@ -64,24 +64,24 @@ function PerfilUsuario({
 
   const handleSaveClick = async () => {
     try {
-      // Verificar si el ID del usuario está definido
+      
       if (!user._id) {
         console.error("ID del usuario no está definido");
         return;
       }
 
-      // Obtener el token JWT del local storage
+     
       const token = getStorageObject("token");
       if (!token) {
         console.error("No se encontró el token de autenticación");
         return;
       }
 
-      // Preparar los datos para la actualización
+      
       const updateData = { [editingField]: userInfo[editingField] };
-      console.log(updateData);
+      
 
-      // Enviar la actualización al backend y obtener la respuesta
+    
       const updatedUser = await handleProfileUpdateSubmit(
         editingField,
         updateData,
@@ -89,23 +89,21 @@ function PerfilUsuario({
         token
       );
 
-      // Verificar si la respuesta del backend es válida
+      
 
       if (updatedUser) {
-        // Actualizar user con los cambios
+      
 
         setLocalUser(updatedUser.updatedUser);
-        console.log(updatedUser.updatedUser);
+        
         deleteStorageObject("user");
         setStorageObject("user", updatedUser.updatedUser);
       } else {
-        console.log(updatedUser);
+       
         throw new Error("No se recibieron datos actualizados del usuario.");
       }
 
-      // Confirmación en la consola
-
-      // Salir del modo de edición
+     
       setIsEditing(false);
       setEditingField(null);
     } catch (error) {
@@ -122,14 +120,14 @@ function PerfilUsuario({
   };
 
   const handleChange = (e) => {
-    console.log(e);
+   
     setUserInfo((prevUserInfo) => ({
       ...prevUserInfo,
       [editingField]: e.target.value,
     }));
   };
 
-  //const [userProfileModalOpen, setUserProfileModalOpen] = useState(false);
+  
 
   const renderEditableField = (field) => {
     if (isEditing && editingField === field) {
@@ -164,7 +162,7 @@ function PerfilUsuario({
 
   const handleSaveClickAddress = async (formattedAddress) => {
     try {
-      // Verificar si el ID del usuario está definido
+      
       if (!user._id) {
         console.error("ID del usuario no está definido");
         return;
@@ -204,9 +202,9 @@ function PerfilUsuario({
   };
 
   const handleSaveClickCard = async (cardObject) => {
-    console.log(cardObject);
+   
     try {
-      // Verificar si el ID del usuario está definido
+     
       if (!user._id) {
         console.error("ID del usuario no está definido");
         return;
@@ -265,9 +263,9 @@ function PerfilUsuario({
       await handlePasswordChangeSubmit(data, user, () =>
         setIsChangePasswordModalOpen(false)
       );
-      // mostrar un mensaje de éxito
+    
     } catch (error) {
-      // Maneja errores aquí, como mostrar un mensaje de error
+      
       console.error("Error al cambiar la contraseña:", error);
     }
   };
@@ -420,7 +418,7 @@ function PerfilUsuario({
       <ChangePasswordModal
         isChangePasswordModalOpen={isChangePasswordModalOpen}
         closeChangePasswordModal={() => setIsChangePasswordModalOpen(false)}
-        handleSubmitChangePassword={handlePasswordChange} // Asegúrate de que tu modal acepte y use esta prop
+        handleSubmitChangePassword={handlePasswordChange} 
       />
     </>
   );

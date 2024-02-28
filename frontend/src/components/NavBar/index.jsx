@@ -47,7 +47,7 @@ export default function NavBar({
   };
 
   if (logged === true) {
-    console.log("logged true");
+   
 
     return (
       <>
@@ -113,7 +113,7 @@ export default function NavBar({
       </>
     );
   } else {
-    console.log("logged false");
+   
     return (
       <>
         <motion.nav
