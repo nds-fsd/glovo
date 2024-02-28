@@ -39,7 +39,7 @@ function PerfilUsuario({
   const [cardModalIsOpen, setCardModalIsOpen] = useState(false);
   const [isChangePasswordModalOpen, setIsChangePasswordModalOpen] =
     useState(false);
-  // const [isChangingPassword, setIsChangingPassword] = useState(false);
+  
 
   const { register, handleSubmit, setValue, reset } = useForm();
   const [userInfo, setUserInfo] = useState("");
@@ -64,24 +64,24 @@ function PerfilUsuario({
 
   const handleSaveClick = async () => {
     try {
-      // Verificar si el ID del usuario está definido
+      
       if (!user._id) {
         console.error("ID del usuario no está definido");
         return;
       }
 
-      // Obtener el token JWT del local storage
+     
       const token = getStorageObject("token");
       if (!token) {
         console.error("No se encontró el token de autenticación");
         return;
       }
 
-      // Preparar los datos para la actualización
+      
       const updateData = { [editingField]: userInfo[editingField] };
-      console.log(updateData);
+      
 
-      // Enviar la actualización al backend y obtener la respuesta
+    
       const updatedUser = await handleProfileUpdateSubmit(
         editingField,
         updateData,
@@ -89,23 +89,21 @@ function PerfilUsuario({
         token
       );
 
-      // Verificar si la respuesta del backend es válida
+      
 
       if (updatedUser) {
-        // Actualizar user con los cambios
+      
 
         setLocalUser(updatedUser.updatedUser);
-        console.log(updatedUser.updatedUser);
+        
         deleteStorageObject("user");
         setStorageObject("user", updatedUser.updatedUser);
       } else {
-        console.log(updatedUser);
+       
         throw new Error("No se recibieron datos actualizados del usuario.");
       }
 
-      // Confirmación en la consola
-
-      // Salir del modo de edición
+     
       setIsEditing(false);
       setEditingField(null);
     } catch (error) {
@@ -122,14 +120,14 @@ function PerfilUsuario({
   };
 
   const handleChange = (e) => {
-    console.log(e);
+   
     setUserInfo((prevUserInfo) => ({
       ...prevUserInfo,
       [editingField]: e.target.value,
     }));
   };
 
-  //const [userProfileModalOpen, setUserProfileModalOpen] = useState(false);
+  
 
   const renderEditableField = (field) => {
     if (isEditing && editingField === field) {
@@ -152,17 +150,19 @@ function PerfilUsuario({
       );
     } else {
       return (
-        <p className={styles.campoP2} onClick={() => handleEditClick(field)}>
-          {userInfo[field] || "Agrega tu teléfono"}
+        <>
+          <p className={styles.campoP2} onClick={() => handleEditClick(field)}>
+            {userInfo[field] || "Agrega tu teléfono"}
+          </p>
           <img className={styles.pencilIcon} src={pencilIcon} alt="" />
-        </p>
+        </>
       );
     }
   };
 
   const handleSaveClickAddress = async (formattedAddress) => {
     try {
-      // Verificar si el ID del usuario está definido
+      
       if (!user._id) {
         console.error("ID del usuario no está definido");
         return;
@@ -202,9 +202,9 @@ function PerfilUsuario({
   };
 
   const handleSaveClickCard = async (cardObject) => {
-    console.log(cardObject);
+   
     try {
-      // Verificar si el ID del usuario está definido
+     
       if (!user._id) {
         console.error("ID del usuario no está definido");
         return;
@@ -263,9 +263,9 @@ function PerfilUsuario({
       await handlePasswordChangeSubmit(data, user, () =>
         setIsChangePasswordModalOpen(false)
       );
-      // mostrar un mensaje de éxito
+    
     } catch (error) {
-      // Maneja errores aquí, como mostrar un mensaje de error
+      
       console.error("Error al cambiar la contraseña:", error);
     }
   };
@@ -297,7 +297,7 @@ function PerfilUsuario({
             <div className={styles.flecha}></div>
             {user && (
               <h2 className={styles.profileHeader}>
-                ¡ Hola{" "}
+                ¡Hola{" "}
                 {user &&
                   user.firstName.substring(0, user.firstName.indexOf(" "))}
                 !
@@ -353,7 +353,6 @@ function PerfilUsuario({
                   onClick={() => {
                     setCardModalIsOpen(true);
                     changeModalState();
-                    creditCardInfo();
                   }}
                 >
                   {user && user.creditCard
@@ -372,8 +371,8 @@ function PerfilUsuario({
                 }}
               >
                 <b className={styles.userProfileBold}>Contraseña: •••••••••</b>
-                <img className={styles.pencilIcon} src={pencilIcon} alt="" />
               </p>
+              <img className={styles.pencilIcon} src={pencilIcon} alt="" />
             </div>
             <div className={styles.separador}></div>
             <div className={styles.preferenceContainer}>
@@ -399,23 +398,6 @@ function PerfilUsuario({
                 </p>
               </div>
             </div>
-            <div className={styles.userSection}>
-              <p className={styles.campoP}>Recibir ofertas especiales:</p>
-              <Switch
-                handleToggle={() =>
-                  setLocalUser({
-                    ...user,
-                    receivePromotions: !user.receivePromotions,
-                  })
-                }
-              />
-            </div>
-            <div className={styles.separador}></div>
-            <div className={styles.userSection}>
-              <p>Código promocional:</p>
-              {renderEditableField("Codigo")}
-            </div>
-            <p className={styles.campoP}></p>
           </motion.div>
         </motion.div>
       </Modal>
@@ -436,7 +418,7 @@ function PerfilUsuario({
       <ChangePasswordModal
         isChangePasswordModalOpen={isChangePasswordModalOpen}
         closeChangePasswordModal={() => setIsChangePasswordModalOpen(false)}
-        handleSubmitChangePassword={handlePasswordChange} // Asegúrate de que tu modal acepte y use esta prop
+        handleSubmitChangePassword={handlePasswordChange} 
       />
     </>
   );

@@ -8,6 +8,7 @@
   margin-bottom: 20px;
   align-items: center;
   justify-content: center;
+  min-height: 80vh;
 }
 
 .addButton {
@@ -56,7 +57,7 @@
   border-radius: 50px 50px 10px 10px;
   height: fit-content;
   padding-bottom: 30px;
-  width: 85%;
+  width: 100%;
   box-shadow: 0 0 50px 7px rgba(0, 0, 0, 0.123);
   align-items: center;
   /* position: fixed; */
@@ -67,7 +68,7 @@
   flex-direction: column;
   gap: 10px;
   border: 2px solid transparent;
-  transition: 0.3s;
+  transition: border 0.3s;
 }
 
 .box1:hover {
@@ -127,7 +128,7 @@
 .divFondoPantalla {
   background-color: rgb(255, 255, 255);
 
-  width: 85%;
+  width: 100%;
   display: flex;
   padding: 20px 0;
   height: fit-content;
@@ -209,4 +210,30 @@
 
 .yourBrand {
   color: #09827e;
+}
+
+@media only screen and (max-width: 500px) {
+  .carrouselContainer {
+    align-items: center;
+    justify-content: center;
+    width: 90%;
+  }
+  .box1 {
+    width: 100%;
+  }
+
+  .divFondoPantalla {
+    width: 100%;
+  }
+  .input {
+    width: 75%;
+  }
+  .buttons {
+    justify-content: flex-start;
+    width: 90%;
+  }
+  .addButton {
+    position: absolute;
+    right: 3%;
+  }
 }

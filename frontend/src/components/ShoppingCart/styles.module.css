@@ -258,3 +258,25 @@ b {
   color: var(--secondary-color);
   padding: 10px;
 }
+
+@media only screen and (max-width: 500px) {
+  .shoppingCartContainer {
+    padding-top: 40px;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .shoppingCartFixed {
+    width: 90%;
+  }
+
+  .shoppingCart {
+    position: relative;
+    width: 90%;
+  }
+
+  .shoppingCartBackground {
+    width: 250px;
+  }
+}

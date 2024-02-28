@@ -6,8 +6,8 @@ body {
 
 .profile {
   max-width: 300px; /* Ancho máximo para la sección del perfil */
-  /* height: 70vh; */
-  max-height: fit-content;
+  height: fit-content;
+  max-height: 80vh;
   padding: 10px;
 
   background-color: #ffffff;
@@ -20,7 +20,7 @@ body {
   top: 68px;
   display: flex;
   flex-direction: column;
-  overflow: visible;
+  overflow: auto;
 }
 
 .userInfoModInput {
@@ -246,7 +246,7 @@ body {
   padding: 2px;
 }
 
-.campoP2:hover > .pencilIcon {
+.campoP2:hover ~ .pencilIcon {
   opacity: 1;
   transform: rotate(30deg);
 }
@@ -534,14 +534,14 @@ div[class^="_profile_"]::-webkit-scrollbar {
   top: 68px;
   gap: 10px;
 
-  overflow: auto;
+  overflow: scroll;
   width: 400px;
   height: fit-content;
-  max-height: 70%;
+  max-height: 73%;
   justify-content: center;
   display: flex;
-  flex-wrap: wrap;
   flex-direction: column;
+  padding-top: 45px;
 }
 
 .historyContainer > h2 {
@@ -594,10 +594,18 @@ div[class^="_profile_"]::-webkit-scrollbar {
   border-radius: 20px;
   width: 88%;
   cursor: pointer;
+  margin-top: 10px;
 }
 
 .fileUpload > p {
   font-weight: 600;
   font-size: 0.9rem;
   color: var(--secondary-color);
+}
+
+@media only screen and (max-width: 500px) {
+  .historyContainer {
+    width: 90%;
+    right: 6px;
+  }
 }

@@ -1,5 +1,6 @@
 .viewport {
   height: fit-content;
+  min-height: 70vh;
   width: 100%;
   margin: 0;
   padding: 0;

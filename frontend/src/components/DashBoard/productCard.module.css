@@ -7,7 +7,8 @@
   box-shadow: 0 0 50px 7px rgba(0, 0, 0, 0.123);
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
+  align-items: center;
   padding: 5px;
   transition: 0.5s;
   border: 2px solid transparent;
@@ -16,6 +17,14 @@
 .upperContainer {
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 69%;
+}
+
+.textContainer {
+  width: 73%;
+  padding: 10px 30px;
 }
 
 h5 {
@@ -46,7 +55,10 @@ p {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px;
+  padding-left: 23px;
+  padding-top: 10px;
+  width: 30%;
+  height: fit-content;
 }
 
 button.addToCart {
@@ -83,4 +95,14 @@ button.addToCart:active {
   position: absolute;
   right: 3px;
   top: 3px;
+}
+
+@media only screen and (max-width: 400px) {
+  .mainContainer {
+    width: 90%;
+  }
+
+  .textContainer {
+    padding: 0;
+  }
 }

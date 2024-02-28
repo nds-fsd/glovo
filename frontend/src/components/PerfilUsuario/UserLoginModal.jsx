@@ -8,6 +8,7 @@ import Modal from "react-modal";
 import { handleLoginSubmit } from "../../utils/Usercrud";
 import { UserContext } from "../../contexts/UserContext";
 import useOnclickOutside from "react-cool-onclickoutside";
+import { BeatLoader } from "react-spinners";
 
 function UserLoginModal({
   setLogged,
@@ -17,6 +18,8 @@ function UserLoginModal({
   loginModalOpen,
   setLoginModalOpen,
 }) {
+  const [isLoading, setIsLoading] = useState(false);
+
   const { register, handleSubmit } = useForm();
   const { user, setLocalUser } = useContext(UserContext);
   const navigate = useNavigate();
@@ -25,13 +28,16 @@ function UserLoginModal({
   });
   const [error, setError] = useState(null);
   const onSubmit = async (data) => {
+    setIsLoading(true);
     try {
       const response = await handleLoginSubmit(data, setLocalUser);
       if (response.status == 200 && response.data.user.role === "RESTAURANT") {
         setLogged(true);
+        setIsLoading(false);
         navigate("../DashBoard");
       } else if (response.status == 200 && response.data.user.role === "USER") {
         setLogged(true);
+        setIsLoading(false);
       } else {
         setLogged(false);
         setError("Error en tus credenciales");
@@ -104,7 +110,13 @@ function UserLoginModal({
               </div>
               {error && <p>{error}</p>}
               <button className={styles.guardarCambios} type="submit">
-                Iniciar Sesión
+                {!isLoading ? (
+                  "Iniciar sesión"
+                ) : (
+                  <div style={{ marginTop: "3px", marginRight: "5px" }}>
+                    <BeatLoader color="#ffffff" size={5} />{" "}
+                  </div>
+                )}
               </button>
             </motion.form>
           </motion.div>

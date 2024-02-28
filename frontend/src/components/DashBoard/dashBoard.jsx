@@ -6,6 +6,7 @@ import productExampleImg from "../../assets/images/productexampleimg.avif";
 import ProductModal from "./menuModal.jsx";
 import { UserContext } from "../../contexts/UserContext";
 import ModifyBusinessModal from "./modifyBusinessModal.jsx";
+import { BeatLoader } from "react-spinners";
 
 const DashBoard = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -13,6 +14,7 @@ const DashBoard = () => {
   const [productos, setProductos] = useState([]);
   const [isMenuModalOpen, setIsMenuModalOpen] = useState(false);
   const [isBusinessModalOpen, setIsBusinessModalOpen] = useState(false);
+  const [areProductsLoading, setAreProductsLoading] = useState(true);
 
   const { user } = useContext(UserContext);
 
@@ -37,6 +39,7 @@ const DashBoard = () => {
           "/restaurantes/" + restaurante._id + "/products"
         );
         setProductos(response.data);
+        setAreProductsLoading(false);
       } catch (error) {
         console.error(
           "Error al obtener los datos de los productos del restaurante:",
@@ -72,7 +75,7 @@ const DashBoard = () => {
                     <p>Ciudad</p>
                     <input
                       className={styles.leftBoxItem}
-                      defaultValue={restaurante.city}
+                      value={restaurante.city}
                       readOnly
                     />
                   </div>
@@ -80,23 +83,24 @@ const DashBoard = () => {
                     <p>Categoría</p>
                     <input
                       className={styles.leftBoxItem}
-                      defaultValue={restaurante.category}
+                      value={restaurante.category}
                       readOnly
                     />
                   </div>
                   <div className={styles.businessItemContainer}>
                     <p>Nombre del restaurante</p>
+                    <p></p>
                     <input
                       className={styles.leftBoxItem}
-                      defaultValue={restaurante.brandName}
+                      value={restaurante.brandName}
                       readOnly
-                    />
+                    ></input>
                   </div>
                   <div className={styles.businessItemContainer}>
                     <p>Tasas de transporte</p>
                     <input
                       className={styles.leftBoxItem}
-                      defaultValue={restaurante.transporte}
+                      value={restaurante.transporte}
                       readOnly
                     />
                   </div>
@@ -104,7 +108,7 @@ const DashBoard = () => {
                     <p>Oferta</p>
                     <input
                       className={styles.leftBoxItem}
-                      defaultValue={restaurante.oferta}
+                      value={restaurante.oferta}
                       readOnly
                     />
                   </div>
@@ -132,23 +136,28 @@ const DashBoard = () => {
             </div>
 
             <div className={styles.carrouselContainer}>
-              {productos &&
+              {productos && productos.length !== 0 ? (
                 filteredRestaurantProducts.map((e) => {
                   return (
-                    <div key={e._id}>
-                      <DashProductCard
-                        className={styles.productCard}
-                        productos={productos}
-                        key={e._id}
-                        productName={e.nombre}
-                        productDescription={e.descripcion}
-                        productPrice={`${e.precio}€`}
-                        productImg={productExampleImg}
-                        producto={e}
-                      />{" "}
-                    </div>
+                    <DashProductCard
+                      className={styles.productCard}
+                      productos={productos}
+                      key={e._id}
+                      productName={e.nombre}
+                      productDescription={e.descripcion}
+                      productPrice={`${e.precio}€`}
+                      productImg={productExampleImg}
+                      producto={e}
+                    />
                   );
-                })}
+                })
+              ) : areProductsLoading ? (
+                <div>
+                  <BeatLoader color="#09827e" size={20} />
+                </div>
+              ) : (
+                <h3>Tus productos aparecerán aqui</h3>
+              )}
             </div>
           </div>
         </div>
@@ -173,6 +182,7 @@ const DashBoard = () => {
         restaurante={restaurante}
         isBusinessModalOpen={isBusinessModalOpen}
         setIsBusinessModalOpen={setIsBusinessModalOpen}
+        setRestaurante={setRestaurante}
       />
     </>
   );

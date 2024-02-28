@@ -6,6 +6,7 @@ import { handleInitialRegistrationSubmit } from "../../utils/Usercrud";
 import styles from "../PerfilUsuario/styles.module.css";
 import { motion, AnimatePresence, easeOut } from "framer-motion";
 import useOnclickOutside from "react-cool-onclickoutside";
+import { BeatLoader } from "react-spinners";
 
 function UserRegisterModal({
   setLogged,
@@ -17,26 +18,30 @@ function UserRegisterModal({
   const { register, handleSubmit, setValue } = useForm();
   const [isChecked, setIsChecked] = useState(false);
   const [localUser, setLocalUser] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+
   const ref = useOnclickOutside(() => {
     setIsUserRegisterModalOpen(false);
   });
 
   const onSubmit = async (data) => {
+    setIsLoading(true);
     if (data.role === false) {
       data.role = "USER";
     } else {
       data.role;
     }
-    console.log(data);
+    
     try {
       await handleInitialRegistrationSubmit(data, setLocalUser, () => {
         if (typeof closeModal === "function") {
-          closeModal(); // Cerrar el modal solo si closeModal es una función
+          closeModal(); 
         }
         if (typeof changeModalState === "function") {
-          changeModalState(); // Cambiar el estado del modal solo si changeModalState es una función
+          changeModalState(); 
         }
         setLogged(true);
+        setIsLoading(false);
       });
     } catch (error) {
       console.error("Error en el registro inicial:", error);
@@ -101,7 +106,13 @@ function UserRegisterModal({
           </div>
         </div>
         <button className={styles.guardarCambios} type="submit">
-          Registrar
+          {!isLoading ? (
+            "Registrar"
+          ) : (
+            <div style={{ marginTop: "3px", marginRight: "5px" }}>
+              <BeatLoader color="#ffffff" size={5} />{" "}
+            </div>
+          )}
         </button>
 
         <p className={styles.loginLink}>
@@ -123,7 +134,3 @@ function UserRegisterModal({
 }
 
 export default UserRegisterModal;
-
-//TODO: implementar un checkbox para indicar si el usuario que se va a registrar es Restaurante
-// if checked add to submit form pre httpRequest role: "RESTAURANT"
-// if not checked submit normally

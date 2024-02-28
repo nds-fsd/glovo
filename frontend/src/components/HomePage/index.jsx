@@ -18,7 +18,7 @@ export default function HomePage({ location, searchTerm }) {
       try {
         const response = await api.get("/restaurantes");
         setRestaurantes(response.data);
-        console.log(response.data);
+        
       } catch (error) {
         console.error("Error al obtener los datos de los restaurantes:", error);
       }
@@ -57,10 +57,12 @@ export default function HomePage({ location, searchTerm }) {
               restaurantes={restaurantes.slice(0, 8)}
               gridName={"Restaurantes recomendados"}
             />
-            <RestaurantGrid
-              restaurantes={restaurantes.slice(8)}
-              gridName={"Otros restaurantes"}
-            />{" "}
+            {restaurantes && restaurantes.length !== 0 && (
+              <RestaurantGrid
+                restaurantes={restaurantes.slice(8)}
+                gridName={"Otros restaurantes"}
+              />
+            )}
           </>
         )}
       </div>

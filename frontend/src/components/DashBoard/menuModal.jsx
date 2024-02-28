@@ -8,14 +8,16 @@ import Modal from "react-modal";
 import { createProduct } from "../../utils/api";
 import { FileUploader } from "react-drag-drop-files";
 import exampleImg from "../../assets/icons/image-picture-svgrepo-com.svg";
-
+import axios from "axios";
 import useOnclickOutside from "react-cool-onclickoutside";
+import { BeatLoader } from "react-spinners";
 
 export default function ProductModal({
   isMenuModalOpen,
   setIsMenuModalOpen,
   restaurante,
 }) {
+  const [isLoading, setIsLoading] = useState(false);
   const [file, setFile] = useState();
   const [image, setImage] = useState();
   const ref = useOnclickOutside(() => {
@@ -46,18 +48,53 @@ export default function ProductModal({
 
   const { register, handleSubmit } = useForm();
   const onSubmit = async (data) => {
-    setIsMenuModalOpen(false);
-    const reqData = {
-      nombre: data.name,
-      descripcion: data.description,
-      precio: data.price,
-      categoria: data.category,
-      disponibilidad: true,
-      ingredientes: data.ingredients,
-      restaurante: restaurante._id,
-    };
-    createProduct(reqData);
+    setIsLoading(true);
+
+    if (file) {
+      const uploadImage = () => {
+        const formData = new FormData();
+        formData.append("file", file);
+        formData.append("upload_preset", "ml_default");
+
+        axios
+          .post(
+            "https://api.cloudinary.com/v1_1/dakbfqco5/image/upload",
+            formData
+          )
+          .then((res) => {
+            const reqData = {
+              nombre: data.name,
+              descripcion: data.description,
+              precio: data.price,
+              categoria: data.category,
+              disponibilidad: true,
+              ingredientes: data.ingredients,
+              img: res.data.url,
+              restaurante: restaurante._id,
+            };
+            createProduct(reqData);
+            setIsMenuModalOpen(false);
+            setIsLoading(false);
+          })
+          .catch((error) => {
+            console.error("Error uploading image:", error.response);
+          });
+      };
+      uploadImage();
+    } else {
+      const reqData = {
+        nombre: data.name,
+        descripcion: data.description,
+        precio: data.price,
+        categoria: data.category,
+        disponibilidad: true,
+        ingredientes: data.ingredients,
+        restaurante: restaurante._id,
+      };
+      createProduct(reqData);
+    }
   };
+
   return (
     <Modal
       isOpen={isMenuModalOpen}
@@ -132,15 +169,6 @@ export default function ProductModal({
                 required
               />
             </div>
-            <div className={styles.inputPictureContainer}>
-              <input
-                className={styles.firstInput}
-                {...register("img")}
-                type="price"
-                placeholder="Imagen"
-                required
-              />
-            </div>
             <FileUploader
               multiple={false}
               type={["jpeg", "png", "gif", "jpg"]}
@@ -156,7 +184,13 @@ export default function ProductModal({
             />
           </div>
           <button className={styles.guardarCambios} type="submit">
-            Agregar producto
+            {!isLoading ? (
+              "Guardar producto"
+            ) : (
+              <div style={{ marginTop: "3px", marginRight: "5px" }}>
+                <BeatLoader color="#ffffff" size={5} />{" "}
+              </div>
+            )}
           </button>
         </motion.form>
       </motion.div>

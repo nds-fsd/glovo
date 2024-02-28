@@ -22,7 +22,7 @@ app.use(orderRoutes);
 if (process.env.NODE_ENV !== "test") {
   connectDB().then(async (error) => {
     if (error) {
-      console.log(error);
+    
     }
   });
 }

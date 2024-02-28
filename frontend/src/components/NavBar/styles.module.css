@@ -194,7 +194,15 @@ button:active {
   }
 
   .searchBarContainer {
-    width: 60vw;
+    width: 40vw;
     left: 5%;
+  }
+
+  div.navBarButtons {
+    gap: 5px;
+  }
+
+  .rightContainer {
+    right: 14%;
   }
 }
