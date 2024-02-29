@@ -1,11 +1,17 @@
 import React from "react";
 import styles from "./styles.module.css";
+import { motion } from "framer-motion";
 
 export default function FAQPage() {
   return (
     <>
-      <div class={styles.faqContainer}>
-        <header>
+      <motion.div
+        initial={{ opacity: 0, translateY: -50 }}
+        animate={{ opacity: 1, translateY: 0 }}
+        transition={{ ease: "easeOut", duration: 0.3 }}
+        class={styles.faqContainer}
+      >
+        <header className={styles.header}>
           <h1>Preguntas frecuentes</h1>
         </header>
 
@@ -120,7 +126,7 @@ export default function FAQPage() {
             </p>
           </div>
         </div>
-      </div>
+      </motion.div>
     </>
   );
 }

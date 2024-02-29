@@ -2,12 +2,11 @@ import React, { useState } from "react";
 import styles from "../Footer/styles.module.css";
 import footerWaveSvg from "../../assets/images/footer-wave-desktop.svg";
 import logoImg from "../../assets/icons/logo.svg";
-import { useParams, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Formulario from "../formularios/formularios";
 
 export default function Footer({ logged, setLogged }) {
   const [formulariosIsOpen, setFormulariosIsOpen] = useState(false);
-  const [businessModalIsOpen, setBusinessModalIsOpen] = useState(false);
 
   const navigate = useNavigate();
 

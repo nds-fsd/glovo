@@ -1,18 +1,24 @@
 import React from "react";
 import styles from "./styles.module.css";
-import joelImg from "../../assets/images/joelimg.jpeg";
+import joelImg from "../../assets/images/joelimg.webp";
 import mailImg from "../../assets/images/mailicon.svg";
 import spotifyImg from "../../assets/images/Spotify_logo_without_text.svg";
 import linkedinImg from "../../assets/images/LinkedIn_icon_circle.svg";
 import instagramImg from "../../assets/images/Instagram_logo_2016.svg";
-import vincentImg from "../../assets/images/vincent.jpg";
-import zurabImg from "../../assets/images/zurab.jpg";
-import joseImg from "../../assets/images/jose.jpg";
+import vincentImg from "../../assets/images/vincent.webp";
+import zurabImg from "../../assets/images/zurab.webp";
+import joseImg from "../../assets/images/jose.webp";
+import { motion } from "framer-motion";
 
 export default function AboutUsPage() {
   return (
-    <div className={styles.teamContainer}>
-      <header>
+    <motion.div
+      initial={{ opacity: 0, translateY: -50 }}
+      animate={{ opacity: 1, translateY: 0 }}
+      transition={{ ease: "easeOut", duration: 0.3 }}
+      className={styles.teamContainer}
+    >
+      <header className={styles.header}>
         <h1 className={styles.title}>Nuestro equipo</h1>
       </header>
 
@@ -164,6 +170,6 @@ export default function AboutUsPage() {
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
