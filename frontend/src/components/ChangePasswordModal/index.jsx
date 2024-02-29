@@ -2,7 +2,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import Modal from "react-modal";
 import { motion, AnimatePresence } from "framer-motion";
-import styles from "./styles.module.css"; 
+import styles from "./styles.module.css";
 import useOnclickOutside from "react-cool-onclickoutside";
 
 function ChangePasswordModal({
@@ -50,7 +50,7 @@ function ChangePasswordModal({
           >
             <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
               <h2>Cambiar contraseña</h2>
-             
+
               <div className={styles.inputContainer}>
                 <div className={styles.formGroup}>
                   <input
@@ -65,7 +65,7 @@ function ChangePasswordModal({
                     <p>{errors.currentPassword.message}</p>
                   )}
                 </div>
-                
+
                 <div className={styles.formGroup}>
                   <input
                     placeholder="Nueva contraseña"
@@ -82,7 +82,7 @@ function ChangePasswordModal({
                   />
                   {errors.newPassword && <p>{errors.newPassword.message}</p>}
                 </div>
-                
+
                 <div className={styles.formGroup}>
                   <input
                     placeholder="Repetir nueva contraseña"
@@ -99,8 +99,6 @@ function ChangePasswordModal({
                   )}
                 </div>
               </div>
-             
-
               <button type="submit" className={styles.agregarTarjeta}>
                 Cambiar contraseña
               </button>

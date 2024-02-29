@@ -7,8 +7,8 @@ import HeroPage from "./components/HeroPage/index";
 import Formulario from "./components/formularios/formularios";
 import React, { useState, useEffect } from "react";
 import Footer from "../src/components/Footer";
-import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
-import { getUserToken, getUserSession } from "./utils/localStorage.utils";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { getUserSession } from "./utils/localStorage.utils";
 import { CartContext } from "./contexts/CartContext";
 import { OrderContext } from "./contexts/OrderContext";
 import DashBoard from "./components/DashBoard/dashBoard";
@@ -16,6 +16,8 @@ import ConfirmationPage from "./components/ConfirmationPage";
 import { UserContext } from "./contexts/UserContext";
 import LandbotChat from "./components/LandbotChat";
 import { RestaurantContext } from "./contexts/RestaurantContext";
+import FAQPage from "./components/FAQPage";
+import AboutUsPage from "./components/AboutUsPage";
 
 function App() {
   const [shoppingList, setShoppingList] = useState([]);
@@ -26,19 +28,14 @@ function App() {
   const [user, setLocalUser] = useState(null);
   const [logged, setLogged] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
-  
 
   useEffect(() => {
     const session = getUserSession();
     if (session && session.token) {
       setIsAuthenticated(true);
-      setUser(session.user); 
+      setUser(session.user);
     }
   }, []);
-
-  const handleLogin = async (credentials) => {
-    
-  };
 
   return (
     <div>
@@ -75,6 +72,8 @@ function App() {
                   ></Route>
                   <Route path="/formularios" element={<Formulario />} />
                   <Route path="/dashboard/" element={<DashBoard />} />
+                  <Route path="/faq/" element={<FAQPage />} />
+                  <Route path="/about/" element={<AboutUsPage />} />
                 </Routes>
                 <LandbotChat />
                 <Footer logged={logged} setLogged={setLogged} />

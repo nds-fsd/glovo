@@ -1,12 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useForm } from "react-hook-form";
 import { MdOutlineEmail, MdOutlinePassword } from "react-icons/md";
 import { RxPerson } from "react-icons/rx";
 import { handleInitialRegistrationSubmit } from "../../utils/Usercrud";
 import styles from "../PerfilUsuario/styles.module.css";
-import { motion, AnimatePresence, easeOut } from "framer-motion";
+import { motion } from "framer-motion";
 import useOnclickOutside from "react-cool-onclickoutside";
 import { BeatLoader } from "react-spinners";
+import { UserContext } from "../../contexts/UserContext";
 
 function UserRegisterModal({
   setLogged,
@@ -15,9 +16,8 @@ function UserRegisterModal({
   setLoginModalOpen,
   setIsUserRegisterModalOpen,
 }) {
-  const { register, handleSubmit, setValue } = useForm();
-  const [isChecked, setIsChecked] = useState(false);
-  const [localUser, setLocalUser] = useState(null);
+  const { register, handleSubmit } = useForm();
+  const { setLocalUser } = useContext(UserContext);
   const [isLoading, setIsLoading] = useState(false);
 
   const ref = useOnclickOutside(() => {
@@ -31,19 +31,20 @@ function UserRegisterModal({
     } else {
       data.role;
     }
-    
+
     try {
       await handleInitialRegistrationSubmit(data, setLocalUser, () => {
         if (typeof closeModal === "function") {
-          closeModal(); 
+          closeModal();
         }
         if (typeof changeModalState === "function") {
-          changeModalState(); 
+          changeModalState();
         }
         setLogged(true);
         setIsLoading(false);
       });
     } catch (error) {
+      setIsLoading(false);
       console.error("Error en el registro inicial:", error);
     }
   };

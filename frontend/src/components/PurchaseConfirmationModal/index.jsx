@@ -22,8 +22,6 @@ export default function PurchaseConfirmationModal({
   purchaseConfirmationModalIsOpen,
   productos,
   totalPrice,
-  location,
-  creditCard,
   transportPrice,
   restaurante,
 }) {
@@ -32,7 +30,6 @@ export default function PurchaseConfirmationModal({
   const [confirmationAnimation, setConfirmationAnimation] = useState(false);
   const [optionalAddress, setOptionalAddress] = useState();
   const [optionalCreditCard, setOptionalCreditCard] = useState();
-  const [errorModalOpen, setErrorModalOpen] = useState(true);
   const [isErrorModalOpen, setIsErrorModalOpen] = useState(false);
   const [error, setError] = useState();
   let { shoppingList, setShoppingList } = useContext(CartContext);
@@ -53,13 +50,11 @@ export default function PurchaseConfirmationModal({
 
   const postCreatedOrder = async (data) => {
     try {
-     
       const response = await postOrder(data);
-    
+
       if (response.status === 201) {
         setOrder(response.data.order);
       } else {
-       
       }
     } catch (error) {
       console.error("Error al crear tu pedido:", error);

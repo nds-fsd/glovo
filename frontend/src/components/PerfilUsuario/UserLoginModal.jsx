@@ -12,16 +12,14 @@ import { BeatLoader } from "react-spinners";
 
 function UserLoginModal({
   setLogged,
-  setUser,
-  closeModal,
-  changeModalState,
+
   loginModalOpen,
   setLoginModalOpen,
 }) {
   const [isLoading, setIsLoading] = useState(false);
 
   const { register, handleSubmit } = useForm();
-  const { user, setLocalUser } = useContext(UserContext);
+  const { setLocalUser } = useContext(UserContext);
   const navigate = useNavigate();
   const ref = useOnclickOutside(() => {
     setLoginModalOpen(false);
@@ -41,8 +39,10 @@ function UserLoginModal({
       } else {
         setLogged(false);
         setError("Error en tus credenciales");
+        setIsLoading(false);
       }
     } catch (error) {
+      setIsLoading(false);
       console.error("Error en el registro inicial:", error);
     }
   };

@@ -51,7 +51,7 @@ h4 {
 .footerLinks {
   display: flex;
   flex-direction: row;
-  gap: 80px;
+  gap: 10vw;
   flex-wrap: wrap;
 }
 
@@ -114,4 +114,17 @@ option {
   outline: none;
   cursor: pointer;
   font-weight: 400;
+}
+
+@media only screen and (max-width: 600px) {
+  .footerWaveImg {
+    translate: 0px 1px;
+    width: 102%;
+  }
+
+  .footerLinks {
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+  }
 }

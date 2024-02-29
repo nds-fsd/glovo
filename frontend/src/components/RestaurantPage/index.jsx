@@ -1,5 +1,4 @@
 import styles from "../RestaurantPage/styles.module.css";
-import RestaurantImg from "../../assets/images/95a18827bb983bf2ce6c1318b069f2b68be5b7fe30bde4975319731008e90dec.jpg";
 import likeIcon from "../../assets/icons/like-svgrepo-com.svg";
 import scooterIcon from "../../assets/icons/scooter-svgrepo-com (1).svg";
 import stopwatchIcon from "../../assets/icons/stopwatch-svgrepo-com.svg";
@@ -9,9 +8,9 @@ import productExampleImg from "../../assets/images/productexampleimg.avif";
 import { React, useState, useEffect, useContext } from "react";
 import { api } from "../../utils/api";
 import ShoppingCart from "../ShoppingCart";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { CartContext } from "../../contexts/CartContext";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { BeatLoader } from "react-spinners";
 
 export default function RestaurantPage({}) {
@@ -24,7 +23,6 @@ export default function RestaurantPage({}) {
   const { shoppingList, setShoppingList } = useContext(CartContext);
 
   const params = useParams();
-  const navigate = useNavigate();
 
   window.addEventListener("scroll", setFixedCart);
 

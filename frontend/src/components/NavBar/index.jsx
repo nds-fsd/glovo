@@ -9,7 +9,6 @@ import UserRegisterModal from "../PerfilUsuario/UserRegisterModal";
 import PerfilUsuario from "../PerfilUsuario/PerfilUsuario";
 import { useNavigate } from "react-router-dom";
 import UserLoginModal from "../PerfilUsuario/UserLoginModal";
-import Formulario from "../formularios/formularios";
 import { AnimatePresence, motion } from "framer-motion";
 import OrderHistory from "../PerfilUsuario/OrderHistory";
 import { UserContext } from "../../contexts/UserContext";
@@ -29,7 +28,7 @@ export default function NavBar({
   const [loginModalOpen, setLoginModalOpen] = useState(false);
   const [historyModalIsOpen, setHistoryModalIsOpen] = useState(false);
 
-  const { user, setLocalUser } = useContext(UserContext);
+  const { user } = useContext(UserContext);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -47,8 +46,6 @@ export default function NavBar({
   };
 
   if (logged === true) {
-   
-
     return (
       <>
         <motion.nav
@@ -113,7 +110,6 @@ export default function NavBar({
       </>
     );
   } else {
-   
     return (
       <>
         <motion.nav

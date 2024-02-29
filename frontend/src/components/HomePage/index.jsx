@@ -2,14 +2,13 @@ import styles from "../HomePage/styles.module.css";
 import BorderImg from "../../assets/images/curve-main--mobile.svg";
 import React from "react";
 import RestaurantGrid from "../RestaurantGrid";
-import NavBar from "../NavBar";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { useContext } from "react";
 import { UserContext } from "../../contexts/UserContext";
-import { react, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { api } from "../../utils/api";
 export default function HomePage({ location, searchTerm }) {
-  const { user, setLocalUser } = useContext(UserContext);
+  const { user } = useContext(UserContext);
 
   const [restaurantes, setRestaurantes] = useState([]);
 
@@ -18,7 +17,6 @@ export default function HomePage({ location, searchTerm }) {
       try {
         const response = await api.get("/restaurantes");
         setRestaurantes(response.data);
-        
       } catch (error) {
         console.error("Error al obtener los datos de los restaurantes:", error);
       }

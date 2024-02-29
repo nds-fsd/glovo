@@ -1,10 +1,8 @@
 import styles from "../ShoppingCart/styles.module.css";
 import shoppingCartBackground from "../../assets/images/astronaut-grey-scale.svg";
 import scooterIcon from "../../assets/icons/scooter-svgrepo-com (1).svg";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import PurchaseConfirmationModal from "../PurchaseConfirmationModal";
-import { CartContext } from "../../contexts/CartContext";
-import { useContext, useEffect } from "react";
 import crossIcon from "../../assets/icons/cross-circle-svgrepo-com.svg";
 import { useState } from "react";
 
@@ -16,22 +14,17 @@ export default function ShoppingCart({
   setShoppingList,
   fix,
 }) {
-
   const [purchaseConfirmationModalIsOpen, setPurchaseConfirmationModalIsOpen] =
     useState(false);
 
-  
-    const openModal = () => {
-      const token = localStorage.getItem("token");
-      if (!token) {
-        
-        window.dispatchEvent(new CustomEvent("open-login-modal"));
-      } else {
-    
-        setPurchaseConfirmationModalIsOpen(true);
-      }
-    };
-
+  const openModal = () => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      window.dispatchEvent(new CustomEvent("open-login-modal"));
+    } else {
+      setPurchaseConfirmationModalIsOpen(true);
+    }
+  };
 
   const ammountHandler = (e, operation) => {
     const ProductIndex = shoppingList.findIndex((o) => o.id === e.id);
@@ -48,7 +41,6 @@ export default function ShoppingCart({
     setShoppingList(updatedShoppingList);
   };
 
-
   const deleteCartItem = (e) => {
     const productIndex = shoppingList.findIndex((o) => o.id === e.id);
     const updatedShoppingList = [...shoppingList];
@@ -56,7 +48,6 @@ export default function ShoppingCart({
 
     setShoppingList(updatedShoppingList);
   };
-
 
   return (
     <div className={styles.shoppingCartContainer}>
@@ -135,10 +126,7 @@ export default function ShoppingCart({
                 <b> {restaurante.transporte}</b>
               </p>
             </div>
-            <button
-              onClick={openModal}
-              className={styles.buyButton}
-            >
+            <button onClick={openModal} className={styles.buyButton}>
               Comprar por {totalPrice}€
             </button>
           </div>
@@ -146,13 +134,13 @@ export default function ShoppingCart({
       </section>
 
       <PurchaseConfirmationModal
-       shoppingList={shoppingList}
-       purchaseConfirmationModalIsOpen={purchaseConfirmationModalIsOpen}
-       productos={productos}
-       setPurchaseConfirmationModalIsOpen={setPurchaseConfirmationModalIsOpen}
-       totalPrice={totalPrice}
-       transportPrice={restaurante.transporte}
-       restaurante={restaurante}
+        shoppingList={shoppingList}
+        purchaseConfirmationModalIsOpen={purchaseConfirmationModalIsOpen}
+        productos={productos}
+        setPurchaseConfirmationModalIsOpen={setPurchaseConfirmationModalIsOpen}
+        totalPrice={totalPrice}
+        transportPrice={restaurante.transporte}
+        restaurante={restaurante}
       />
     </div>
   );

@@ -2,12 +2,13 @@ import React, { useState } from "react";
 import styles from "../Footer/styles.module.css";
 import footerWaveSvg from "../../assets/images/footer-wave-desktop.svg";
 import logoImg from "../../assets/icons/logo.svg";
-import { useParams, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Formulario from "../formularios/formularios";
 
 export default function Footer({ logged, setLogged }) {
   const [formulariosIsOpen, setFormulariosIsOpen] = useState(false);
-  const [businessModalIsOpen, setBusinessModalIsOpen] = useState(false);
+
+  const navigate = useNavigate();
 
   const openFormularios = () => {
     document.body.scrollTop = 0;
@@ -27,36 +28,44 @@ export default function Footer({ logged, setLogged }) {
             <div className={styles.footerLinks}>
               <div className={styles.verticalLinks}>
                 <h4>Colabora con Gloton</h4>
-                <a href="">Carreras</a>
+
                 <p
                   className={styles.formularioButton}
                   onClick={openFormularios}
                 >
                   Gloton para socios
                 </p>
-                <a href="">Repartidores</a>
-                <p className={styles.businessModal}>Gloton Business</p>
               </div>
               <div className={styles.verticalLinks}>
                 <h4>Links de interés</h4>
-                <a href="">Acerca de nosotros</a>
-                <a href="">Preguntas frecuentes</a>
-                <a href="">Gloton Prime</a>
-                <a href="">Blog</a>
-                <a href="">Contacto</a>
-                <a href="">Seguridad</a>
+                <p
+                  className={styles.formularioButton}
+                  onClick={() => {
+                    navigate("/about");
+                  }}
+                  href=""
+                >
+                  Acerca de nosotros
+                </p>
+                <p
+                  className={styles.formularioButton}
+                  onClick={() => {
+                    navigate("/faq");
+                  }}
+                  href=""
+                >
+                  Preguntas frecuentes
+                </p>
               </div>
               <div className={styles.verticalLinks}>
                 <h4>Síguenos</h4>
-                <a href="">Facebook</a>
-                <a href="">Twitter</a>
-                <a href="">Instagram</a>
-              </div>
-              <div className={styles.verticalLinks}>
-                <a href="">CONDICIONES DE USO</a>
-                <a href="">POLÍTICA DE PRIVACIDAD</a>
-                <a href="">POLÍTICA DE COOKIES</a>
-                <a href="">CUMPLIMIENTO</a>
+                <a href="https://twitter.com/NuclioGloton">Twitter</a>
+                <a href="https://www.instagram.com/gloton_bcn/">
+                  Instagram
+                </a>{" "}
+                <a href="https://willowy-torte-8bd0aa.netlify.app/user/gloton">
+                  Meower
+                </a>
               </div>
             </div>
           </div>

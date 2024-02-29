@@ -1,13 +1,12 @@
 import styles from "./styles.module.css";
-import burguerImg from "../../assets/images/video-burger.png";
 import wavySvg from "../../assets/images/address-jumbotron-wave-desktop.svg";
 import { React } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import DirectionBar from "../DirectionBar";
-import burgerFront from "../../assets/images/segmentedBurguer/Burgerfront.png";
-import burgerMiddle from "../../assets/images/segmentedBurguer/Burgermiddle.png";
-import burgerMiddle2 from "../../assets/images/segmentedBurguer/Burgermiddle2.png";
-import burgerBack from "../../assets/images/segmentedBurguer/Burgerback.png";
+import burgerFront from "../../assets/images/segmentedBurguer/Burgerfront.webp";
+import burgerMiddle from "../../assets/images/segmentedBurguer/Burgermiddle.webp";
+import burgerMiddle2 from "../../assets/images/segmentedBurguer/Burgermiddle2.webp";
+import burgerBack from "../../assets/images/segmentedBurguer/Burgerback.webp";
 
 export default function HeroPage({ setLocation }) {
   return (

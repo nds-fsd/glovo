@@ -80,7 +80,6 @@ button.addToCart {
 }
 
 .mainContainer:hover {
-  /* transform: scale(1.1); */
   border: 2px solid var(--secondary-color);
   cursor: pointer;
 }

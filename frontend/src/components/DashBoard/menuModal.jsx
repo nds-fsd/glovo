@@ -1,8 +1,6 @@
-import React, { useState, useContext, useEffect } from "react";
-import { useNavigate } from "react-router";
+import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { MdOutlineEmail, MdOutlinePassword } from "react-icons/md";
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import styles from "../PerfilUsuario/styles.module.css";
 import Modal from "react-modal";
 import { createProduct } from "../../utils/api";

@@ -1,4 +1,3 @@
-import react from "react";
 import styles from "../RestautantCard/styles.module.css";
 import scooterIcon from "../../assets/icons/scooter-svgrepo-com (1).svg";
 import likeIcon from "../../assets/icons/like-svgrepo-com.svg";
@@ -6,10 +5,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import { motion } from "framer-motion";
 
 export default function RestaurantCard({
-  restaurantCity,
   restaurantName,
   restaurantCategory,
-  restaurantCardImg,
   opinionCount,
   likeRatio,
   offer,
