@@ -7,18 +7,17 @@ import useOnclickOutside from "react-cool-onclickoutside";
 import { api } from "../../utils/api.js";
 import axios from "axios";
 import { CartContext } from "../../contexts/CartContext.js";
-import { useNavigate, useParams } from "react-router";
+import { useNavigate } from "react-router";
 
 Modal.setAppElement("#root");
 
 function OrderHistory({ historyModalIsOpen, setHistoryModalIsOpen }) {
-  const { user, setLocalUser } = useContext(UserContext);
-  const { shoppingList, setShoppingList } = useContext(CartContext);
+  const { user } = useContext(UserContext);
+  const { setShoppingList } = useContext(CartContext);
   const [orders, setOrders] = useState([]);
   const [restaurants, setRestaurants] = useState([]);
   const API_BASE_URL = process.env.REACT_APP_BACKEND_URL;
   const navigate = useNavigate();
-  const params = useParams();
 
   useEffect(() => {
     const obtenerRestaurantes = async () => {

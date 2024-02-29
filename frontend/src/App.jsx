@@ -7,8 +7,8 @@ import HeroPage from "./components/HeroPage/index";
 import Formulario from "./components/formularios/formularios";
 import React, { useState, useEffect } from "react";
 import Footer from "../src/components/Footer";
-import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
-import { getUserToken, getUserSession } from "./utils/localStorage.utils";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { getUserSession } from "./utils/localStorage.utils";
 import { CartContext } from "./contexts/CartContext";
 import { OrderContext } from "./contexts/OrderContext";
 import DashBoard from "./components/DashBoard/dashBoard";
@@ -36,8 +36,6 @@ function App() {
       setUser(session.user);
     }
   }, []);
-
-  const handleLogin = async (credentials) => {};
 
   return (
     <div>

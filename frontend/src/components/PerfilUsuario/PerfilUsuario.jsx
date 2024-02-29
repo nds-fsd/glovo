@@ -2,7 +2,6 @@ import React, { useState, useEffect, useContext } from "react";
 import { useForm } from "react-hook-form";
 import Modal from "react-modal";
 import styles from "./styles.module.css";
-import Switch from "../PerfilUsuario/Switch.jsx";
 import { motion } from "framer-motion";
 import {
   getStorageObject,
@@ -39,7 +38,6 @@ function PerfilUsuario({
   const [cardModalIsOpen, setCardModalIsOpen] = useState(false);
   const [isChangePasswordModalOpen, setIsChangePasswordModalOpen] =
     useState(false);
-  
 
   const { register, handleSubmit, setValue, reset } = useForm();
   const [userInfo, setUserInfo] = useState("");
@@ -64,24 +62,19 @@ function PerfilUsuario({
 
   const handleSaveClick = async () => {
     try {
-      
       if (!user._id) {
         console.error("ID del usuario no está definido");
         return;
       }
 
-     
       const token = getStorageObject("token");
       if (!token) {
         console.error("No se encontró el token de autenticación");
         return;
       }
 
-      
       const updateData = { [editingField]: userInfo[editingField] };
-      
 
-    
       const updatedUser = await handleProfileUpdateSubmit(
         editingField,
         updateData,
@@ -89,21 +82,15 @@ function PerfilUsuario({
         token
       );
 
-      
-
       if (updatedUser) {
-      
-
         setLocalUser(updatedUser.updatedUser);
-        
+
         deleteStorageObject("user");
         setStorageObject("user", updatedUser.updatedUser);
       } else {
-       
         throw new Error("No se recibieron datos actualizados del usuario.");
       }
 
-     
       setIsEditing(false);
       setEditingField(null);
     } catch (error) {
@@ -120,14 +107,11 @@ function PerfilUsuario({
   };
 
   const handleChange = (e) => {
-   
     setUserInfo((prevUserInfo) => ({
       ...prevUserInfo,
       [editingField]: e.target.value,
     }));
   };
-
-  
 
   const renderEditableField = (field) => {
     if (isEditing && editingField === field) {
@@ -162,7 +146,6 @@ function PerfilUsuario({
 
   const handleSaveClickAddress = async (formattedAddress) => {
     try {
-      
       if (!user._id) {
         console.error("ID del usuario no está definido");
         return;
@@ -202,9 +185,7 @@ function PerfilUsuario({
   };
 
   const handleSaveClickCard = async (cardObject) => {
-   
     try {
-     
       if (!user._id) {
         console.error("ID del usuario no está definido");
         return;
@@ -263,9 +244,7 @@ function PerfilUsuario({
       await handlePasswordChangeSubmit(data, user, () =>
         setIsChangePasswordModalOpen(false)
       );
-    
     } catch (error) {
-      
       console.error("Error al cambiar la contraseña:", error);
     }
   };
@@ -418,7 +397,7 @@ function PerfilUsuario({
       <ChangePasswordModal
         isChangePasswordModalOpen={isChangePasswordModalOpen}
         closeChangePasswordModal={() => setIsChangePasswordModalOpen(false)}
-        handleSubmitChangePassword={handlePasswordChange} 
+        handleSubmitChangePassword={handlePasswordChange}
       />
     </>
   );

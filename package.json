@@ -19,8 +19,6 @@
     "turbo": "^1.10.16"
   },
   "dependencies": {
-    "@cloudinary/react": "^1.13.0",
-    "@cloudinary/url-gen": "^1.18.0",
     "@vis.gl/react-google-maps": "^0.5.0",
     "axios": "^1.6.2",
     "bcrypt": "^5.1.1",

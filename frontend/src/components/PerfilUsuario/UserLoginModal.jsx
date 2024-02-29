@@ -12,9 +12,7 @@ import { BeatLoader } from "react-spinners";
 
 function UserLoginModal({
   setLogged,
-  setUser,
-  closeModal,
-  changeModalState,
+
   loginModalOpen,
   setLoginModalOpen,
 }) {

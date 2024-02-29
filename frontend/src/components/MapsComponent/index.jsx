@@ -1,10 +1,7 @@
 import { APIProvider, Map, Marker } from "@vis.gl/react-google-maps";
-import React, { useRef, useState } from "react";
 
 function MapsComponent({ coordinates }) {
   const position = coordinates;
-  const inputRef = useRef(null);
-  const [inputValue, setInputValue] = useState("");
 
   return (
     <>

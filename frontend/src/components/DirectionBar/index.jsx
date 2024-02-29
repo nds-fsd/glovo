@@ -17,10 +17,6 @@ export default function DirectionBar({ setLocation }) {
 
   const navigate = useNavigate();
 
-  const onSubmit = (data) => {
-    setLocation(data.location);
-    navigate("/restaurants");
-  };
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   useEffect(() => {
     const handleResize = () => {
@@ -152,14 +148,7 @@ export default function DirectionBar({ setLocation }) {
                       alt=""
                     />
                   </div>
-                  <motion.p
-                    // key="button1"
-                    // initial={{ width: 0 }}
-                    // animate={{ width: "110px" }}
-                    // exit={{ width: 0 }}
-                    // transition={{ ease: "easeOut", duration: 0.3 }}
-                    className={styles.useCurrentLocationText}
-                  >
+                  <motion.p className={styles.useCurrentLocationText}>
                     Usar la ubicación actual
                   </motion.p>
                 </button>

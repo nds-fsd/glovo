@@ -1,5 +1,4 @@
 import styles from "./styles.module.css";
-import burguerImg from "../../assets/images/video-burger.png";
 import wavySvg from "../../assets/images/address-jumbotron-wave-desktop.svg";
 import { React } from "react";
 import { motion, AnimatePresence } from "framer-motion";

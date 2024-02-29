@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import { useForm } from "react-hook-form";
 import { MdOutlineEmail, MdOutlinePassword } from "react-icons/md";
 import { AnimatePresence, motion } from "framer-motion";
@@ -16,6 +16,7 @@ export function BusinessModal({ businessModalIsOpen, setBusinessModalIsOpen }) {
   const { register, handleSubmit } = useForm();
   const { restaurant, setRestaurant } = useContext(RestaurantContext);
   const [error, setError] = useState(null);
+
   const ref = useOnclickOutside(() => {
     setBusinessModalIsOpen(false);
   });

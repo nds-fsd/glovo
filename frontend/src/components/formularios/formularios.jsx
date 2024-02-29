@@ -1,18 +1,14 @@
 import styles from "./styles.module.css";
-import axios from "axios";
-import { useForm, useWatch } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { emailValidator, phoneValidator, validateCity } from "./validators";
-import { useEffect, useState, useContext } from "react";
+import { useState, useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { api } from "../../utils/api";
 import Modal from "react-modal";
 import useOnclickOutside from "react-cool-onclickoutside";
 import { UserContext } from "../../contexts/UserContext";
 import { handleInitialRegistrationSubmit } from "../../utils/Usercrud";
-import {
-  deleteStorageObject,
-  setStorageObject,
-} from "../../utils/localStorage.utils.js";
+import { deleteStorageObject } from "../../utils/localStorage.utils.js";
 import { motion, AnimatePresence } from "framer-motion";
 import { BeatLoader } from "react-spinners";
 
@@ -22,10 +18,9 @@ export const Formulario = ({
   logged,
   setLogged,
 }) => {
-  const params = useParams();
   const [isLoading, setIsLoading] = useState(false);
 
-  const { user, setLocalUser } = useContext(UserContext);
+  const { setLocalUser } = useContext(UserContext);
 
   const {
     register,
@@ -250,9 +245,7 @@ export const Formulario = ({
                       className={styles.codigoPromocionalInput}
                       type="text"
                       placeholder="Codigo Promocional"
-                      {...register("discountCode", {
-                        //! validate : promoCode debemos añadir en futuro ...
-                      })}
+                      {...register("discountCode", {})}
                     />
                     <button className={styles.aplicarbtn}>Aplicar</button>
                   </div>

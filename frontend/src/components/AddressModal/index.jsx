@@ -11,13 +11,13 @@ export default function AddressModal({
   addressModalIsOpen,
   closeAddressModal,
   handleSaveClickAddress,
-  changeModalState,
   optional,
 }) {
   const ref = useOnclickOutside(() => {
     setCoordinates("");
     closeAddressModal();
   });
+
   const { register, handleSubmit, setValue: setFormValue } = useForm();
   const [coordinates, setCoordinates] = useState("");
 

@@ -36,7 +36,6 @@ export default function Footer({ logged, setLogged }) {
                 >
                   Gloton para socios
                 </p>
-                <a href="">Repartidores</a>
               </div>
               <div className={styles.verticalLinks}>
                 <h4>Links de interés</h4>
