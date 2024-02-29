@@ -601,4 +601,8 @@ div[class^="_profile_"]::-webkit-scrollbar {
     width: 90%;
     right: 6px;
   }
+
+  .orderListContainer {
+    gap: 10px;
+  }
 }
