@@ -9,6 +9,8 @@ export default function Footer({ logged, setLogged }) {
   const [formulariosIsOpen, setFormulariosIsOpen] = useState(false);
   const [businessModalIsOpen, setBusinessModalIsOpen] = useState(false);
 
+  const navigate = useNavigate();
+
   const openFormularios = () => {
     document.body.scrollTop = 0;
     document.documentElement.scrollTop = 0;
@@ -38,14 +40,30 @@ export default function Footer({ logged, setLogged }) {
               </div>
               <div className={styles.verticalLinks}>
                 <h4>Links de interés</h4>
-                <a href="">Acerca de nosotros</a>
-                <a href="">Preguntas frecuentes</a>
+                <p
+                  className={styles.formularioButton}
+                  onClick={() => {
+                    navigate("/about");
+                  }}
+                  href=""
+                >
+                  Acerca de nosotros
+                </p>
+                <p
+                  className={styles.formularioButton}
+                  onClick={() => {
+                    navigate("/faq");
+                  }}
+                  href=""
+                >
+                  Preguntas frecuentes
+                </p>
               </div>
               <div className={styles.verticalLinks}>
                 <h4>Síguenos</h4>
-                <a href="">Facebook</a>
-                <a href="">Twitter</a>
-                <a href="">Instagram</a>
+
+                <a href="https://twitter.com/NuclioGloton">Twitter</a>
+                <a href="https://www.instagram.com/gloton_bcn/">Instagram</a>
               </div>
             </div>
           </div>
