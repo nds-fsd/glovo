@@ -548,6 +548,12 @@ div[class^="_profile_"]::-webkit-scrollbar {
   display: none;
 }
 
+.orderContainer > h5 {
+  max-width: 160px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .owner {
   display: grid;
   grid-template-columns: 1fr 15fr;
