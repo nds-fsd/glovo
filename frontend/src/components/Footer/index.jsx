@@ -64,7 +64,6 @@ export default function Footer({ logged, setLogged }) {
                 <a href="https://www.instagram.com/gloton_bcn/">
                   Instagram
                 </a>{" "}
-                <a href="https://www.instagram.com/gloton_bcn/">Instagram</a>
                 <a href="https://willowy-torte-8bd0aa.netlify.app/user/gloton">
                   Meower
                 </a>
