@@ -261,19 +261,22 @@ b {
 
 @media only screen and (max-width: 500px) {
   .shoppingCartContainer {
+    display: flex;
     padding-top: 40px;
     align-items: center;
     justify-content: center;
-    width: 100%;
+    width: 101%;
+    padding: 22px 0;
   }
 
   .shoppingCartFixed {
-    width: 90%;
+    position: relative;
+    width: 89%;
   }
 
   .shoppingCart {
     position: relative;
-    width: 90%;
+    width: 89%;
   }
 
   .shoppingCartBackground {

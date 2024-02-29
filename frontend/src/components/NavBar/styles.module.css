@@ -24,7 +24,7 @@
   align-items: center;
   justify-content: center;
   height: 100%;
-  width: 30vw;
+  width: calc(100% - 550px);
   position: absolute;
 }
 
@@ -194,15 +194,19 @@ button:active {
   }
 
   .searchBarContainer {
-    width: 40vw;
+    width: calc(100% - 260px);
     left: 5%;
   }
 
   div.navBarButtons {
-    gap: 5px;
+    gap: 12px;
   }
 
   .rightContainer {
     right: 14%;
+  }
+
+  .getStartedButton {
+    margin-right: 60px;
   }
 }

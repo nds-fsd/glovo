@@ -142,6 +142,10 @@ h2 {
     flex-direction: column;
   }
 
+  address {
+    padding-left: 20px;
+  }
+
   main {
     flex-direction: column;
     justify-content: center;

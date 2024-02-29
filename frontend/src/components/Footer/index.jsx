@@ -27,7 +27,7 @@ export default function Footer({ logged, setLogged }) {
             <div className={styles.footerLinks}>
               <div className={styles.verticalLinks}>
                 <h4>Colabora con Gloton</h4>
-                <a href="">Carreras</a>
+
                 <p
                   className={styles.formularioButton}
                   onClick={openFormularios}
@@ -35,28 +35,17 @@ export default function Footer({ logged, setLogged }) {
                   Gloton para socios
                 </p>
                 <a href="">Repartidores</a>
-                <p className={styles.businessModal}>Gloton Business</p>
               </div>
               <div className={styles.verticalLinks}>
                 <h4>Links de interés</h4>
                 <a href="">Acerca de nosotros</a>
                 <a href="">Preguntas frecuentes</a>
-                <a href="">Gloton Prime</a>
-                <a href="">Blog</a>
-                <a href="">Contacto</a>
-                <a href="">Seguridad</a>
               </div>
               <div className={styles.verticalLinks}>
                 <h4>Síguenos</h4>
                 <a href="">Facebook</a>
                 <a href="">Twitter</a>
                 <a href="">Instagram</a>
-              </div>
-              <div className={styles.verticalLinks}>
-                <a href="">CONDICIONES DE USO</a>
-                <a href="">POLÍTICA DE PRIVACIDAD</a>
-                <a href="">POLÍTICA DE COOKIES</a>
-                <a href="">CUMPLIMIENTO</a>
               </div>
             </div>
           </div>

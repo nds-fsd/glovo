@@ -31,7 +31,7 @@
   background-color: var(--primary-color);
   height: 30%;
   min-height: fit-content;
-  padding: 60px;
+  padding: 60px 0;
   display: flex;
   flex-direction: column;
   align-items: center;
