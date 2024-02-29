@@ -533,18 +533,14 @@ div[class^="_profile_"]::-webkit-scrollbar {
   top: 68px;
   gap: 10px;
 
-  overflow: scroll;
-  width: 400px;
+  overflow-y: auto;
+  width: 390px;
   height: fit-content;
   max-height: 73%;
-  justify-content: center;
-  display: flex;
-  flex-direction: column;
-  padding-top: 45px;
 }
 
 .historyContainer > h2 {
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 }
 
 .historyContainer::-webkit-scrollbar {
@@ -558,14 +554,6 @@ div[class^="_profile_"]::-webkit-scrollbar {
   align-items: center;
 }
 
-.orderMapContainer {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  align-items: center;
-  justify-content: center;
-}
-
 .availability {
   display: flex;
   align-items: center;
@@ -574,7 +562,7 @@ div[class^="_profile_"]::-webkit-scrollbar {
 .orderListContainer {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 20px;
   align-items: center;
   justify-content: center;
 }

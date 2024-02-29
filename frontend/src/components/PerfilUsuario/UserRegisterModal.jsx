@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useForm } from "react-hook-form";
 import { MdOutlineEmail, MdOutlinePassword } from "react-icons/md";
 import { RxPerson } from "react-icons/rx";
@@ -7,6 +7,7 @@ import styles from "../PerfilUsuario/styles.module.css";
 import { motion } from "framer-motion";
 import useOnclickOutside from "react-cool-onclickoutside";
 import { BeatLoader } from "react-spinners";
+import { UserContext } from "../../contexts/UserContext";
 
 function UserRegisterModal({
   setLogged,
@@ -15,8 +16,8 @@ function UserRegisterModal({
   setLoginModalOpen,
   setIsUserRegisterModalOpen,
 }) {
-  const { register, handleSubmit, setValue } = useForm();
-
+  const { register, handleSubmit } = useForm();
+  const { setLocalUser } = useContext(UserContext);
   const [isLoading, setIsLoading] = useState(false);
 
   const ref = useOnclickOutside(() => {
@@ -43,6 +44,7 @@ function UserRegisterModal({
         setIsLoading(false);
       });
     } catch (error) {
+      setIsLoading(false);
       console.error("Error en el registro inicial:", error);
     }
   };
