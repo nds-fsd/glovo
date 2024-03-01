@@ -96,7 +96,9 @@ MongoDB es la base de datos que utiliza Glotón para almacenar toda la informaci
 Windows y Mac
 Descargar MongoDB: Visita la página de descargas de MongoDB y selecciona la versión que corresponda a tu sistema operativo. Descarga el instalador.
 
-### Instalar MongoDB: Ejecuta el instalador y sigue las instrucciones. En Windows, el instalador te guiará a través del proceso de instalación. En Mac, podrías necesitar mover MongoDB a tu carpeta de aplicaciones.
+### Instalar MongoDB: 
+
+Ejecuta el instalador y sigue las instrucciones. En Windows, el instalador te guiará a través del proceso de instalación. En Mac, podrías necesitar mover MongoDB a tu carpeta de aplicaciones.
 
 Ejecutar MongoDB: La forma de iniciar MongoDB puede variar dependiendo de tu sistema operativo.
 
