@@ -3,7 +3,6 @@ const User = require("../schema/usersSchema");
 const bcrypt = require("bcryptjs");
 const { encryptValue } = require("../utils");
 
-
 exports.createRestaurante = async (req, res) => {
   const idUser = req.params.idUser;
   try {
@@ -16,7 +15,7 @@ exports.createRestaurante = async (req, res) => {
       res.status(400).json({ message: "Provide email, password" });
       return;
     }
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
     if (!emailRegex.test(email)) {
       res.status(400).json({ message: "Provide a valid email address." });
       return;
