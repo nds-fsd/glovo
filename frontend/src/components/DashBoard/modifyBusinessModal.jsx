@@ -110,7 +110,7 @@ export default function ModifyBusinessModal({
           className={styles.registerForm}
           ref={ref}
         >
-          <h2 className={styles.hola}>Modifica tu producto</h2>
+          <h2 className={styles.hola}>Modifica tu negocio</h2>
           {restaurante && (
             <div className={styles.inputContainer}>
               <div className={styles.inputPictureContainer}>
