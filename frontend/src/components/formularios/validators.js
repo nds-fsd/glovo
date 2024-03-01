@@ -1,15 +1,17 @@
-
 export const emailValidator = (email) => {
   const regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
   return regex.test(email) || "Invalid email format";
 };
-
 
 export const phoneValidator = (phone) => {
   const regex = /^[0-9]{9}$/;
   return regex.test(phone) || "Invalid phone number format";
 };
 
+export const passwordValidator = (password) => {
+  const regex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/;
+  return regex.test(password) || "Invalid password";
+};
 
 const spanishCities = [
   "Madrid",
@@ -28,13 +30,17 @@ const venezuelanCities = [
   "Maracay",
 ];
 
-
 export const validateCity = (city) => {
   if (spanishCities.includes(city)) return true;
   if (frenchCities.includes(city)) return true;
   if (georgianCities.includes(city)) return true;
   if (venezuelanCities.includes(city)) return true;
-  return regex.test(phone) || "Invalid city. Please select a valid city.";
+  return "Invalid city. Please select a valid city.";
 };
 
-export default { emailValidator, validateCity, phoneValidator };
+export default {
+  emailValidator,
+  validateCity,
+  phoneValidator,
+  passwordValidator,
+};

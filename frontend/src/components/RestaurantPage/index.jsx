@@ -37,13 +37,13 @@ export default function RestaurantPage({}) {
       try {
         const response = await api.get("/restaurant/" + params.restaurantId);
         setRestaurante(response.data);
-        setIsLoadingProducts(false);
       } catch (error) {
         console.error("Error al obtener los datos de los productos:", error);
       }
     };
 
     const obtenerProductosDelRestaurante = async () => {
+      // setIsLoadingProducts(true);
       try {
         const response = await api.get(
           "/restaurantes/" + params.restaurantId + "/products"
@@ -146,7 +146,8 @@ export default function RestaurantPage({}) {
                 </section>
                 <img src="" alt="" />
                 <div id="cartContainer" className={styles.productGrid}>
-                  {productos && isLoadingProducts !== 0 ? (
+                  {!isLoadingProducts ? (
+                    productos &&
                     productos.map((e) => {
                       return (
                         <ProductCard

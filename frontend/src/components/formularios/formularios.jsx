@@ -1,6 +1,11 @@
 import styles from "./styles.module.css";
 import { useForm } from "react-hook-form";
-import { emailValidator, phoneValidator, validateCity } from "./validators";
+import {
+  emailValidator,
+  passwordValidator,
+  phoneValidator,
+  validateCity,
+} from "./validators";
 import { useState, useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { api } from "../../utils/api";
@@ -28,7 +33,9 @@ export const Formulario = ({
     watch,
     handleSubmit,
     setValue,
-  } = useForm();
+  } = useForm({
+    mode: "onChange",
+  });
 
   const ref = useOnclickOutside(() => {
     setFormulariosIsOpen(false);
@@ -157,7 +164,7 @@ export const Formulario = ({
                     validate: validateCity,
                   })}
                 />
-                {errors["ciudad"] && <p>{errors["city"].message}</p>}
+                {errors["city"] && <p>{errors["city"].message}</p>}
               </div>
               <div>
                 <label className={styles.negocio}></label>
@@ -199,8 +206,11 @@ export const Formulario = ({
                 <input
                   type="password"
                   placeholder="Contraseña"
-                  {...register("password")}
+                  {...register("password", {
+                    validate: passwordValidator,
+                  })}
                 />
+                {errors["password"] && <p>{errors["password"].message}</p>}
               </div>
               <div>
                 <label className={styles.telefono}></label>
