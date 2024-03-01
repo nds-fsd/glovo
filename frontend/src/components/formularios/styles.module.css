@@ -114,6 +114,7 @@ h2 {
 .individualOption {
   background-color: var(--secondary-color);
   text-align: center;
+  width: 100px;
 }
 
 .modalOverlay {

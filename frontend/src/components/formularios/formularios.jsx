@@ -224,24 +224,20 @@ export const Formulario = ({
                 {errors["phone"] && <p>{errors["phone"].message}</p>}
               </div>
               <label></label>
-              <select className={styles.options} {...register("category")}>
+              <select
+                className={styles.options}
+                {...register("category", {
+                  required: "Debe seleccionar una categoría",
+                })}
+              >
                 <option className={styles.individualOption} value="category">
                   Tipo de establecimiento
                 </option>
                 <option className={styles.individualOption} value="restaurante">
-                  Restaurante (cafeteria, brunch y panaderia, helados, zumos y
-                  smoothies...)
-                </option>
-                <option className={styles.individualOption} value="farmacia">
-                  Farmacia
-                </option>
-                <option className={styles.individualOption} value="tienda">
-                  Tienda (regalos, belleza, electronica, tienda de mascotas...)
-                </option>
-                <option className={styles.individualOption} value="lofisteria">
-                  Floristeria
+                  Restaurante
                 </option>
               </select>
+              {errors.category && <p>{errors.category.message}</p>}
               <div className={styles.bottomContainer}>
                 <div className={styles.codigo}>
                   <input type="checkbox" {...register("discountCode")} />
@@ -278,8 +274,8 @@ export const Formulario = ({
                   <label className={styles.bottomLabels}>
                     Acepto la politica de privacidad
                   </label>
-                  {errors.privacidad && <p>{errors.privacidad.message}</p>}
                 </div>
+                {errors.privacy && <p>{errors.privacy.message}</p>}
               </div>
               <div className={styles.submit}>
                 <button
