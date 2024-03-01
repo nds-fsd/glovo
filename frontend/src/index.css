@@ -147,3 +147,12 @@ table {
 body {
   height: 100vh;
 }
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active,
+input:-internal-autofill-selected,
+input:-internal-autofill-previewed {
+  transition: background-color 5000s;
+}
