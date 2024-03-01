@@ -90,6 +90,8 @@ export default function ProductModal({
         restaurante: restaurante._id,
       };
       createProduct(reqData);
+      setIsMenuModalOpen(false);
+      setIsLoading(false);
     }
   };
 
