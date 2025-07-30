@@ -8,6 +8,7 @@ const BASE_URL = process.env.REACT_APP_BACKEND_URL;
 
 export const api = axios.create({
   baseURL: BASE_URL,
+  timeout: 10000, // 10 seconds timeout
   headers: {
     "Content-Type": "application/json",
   },
@@ -30,11 +31,10 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
-
 export const login = async (credentials) => {
   try {
     const response = await api.post("/login", credentials);
-  
+
     setUserSession({ token: response.data.token, user: response.data.user });
     return response.data;
   } catch (error) {
@@ -43,13 +43,12 @@ export const login = async (credentials) => {
   }
 };
 
-
 export const register = async (userData) => {
   try {
     const response = await api.post("/register", userData);
     setStorageObject("token", response.data.token);
     setStorageObject("user", response.data.user);
-    
+
     return response.data;
   } catch (error) {
     console.error("Error durante el registro:", error);
@@ -64,7 +63,6 @@ export const objectToQueryString = (obj) => {
 
   return queryString;
 };
-
 
 export const createRestaurant = async (restaurantData) => {
   try {

@@ -1,9 +1,5 @@
-import usePlacesAutocomplete, {
-  getGeocode,
-  getLatLng,
-} from "use-places-autocomplete";
-import { AnimatePresence, motion } from "framer-motion";
 import { useState, useEffect } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import styles from "../HeroPage/styles.module.css";
 import flagIcon from "../../assets/icons/flag-svgrepo-com.svg";
 import compassIcon from "../../assets/icons/location-svgrepo-com.svg";
@@ -12,33 +8,42 @@ import { useForm } from "react-hook-form";
 import { BeatLoader } from "react-spinners";
 
 export default function DirectionBar({ setLocation }) {
-  const { register, handleSubmit } = useForm();
+  const { register } = useForm();
   const [isLocationLoading, setIsLocationLoading] = useState(false);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [value, setValue] = useState("");
+  const [suggestions, setSuggestions] = useState([]);
+  const [ready, setReady] = useState(true);
 
   const navigate = useNavigate();
 
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   useEffect(() => {
-    const handleResize = () => {
-      setWindowWidth(window.innerWidth);
-    };
+    const handleResize = () => setWindowWidth(window.innerWidth);
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const {
-    ready,
-    value,
-    suggestions: { status, data },
-    setValue,
-    clearSuggestions,
-  } = usePlacesAutocomplete({
-    callbackName: "YOUR_CALLBACK_NAME",
-    requestOptions: {
-      componentRestrictions: { country: "es" },
-    },
-    debounce: 300,
-  });
+  // Fetch suggestions from Places AutocompleteSuggestion API
+  useEffect(() => {
+    if (!value) {
+      setSuggestions([]);
+      return;
+    }
+    const fetchSuggestions = async () => {
+      try {
+        const response = await fetch(
+          `http://localhost:3001/api/autocomplete?input=${encodeURIComponent(
+            value
+          )}`
+        );
+        const data = await response.json();
+        setSuggestions(data.suggestions || []);
+      } catch (error) {
+        console.error("Error fetching suggestions:", error);
+      }
+    };
+    fetchSuggestions();
+  }, [value]);
 
   const handleInput = (e) => {
     setValue(e.target.value);
@@ -46,73 +51,71 @@ export default function DirectionBar({ setLocation }) {
 
   const findMyLocation = () => {
     setIsLocationLoading(true);
-    const statusLocation = document.querySelector(".status");
-    const success = (position) => {
-      const lat = position.coords.latitude;
-      const lng = position.coords.longitude;
-      const geolocationUrl = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}
-          &location_type=ROOFTOP&result_type=street_address&key=${
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const lat = position.coords.latitude;
+        const lng = position.coords.longitude;
+        fetch(
+          `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&location_type=ROOFTOP&result_type=street_address&key=${
             import.meta.env.VITE_GOOGLE_API_KEY
-          }`;
-      fetch(geolocationUrl)
-        .then((res) => res.json())
-        .then((data) => {
-          setIsLocationLoading(false);
-          const addressComponents = data.results[0].address_components;
-
-          const formattedAdress =
-            addressComponents[1].short_name +
-            ", " +
-            addressComponents[2].short_name +
-            ", " +
-            addressComponents[3].long_name +
-            ", " +
-            addressComponents[5].long_name;
-
-          setValue(formattedAdress);
-        });
-    };
-    const error = () => {
-      console.error("Hubo un error al localizar su dispositivo");
-    };
-    navigator.geolocation.getCurrentPosition(success, error);
+          }`
+        )
+          .then((res) => res.json())
+          .then((data) => {
+            setIsLocationLoading(false);
+            if (data.results && data.results.length > 0) {
+              setValue(data.results[0].formatted_address);
+            } else {
+              setValue("");
+            }
+          });
+      },
+      () => {
+        setIsLocationLoading(false);
+        console.error("Hubo un error al localizar su dispositivo");
+      }
+    );
   };
 
-  const handleSelect =
-    ({ description }) =>
-    () => {
-      setValue(description, false);
-      clearSuggestions();
-      getGeocode({ address: description }).then((results) => {
-        const { lat, lng } = getLatLng(results[0]);
-      });
-      setLocation(description, false);
-      setTimeout(() => {
-        navigate("/restaurants");
-      }, 500);
-    };
+  const handleSelect = (suggestion) => {
+    const fullText = suggestion.placePrediction?.text?.text;
 
-  const renderSuggestions = () =>
-    data.map((suggestion) => {
-      const {
-        place_id,
-        structured_formatting: { main_text, secondary_text },
-      } = suggestion;
+    if (!fullText) {
+      setValue("Ubicación desconocida");
+      return;
+    }
+
+    setValue(fullText);
+    setSuggestions([]);
+    setLocation(fullText, false);
+
+    setTimeout(() => {
+      navigate("/restaurants");
+    }, 500);
+  };
+
+  const renderSuggestions = () => {
+    return suggestions.map((suggestion, index) => {
+      const place = suggestion.placePrediction;
+      const mainText = place?.structuredFormat?.mainText?.text;
+      const fullText = place?.text?.text;
+
+      // Si no hay texto, no renderizar nada
+      if (!fullText) return null;
 
       return (
-        <motion.li
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ ease: "easeOut", duration: 0.8 }}
-          className={styles.individualPlace}
-          key={place_id}
-          onClick={handleSelect(suggestion)}
+        <div
+          key={index}
+          className="suggestion"
+          onClick={() => handleSelect(suggestion)}
         >
-          <strong>{main_text}</strong> <small>{secondary_text}</small>
-        </motion.li>
+          <strong>{mainText || "Sin nombre"}</strong>
+          <div>{fullText}</div>
+        </div>
       );
     });
+  };
+
   return (
     <>
       <motion.div className={styles.textContainer}>
@@ -173,7 +176,7 @@ export default function DirectionBar({ setLocation }) {
             </div>
           )}
         </motion.div>
-        {status === "OK" && (
+        {suggestions.length > 0 && (
           <ul className={styles.listContainer}>{renderSuggestions()}</ul>
         )}
       </motion.div>

@@ -5,12 +5,14 @@ const app = express();
 const orderRouter = require("./router/UserRoutes");
 
 const restauranteRoutes = require("../src/router/restauranteRoutes");
+const placesRoutes = require("./router/PlacesRoutes");
 const productRoutes = require("./router/productRoutes");
 const userRoutes = require("./router/UserRoutes");
 const authRoutes = require("./router/Auth");
 const orderRoutes = require("./router/orderRoutes");
 
 app.use(cors());
+app.use("/api", placesRoutes);
 app.use(express.json());
 app.use(restauranteRoutes);
 app.use(productRoutes);

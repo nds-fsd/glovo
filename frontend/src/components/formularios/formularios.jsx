@@ -54,7 +54,7 @@ export const Formulario = ({
   };
 
   const onSubmit = async (data) => {
-    setIsLoading();
+    setIsLoading(true);
     closeUserSession();
 
     const userData = {
@@ -70,19 +70,19 @@ export const Formulario = ({
       (newUser) => {
         setLocalUser(newUser);
         postRestaurantData(newUser._id, data);
+        setLogged(true);
       },
       () => {
-        if (typeof closeModal === "function") {
-          closeModal();
-        }
-        if (typeof changeModalState === "function") {
-          changeModalState();
-        }
+        // if (typeof closeModal === "function") {
+        //   closeModal();
+        // }
+        // if (typeof changeModalState === "function") {
+        //   changeModalState();
+        // }
       }
     ).catch((error) => {
       console.error("Error en el registro inicial:", error);
     });
-    setLogged(true);
   };
 
   const postRestaurantData = async (userId, formData) => {
@@ -95,10 +95,10 @@ export const Formulario = ({
           "Content-Type": "application/json",
         },
       });
-
       console.log("Respuesta del API", response.data);
     } catch (error) {
       console.error("Error:", error);
+      setSubmitError("Error al guardar restaurante."); // <-- Add this
     } finally {
       setIsSubmitting(false);
       setFormulariosIsOpen(false);
@@ -138,6 +138,7 @@ export const Formulario = ({
               className={styles.formObject}
               onSubmit={handleSubmit(onSubmit)}
             >
+              {submitError && <p className={styles.error}>{submitError}</p>}
               <div>
                 <label></label>
                 <select className={styles.options} {...register("country")}>
