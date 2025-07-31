@@ -3,7 +3,6 @@ import searchIcon from "../../assets/icons/search-svgrepo-com.svg";
 import { useNavigate, useLocation } from "react-router-dom";
 
 export default function SearchBar({ searchTerm, setSearchTerm }) {
- 
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
   };

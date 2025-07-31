@@ -98,7 +98,7 @@ export const Formulario = ({
       console.log("Respuesta del API", response.data);
     } catch (error) {
       console.error("Error:", error);
-      setSubmitError("Error al guardar restaurante."); // <-- Add this
+      setSubmitError("Error al guardar restaurante.");
     } finally {
       setIsSubmitting(false);
       setFormulariosIsOpen(false);

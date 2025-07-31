@@ -10,10 +10,11 @@ export default function RestaurantGrid({ gridName, restaurantes }) {
       <div id="grid" className={styles.restaurantGrid}>
         {restaurantes && restaurantes.length !== 0 ? (
           restaurantes.map((e) => {
+            console.log("Restaurante:", e);
             return (
               <RestaurantCard
                 key={e._id}
-                restaurantCardImg={restaurantImg}
+                restaurantCardImg={e.img || restaurantImg}
                 restaurantCategory={e.categoria}
                 restaurantName={e.brandName}
                 opinionCount={e.votos}
