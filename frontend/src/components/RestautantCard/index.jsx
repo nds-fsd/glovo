@@ -1,7 +1,7 @@
 import styles from "../RestautantCard/styles.module.css";
 import scooterIcon from "../../assets/icons/scooter-svgrepo-com (1).svg";
 import likeIcon from "../../assets/icons/like-svgrepo-com.svg";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 
 export default function RestaurantCard({
@@ -15,7 +15,17 @@ export default function RestaurantCard({
   img,
 }) {
   const navigate = useNavigate();
-  const params = useParams();
+
+  const handleClick = () => {
+    if (id?.startsWith("google-")) {
+      console.warn("❗ Restaurante externo. No se navega a detalle.");
+      return; // <-- No navegues
+    } else if (id) {
+      navigate("/restaurant/" + id);
+    } else {
+      console.warn("❗ ID del restaurante no definido. No se puede navegar.");
+    }
+  };
 
   return (
     <motion.div
@@ -24,20 +34,25 @@ export default function RestaurantCard({
       transition={{ ease: "easeOut", duration: 0.2 }}
       layout
       className={styles.mainContainer}
-      onClick={() => navigate("/restaurant/" + id)}
+      onClick={handleClick}
     >
       <div className={styles.imgContainer}>
         <img src={img} className={styles.restaurantCardImg} />
         {restaurantCategory && (
           <p className={styles.restaurantCategory}>{restaurantCategory}</p>
-        )}{" "}
+        )}
         {offer && <p className={styles.offer}>{offer}</p>}
+        {!id && (
+          <p style={{ color: "red", fontSize: "0.8rem", marginTop: "5px" }}>
+            ⚠️ Sin ID — No se puede abrir la página del restaurante
+          </p>
+        )}
       </div>
       <div className={styles.restaurantText}>
         {restaurantName && <h3>{restaurantName}</h3>}
         <div className={styles.secondLine}>
           {likeRatio && (
-            <img className={styles.likeIcon} src={likeIcon} alt="" />
+            <img className={styles.likeIcon} src={likeIcon} alt="like icon" />
           )}
           {likeRatio && <p className={styles.likePercentage}>{likeRatio}</p>}
           {opinionCount && (
@@ -45,7 +60,11 @@ export default function RestaurantCard({
           )}
           {shipping && (
             <aside className={styles.scooterAside}>
-              <img className={styles.scooterIcon} src={scooterIcon} alt="" />
+              <img
+                className={styles.scooterIcon}
+                src={scooterIcon}
+                alt="scooter"
+              />
               {shipping}
             </aside>
           )}
