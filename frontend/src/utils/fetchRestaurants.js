@@ -22,19 +22,19 @@ export const getNearbyRestaurants = async () => {
 
             return {
               _id: place?.place_id ?? `google-${i}`,
-              brandName: place?.name ?? "Nombre desconocido",
+              brandName: place?.name ?? place.brandName,
               address: place?.vicinity ?? "Sin dirección",
-              puntuacion: place?.rating ?? 0,
-              votos: place?.user_ratings_total ?? 0,
+              puntuacion: place?.rating,
+              votos: place?.user_ratings_total,
               isExternal: true,
               categoria: "google",
-              transporte: "Google API",
+              transporte: place.address,
               oferta: false,
-              img: place?.photos?.[0]?.photo_reference
+              img: place?.photos?.photo_reference
                 ? `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=${
                     place.photos[0].photo_reference
                   }&key=${import.meta.env.VITE_GOOGLE_API_KEY}`
-                : "/src/assets/images/b032e09e0a5b36512eeaa65ab6232cb30ef9588fb77bc6dc0c4a1d24e8b892ac.jpg",
+                : place.img || "https://via.placeholder.com/150",
             };
           });
 

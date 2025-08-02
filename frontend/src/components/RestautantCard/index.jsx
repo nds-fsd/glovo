@@ -19,7 +19,7 @@ export default function RestaurantCard({
   const handleClick = () => {
     if (id?.startsWith("google-")) {
       console.warn("❗ Restaurante externo. No se navega a detalle.");
-      return; // <-- No navegues
+      return;
     } else if (id) {
       navigate("/restaurant/" + id);
     } else {
@@ -37,17 +37,17 @@ export default function RestaurantCard({
       onClick={handleClick}
     >
       <div className={styles.imgContainer}>
-        <img src={img} className={styles.restaurantCardImg} />
+        <img
+          src={img}
+          className={styles.restaurantCardImg}
+          alt={`Foto de ${restaurantName}`}
+        />
         {restaurantCategory && (
           <p className={styles.restaurantCategory}>{restaurantCategory}</p>
         )}
         {offer && <p className={styles.offer}>{offer}</p>}
-        {!id && (
-          <p style={{ color: "red", fontSize: "0.8rem", marginTop: "5px" }}>
-            ⚠️ Sin ID — No se puede abrir la página del restaurante
-          </p>
-        )}
       </div>
+
       <div className={styles.restaurantText}>
         {restaurantName && <h3>{restaurantName}</h3>}
         <div className={styles.secondLine}>

@@ -1,32 +1,38 @@
 import styles from "../RestaurantGrid/styles.module.css";
-import restaurantImg from "../../assets/images/b032e09e0a5b36512eeaa65ab6232cb30ef9588fb77bc6dc0c4a1d24e8b892ac.jpg";
 import RestaurantCard from "../RestautantCard";
 import { BeatLoader } from "react-spinners";
 
 export default function RestaurantGrid({ gridName, restaurantes }) {
+  // Mostrar solo los que tienen imagen válida
+  const restaurantesConImagen = (restaurantes || []).filter(
+    (e) => e.img && e.img.trim() !== ""
+  );
+
   return (
     <div className={styles.mainContainer}>
       <h2>{gridName}</h2>
       <div id="grid" className={styles.restaurantGrid}>
-        {restaurantes && restaurantes.length !== 0 ? (
-          restaurantes.map((e) => {
-            console.log("Restaurante:", e);
-            return (
-              <RestaurantCard
-                key={e._id}
-                restaurantCardImg={e.img || restaurantImg}
-                restaurantCategory={e.categoria}
-                restaurantName={e.brandName}
-                opinionCount={e.votos}
-                likeRatio={e.puntuacion}
-                shipping={e.transporte}
-                id={e._id}
-                img={e.img}
-                transporte={e.transporte}
-                offer={e.oferta}
-              />
-            );
-          })
+        {restaurantesConImagen.length !== 0 ? (
+          restaurantesConImagen.map(
+            (e) => (
+              console.log(e),
+              (
+                <RestaurantCard
+                  key={e._id}
+                  restaurantCardImg={e.img}
+                  restaurantCategory={e.categoria}
+                  restaurantName={e.brandName}
+                  opinionCount={e.votos}
+                  likeRatio={e.puntuacion}
+                  shipping={e.transporte}
+                  id={e._id}
+                  img={e.img}
+                  transporte={e.transporte}
+                  offer={e.oferta}
+                />
+              )
+            )
+          )
         ) : (
           <div>
             <BeatLoader color="#09827e" size={20} />
