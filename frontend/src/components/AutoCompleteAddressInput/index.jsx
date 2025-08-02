@@ -13,6 +13,7 @@ const AutoCompleteAdrressInput = ({
   setFormValue,
   setCoordinates,
   coordinates,
+  onRestaurantsFound, // ✅ NUEVA PROP
 }) => {
   const [postalCode, setPostalCode] = useState("");
   const {
@@ -28,6 +29,7 @@ const AutoCompleteAdrressInput = ({
     },
     debounce: 300,
   });
+
   const ref = useOnclickOutside(() => {
     clearSuggestions();
   });
@@ -55,7 +57,20 @@ const AutoCompleteAdrressInput = ({
         }
 
         const { lat, lng } = getLatLng(results[0]);
-        setCoordinates({ lat: lat, lng: lng });
+        setCoordinates({ lat, lng });
+
+        // ✅ Llamada al backend con coordenadas
+        fetch(`/api/google/nearby?lat=${lat}&lng=${lng}`)
+          .then((res) => res.json())
+          .then((data) => {
+            console.log("🍽 Restaurantes encontrados:", data);
+            if (onRestaurantsFound) {
+              onRestaurantsFound(data);
+            }
+          })
+          .catch((err) => {
+            console.error("❌ Error al buscar restaurantes:", err);
+          });
       });
     };
 
@@ -93,7 +108,7 @@ const AutoCompleteAdrressInput = ({
         disabled={!ready}
         required
       />
-      
+
       <AnimatePresence>
         {status === "OK" && (
           <motion.ul
@@ -107,9 +122,9 @@ const AutoCompleteAdrressInput = ({
           </motion.ul>
         )}
       </AnimatePresence>
+
       {coordinates && (
         <>
-          {" "}
           <div className={styles.extraInputs}>
             <input
               {...register("cp")}

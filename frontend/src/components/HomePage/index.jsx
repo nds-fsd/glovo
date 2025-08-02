@@ -7,10 +7,15 @@ import { motion } from "framer-motion";
 import { UserContext } from "../../contexts/UserContext";
 import { api } from "../../utils/api";
 
+// Componente principal de la página de inicio
+// Aquí se muestran los restaurantes locales y los obtenidos desde Google Places
+// También se maneja la búsqueda de restaurantes por nombre
+// y la geolocalización del usuario para mostrar restaurantes cercanos
 export default function HomePage({ location, searchTerm }) {
   const { user } = useContext(UserContext);
   const [localRestaurants, setLocalRestaurants] = useState([]);
   const [googleRestaurants, setGoogleRestaurants] = useState([]);
+  const [coordinates, setCoordinates] = useState(null);
 
   useEffect(() => {
     const obtenerRestaurantes = async () => {
@@ -64,7 +69,7 @@ export default function HomePage({ location, searchTerm }) {
             />
             <RestaurantGrid
               restaurantes={googleRestaurants}
-              gridName="Restaurantes cercanos (Google Maps)"
+              gridName="Opciones populares a tu alrededor"
             />
           </>
         )}
