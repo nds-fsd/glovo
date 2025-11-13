@@ -9,7 +9,7 @@
   "scripts": {
     "start:frontend": "dotenv -- turbo run dev --scope='frontend'",
     "start:backend": "dotenv -- turbo run dev --scope='backend'",
-    "dev": "dotenv -- turbo run dev ",
+    "dev": "dotenv -- turbo run dev",
     "test": "cross-env NODE_ENV=test jest --testTimeout=10000 --detectOpenHandles --coverage"
   },
   "devDependencies": {
@@ -19,6 +19,8 @@
     "turbo": "^1.10.16"
   },
   "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
     "@react-google-maps/api": "^2.20.7",
     "@vis.gl/react-google-maps": "^0.5.0",
     "axios": "^1.6.2",
@@ -33,7 +35,7 @@
     "mailgun.js": "^10.2.1",
     "mongodb-memory-server": "^9.1.6",
     "react-cool-onclickoutside": "^1.7.0",
-    "react-credit-cards-2": "^1.0.2",
+    "react-credit-cards-2": "^1.0.3",
     "react-drag-drop-files": "^2.3.10",
     "react-hook-form": "^7.48.2",
     "react-icons": "^4.12.0",
@@ -41,7 +43,6 @@
     "react-responsive-modal": "^6.4.2",
     "react-router": "^6.21.0",
     "react-spinners": "^0.13.8",
-    "supertest": "^6.3.4",
     "use-places-autocomplete": "^4.0.1"
   }
 }
